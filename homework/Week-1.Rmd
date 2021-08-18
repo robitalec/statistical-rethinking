@@ -54,7 +54,7 @@ posterior_num <- prior_prob * data_prob
 # Standardize by sum of posterior numerator
 posterior <- posterior_num / sum(posterior_num)
 
-plot(posterior)
+plot(posterior, type = 'l')
 ```
 
 
@@ -64,3 +64,24 @@ Start over in 1, but now use a prior that is zero below p = 0.5 and a constant
 above p = 0.5. This corresponds to prior information that a majority of the
 Earth’s surface is water. What difference does the better prior make?
 
+```{r}
+# Size of grid for grid approximation
+gridsize <- 1000
+
+# Prior grid
+prior_grid <- seq(0, 1, length.out = gridsize)
+
+# Prior probability (all 1 above 0.5, all 0 below)
+prior_prob <- c(rep(0, gridsize / 2), rep(1, gridsize / 2))
+
+# Data probability
+#  given 4/15, using binomial distribution
+data_prob <- dbinom(4, 15, prob = vals)
+
+# Calculate the posterior numerator by multiplying prior and data probability
+posterior_num <- prior_prob * data_prob
+# Standardize by sum of posterior numerator
+posterior <- posterior_num / sum(posterior_num)
+
+plot(posterior, type = 'l')
+```
