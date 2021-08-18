@@ -54,6 +54,9 @@ posterior_num <- prior_prob * data_prob
 # Standardize by sum of posterior numerator
 posterior <- posterior_num / sum(posterior_num)
 
+# Save for later
+posterior_1 <- posterior
+
 plot(posterior, type = 'l')
 ```
 
@@ -83,7 +86,30 @@ posterior_num <- prior_prob * data_prob
 # Standardize by sum of posterior numerator
 posterior <- posterior_num / sum(posterior_num)
 
+# Save for later
+posterior_2 <- posterior
+
 plot(posterior, type = 'l')
 ```
 
 Narrower curve, higher max, all zeroes before 0.5
+
+
+## Question 3
+
+For the posterior distribution from 2, compute 89% percentile and HPDI
+intervals. Compare the widths of these intervals. Which is wider? Why? If you
+had only the information in the interval, what might you misunderstand about the
+shape of the posterior distribution?
+
+```{r}
+library(rethinking)
+library(ggplot2)
+library(data.table)
+
+# Calculate Percentile Interval at 89%
+percent_interval <- PI(posterior, prob = 0.89)
+
+# Calculate Highest Posterior Density at 89%
+highest_post_dens <- HPDI(posterior, prob = 0.89)
+```
