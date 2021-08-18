@@ -8,3 +8,25 @@ output: github_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+
+## Variables
+
+N: fixed by experimentor
+
+p: Prior probability
+
+W: A probability distribution given the data. 
+
+## Joint model
+
+W ~ Binomial(N , p)
+
+p ~ Uniform(0, 1)
+
+W is distributed binomially with N observations and probability p on each
+
+p is distributed uniformally at 1
+
+
+
