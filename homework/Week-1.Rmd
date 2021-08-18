@@ -47,7 +47,7 @@ prior_prob <- rep(1, gridsize)
 
 # Data probability
 #  given 4/15, using binomial distribution
-data_prob <- dbinom(4, 15, prob = vals)
+data_prob <- dbinom(4, 15, prob = prior_grid)
 
 # Calculate the posterior numerator by multiplying prior and data probability
 posterior_num <- prior_prob * data_prob
@@ -79,7 +79,7 @@ prior_prob <- c(rep(0, gridsize / 2), rep(1, gridsize / 2))
 
 # Data probability
 #  given 4/15, using binomial distribution
-data_prob <- dbinom(4, 15, prob = vals)
+data_prob <- dbinom(4, 15, prob = prior_grid)
 
 # Calculate the posterior numerator by multiplying prior and data probability
 posterior_num <- prior_prob * data_prob
