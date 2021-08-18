@@ -85,3 +85,5 @@ posterior <- posterior_num / sum(posterior_num)
 
 plot(posterior, type = 'l')
 ```
+
+Narrower curve, higher max, all zeroes before 0.5
