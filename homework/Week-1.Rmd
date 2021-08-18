@@ -30,9 +30,9 @@ p is distributed uniformally at 1
 
 ## Question 1
 
-Suppose the globe tossing data (Chapter 2) had turned out to be 4 water
-in 15 tosses. Construct the posterior distribution, using grid approximation.
-Use the same flat prior as in the book.
+Suppose the globe tossing data (Chapter 2) had turned out to be 4 water in 15
+tosses. Construct the posterior distribution, using grid approximation. Use the
+same flat prior as in the book.
 
 
 ```{r}
@@ -56,4 +56,11 @@ posterior <- posterior_num / sum(posterior_num)
 
 plot(posterior)
 ```
+
+
+## Question 2
+
+Start over in 1, but now use a prior that is zero below p = 0.5 and a constant
+above p = 0.5. This corresponds to prior information that a majority of the
+Earth’s surface is water. What difference does the better prior make?
 
