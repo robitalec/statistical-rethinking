@@ -12,7 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Variables
 
-N: fixed by experimentor
+N: fixed by experimenter
 
 p: Prior probability
 
@@ -28,5 +28,16 @@ W is distributed binomially with N observations and probability p on each
 
 p is distributed uniformally at 1
 
+## Question 1
 
+4 water in 15 tosses
+
+```{r}
+gridsize <- 1000
+prior_grid <- seq(0, 1, length.out = gridsize)
+prior_prob <- rep(1, gridsize)
+data_prob <- dbinom(4, 15, prob = vals)
+posterior_num <- prior_prob * data_prob
+posterior <- posterior_num / sum(posterior_num)
+```
 
