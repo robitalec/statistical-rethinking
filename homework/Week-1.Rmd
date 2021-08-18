@@ -1,0 +1,10 @@
+---
+title: "Week 1"
+author: "Alec L. Robitaille"
+date: "`r Sys.Date()`"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
