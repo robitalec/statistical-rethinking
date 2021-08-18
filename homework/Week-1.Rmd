@@ -109,7 +109,9 @@ library(data.table)
 
 # Calculate Percentile Interval at 89%
 percent_interval <- PI(posterior, prob = 0.89)
+percent_interval
 
 # Calculate Highest Posterior Density at 89%
 highest_post_dens <- HPDI(posterior, prob = 0.89)
+highest_post_dens
 ```
