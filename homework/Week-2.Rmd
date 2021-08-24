@@ -43,6 +43,9 @@ $\sigma \sim \text{Uniform}(0, 50)$
 
 ```{r}
 library(rethinking)
+library(data.table)
+library(ggplot2)
+
 data(Howell1)
 
 d <- Howell1[Howell1$age >= 18,]
