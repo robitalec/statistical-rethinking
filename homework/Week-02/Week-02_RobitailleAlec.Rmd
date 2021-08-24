@@ -212,3 +212,27 @@ plot(NULL, xlim = range(sim_x), ylim = range(linked) + c(-10, 10))
 apply(linked, 1, FUN = function(x) lines(sim_x, x))
 ```
 
+```{r}
+m <- quap(
+	alist(
+		height ~ dnorm(mu, sigma),
+		mu ~ a + b1 * weight_s + b2 * weight_s2,
+		a ~ dnorm(178, 20),
+		b1 ~ dlnorm(0, 1),
+		b2 ~ dnorm(0, 10),
+		sigma ~ dunif(0, 50)
+	),
+	data = d
+)
+
+
+n <- 20
+sim_x <- seq(min(d$weight_s), max(d$weight_s), length.out = n)
+linked <- link(
+	m,
+	data = list(weight_s = sim_x, weight_s2 = sim_x ^ 2),
+	post = extract.prior(m)
+)[1:50,]
+plot(NULL, xlim = range(sim_x), ylim = range(linked) + c(-10, 10))
+apply(linked, 1, FUN = function(x) lines(sim_x, x))
+```
