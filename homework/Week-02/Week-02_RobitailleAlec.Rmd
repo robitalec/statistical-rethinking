@@ -98,5 +98,29 @@ ordinary linear regression, a polynomial or a spline. Plot the posterior
 predictions against the raw data
 
 ```{r}
+library(rethinking)
+library(data.table)
+library(ggplot2)
+library(tidybayes)
 
+theme_set(theme_bw())
+
+data(Howell1)
+d <- Howell1
+d$logweight <- log(d$weight)
+
+m <- quap(
+	alist(
+		height ~ dnorm(mu, sigma),
+		mu <- a + b * (logweight - mean(d$logweight)),
+		a ~ dnorm(178, 20),
+		b ~ dnorm(0, 1),
+		sigma ~ dunif(0, 50)
+	), 
+	data = d
+)
+
+precis(m)
+precis(d)
+plot()
 ```
