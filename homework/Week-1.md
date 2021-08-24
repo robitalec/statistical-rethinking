@@ -1,7 +1,7 @@
 Week 1
 ================
 Alec L. Robitaille
-2021-08-18
+2021-08-24
 
 ## Variables
 
@@ -24,7 +24,7 @@ p is distributed uniformally at 1
 
 ## Question 1
 
-Suppose the globe tossing data (Chapter 2) had turned out to be 4 water
+Suppose the globe tossing data (Chapter 2) had turned out to be 8 water
 in 15 tosses. Construct the posterior distribution, using grid
 approximation. Use the same flat prior as in the book.
 
@@ -40,7 +40,7 @@ prior_prob <- rep(1, gridsize)
 
 # Data probability
 #  given 4/15, using binomial distribution
-data_prob <- dbinom(4, 15, prob = prior_grid)
+data_prob <- dbinom(8, 15, prob = prior_grid)
 
 # Calculate the posterior numerator by multiplying prior and data probability
 posterior_num <- prior_prob * data_prob
@@ -54,6 +54,21 @@ plot(posterior, type = 'l')
 ```
 
 ![](Week-1_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
+
+``` r
+# Sample from posterior
+samples <- sample(prior_grid, size = gridsize, prob = posterior, replace = TRUE)
+mean(samples)
+```
+
+    ## [1] 0.5303323
+
+``` r
+PI(samples, .99)
+```
+
+    ##        1%      100% 
+    ## 0.2582232 0.8218368
 
 ## Question 2
 
@@ -89,6 +104,21 @@ plot(posterior, type = 'l')
 
 ![](Week-1_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
 
+``` r
+# Sample from posterior
+samples <- sample(prior_grid, size = gridsize, prob = posterior, replace = TRUE)
+mean(samples)
+```
+
+    ## [1] 0.5487207
+
+``` r
+PI(samples, .99)
+```
+
+    ##        1%      100% 
+    ## 0.5005005 0.6957057
+
 Narrower curve, higher max, all zeroes before 0.5
 
 ## Question 3
@@ -100,33 +130,6 @@ misunderstand about the shape of the posterior distribution?
 
 ``` r
 library(rethinking)
-```
-
-    ## Loading required package: rstan
-
-    ## Loading required package: StanHeaders
-
-    ## Loading required package: ggplot2
-
-    ## rstan (Version 2.21.2, GitRev: 2e1f913d3ca3)
-
-    ## For execution on a local, multicore CPU with excess RAM we recommend calling
-    ## options(mc.cores = parallel::detectCores()).
-    ## To avoid recompilation of unchanged Stan programs, we recommend calling
-    ## rstan_options(auto_write = TRUE)
-
-    ## Loading required package: parallel
-
-    ## rethinking (Version 2.13)
-
-    ## 
-    ## Attaching package: 'rethinking'
-
-    ## The following object is masked from 'package:stats':
-    ## 
-    ##     rstudent
-
-``` r
 library(ggplot2)
 library(data.table)
 
