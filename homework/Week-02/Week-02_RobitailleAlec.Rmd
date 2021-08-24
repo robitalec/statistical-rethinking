@@ -45,6 +45,8 @@ library(data.table)
 library(ggplot2)
 library(tidybayes)
 
+theme_set(theme_bw())
+
 data(Howell1)
 
 d <- Howell1[Howell1$age >= 18,]
