@@ -119,8 +119,54 @@ m <- quap(
 	), 
 	data = d
 )
+sim_x <- log(1:60)
+simmed <- sim(m1, list(logweight = sim_x))
 
-precis(m)
-precis(d)
-plot()
+# Tidy
+DT <- melt(as.data.table(simmed), value.name = 'height', variable.name = 'x')
+DT[data.table(sim_x, x = paste0('V', 1:60)),
+	 logweight := sim_x,
+	 on = 'x']
+DT[, meanheight := mean(height), by = logweight]
+DT[, low := PI(height)[1], by = logweight]
+DT[, high := PI(height)[2], by = logweight]
+
+# Plot
+ggplot(DT) + 
+	geom_ribbon(aes(x = exp(logweight), ymin = low, ymax = high), fill = 'grey') + 
+	geom_line(aes(exp(logweight), meanheight)) + 
+	geom_point(aes(exp(logweight), height), data = d, color = 'blue')
+```
+
+Using the dlnorm, prior of a Log normal distribution on beta
+
+```{r}
+m2 <- quap(
+	alist(
+		height ~ dnorm(mu, sigma),
+		mu <- a + b * (logweight - mean(d$logweight)),
+		a ~ dnorm(178, 20),
+		b ~ dlnorm(0, 1),
+		sigma ~ dunif(0, 50)
+	), 
+	data = d
+)
+sim_x <- log(1:60)
+simmed <- sim(m2, list(logweight = sim_x))
+
+# Tidy
+DT <- melt(as.data.table(simmed), value.name = 'height', variable.name = 'x')
+DT[data.table(sim_x, x = paste0('V', 1:60)),
+	 logweight := sim_x,
+	 on = 'x']
+DT[, meanheight := mean(height), by = logweight]
+DT[, low := PI(height)[1], by = logweight]
+DT[, high := PI(height)[2], by = logweight]
+
+# Plot
+ggplot(DT) + 
+	geom_ribbon(aes(x = exp(logweight), ymin = low, ymax = high), color = 'grey') + 
+	geom_point(aes(exp(logweight), meanheight)) + 
+	geom_point(aes(exp(logweight), height), data = d, color = 'blue')
+```
 ```
