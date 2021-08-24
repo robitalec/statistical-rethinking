@@ -16,4 +16,6 @@ flist <- alist(
 	sigma ~ dunif(0, 50)
 )
 
-quap(flist, data = d2)
+m <- quap(flist, data = d2)
+
+precis(m)
