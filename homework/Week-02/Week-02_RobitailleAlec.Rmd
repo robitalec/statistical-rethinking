@@ -87,3 +87,16 @@ ggplot(DT, aes(height)) +
 	stat_halfeye(.width = .89) + 
 	facet_wrap(~id)
 ```
+
+
+## Question 2
+
+Model the relationship between height (cm) and the natural logarithm of weight
+(log-kg): log(weight). Use the entire Howell1 data frame, all 544 rows, adults
+and non-adults. Use any model type from Chapter 4 that you think useful: an
+ordinary linear regression, a polynomial or a spline. Plot the posterior
+predictions against the raw data
+
+```{r}
+
+```
