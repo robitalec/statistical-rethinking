@@ -77,11 +77,13 @@ simmed <- sim(m, list(weight = weights$weight), n = 1e3)
 DT <- melt(as.data.table(simmed), measure.vars = paste0('V', 1:5),
 					 value.name = 'height', variable.name = 'id')
 DT[, id := gsub('V', '', id)]
-DT[, low := PI(height)[1], by = id]
-DT[, high := PI(height)[2], by = id]
+# (Not needed with stat eye width)
+# DT[, low := PI(height)[1], by = id]
+# DT[, high := PI(height)[2], by = id]
 DT[weights, weight := weight, on = 'id']
 
 # Plot
-ggplot(DT, aes(height, id)) +
-	stat_halfeye()
+ggplot(DT, aes(height)) +
+	stat_halfeye(.width = .89) + 
+	facet_wrap(~id)
 ```
