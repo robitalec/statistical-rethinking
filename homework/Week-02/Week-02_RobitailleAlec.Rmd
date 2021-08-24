@@ -168,3 +168,54 @@ ggplot(DT) +
 	geom_point(aes(exp(logweight), height), data = d, color = 'lightblue', alpha = 0.8) + 
 	geom_line(aes(exp(logweight), meanheight))
 ```
+
+
+
+## Question 3
+
+Set up:
+
+```{r}
+library(rethinking)
+library(data.table)
+library(ggplot2)
+library(tidybayes)
+
+theme_set(theme_bw())
+
+data(Howell1)
+d <- Howell1
+d$weight_s <- scale(d$weight)
+d$weight_s2 <- scale(d$weight) ^ 2
+
+m <- quap(
+	alist(
+		height ~ dnorm(mu, sigma),
+		mu ~ a + b1 * weight_s + b2 * weight_s2,
+		a ~ dnorm(178, 20),
+		b1 ~ dlnorm(0, 1),
+		b2 ~ dnorm(0, 1),
+		sigma ~ dunif(0, 50)
+	),
+	data = d
+)
+
+
+n <- 1e2
+sim_x <- seq(min(d$weight_s), max(d$weight_s), length.out = n)
+simmed <- sim(m, list(weight_s = sim_x, weight_s2 = sim_x ^ 2))
+DT <- melt(as.data.table(simmed), value.name = 'height', variable.name = 'x')
+DT[data.table(sim_x, x = paste0('V', seq.int(n))),
+	 c('weight_s', 'weight_s2') := .(sim_x, sim_x ^ 2),
+	 on = 'x']
+
+DT[, meanheight := mean(height), by = weight_s]
+DT[, low := PI(height)[1], by = weight_s]
+DT[, high := PI(height)[2], by = weight_s]
+
+# Plot
+ggplot(DT) + 
+	geom_ribbon(aes(x = weight_s, ymin = low, ymax = high), fill = 'grey') + 
+	geom_point(aes(weight_s, height), data = d, color = 'lightblue', alpha = 0.8) + 
+	geom_line(aes(weight_s, meanheight))
+```
