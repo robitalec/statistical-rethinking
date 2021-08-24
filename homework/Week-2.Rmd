@@ -45,6 +45,7 @@ $\sigma \sim \text{Uniform}(0, 50)$
 library(rethinking)
 library(data.table)
 library(ggplot2)
+library(tidybayes)
 
 data(Howell1)
 
