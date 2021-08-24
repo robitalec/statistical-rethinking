@@ -96,6 +96,11 @@ posterior <- posterior_num / sum(posterior_num)
 posterior_2 <- posterior
 
 plot(posterior, type = 'l')
+
+# Sample from posterior
+samples <- sample(prior_grid, size = gridsize, prob = posterior, replace = TRUE)
+mean(samples)
+PI(samples, .99)
 ```
 
 Narrower curve, higher max, all zeroes before 0.5
