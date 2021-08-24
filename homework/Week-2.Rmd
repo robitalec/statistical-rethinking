@@ -61,4 +61,26 @@ m <- quap(
 	data = d
 )
 
+precis(m)
+```
+
+Simulate:
+
+```{r sim}
+# Set weights to simulate for
+weights <- data.table(weight = c(45, 40, 65, 31, 54),
+											id = as.character(seq(1, 5)))
+simmed <- sim(m, list(weight = weights$weight), n = 1e3)
+
+# Tidy
+DT <- melt(as.data.table(simmed), measure.vars = paste0('V', 1:5),
+					 value.name = 'height', variable.name = 'id')
+DT[, id := gsub('V', '', id)]
+DT[, low := PI(height)[1], by = id]
+DT[, high := PI(height)[2], by = id]
+DT[weights, weight := weight, on = 'id']
+
+# Plot
+ggplot(DT, aes(height, id)) +
+	stat_halfeye()
 ```
