@@ -1,7 +1,7 @@
 Week 1
 ================
 Alec L. Robitaille
-2021-08-24
+2021-08-18 \[updated: 2021-08-24\]
 
 ## Variables
 
@@ -53,7 +53,7 @@ posterior_1 <- posterior
 plot(posterior, type = 'l')
 ```
 
-![](Week-1_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
+![](Week-01_RobitailleAlec_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
 
 ``` r
 # Sample from posterior
@@ -61,14 +61,14 @@ samples <- sample(prior_grid, size = gridsize, prob = posterior, replace = TRUE)
 mean(samples)
 ```
 
-    ## [1] 0.5303323
+    ## [1] 0.5227317
 
 ``` r
 PI(samples, .99)
 ```
 
     ##        1%      100% 
-    ## 0.2582232 0.8218368
+    ## 0.2302302 0.8029079
 
 ## Question 2
 
@@ -102,7 +102,7 @@ posterior_2 <- posterior
 plot(posterior, type = 'l')
 ```
 
-![](Week-1_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+![](Week-01_RobitailleAlec_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
 
 ``` r
 # Sample from posterior
@@ -110,14 +110,14 @@ samples <- sample(prior_grid, size = gridsize, prob = posterior, replace = TRUE)
 mean(samples)
 ```
 
-    ## [1] 0.5487207
+    ## [1] 0.5522553
 
 ``` r
 PI(samples, .99)
 ```
 
     ##        1%      100% 
-    ## 0.5005005 0.6957057
+    ## 0.5005005 0.7327327
 
 Narrower curve, higher max, all zeroes before 0.5
 

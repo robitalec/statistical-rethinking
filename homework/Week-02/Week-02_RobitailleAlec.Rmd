@@ -5,8 +5,6 @@ date: "2021-08-24 [updated: `r Sys.Date()`]"
 output: github_document
 ---
 
-\newcommand{\ols}[1]{\mskip.5\thinmuskip\overline{\mskip-.5\thinmuskip {#1} \mskip-.5\thinmuskip}\mskip.5\thinmuskip} % overline short
-
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
