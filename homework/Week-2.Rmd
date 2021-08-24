@@ -47,4 +47,15 @@ data(Howell1)
 
 d <- Howell1[Howell1$age >= 18,]
 
+m <- quap(
+	alist(
+		height ~ dnorm(mu, sigma),
+		mu <- a + b * (weight - mean(d$weight)),
+		a ~ dnorm(178, 20),
+		b ~ dnorm(0, 1),
+		sigma ~ dunif(0, 50)
+	), 
+	data = d
+)
+
 ```

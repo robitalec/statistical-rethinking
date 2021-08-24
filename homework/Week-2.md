@@ -21,11 +21,15 @@ in the table below, using model-based predictions.
 
 Model:
 
-*h*<sub>*i*</sub> ∼ *N**o**r**m**a**l*(*μ*<sub>*i*</sub>,*σ*)
+*h*<sub>*i*</sub> ∼ Normal(*μ*<sub>*i*</sub>,*σ*)
+
 *μ*<sub>*i*</sub> = *α* + *β*(*x*<sub>*i*</sub>−*x̄*)
-*α* ∼ *N**o**r**m**a**l*(178,20)
-*β* ∼ *L**o**g* − *N**o**r**m**a**l*(0,1)
-*σ* ∼ *U**n**i**f**o**r**m*(0,50)
+
+*α* ∼ Normal(178,20)
+
+*β* ∼ Log-Normal(0,1)
+
+*σ* ∼ Uniform(0,50)
 
 ``` r
 library(rethinking)
