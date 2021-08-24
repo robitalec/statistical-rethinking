@@ -56,9 +56,9 @@ precis(m)
 ```
 
     ##              mean         sd        5.5%       94.5%
-    ## a     154.6010167 0.27027808 154.1690601 155.0329732
-    ## b       0.9034469 0.04188681   0.8365037   0.9703901
-    ## sigma   5.0713264 0.19110249   4.7659077   5.3767450
+    ## a     154.6013678 0.27030752 154.1693642 155.0333714
+    ## b       0.9034409 0.04189136   0.8364904   0.9703914
+    ## sigma   5.0718782 0.19115449   4.7663764   5.3773800
 
 Simulate:
 
@@ -72,9 +72,6 @@ simmed <- sim(m, list(weight = weights$weight), n = 1e3)
 DT <- melt(as.data.table(simmed), measure.vars = paste0('V', 1:5),
                      value.name = 'height', variable.name = 'id')
 DT[, id := gsub('V', '', id)]
-# (Not needed with stat eye width)
-# DT[, low := PI(height)[1], by = id]
-# DT[, high := PI(height)[2], by = id]
 DT[weights, weight := weight, on = 'id']
 
 # Plot
@@ -84,3 +81,106 @@ ggplot(DT, aes(height)) +
 ```
 
 ![](Week-02_RobitailleAlec_files/figure-gfm/sim-1.png)<!-- -->
+
+## Question 2
+
+Model the relationship between height (cm) and the natural logarithm of
+weight (log-kg): log(weight). Use the entire Howell1 data frame, all 544
+rows, adults and non-adults. Use any model type from Chapter 4 that you
+think useful: an ordinary linear regression, a polynomial or a spline.
+Plot the posterior predictions against the raw data
+
+``` r
+library(rethinking)
+library(data.table)
+library(ggplot2)
+library(tidybayes)
+
+theme_set(theme_bw())
+
+data(Howell1)
+d <- Howell1
+d$logweight <- log(d$weight)
+
+m1 <- quap(
+    alist(
+        height ~ dnorm(mu, sigma),
+        mu <- a + b * (logweight - mean(d$logweight)),
+        a ~ dnorm(178, 20),
+        b ~ dnorm(0, 1),
+        sigma ~ dunif(0, 50)
+    ), 
+    data = d
+)
+sim_x <- log(1:60)
+simmed <- sim(m1, list(logweight = sim_x))
+
+# Tidy
+DT <- melt(as.data.table(simmed), value.name = 'height', variable.name = 'x')
+```
+
+    ## Warning in melt.data.table(as.data.table(simmed), value.name = "height", :
+    ## id.vars and measure.vars are internally guessed when both are 'NULL'. All
+    ## non-numeric/integer/logical type columns are considered id.vars, which in this
+    ## case are columns []. Consider providing at least one of 'id' or 'measure' vars
+    ## in future.
+
+``` r
+DT[data.table(sim_x, x = paste0('V', 1:60)),
+     logweight := sim_x,
+     on = 'x']
+DT[, meanheight := mean(height), by = logweight]
+DT[, low := PI(height)[1], by = logweight]
+DT[, high := PI(height)[2], by = logweight]
+
+# Plot
+ggplot(DT) + 
+    geom_ribbon(aes(x = exp(logweight), ymin = low, ymax = high), fill = 'grey') + 
+    geom_point(aes(exp(logweight), height), data = d, color = 'lightblue', alpha = 0.8) + 
+    geom_line(aes(exp(logweight), meanheight))
+```
+
+![](Week-02_RobitailleAlec_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+
+Using the dlnorm, prior of a Log normal distribution on beta
+
+``` r
+m2 <- quap(
+    alist(
+        height ~ dnorm(mu, sigma),
+        mu <- a + b * (logweight - mean(d$logweight)),
+        a ~ dnorm(178, 20),
+        b ~ dlnorm(0, 1),
+        sigma ~ dunif(0, 50)
+    ), 
+    data = d
+)
+sim_x <- log(1:60)
+simmed <- sim(m2, list(logweight = sim_x))
+
+# Tidy
+DT <- melt(as.data.table(simmed), value.name = 'height', variable.name = 'x')
+```
+
+    ## Warning in melt.data.table(as.data.table(simmed), value.name = "height", :
+    ## id.vars and measure.vars are internally guessed when both are 'NULL'. All
+    ## non-numeric/integer/logical type columns are considered id.vars, which in this
+    ## case are columns []. Consider providing at least one of 'id' or 'measure' vars
+    ## in future.
+
+``` r
+DT[data.table(sim_x, x = paste0('V', 1:60)),
+     logweight := sim_x,
+     on = 'x']
+DT[, meanheight := mean(height), by = logweight]
+DT[, low := PI(height)[1], by = logweight]
+DT[, high := PI(height)[2], by = logweight]
+
+# Plot
+ggplot(DT) + 
+    geom_ribbon(aes(x = exp(logweight), ymin = low, ymax = high), fill = 'grey') + 
+    geom_point(aes(exp(logweight), height), data = d, color = 'lightblue', alpha = 0.8) + 
+    geom_line(aes(exp(logweight), meanheight))
+```
+
+![](Week-02_RobitailleAlec_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
