@@ -58,6 +58,11 @@ posterior <- posterior_num / sum(posterior_num)
 posterior_1 <- posterior
 
 plot(posterior, type = 'l')
+
+# Sample from posterior
+samples <- sample(prior_grid, size = gridsize, prob = posterior, replace = TRUE)
+mean(samples)
+PI(samples, .99)
 ```
 
 
