@@ -153,3 +153,70 @@ ggplot(data.table(s), aes(V1)) +
 # TODO: come back to this
 ```
 
+
+# Question 2
+Now infer the causal impact of adding food to a territory. Would this make foxes
+heavier? Which covariates do you need to adjust for to estimate the total causal
+influence of food?
+
+
+Food on weight
+
+Paths: Food -> Weight, Food -> Groupsize -> Weight
+
+Since Groupsize is a pipe between Food and Weight, it needs to be adjusted for
+to estimate the total causal influence of food. 
+
+
+
+## Model
+
+
+```{r}
+foxes$scale_avgfood <- scale(foxes$avgfood)
+foxes$scale_groupsize <- scale(foxes$groupsize)
+
+m2 <- quap(
+	alist(
+		scale_weight ~ dnorm(mu, sigma),
+		mu <- a + bGroupsize * scale_groupsize + bAvgfood * scale_avgfood,
+		a ~ dnorm(0, 0.05),
+		bGroupsize ~ dnorm(0, 0.5),
+		bAvgfood ~ dnorm(0, 0.5),
+		sigma ~ dunif(0, 50)
+	), 
+	data = foxes
+)
+
+m2_withoutGroupsize <- quap(
+	alist(
+		scale_weight ~ dnorm(mu, sigma),
+		mu <- a + bAvgfood * scale_avgfood,
+		a ~ dnorm(0, 0.05),
+		bAvgfood ~ dnorm(0, 0.5),
+		sigma ~ dunif(0, 50)
+	), 
+	data = foxes
+)
+
+prior <- extract.prior(m2)
+precis(prior)
+```
+
+
+## Interpretation
+
+```{r}
+precis(m2)
+```
+
+When adjusting for the group size, avgfood has a positive relationship with
+weight and group size has a negative relationship with weight. If group size
+is excluded from the model (as shown below), avgfood does not show a relationship
+to weight. 
+
+
+```{r}
+precis(m2_withoutGroupsize)
+```
+
