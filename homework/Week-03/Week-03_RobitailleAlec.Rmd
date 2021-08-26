@@ -27,22 +27,25 @@ problems below, assume this DAG
 ## Question 1
 Setup DAG
 
-```{r}
+```{r dag}
 library(ggdag)
 library(dagitty)
 library(data.table)
 library(ggplot2)
 
-theme_set(theme_void())
+dag_plot <- function(dag) {
+	ggplot(dag, aes(x = x, y = y, xend = xend, yend = yend)) +
+	  geom_dag_point(color = 'grey', alpha = 0.8, size = 15) +
+	  geom_dag_edges() +
+	  geom_dag_text(color = 'black') +
+	  theme_void()
+}
 
-dag <- dagitty("dag {
-	
-    area -> avgfood -> groupsize -> weight
-    avgfood -> weight
-  }"
+dag <- dagify(
+	weight ~ groupsize + avgfood,
+	groupsize ~ avgfood,
+	avgfood ~ area
 )
 
-ggdag(dag) + scale_color_brewer()
-
-
+dag_plot(dag)
 ```
