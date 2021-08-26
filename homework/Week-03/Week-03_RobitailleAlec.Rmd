@@ -66,21 +66,21 @@ range.
 
 ## Workings
 
-AREA ON WEIGHT
+AREA ON WEIGHT  
 
-scale(weight) ~ dnorm(mu, sigma)
-mu <- a + b * (scale(area))
-a: intercept
-when weight and area are scaled, the expected intercept is 0
-therefore
-a ~ dnorm(0, 0.5)
+scale(weight) ~ dnorm(mu, sigma)  
+mu <- a + b * (scale(area))  
+a: intercept  
+when weight and area are scaled, the expected intercept is 0  
+therefore  
+a ~ dnorm(0, 0.5)  
 
-b: beta, rate of change given one unit of increase in area
-b ~ dnorm(0, 1)
+b: beta, rate of change given one unit of increase in area  
+b ~ dnorm(0, 1)  
 
-sigma: standard deviation
-uniform prior
-sigma ~ dunif(0, 50)
+sigma: standard deviation  
+uniform prior  
+sigma ~ dunif(0, 50)  
 
 ## Model
 
