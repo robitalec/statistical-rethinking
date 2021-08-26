@@ -110,7 +110,7 @@ m <- quap(
 
 ```{r}
 plot_link <- function(DT, n) {
-	data.table(DT)[seq.int(n), 
+	data.table(DT)[sample(.N, n), 
 								 plot(data.table(x = rep(c(-2, 2), .N), 
 								 								y = c(V1, V2)),
 								 		 type = 'l')]
@@ -118,5 +118,5 @@ plot_link <- function(DT, n) {
 
 prior <- extract.prior(m)
 l <- link(m, post = prior, data = list(scale_area = c(-2, 2)))
-plot_link(l, 10)
+plot_link(l, 20)
 ```
