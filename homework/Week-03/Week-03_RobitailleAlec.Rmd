@@ -58,6 +58,7 @@ dag_plot(dag)
 ```
 
 
+
 # Question 1
 Use a model to infer the total causal influence of area on weight. Would
 increasing the area available to each fox make it heavier (healthier)? You might
@@ -112,7 +113,7 @@ m1 <- quap(
 plot_link <- function(DT, n) {
 	data.table(DT)[sample(.N, n), 
 								 plot(data.table(x = rep(c(-2, 2), .N), 
-								 								y = c(V1, V2)),
+								 								 y = c(V1, V2)),
 								 		 type = 'l')]
 }
 
@@ -121,12 +122,23 @@ l <- link(m1, post = prior, data = list(scale_area = c(-2, 2)))
 plot_link(l, 20)
 ```
 
+## Paths
+Interest: Area on Weight
+
+Paths
+
+1. Area -> Avgfood -> Weight
+2. Area -> Avgfood -> Groupsize -> Weight
+
+There are pipes between Avgfood and between Avgfood and Groupsize. 
+
 ## Interpretation
 
 > Would increasing the area available to each fox make it heavier (healthier)? 
 
 `bArea` has a mean of 0.02, with compatibility intervals around 0. 
-Therefore there does not seem to be an influence of area on the weight.
+Therefore the model does not indicate an influence of 
+area on the weight. 
 
 
 ```{r}
