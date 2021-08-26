@@ -98,8 +98,8 @@ m <- quap(
 	alist(
 		scale_weight ~ dnorm(mu, sigma),
 		mu <- a + bArea * scale_area,
-		a ~ dnorm(0, 0.5),
-		bArea ~ dnorm(0, 1),
+		a ~ dnorm(0, 0.05),
+		bArea ~ dnorm(0, 0.5),
 		sigma ~ dunif(0, 50)
 	), 
 	data = foxes
