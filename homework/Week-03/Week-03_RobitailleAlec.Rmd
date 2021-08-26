@@ -53,6 +53,8 @@ dag <- dagify(
 	exposure = 'area',
 	outcome = 'weight'
 )
+
+dag_plot(dag)
 ```
 
 
