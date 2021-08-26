@@ -237,3 +237,32 @@ Paths:
 Groupsize -> Weight, Groupsize <- Avgfood -> Weight
 
 Avgfood is a fork between groupsize and weight. 
+
+
+```{r}
+m2 <- quap(
+	alist(
+		scale_weight ~ dnorm(mu, sigma),
+		mu <- a + bGroupsize * scale_groupsize + bAvgfood * scale_avgfood,
+		a ~ dnorm(0, 0.05),
+		bGroupsize ~ dnorm(0, 0.5),
+		bAvgfood ~ dnorm(0, 0.5),
+		sigma ~ dunif(0, 50)
+	), 
+	data = foxes
+)
+
+m2_withoutGroupsize <- quap(
+	alist(
+		scale_weight ~ dnorm(mu, sigma),
+		mu <- a + bAvgfood * scale_avgfood,
+		a ~ dnorm(0, 0.05),
+		bAvgfood ~ dnorm(0, 0.5),
+		sigma ~ dunif(0, 50)
+	), 
+	data = foxes
+)
+
+prior <- extract.prior(m2)
+precis(prior)
+```
