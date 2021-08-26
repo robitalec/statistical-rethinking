@@ -116,7 +116,19 @@ plot_link <- function(DT, n) {
 								 		 type = 'l')]
 }
 
-prior <- extract.prior(m)
-l <- link(m, post = prior, data = list(scale_area = c(-2, 2)))
+prior <- extract.prior(m1)
+l <- link(m1, post = prior, data = list(scale_area = c(-2, 2)))
 plot_link(l, 20)
 ```
+
+## Interpretation
+
+```{r}
+precis(m1)
+
+post <- extract.samples(m1)
+
+PI(post)
+HPDI(post)
+```
+
