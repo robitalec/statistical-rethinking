@@ -94,7 +94,7 @@ data(foxes)
 foxes$scale_area <- scale(foxes$area)
 foxes$scale_weight <- scale(foxes$weight)
 
-m <- quap(
+m1 <- quap(
 	alist(
 		scale_weight ~ dnorm(mu, sigma),
 		mu <- a + bArea * scale_area,
