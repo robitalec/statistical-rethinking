@@ -123,12 +123,21 @@ plot_link(l, 20)
 
 ## Interpretation
 
+> Would increasing the area available to each fox make it heavier (healthier)? 
+
+`bArea` has a mean of 0.02, with compatibility intervals around 0. 
+Therefore there does not seem to be an influence of area on the weight.
+
+
 ```{r}
 precis(m1)
 
 post <- extract.samples(m1)
+s <- sim(m1, data = list(scale_area = c(-2, 2)), post = post)
 
-PI(post)
-HPDI(post)
+library(tidybayes)
+ggplot(data.table(s), aes(V1)) +
+	stat_halfeye(.width = .89)
+# TODO: come back to this
 ```
 
