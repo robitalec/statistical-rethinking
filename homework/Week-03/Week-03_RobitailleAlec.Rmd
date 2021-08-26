@@ -89,5 +89,14 @@ library(rethinking)
 
 data(foxes)
 
-
+m <- quap(
+	alist(
+		scale(weight) ~ dnorm(mu, sigma),
+		mu <- a + b * (scale(area)),
+		a ~ dnorm(0, 0.5),
+		b ~ dnorm(0, 1),
+		sigma ~ dunif(0, 50)
+	), 
+	data = foxes
+)
 ```
