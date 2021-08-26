@@ -108,7 +108,7 @@ m <- quap(
 
 ## Prior predictive simulation
 
-```{r}
+```{r prior_predict_1}
 plot_link <- function(DT, n) {
 	data.table(DT)[sample(.N, n), 
 								 plot(data.table(x = rep(c(-2, 2), .N), 
