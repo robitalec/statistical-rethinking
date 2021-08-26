@@ -24,8 +24,7 @@ more avgfood than others. We want to model the weight of each fox. For the
 problems below, assume this DAG
 
 
-## Question 1
-Setup DAG
+## Setup DAG
 
 ```{r dag}
 library(ggdag)
@@ -54,8 +53,12 @@ dag <- dagify(
 	exposure = 'area',
 	outcome = 'weight'
 )
-
-dag_plot(dag)
-
-dag_paths(dag)  
 ```
+
+
+# Question 1
+Use a model to infer the total causal influence of area on weight. Would
+increasing the area available to each fox make it heavier (healthier)? You might
+want to standardize the variables. Regardless, use prior predictive simulation
+to show that your model’s prior predictions stay within the possible outcome
+range.
