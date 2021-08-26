@@ -220,3 +220,19 @@ to weight.
 precis(m2_withoutGroupsize)
 ```
 
+
+# Question 3
+
+Now infer the causal impact of group size. Which covariates do you need to
+adjust for? Looking at the posterior distribution of the resulting model, what
+do you think explains these data? That is, can you explain the estimates for all
+three problems? How do they go together?
+
+
+Group size on weight
+
+Paths:
+
+Groupsize -> Weight, Groupsize <- Avgfood -> Weight
+
+Avgfood is a fork between groupsize and weight. 
