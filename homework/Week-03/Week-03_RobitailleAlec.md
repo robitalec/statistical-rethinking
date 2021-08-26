@@ -14,9 +14,7 @@ encodes this information. Some territories also have more avgfood than
 others. We want to model the weight of each fox. For the problems below,
 assume this DAG
 
-## Question 1
-
-Setup DAG
+## Setup DAG
 
 ``` r
 library(ggdag)
@@ -61,25 +59,69 @@ dag_plot(dag)
 
 ![](Week-03_RobitailleAlec_files/figure-gfm/dag-1.png)<!-- -->
 
+# Question 1
+
+Use a model to infer the total causal influence of area on weight. Would
+increasing the area available to each fox make it heavier (healthier)?
+You might want to standardize the variables. Regardless, use prior
+predictive simulation to show that your model’s prior predictions stay
+within the possible outcome range.
+
+## Workings
+
+AREA ON WEIGHT
+
+scale(weight) \~ dnorm(mu, sigma)  
+mu &lt;- a + b \* (scale(area))  
+a: intercept  
+when weight and area are scaled, the expected intercept is 0  
+therefore  
+a \~ dnorm(0, 0.5)
+
+b: beta, rate of change given one unit of increase in area  
+b \~ dnorm(0, 1)
+
+sigma: standard deviation  
+uniform prior  
+sigma \~ dunif(0, 50)
+
+## Model
+
 ``` r
-dag_paths(dag)  
+library(rethinking)
+
+data(foxes)
+
+foxes$scale_area <- scale(foxes$area)
+foxes$scale_weight <- scale(foxes$weight)
+
+m <- quap(
+    alist(
+        scale_weight ~ dnorm(mu, sigma),
+        mu <- a + bArea * scale_area,
+        a ~ dnorm(0, 0.05),
+        bArea ~ dnorm(0, 0.5),
+        sigma ~ dunif(0, 50)
+    ), 
+    data = foxes
+)
 ```
 
-    ## # A DAG with 4 nodes and 8 edges
-    ## #
-    ## # Exposure: area
-    ## # Outcome: weight
-    ## #
-    ## # A tibble: 10 × 10
-    ##    set   name          x     y direction to         xend  yend circular path    
-    ##    <chr> <chr>     <dbl> <dbl> <fct>     <chr>     <dbl> <dbl> <lgl>    <chr>   
-    ##  1 1     area       15.6  17.5 ->        avgfood    14.7  16.7 FALSE    open pa…
-    ##  2 1     avgfood    14.7  16.7 ->        groupsize  13.6  16.3 FALSE    open pa…
-    ##  3 1     avgfood    14.7  16.7 ->        weight     14.2  15.6 FALSE    <NA>    
-    ##  4 1     groupsize  13.6  16.3 ->        weight     14.2  15.6 FALSE    open pa…
-    ##  5 1     weight     14.2  15.6 <NA>      <NA>       NA    NA   FALSE    open pa…
-    ##  6 2     area       15.6  17.5 ->        avgfood    14.7  16.7 FALSE    open pa…
-    ##  7 2     avgfood    14.7  16.7 ->        groupsize  13.6  16.3 FALSE    <NA>    
-    ##  8 2     avgfood    14.7  16.7 ->        weight     14.2  15.6 FALSE    open pa…
-    ##  9 2     groupsize  13.6  16.3 ->        weight     14.2  15.6 FALSE    <NA>    
-    ## 10 2     weight     14.2  15.6 <NA>      <NA>       NA    NA   FALSE    open pa…
+## Prior predictive simulation
+
+``` r
+plot_link <- function(DT, n) {
+    data.table(DT)[sample(.N, n), 
+                                 plot(data.table(x = rep(c(-2, 2), .N), 
+                                                                y = c(V1, V2)),
+                                         type = 'l')]
+}
+
+prior <- extract.prior(m)
+l <- link(m, post = prior, data = list(scale_area = c(-2, 2)))
+plot_link(l, 20)
+```
+
+![](Week-03_RobitailleAlec_files/figure-gfm/prior_predict_1-1.png)<!-- -->
+
+    ## NULL
