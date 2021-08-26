@@ -1,0 +1,17 @@
+---
+title: "Week 3"
+author: "Alec L. Robitaille"
+date: "2021-08-25 [updated: `r Sys.Date()`]"
+output: github_document
+editor_options: 
+  chunk_output_type: console
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(rethinking)
+```
+
+
+## Question 1
