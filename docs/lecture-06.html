@@ -290,26 +290,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Same prior can be given to all</p>
 <p>Extends easily &gt; 2</p>
 <p>eg.</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode jsx"><code class="sourceCode javascriptreact"><span id="cb52-1"><a href="lecture-06.html#cb52-1" aria-hidden="true" tabindex="-1"></a>m <span class="op">&lt;-</span> <span class="fu">quap</span>(</span>
-<span id="cb52-2"><a href="lecture-06.html#cb52-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">alist</span>(</span>
-<span id="cb52-3"><a href="lecture-06.html#cb52-3" aria-hidden="true" tabindex="-1"></a>        height <span class="op">~</span> <span class="fu">dnorm</span>(mu<span class="op">,</span> sigma)<span class="op">,</span></span>
-<span id="cb52-4"><a href="lecture-06.html#cb52-4" aria-hidden="true" tabindex="-1"></a>        mu <span class="op">&lt;-</span> a[sex]<span class="op">,</span></span>
-<span id="cb52-5"><a href="lecture-06.html#cb52-5" aria-hidden="true" tabindex="-1"></a>        a[sex] <span class="op">~</span> <span class="fu">dnorm</span>(<span class="dv">178</span><span class="op">,</span> <span class="dv">20</span>)<span class="op">,</span></span>
-<span id="cb52-6"><a href="lecture-06.html#cb52-6" aria-hidden="true" tabindex="-1"></a>        sigma <span class="op">~</span> <span class="fu">dunif</span>(<span class="dv">0</span><span class="op">,</span> <span class="dv">50</span>)</span>
-<span id="cb52-7"><a href="lecture-06.html#cb52-7" aria-hidden="true" tabindex="-1"></a>    )<span class="op">,</span> </span>
-<span id="cb52-8"><a href="lecture-06.html#cb52-8" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> d</span>
-<span id="cb52-9"><a href="lecture-06.html#cb52-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode jsx"><code class="sourceCode javascriptreact"><span id="cb47-1"><a href="lecture-06.html#cb47-1" aria-hidden="true" tabindex="-1"></a>m <span class="op">&lt;-</span> <span class="fu">quap</span>(</span>
+<span id="cb47-2"><a href="lecture-06.html#cb47-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">alist</span>(</span>
+<span id="cb47-3"><a href="lecture-06.html#cb47-3" aria-hidden="true" tabindex="-1"></a>        height <span class="op">~</span> <span class="fu">dnorm</span>(mu<span class="op">,</span> sigma)<span class="op">,</span></span>
+<span id="cb47-4"><a href="lecture-06.html#cb47-4" aria-hidden="true" tabindex="-1"></a>        mu <span class="op">&lt;-</span> a[sex]<span class="op">,</span></span>
+<span id="cb47-5"><a href="lecture-06.html#cb47-5" aria-hidden="true" tabindex="-1"></a>        a[sex] <span class="op">~</span> <span class="fu">dnorm</span>(<span class="dv">178</span><span class="op">,</span> <span class="dv">20</span>)<span class="op">,</span></span>
+<span id="cb47-6"><a href="lecture-06.html#cb47-6" aria-hidden="true" tabindex="-1"></a>        sigma <span class="op">~</span> <span class="fu">dunif</span>(<span class="dv">0</span><span class="op">,</span> <span class="dv">50</span>)</span>
+<span id="cb47-7"><a href="lecture-06.html#cb47-7" aria-hidden="true" tabindex="-1"></a>    )<span class="op">,</span> </span>
+<span id="cb47-8"><a href="lecture-06.html#cb47-8" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> d</span>
+<span id="cb47-9"><a href="lecture-06.html#cb47-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <p>a[sex] and a for each sex and prior for each. directly in precis(m) too.</p>
 <p>Then you can directly calculate the difference between groups in the posteriors, no need to rerun the model</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode jsx"><code class="sourceCode javascriptreact"><span id="cb53-1"><a href="lecture-06.html#cb53-1" aria-hidden="true" tabindex="-1"></a>post <span class="op">&lt;-</span> extract<span class="op">.</span><span class="fu">samples</span>(m)</span>
-<span id="cb53-2"><a href="lecture-06.html#cb53-2" aria-hidden="true" tabindex="-1"></a>post$diff <span class="op">&lt;-</span> post$a[<span class="op">,</span> <span class="dv">1</span>] <span class="op">-</span> post$a[<span class="op">,</span> <span class="dv">2</span>]</span>
-<span id="cb53-3"><a href="lecture-06.html#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(post)</span>
-<span id="cb53-4"><a href="lecture-06.html#cb53-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-5"><a href="lecture-06.html#cb53-5" aria-hidden="true" tabindex="-1"></a>#       mean</span>
-<span id="cb53-6"><a href="lecture-06.html#cb53-6" aria-hidden="true" tabindex="-1"></a># sigma <span class="dv">27</span></span>
-<span id="cb53-7"><a href="lecture-06.html#cb53-7" aria-hidden="true" tabindex="-1"></a># a[<span class="dv">1</span>]  <span class="dv">134</span></span>
-<span id="cb53-8"><a href="lecture-06.html#cb53-8" aria-hidden="true" tabindex="-1"></a># a[<span class="dv">2</span>]  <span class="dv">142</span></span>
-<span id="cb53-9"><a href="lecture-06.html#cb53-9" aria-hidden="true" tabindex="-1"></a># diff  <span class="op">-</span><span class="fl">7.7</span></span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode jsx"><code class="sourceCode javascriptreact"><span id="cb48-1"><a href="lecture-06.html#cb48-1" aria-hidden="true" tabindex="-1"></a>post <span class="op">&lt;-</span> extract<span class="op">.</span><span class="fu">samples</span>(m)</span>
+<span id="cb48-2"><a href="lecture-06.html#cb48-2" aria-hidden="true" tabindex="-1"></a>post$diff <span class="op">&lt;-</span> post$a[<span class="op">,</span> <span class="dv">1</span>] <span class="op">-</span> post$a[<span class="op">,</span> <span class="dv">2</span>]</span>
+<span id="cb48-3"><a href="lecture-06.html#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(post)</span>
+<span id="cb48-4"><a href="lecture-06.html#cb48-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-5"><a href="lecture-06.html#cb48-5" aria-hidden="true" tabindex="-1"></a>#       mean</span>
+<span id="cb48-6"><a href="lecture-06.html#cb48-6" aria-hidden="true" tabindex="-1"></a># sigma <span class="dv">27</span></span>
+<span id="cb48-7"><a href="lecture-06.html#cb48-7" aria-hidden="true" tabindex="-1"></a># a[<span class="dv">1</span>]  <span class="dv">134</span></span>
+<span id="cb48-8"><a href="lecture-06.html#cb48-8" aria-hidden="true" tabindex="-1"></a># a[<span class="dv">2</span>]  <span class="dv">142</span></span>
+<span id="cb48-9"><a href="lecture-06.html#cb48-9" aria-hidden="true" tabindex="-1"></a># diff  <span class="op">-</span><span class="fl">7.7</span></span></code></pre></div>
 </div>
 <div id="four-elemental-confounds" class="section level2" number="10.2">
 <h2><span class="header-section-number">10.2</span> Four elemental confounds</h2>

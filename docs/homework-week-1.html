@@ -328,10 +328,10 @@ same flat prior as in the book.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="homework-week-1.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample from posterior</span></span>
 <span id="cb3-2"><a href="homework-week-1.html#cb3-2" aria-hidden="true" tabindex="-1"></a>samples <span class="ot">&lt;-</span> <span class="fu">sample</span>(prior_grid, <span class="at">size =</span> gridsize, <span class="at">prob =</span> posterior, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb3-3"><a href="homework-week-1.html#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(samples)</span></code></pre></div>
-<pre><code>## [1] 0.536975</code></pre>
+<pre><code>## [1] 0.54</code></pre>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="homework-week-1.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">PI</span>(samples, .<span class="dv">99</span>)</span></code></pre></div>
-<pre><code>##        1%      100% 
-## 0.2652452 0.8048348</code></pre>
+<pre><code>##   1% 100% 
+## 0.27 0.80</code></pre>
 </div>
 <div id="question-2" class="section level2" number="2.4">
 <h2><span class="header-section-number">2.4</span> Question 2</h2>
@@ -364,10 +364,10 @@ Earth’s surface is water. What difference does the better prior make?</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="homework-week-1.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample from posterior</span></span>
 <span id="cb8-2"><a href="homework-week-1.html#cb8-2" aria-hidden="true" tabindex="-1"></a>samples <span class="ot">&lt;-</span> <span class="fu">sample</span>(prior_grid, <span class="at">size =</span> gridsize, <span class="at">prob =</span> posterior, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb8-3"><a href="homework-week-1.html#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(samples)</span></code></pre></div>
-<pre><code>## [1] 0.5469029</code></pre>
+<pre><code>## [1] 0.55</code></pre>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="homework-week-1.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">PI</span>(samples, .<span class="dv">99</span>)</span></code></pre></div>
-<pre><code>##        1%      100% 
-## 0.5005005 0.7157407</code></pre>
+<pre><code>##   1% 100% 
+## 0.50 0.72</code></pre>
 <p>Narrower curve, higher max, all zeroes before 0.5</p>
 </div>
 <div id="question-3" class="section level2" number="2.5">
@@ -378,18 +378,18 @@ had only the information in the interval, what might you misunderstand about the
 shape of the posterior distribution?</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="homework-week-1.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
 <span id="cb12-2"><a href="homework-week-1.html#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb12-3"><a href="homework-week-1.html#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span></code></pre></div>
-<pre><code>## data.table 1.14.0 using 2 threads (see ?getDTthreads).  Latest news: r-datatable.com</code></pre>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="homework-week-1.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate Percentile Interval at 89%</span></span>
-<span id="cb14-2"><a href="homework-week-1.html#cb14-2" aria-hidden="true" tabindex="-1"></a>percent_interval <span class="ot">&lt;-</span> <span class="fu">PI</span>(posterior, <span class="at">prob =</span> <span class="fl">0.89</span>)</span>
-<span id="cb14-3"><a href="homework-week-1.html#cb14-3" aria-hidden="true" tabindex="-1"></a>percent_interval</span></code></pre></div>
-<pre><code>##          5%         94% 
-## 0.000000000 0.007254589</code></pre>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="homework-week-1.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate Highest Posterior Density at 89%</span></span>
-<span id="cb16-2"><a href="homework-week-1.html#cb16-2" aria-hidden="true" tabindex="-1"></a>highest_post_dens <span class="ot">&lt;-</span> <span class="fu">HPDI</span>(posterior, <span class="at">prob =</span> <span class="fl">0.89</span>)</span>
-<span id="cb16-3"><a href="homework-week-1.html#cb16-3" aria-hidden="true" tabindex="-1"></a>highest_post_dens</span></code></pre></div>
-<pre><code>##       |0.89       0.89| 
-## 0.000000000 0.002523398</code></pre>
+<span id="cb12-3"><a href="homework-week-1.html#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
+<span id="cb12-4"><a href="homework-week-1.html#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="homework-week-1.html#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate Percentile Interval at 89%</span></span>
+<span id="cb12-6"><a href="homework-week-1.html#cb12-6" aria-hidden="true" tabindex="-1"></a>percent_interval <span class="ot">&lt;-</span> <span class="fu">PI</span>(posterior, <span class="at">prob =</span> <span class="fl">0.89</span>)</span>
+<span id="cb12-7"><a href="homework-week-1.html#cb12-7" aria-hidden="true" tabindex="-1"></a>percent_interval</span></code></pre></div>
+<pre><code>##     5%    94% 
+## 0.0000 0.0073</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="homework-week-1.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate Highest Posterior Density at 89%</span></span>
+<span id="cb14-2"><a href="homework-week-1.html#cb14-2" aria-hidden="true" tabindex="-1"></a>highest_post_dens <span class="ot">&lt;-</span> <span class="fu">HPDI</span>(posterior, <span class="at">prob =</span> <span class="fl">0.89</span>)</span>
+<span id="cb14-3"><a href="homework-week-1.html#cb14-3" aria-hidden="true" tabindex="-1"></a>highest_post_dens</span></code></pre></div>
+<pre><code>##  |0.89  0.89| 
+## 0.0000 0.0025</code></pre>
 
 </div>
 </div>

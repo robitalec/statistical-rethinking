@@ -302,49 +302,49 @@ model-based predictions.</p>
 <p><span class="math inline">\(\alpha \sim \text{Normal}(178, 20)\)</span></p>
 <p><span class="math inline">\(\beta \sim \text{Log-Normal}(0, 1)\)</span></p>
 <p><span class="math inline">\(\sigma \sim \text{Uniform}(0, 50)\)</span></p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="homework-week-2.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
-<span id="cb19-2"><a href="homework-week-2.html#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
-<span id="cb19-3"><a href="homework-week-2.html#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb19-4"><a href="homework-week-2.html#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidybayes)</span>
-<span id="cb19-5"><a href="homework-week-2.html#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-6"><a href="homework-week-2.html#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_bw</span>())</span>
-<span id="cb19-7"><a href="homework-week-2.html#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-8"><a href="homework-week-2.html#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(Howell1)</span>
-<span id="cb19-9"><a href="homework-week-2.html#cb19-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-10"><a href="homework-week-2.html#cb19-10" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> Howell1[Howell1<span class="sc">$</span>age <span class="sc">&gt;=</span> <span class="dv">18</span>,]</span>
-<span id="cb19-11"><a href="homework-week-2.html#cb19-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-12"><a href="homework-week-2.html#cb19-12" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">quap</span>(</span>
-<span id="cb19-13"><a href="homework-week-2.html#cb19-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">alist</span>(</span>
-<span id="cb19-14"><a href="homework-week-2.html#cb19-14" aria-hidden="true" tabindex="-1"></a>        height <span class="sc">~</span> <span class="fu">dnorm</span>(mu, sigma),</span>
-<span id="cb19-15"><a href="homework-week-2.html#cb19-15" aria-hidden="true" tabindex="-1"></a>        mu <span class="ot">&lt;-</span> a <span class="sc">+</span> b <span class="sc">*</span> (weight <span class="sc">-</span> <span class="fu">mean</span>(d<span class="sc">$</span>weight)),</span>
-<span id="cb19-16"><a href="homework-week-2.html#cb19-16" aria-hidden="true" tabindex="-1"></a>        a <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">178</span>, <span class="dv">20</span>),</span>
-<span id="cb19-17"><a href="homework-week-2.html#cb19-17" aria-hidden="true" tabindex="-1"></a>        b <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
-<span id="cb19-18"><a href="homework-week-2.html#cb19-18" aria-hidden="true" tabindex="-1"></a>        sigma <span class="sc">~</span> <span class="fu">dunif</span>(<span class="dv">0</span>, <span class="dv">50</span>)</span>
-<span id="cb19-19"><a href="homework-week-2.html#cb19-19" aria-hidden="true" tabindex="-1"></a>    ), </span>
-<span id="cb19-20"><a href="homework-week-2.html#cb19-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> d</span>
-<span id="cb19-21"><a href="homework-week-2.html#cb19-21" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb19-22"><a href="homework-week-2.html#cb19-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-23"><a href="homework-week-2.html#cb19-23" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(m)</span></code></pre></div>
-<pre><code>##              mean         sd        5.5%       94.5%
-## a     154.6014208 0.27030782 154.1694167 155.0334249
-## b       0.9034427 0.04189141   0.8364922   0.9703933
-## sigma   5.0718837 0.19115501   4.7663811   5.3773863</code></pre>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="homework-week-2.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
+<span id="cb17-2"><a href="homework-week-2.html#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
+<span id="cb17-3"><a href="homework-week-2.html#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb17-4"><a href="homework-week-2.html#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidybayes)</span>
+<span id="cb17-5"><a href="homework-week-2.html#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="homework-week-2.html#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_bw</span>())</span>
+<span id="cb17-7"><a href="homework-week-2.html#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="homework-week-2.html#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(Howell1)</span>
+<span id="cb17-9"><a href="homework-week-2.html#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-10"><a href="homework-week-2.html#cb17-10" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> Howell1[Howell1<span class="sc">$</span>age <span class="sc">&gt;=</span> <span class="dv">18</span>,]</span>
+<span id="cb17-11"><a href="homework-week-2.html#cb17-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-12"><a href="homework-week-2.html#cb17-12" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">quap</span>(</span>
+<span id="cb17-13"><a href="homework-week-2.html#cb17-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">alist</span>(</span>
+<span id="cb17-14"><a href="homework-week-2.html#cb17-14" aria-hidden="true" tabindex="-1"></a>        height <span class="sc">~</span> <span class="fu">dnorm</span>(mu, sigma),</span>
+<span id="cb17-15"><a href="homework-week-2.html#cb17-15" aria-hidden="true" tabindex="-1"></a>        mu <span class="ot">&lt;-</span> a <span class="sc">+</span> b <span class="sc">*</span> (weight <span class="sc">-</span> <span class="fu">mean</span>(d<span class="sc">$</span>weight)),</span>
+<span id="cb17-16"><a href="homework-week-2.html#cb17-16" aria-hidden="true" tabindex="-1"></a>        a <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">178</span>, <span class="dv">20</span>),</span>
+<span id="cb17-17"><a href="homework-week-2.html#cb17-17" aria-hidden="true" tabindex="-1"></a>        b <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb17-18"><a href="homework-week-2.html#cb17-18" aria-hidden="true" tabindex="-1"></a>        sigma <span class="sc">~</span> <span class="fu">dunif</span>(<span class="dv">0</span>, <span class="dv">50</span>)</span>
+<span id="cb17-19"><a href="homework-week-2.html#cb17-19" aria-hidden="true" tabindex="-1"></a>    ), </span>
+<span id="cb17-20"><a href="homework-week-2.html#cb17-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> d</span>
+<span id="cb17-21"><a href="homework-week-2.html#cb17-21" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb17-22"><a href="homework-week-2.html#cb17-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-23"><a href="homework-week-2.html#cb17-23" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(m)</span></code></pre></div>
+<pre><code>##        mean    sd   5.5%  94.5%
+## a     154.6 0.270 154.17 155.03
+## b       0.9 0.042   0.84   0.97
+## sigma   5.1 0.191   4.77   5.38</code></pre>
 <p>Simulate:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="homework-week-2.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set weights to simulate for</span></span>
-<span id="cb21-2"><a href="homework-week-2.html#cb21-2" aria-hidden="true" tabindex="-1"></a>weights <span class="ot">&lt;-</span> <span class="fu">data.table</span>(<span class="at">weight =</span> <span class="fu">c</span>(<span class="dv">45</span>, <span class="dv">40</span>, <span class="dv">65</span>, <span class="dv">31</span>, <span class="dv">54</span>),</span>
-<span id="cb21-3"><a href="homework-week-2.html#cb21-3" aria-hidden="true" tabindex="-1"></a>                                            <span class="at">id =</span> <span class="fu">as.character</span>(<span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">5</span>)))</span>
-<span id="cb21-4"><a href="homework-week-2.html#cb21-4" aria-hidden="true" tabindex="-1"></a>simmed <span class="ot">&lt;-</span> <span class="fu">sim</span>(m, <span class="fu">list</span>(<span class="at">weight =</span> weights<span class="sc">$</span>weight), <span class="at">n =</span> <span class="fl">1e3</span>)</span>
-<span id="cb21-5"><a href="homework-week-2.html#cb21-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-6"><a href="homework-week-2.html#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Tidy</span></span>
-<span id="cb21-7"><a href="homework-week-2.html#cb21-7" aria-hidden="true" tabindex="-1"></a>DT <span class="ot">&lt;-</span> <span class="fu">melt</span>(<span class="fu">as.data.table</span>(simmed), <span class="at">measure.vars =</span> <span class="fu">paste0</span>(<span class="st">&#39;V&#39;</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>),</span>
-<span id="cb21-8"><a href="homework-week-2.html#cb21-8" aria-hidden="true" tabindex="-1"></a>                     <span class="at">value.name =</span> <span class="st">&#39;height&#39;</span>, <span class="at">variable.name =</span> <span class="st">&#39;id&#39;</span>)</span>
-<span id="cb21-9"><a href="homework-week-2.html#cb21-9" aria-hidden="true" tabindex="-1"></a>DT[, id <span class="sc">:</span><span class="er">=</span> <span class="fu">gsub</span>(<span class="st">&#39;V&#39;</span>, <span class="st">&#39;&#39;</span>, id)]</span>
-<span id="cb21-10"><a href="homework-week-2.html#cb21-10" aria-hidden="true" tabindex="-1"></a>DT[weights, weight <span class="sc">:</span><span class="er">=</span> weight, on <span class="ot">=</span> <span class="st">&#39;id&#39;</span>]</span>
-<span id="cb21-11"><a href="homework-week-2.html#cb21-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-12"><a href="homework-week-2.html#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
-<span id="cb21-13"><a href="homework-week-2.html#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(DT, <span class="fu">aes</span>(height)) <span class="sc">+</span></span>
-<span id="cb21-14"><a href="homework-week-2.html#cb21-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stat_halfeye</span>(<span class="at">.width =</span> .<span class="dv">89</span>) <span class="sc">+</span> </span>
-<span id="cb21-15"><a href="homework-week-2.html#cb21-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(<span class="sc">~</span>id)</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="homework-week-2.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set weights to simulate for</span></span>
+<span id="cb19-2"><a href="homework-week-2.html#cb19-2" aria-hidden="true" tabindex="-1"></a>weights <span class="ot">&lt;-</span> <span class="fu">data.table</span>(<span class="at">weight =</span> <span class="fu">c</span>(<span class="dv">45</span>, <span class="dv">40</span>, <span class="dv">65</span>, <span class="dv">31</span>, <span class="dv">54</span>),</span>
+<span id="cb19-3"><a href="homework-week-2.html#cb19-3" aria-hidden="true" tabindex="-1"></a>                                            <span class="at">id =</span> <span class="fu">as.character</span>(<span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">5</span>)))</span>
+<span id="cb19-4"><a href="homework-week-2.html#cb19-4" aria-hidden="true" tabindex="-1"></a>simmed <span class="ot">&lt;-</span> <span class="fu">sim</span>(m, <span class="fu">list</span>(<span class="at">weight =</span> weights<span class="sc">$</span>weight), <span class="at">n =</span> <span class="fl">1e3</span>)</span>
+<span id="cb19-5"><a href="homework-week-2.html#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-6"><a href="homework-week-2.html#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Tidy</span></span>
+<span id="cb19-7"><a href="homework-week-2.html#cb19-7" aria-hidden="true" tabindex="-1"></a>DT <span class="ot">&lt;-</span> <span class="fu">melt</span>(<span class="fu">as.data.table</span>(simmed), <span class="at">measure.vars =</span> <span class="fu">paste0</span>(<span class="st">&#39;V&#39;</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>),</span>
+<span id="cb19-8"><a href="homework-week-2.html#cb19-8" aria-hidden="true" tabindex="-1"></a>                     <span class="at">value.name =</span> <span class="st">&#39;height&#39;</span>, <span class="at">variable.name =</span> <span class="st">&#39;id&#39;</span>)</span>
+<span id="cb19-9"><a href="homework-week-2.html#cb19-9" aria-hidden="true" tabindex="-1"></a>DT[, id <span class="sc">:</span><span class="er">=</span> <span class="fu">gsub</span>(<span class="st">&#39;V&#39;</span>, <span class="st">&#39;&#39;</span>, id)]</span>
+<span id="cb19-10"><a href="homework-week-2.html#cb19-10" aria-hidden="true" tabindex="-1"></a>DT[weights, weight <span class="sc">:</span><span class="er">=</span> weight, on <span class="ot">=</span> <span class="st">&#39;id&#39;</span>]</span>
+<span id="cb19-11"><a href="homework-week-2.html#cb19-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-12"><a href="homework-week-2.html#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb19-13"><a href="homework-week-2.html#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(DT, <span class="fu">aes</span>(height)) <span class="sc">+</span></span>
+<span id="cb19-14"><a href="homework-week-2.html#cb19-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stat_halfeye</span>(<span class="at">.width =</span> .<span class="dv">89</span>) <span class="sc">+</span> </span>
+<span id="cb19-15"><a href="homework-week-2.html#cb19-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(<span class="sc">~</span>id)</span></code></pre></div>
 <p><img src="_main_files/figure-html/sim-1.png" width="672" /></p>
 </div>
 <div id="question-2-1" class="section level2" number="3.2">
@@ -354,146 +354,156 @@ model-based predictions.</p>
 and non-adults. Use any model type from Chapter 4 that you think useful: an
 ordinary linear regression, a polynomial or a spline. Plot the posterior
 predictions against the raw data</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="homework-week-2.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
-<span id="cb22-2"><a href="homework-week-2.html#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
-<span id="cb22-3"><a href="homework-week-2.html#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb22-4"><a href="homework-week-2.html#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidybayes)</span>
-<span id="cb22-5"><a href="homework-week-2.html#cb22-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-6"><a href="homework-week-2.html#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_bw</span>())</span>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="homework-week-2.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
+<span id="cb20-2"><a href="homework-week-2.html#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
+<span id="cb20-3"><a href="homework-week-2.html#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb20-4"><a href="homework-week-2.html#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidybayes)</span>
+<span id="cb20-5"><a href="homework-week-2.html#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-6"><a href="homework-week-2.html#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_bw</span>())</span>
+<span id="cb20-7"><a href="homework-week-2.html#cb20-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-8"><a href="homework-week-2.html#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(Howell1)</span>
+<span id="cb20-9"><a href="homework-week-2.html#cb20-9" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> Howell1</span>
+<span id="cb20-10"><a href="homework-week-2.html#cb20-10" aria-hidden="true" tabindex="-1"></a>d<span class="sc">$</span>logweight <span class="ot">&lt;-</span> <span class="fu">log</span>(d<span class="sc">$</span>weight)</span>
+<span id="cb20-11"><a href="homework-week-2.html#cb20-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-12"><a href="homework-week-2.html#cb20-12" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">quap</span>(</span>
+<span id="cb20-13"><a href="homework-week-2.html#cb20-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">alist</span>(</span>
+<span id="cb20-14"><a href="homework-week-2.html#cb20-14" aria-hidden="true" tabindex="-1"></a>        height <span class="sc">~</span> <span class="fu">dnorm</span>(mu, sigma),</span>
+<span id="cb20-15"><a href="homework-week-2.html#cb20-15" aria-hidden="true" tabindex="-1"></a>        mu <span class="ot">&lt;-</span> a <span class="sc">+</span> b <span class="sc">*</span> (logweight <span class="sc">-</span> <span class="fu">mean</span>(d<span class="sc">$</span>logweight)),</span>
+<span id="cb20-16"><a href="homework-week-2.html#cb20-16" aria-hidden="true" tabindex="-1"></a>        a <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">178</span>, <span class="dv">20</span>),</span>
+<span id="cb20-17"><a href="homework-week-2.html#cb20-17" aria-hidden="true" tabindex="-1"></a>        b <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb20-18"><a href="homework-week-2.html#cb20-18" aria-hidden="true" tabindex="-1"></a>        sigma <span class="sc">~</span> <span class="fu">dunif</span>(<span class="dv">0</span>, <span class="dv">50</span>)</span>
+<span id="cb20-19"><a href="homework-week-2.html#cb20-19" aria-hidden="true" tabindex="-1"></a>    ), </span>
+<span id="cb20-20"><a href="homework-week-2.html#cb20-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> d</span>
+<span id="cb20-21"><a href="homework-week-2.html#cb20-21" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb20-22"><a href="homework-week-2.html#cb20-22" aria-hidden="true" tabindex="-1"></a>sim_x <span class="ot">&lt;-</span> <span class="fu">log</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">60</span>)</span>
+<span id="cb20-23"><a href="homework-week-2.html#cb20-23" aria-hidden="true" tabindex="-1"></a>simmed <span class="ot">&lt;-</span> <span class="fu">sim</span>(m1, <span class="fu">list</span>(<span class="at">logweight =</span> sim_x))</span>
+<span id="cb20-24"><a href="homework-week-2.html#cb20-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-25"><a href="homework-week-2.html#cb20-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Tidy</span></span>
+<span id="cb20-26"><a href="homework-week-2.html#cb20-26" aria-hidden="true" tabindex="-1"></a>DT <span class="ot">&lt;-</span> <span class="fu">melt</span>(<span class="fu">as.data.table</span>(simmed), <span class="at">value.name =</span> <span class="st">&#39;height&#39;</span>, <span class="at">variable.name =</span> <span class="st">&#39;x&#39;</span>)</span></code></pre></div>
+<pre><code>## Warning in
+## melt.data.table(as.data.table(simmed),
+## value.name = &quot;height&quot;, : id.vars
+## and measure.vars are internally
+## guessed when both are &#39;NULL&#39;. All
+## non-numeric/integer/logical type
+## columns are considered id.vars, which
+## in this case are columns []. Consider
+## providing at least one of &#39;id&#39; or
+## &#39;measure&#39; vars in future.</code></pre>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="homework-week-2.html#cb22-1" aria-hidden="true" tabindex="-1"></a>DT[<span class="fu">data.table</span>(sim_x, <span class="at">x =</span> <span class="fu">paste0</span>(<span class="st">&#39;V&#39;</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">60</span>)),</span>
+<span id="cb22-2"><a href="homework-week-2.html#cb22-2" aria-hidden="true" tabindex="-1"></a>     logweight <span class="sc">:</span><span class="er">=</span> sim_x,</span>
+<span id="cb22-3"><a href="homework-week-2.html#cb22-3" aria-hidden="true" tabindex="-1"></a>     on <span class="ot">=</span> <span class="st">&#39;x&#39;</span>]</span>
+<span id="cb22-4"><a href="homework-week-2.html#cb22-4" aria-hidden="true" tabindex="-1"></a>DT[, meanheight <span class="sc">:</span><span class="er">=</span> <span class="fu">mean</span>(height), by <span class="ot">=</span> logweight]</span>
+<span id="cb22-5"><a href="homework-week-2.html#cb22-5" aria-hidden="true" tabindex="-1"></a>DT[, low <span class="sc">:</span><span class="er">=</span> <span class="fu">PI</span>(height)[<span class="dv">1</span>], by <span class="ot">=</span> logweight]</span>
+<span id="cb22-6"><a href="homework-week-2.html#cb22-6" aria-hidden="true" tabindex="-1"></a>DT[, high <span class="sc">:</span><span class="er">=</span> <span class="fu">PI</span>(height)[<span class="dv">2</span>], by <span class="ot">=</span> logweight]</span>
 <span id="cb22-7"><a href="homework-week-2.html#cb22-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-8"><a href="homework-week-2.html#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(Howell1)</span>
-<span id="cb22-9"><a href="homework-week-2.html#cb22-9" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> Howell1</span>
-<span id="cb22-10"><a href="homework-week-2.html#cb22-10" aria-hidden="true" tabindex="-1"></a>d<span class="sc">$</span>logweight <span class="ot">&lt;-</span> <span class="fu">log</span>(d<span class="sc">$</span>weight)</span>
-<span id="cb22-11"><a href="homework-week-2.html#cb22-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-12"><a href="homework-week-2.html#cb22-12" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">quap</span>(</span>
-<span id="cb22-13"><a href="homework-week-2.html#cb22-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">alist</span>(</span>
-<span id="cb22-14"><a href="homework-week-2.html#cb22-14" aria-hidden="true" tabindex="-1"></a>        height <span class="sc">~</span> <span class="fu">dnorm</span>(mu, sigma),</span>
-<span id="cb22-15"><a href="homework-week-2.html#cb22-15" aria-hidden="true" tabindex="-1"></a>        mu <span class="ot">&lt;-</span> a <span class="sc">+</span> b <span class="sc">*</span> (logweight <span class="sc">-</span> <span class="fu">mean</span>(d<span class="sc">$</span>logweight)),</span>
-<span id="cb22-16"><a href="homework-week-2.html#cb22-16" aria-hidden="true" tabindex="-1"></a>        a <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">178</span>, <span class="dv">20</span>),</span>
-<span id="cb22-17"><a href="homework-week-2.html#cb22-17" aria-hidden="true" tabindex="-1"></a>        b <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
-<span id="cb22-18"><a href="homework-week-2.html#cb22-18" aria-hidden="true" tabindex="-1"></a>        sigma <span class="sc">~</span> <span class="fu">dunif</span>(<span class="dv">0</span>, <span class="dv">50</span>)</span>
-<span id="cb22-19"><a href="homework-week-2.html#cb22-19" aria-hidden="true" tabindex="-1"></a>    ), </span>
-<span id="cb22-20"><a href="homework-week-2.html#cb22-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> d</span>
-<span id="cb22-21"><a href="homework-week-2.html#cb22-21" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb22-22"><a href="homework-week-2.html#cb22-22" aria-hidden="true" tabindex="-1"></a>sim_x <span class="ot">&lt;-</span> <span class="fu">log</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">60</span>)</span>
-<span id="cb22-23"><a href="homework-week-2.html#cb22-23" aria-hidden="true" tabindex="-1"></a>simmed <span class="ot">&lt;-</span> <span class="fu">sim</span>(m1, <span class="fu">list</span>(<span class="at">logweight =</span> sim_x))</span>
-<span id="cb22-24"><a href="homework-week-2.html#cb22-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-25"><a href="homework-week-2.html#cb22-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Tidy</span></span>
-<span id="cb22-26"><a href="homework-week-2.html#cb22-26" aria-hidden="true" tabindex="-1"></a>DT <span class="ot">&lt;-</span> <span class="fu">melt</span>(<span class="fu">as.data.table</span>(simmed), <span class="at">value.name =</span> <span class="st">&#39;height&#39;</span>, <span class="at">variable.name =</span> <span class="st">&#39;x&#39;</span>)</span></code></pre></div>
-<pre><code>## Warning in melt.data.table(as.data.table(simmed), value.name = &quot;height&quot;, :
-## id.vars and measure.vars are internally guessed when both are &#39;NULL&#39;. All
-## non-numeric/integer/logical type columns are considered id.vars, which in this
-## case are columns []. Consider providing at least one of &#39;id&#39; or &#39;measure&#39; vars in
-## future.</code></pre>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="homework-week-2.html#cb24-1" aria-hidden="true" tabindex="-1"></a>DT[<span class="fu">data.table</span>(sim_x, <span class="at">x =</span> <span class="fu">paste0</span>(<span class="st">&#39;V&#39;</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">60</span>)),</span>
-<span id="cb24-2"><a href="homework-week-2.html#cb24-2" aria-hidden="true" tabindex="-1"></a>     logweight <span class="sc">:</span><span class="er">=</span> sim_x,</span>
-<span id="cb24-3"><a href="homework-week-2.html#cb24-3" aria-hidden="true" tabindex="-1"></a>     on <span class="ot">=</span> <span class="st">&#39;x&#39;</span>]</span>
-<span id="cb24-4"><a href="homework-week-2.html#cb24-4" aria-hidden="true" tabindex="-1"></a>DT[, meanheight <span class="sc">:</span><span class="er">=</span> <span class="fu">mean</span>(height), by <span class="ot">=</span> logweight]</span>
-<span id="cb24-5"><a href="homework-week-2.html#cb24-5" aria-hidden="true" tabindex="-1"></a>DT[, low <span class="sc">:</span><span class="er">=</span> <span class="fu">PI</span>(height)[<span class="dv">1</span>], by <span class="ot">=</span> logweight]</span>
-<span id="cb24-6"><a href="homework-week-2.html#cb24-6" aria-hidden="true" tabindex="-1"></a>DT[, high <span class="sc">:</span><span class="er">=</span> <span class="fu">PI</span>(height)[<span class="dv">2</span>], by <span class="ot">=</span> logweight]</span>
-<span id="cb24-7"><a href="homework-week-2.html#cb24-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-8"><a href="homework-week-2.html#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
-<span id="cb24-9"><a href="homework-week-2.html#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(DT) <span class="sc">+</span> </span>
-<span id="cb24-10"><a href="homework-week-2.html#cb24-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">exp</span>(logweight), <span class="at">ymin =</span> low, <span class="at">ymax =</span> high), <span class="at">fill =</span> <span class="st">&#39;grey&#39;</span>) <span class="sc">+</span> </span>
-<span id="cb24-11"><a href="homework-week-2.html#cb24-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="fu">exp</span>(logweight), height), <span class="at">data =</span> d, <span class="at">color =</span> <span class="st">&#39;lightblue&#39;</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span> </span>
-<span id="cb24-12"><a href="homework-week-2.html#cb24-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="fu">exp</span>(logweight), meanheight))</span></code></pre></div>
+<span id="cb22-8"><a href="homework-week-2.html#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb22-9"><a href="homework-week-2.html#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(DT) <span class="sc">+</span> </span>
+<span id="cb22-10"><a href="homework-week-2.html#cb22-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">exp</span>(logweight), <span class="at">ymin =</span> low, <span class="at">ymax =</span> high), <span class="at">fill =</span> <span class="st">&#39;grey&#39;</span>) <span class="sc">+</span> </span>
+<span id="cb22-11"><a href="homework-week-2.html#cb22-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="fu">exp</span>(logweight), height), <span class="at">data =</span> d, <span class="at">color =</span> <span class="st">&#39;lightblue&#39;</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span> </span>
+<span id="cb22-12"><a href="homework-week-2.html#cb22-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="fu">exp</span>(logweight), meanheight))</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 <p>Using the dlnorm, prior of a Log normal distribution on beta</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="homework-week-2.html#cb25-1" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">quap</span>(</span>
-<span id="cb25-2"><a href="homework-week-2.html#cb25-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">alist</span>(</span>
-<span id="cb25-3"><a href="homework-week-2.html#cb25-3" aria-hidden="true" tabindex="-1"></a>        height <span class="sc">~</span> <span class="fu">dnorm</span>(mu, sigma),</span>
-<span id="cb25-4"><a href="homework-week-2.html#cb25-4" aria-hidden="true" tabindex="-1"></a>        mu <span class="ot">&lt;-</span> a <span class="sc">+</span> b <span class="sc">*</span> (logweight <span class="sc">-</span> <span class="fu">mean</span>(d<span class="sc">$</span>logweight)),</span>
-<span id="cb25-5"><a href="homework-week-2.html#cb25-5" aria-hidden="true" tabindex="-1"></a>        a <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">178</span>, <span class="dv">20</span>),</span>
-<span id="cb25-6"><a href="homework-week-2.html#cb25-6" aria-hidden="true" tabindex="-1"></a>        b <span class="sc">~</span> <span class="fu">dlnorm</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
-<span id="cb25-7"><a href="homework-week-2.html#cb25-7" aria-hidden="true" tabindex="-1"></a>        sigma <span class="sc">~</span> <span class="fu">dunif</span>(<span class="dv">0</span>, <span class="dv">50</span>)</span>
-<span id="cb25-8"><a href="homework-week-2.html#cb25-8" aria-hidden="true" tabindex="-1"></a>    ), </span>
-<span id="cb25-9"><a href="homework-week-2.html#cb25-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> d</span>
-<span id="cb25-10"><a href="homework-week-2.html#cb25-10" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb25-11"><a href="homework-week-2.html#cb25-11" aria-hidden="true" tabindex="-1"></a>sim_x <span class="ot">&lt;-</span> <span class="fu">log</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">60</span>)</span>
-<span id="cb25-12"><a href="homework-week-2.html#cb25-12" aria-hidden="true" tabindex="-1"></a>simmed <span class="ot">&lt;-</span> <span class="fu">sim</span>(m2, <span class="fu">list</span>(<span class="at">logweight =</span> sim_x))</span>
-<span id="cb25-13"><a href="homework-week-2.html#cb25-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-14"><a href="homework-week-2.html#cb25-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Tidy</span></span>
-<span id="cb25-15"><a href="homework-week-2.html#cb25-15" aria-hidden="true" tabindex="-1"></a>DT <span class="ot">&lt;-</span> <span class="fu">melt</span>(<span class="fu">as.data.table</span>(simmed), <span class="at">value.name =</span> <span class="st">&#39;height&#39;</span>, <span class="at">variable.name =</span> <span class="st">&#39;x&#39;</span>)</span></code></pre></div>
-<pre><code>## Warning in melt.data.table(as.data.table(simmed), value.name = &quot;height&quot;, :
-## id.vars and measure.vars are internally guessed when both are &#39;NULL&#39;. All
-## non-numeric/integer/logical type columns are considered id.vars, which in this
-## case are columns []. Consider providing at least one of &#39;id&#39; or &#39;measure&#39; vars in
-## future.</code></pre>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="homework-week-2.html#cb27-1" aria-hidden="true" tabindex="-1"></a>DT[<span class="fu">data.table</span>(sim_x, <span class="at">x =</span> <span class="fu">paste0</span>(<span class="st">&#39;V&#39;</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">60</span>)),</span>
-<span id="cb27-2"><a href="homework-week-2.html#cb27-2" aria-hidden="true" tabindex="-1"></a>     logweight <span class="sc">:</span><span class="er">=</span> sim_x,</span>
-<span id="cb27-3"><a href="homework-week-2.html#cb27-3" aria-hidden="true" tabindex="-1"></a>     on <span class="ot">=</span> <span class="st">&#39;x&#39;</span>]</span>
-<span id="cb27-4"><a href="homework-week-2.html#cb27-4" aria-hidden="true" tabindex="-1"></a>DT[, meanheight <span class="sc">:</span><span class="er">=</span> <span class="fu">mean</span>(height), by <span class="ot">=</span> logweight]</span>
-<span id="cb27-5"><a href="homework-week-2.html#cb27-5" aria-hidden="true" tabindex="-1"></a>DT[, low <span class="sc">:</span><span class="er">=</span> <span class="fu">PI</span>(height)[<span class="dv">1</span>], by <span class="ot">=</span> logweight]</span>
-<span id="cb27-6"><a href="homework-week-2.html#cb27-6" aria-hidden="true" tabindex="-1"></a>DT[, high <span class="sc">:</span><span class="er">=</span> <span class="fu">PI</span>(height)[<span class="dv">2</span>], by <span class="ot">=</span> logweight]</span>
-<span id="cb27-7"><a href="homework-week-2.html#cb27-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-8"><a href="homework-week-2.html#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
-<span id="cb27-9"><a href="homework-week-2.html#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(DT) <span class="sc">+</span> </span>
-<span id="cb27-10"><a href="homework-week-2.html#cb27-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">exp</span>(logweight), <span class="at">ymin =</span> low, <span class="at">ymax =</span> high), <span class="at">fill =</span> <span class="st">&#39;grey&#39;</span>) <span class="sc">+</span> </span>
-<span id="cb27-11"><a href="homework-week-2.html#cb27-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="fu">exp</span>(logweight), height), <span class="at">data =</span> d, <span class="at">color =</span> <span class="st">&#39;lightblue&#39;</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span> </span>
-<span id="cb27-12"><a href="homework-week-2.html#cb27-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="fu">exp</span>(logweight), meanheight))</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="homework-week-2.html#cb23-1" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">quap</span>(</span>
+<span id="cb23-2"><a href="homework-week-2.html#cb23-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">alist</span>(</span>
+<span id="cb23-3"><a href="homework-week-2.html#cb23-3" aria-hidden="true" tabindex="-1"></a>        height <span class="sc">~</span> <span class="fu">dnorm</span>(mu, sigma),</span>
+<span id="cb23-4"><a href="homework-week-2.html#cb23-4" aria-hidden="true" tabindex="-1"></a>        mu <span class="ot">&lt;-</span> a <span class="sc">+</span> b <span class="sc">*</span> (logweight <span class="sc">-</span> <span class="fu">mean</span>(d<span class="sc">$</span>logweight)),</span>
+<span id="cb23-5"><a href="homework-week-2.html#cb23-5" aria-hidden="true" tabindex="-1"></a>        a <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">178</span>, <span class="dv">20</span>),</span>
+<span id="cb23-6"><a href="homework-week-2.html#cb23-6" aria-hidden="true" tabindex="-1"></a>        b <span class="sc">~</span> <span class="fu">dlnorm</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb23-7"><a href="homework-week-2.html#cb23-7" aria-hidden="true" tabindex="-1"></a>        sigma <span class="sc">~</span> <span class="fu">dunif</span>(<span class="dv">0</span>, <span class="dv">50</span>)</span>
+<span id="cb23-8"><a href="homework-week-2.html#cb23-8" aria-hidden="true" tabindex="-1"></a>    ), </span>
+<span id="cb23-9"><a href="homework-week-2.html#cb23-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> d</span>
+<span id="cb23-10"><a href="homework-week-2.html#cb23-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb23-11"><a href="homework-week-2.html#cb23-11" aria-hidden="true" tabindex="-1"></a>sim_x <span class="ot">&lt;-</span> <span class="fu">log</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">60</span>)</span>
+<span id="cb23-12"><a href="homework-week-2.html#cb23-12" aria-hidden="true" tabindex="-1"></a>simmed <span class="ot">&lt;-</span> <span class="fu">sim</span>(m2, <span class="fu">list</span>(<span class="at">logweight =</span> sim_x))</span>
+<span id="cb23-13"><a href="homework-week-2.html#cb23-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-14"><a href="homework-week-2.html#cb23-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Tidy</span></span>
+<span id="cb23-15"><a href="homework-week-2.html#cb23-15" aria-hidden="true" tabindex="-1"></a>DT <span class="ot">&lt;-</span> <span class="fu">melt</span>(<span class="fu">as.data.table</span>(simmed), <span class="at">value.name =</span> <span class="st">&#39;height&#39;</span>, <span class="at">variable.name =</span> <span class="st">&#39;x&#39;</span>)</span></code></pre></div>
+<pre><code>## Warning in
+## melt.data.table(as.data.table(simmed),
+## value.name = &quot;height&quot;, : id.vars
+## and measure.vars are internally
+## guessed when both are &#39;NULL&#39;. All
+## non-numeric/integer/logical type
+## columns are considered id.vars, which
+## in this case are columns []. Consider
+## providing at least one of &#39;id&#39; or
+## &#39;measure&#39; vars in future.</code></pre>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="homework-week-2.html#cb25-1" aria-hidden="true" tabindex="-1"></a>DT[<span class="fu">data.table</span>(sim_x, <span class="at">x =</span> <span class="fu">paste0</span>(<span class="st">&#39;V&#39;</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">60</span>)),</span>
+<span id="cb25-2"><a href="homework-week-2.html#cb25-2" aria-hidden="true" tabindex="-1"></a>     logweight <span class="sc">:</span><span class="er">=</span> sim_x,</span>
+<span id="cb25-3"><a href="homework-week-2.html#cb25-3" aria-hidden="true" tabindex="-1"></a>     on <span class="ot">=</span> <span class="st">&#39;x&#39;</span>]</span>
+<span id="cb25-4"><a href="homework-week-2.html#cb25-4" aria-hidden="true" tabindex="-1"></a>DT[, meanheight <span class="sc">:</span><span class="er">=</span> <span class="fu">mean</span>(height), by <span class="ot">=</span> logweight]</span>
+<span id="cb25-5"><a href="homework-week-2.html#cb25-5" aria-hidden="true" tabindex="-1"></a>DT[, low <span class="sc">:</span><span class="er">=</span> <span class="fu">PI</span>(height)[<span class="dv">1</span>], by <span class="ot">=</span> logweight]</span>
+<span id="cb25-6"><a href="homework-week-2.html#cb25-6" aria-hidden="true" tabindex="-1"></a>DT[, high <span class="sc">:</span><span class="er">=</span> <span class="fu">PI</span>(height)[<span class="dv">2</span>], by <span class="ot">=</span> logweight]</span>
+<span id="cb25-7"><a href="homework-week-2.html#cb25-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-8"><a href="homework-week-2.html#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb25-9"><a href="homework-week-2.html#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(DT) <span class="sc">+</span> </span>
+<span id="cb25-10"><a href="homework-week-2.html#cb25-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">exp</span>(logweight), <span class="at">ymin =</span> low, <span class="at">ymax =</span> high), <span class="at">fill =</span> <span class="st">&#39;grey&#39;</span>) <span class="sc">+</span> </span>
+<span id="cb25-11"><a href="homework-week-2.html#cb25-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="fu">exp</span>(logweight), height), <span class="at">data =</span> d, <span class="at">color =</span> <span class="st">&#39;lightblue&#39;</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span> </span>
+<span id="cb25-12"><a href="homework-week-2.html#cb25-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="fu">exp</span>(logweight), meanheight))</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 </div>
 <div id="homework-question-3" class="section level2" number="3.3">
 <h2><span class="header-section-number">3.3</span> Homework: Question 3</h2>
 <p>Set up:</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="homework-week-2.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
-<span id="cb28-2"><a href="homework-week-2.html#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
-<span id="cb28-3"><a href="homework-week-2.html#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb28-4"><a href="homework-week-2.html#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidybayes)</span>
-<span id="cb28-5"><a href="homework-week-2.html#cb28-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-6"><a href="homework-week-2.html#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_bw</span>())</span>
-<span id="cb28-7"><a href="homework-week-2.html#cb28-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-8"><a href="homework-week-2.html#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(Howell1)</span>
-<span id="cb28-9"><a href="homework-week-2.html#cb28-9" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> Howell1</span>
-<span id="cb28-10"><a href="homework-week-2.html#cb28-10" aria-hidden="true" tabindex="-1"></a>d<span class="sc">$</span>weight_s <span class="ot">&lt;-</span> <span class="fu">scale</span>(d<span class="sc">$</span>weight)</span>
-<span id="cb28-11"><a href="homework-week-2.html#cb28-11" aria-hidden="true" tabindex="-1"></a>d<span class="sc">$</span>weight_s2 <span class="ot">&lt;-</span> <span class="fu">scale</span>(d<span class="sc">$</span>weight) <span class="sc">^</span> <span class="dv">2</span></span>
-<span id="cb28-12"><a href="homework-week-2.html#cb28-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-13"><a href="homework-week-2.html#cb28-13" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">quap</span>(</span>
-<span id="cb28-14"><a href="homework-week-2.html#cb28-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">alist</span>(</span>
-<span id="cb28-15"><a href="homework-week-2.html#cb28-15" aria-hidden="true" tabindex="-1"></a>        height <span class="sc">~</span> <span class="fu">dnorm</span>(mu, sigma),</span>
-<span id="cb28-16"><a href="homework-week-2.html#cb28-16" aria-hidden="true" tabindex="-1"></a>        mu <span class="sc">~</span> a <span class="sc">+</span> b1 <span class="sc">*</span> weight_s <span class="sc">+</span> b2 <span class="sc">*</span> weight_s2,</span>
-<span id="cb28-17"><a href="homework-week-2.html#cb28-17" aria-hidden="true" tabindex="-1"></a>        a <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">178</span>, <span class="dv">20</span>),</span>
-<span id="cb28-18"><a href="homework-week-2.html#cb28-18" aria-hidden="true" tabindex="-1"></a>        b1 <span class="sc">~</span> <span class="fu">dlnorm</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
-<span id="cb28-19"><a href="homework-week-2.html#cb28-19" aria-hidden="true" tabindex="-1"></a>        b2 <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
-<span id="cb28-20"><a href="homework-week-2.html#cb28-20" aria-hidden="true" tabindex="-1"></a>        sigma <span class="sc">~</span> <span class="fu">dunif</span>(<span class="dv">0</span>, <span class="dv">50</span>)</span>
-<span id="cb28-21"><a href="homework-week-2.html#cb28-21" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb28-22"><a href="homework-week-2.html#cb28-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> d</span>
-<span id="cb28-23"><a href="homework-week-2.html#cb28-23" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb28-24"><a href="homework-week-2.html#cb28-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-25"><a href="homework-week-2.html#cb28-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-26"><a href="homework-week-2.html#cb28-26" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">20</span></span>
-<span id="cb28-27"><a href="homework-week-2.html#cb28-27" aria-hidden="true" tabindex="-1"></a>sim_x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(d<span class="sc">$</span>weight_s), <span class="fu">max</span>(d<span class="sc">$</span>weight_s), <span class="at">length.out =</span> n)</span>
-<span id="cb28-28"><a href="homework-week-2.html#cb28-28" aria-hidden="true" tabindex="-1"></a>linked <span class="ot">&lt;-</span> <span class="fu">link</span>(</span>
-<span id="cb28-29"><a href="homework-week-2.html#cb28-29" aria-hidden="true" tabindex="-1"></a>    m,</span>
-<span id="cb28-30"><a href="homework-week-2.html#cb28-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> <span class="fu">list</span>(<span class="at">weight_s =</span> sim_x, <span class="at">weight_s2 =</span> sim_x <span class="sc">^</span> <span class="dv">2</span>),</span>
-<span id="cb28-31"><a href="homework-week-2.html#cb28-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">post =</span> <span class="fu">extract.prior</span>(m)</span>
-<span id="cb28-32"><a href="homework-week-2.html#cb28-32" aria-hidden="true" tabindex="-1"></a>)[<span class="dv">1</span><span class="sc">:</span><span class="dv">50</span>,]</span>
-<span id="cb28-33"><a href="homework-week-2.html#cb28-33" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="cn">NULL</span>, <span class="at">xlim =</span> <span class="fu">range</span>(sim_x), <span class="at">ylim =</span> <span class="fu">range</span>(linked) <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="dv">10</span>))</span>
-<span id="cb28-34"><a href="homework-week-2.html#cb28-34" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(linked, <span class="dv">1</span>, <span class="at">FUN =</span> <span class="cf">function</span>(x) <span class="fu">lines</span>(sim_x, x))</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="homework-week-2.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
+<span id="cb26-2"><a href="homework-week-2.html#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
+<span id="cb26-3"><a href="homework-week-2.html#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb26-4"><a href="homework-week-2.html#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidybayes)</span>
+<span id="cb26-5"><a href="homework-week-2.html#cb26-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-6"><a href="homework-week-2.html#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_bw</span>())</span>
+<span id="cb26-7"><a href="homework-week-2.html#cb26-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-8"><a href="homework-week-2.html#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(Howell1)</span>
+<span id="cb26-9"><a href="homework-week-2.html#cb26-9" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> Howell1</span>
+<span id="cb26-10"><a href="homework-week-2.html#cb26-10" aria-hidden="true" tabindex="-1"></a>d<span class="sc">$</span>weight_s <span class="ot">&lt;-</span> <span class="fu">scale</span>(d<span class="sc">$</span>weight)</span>
+<span id="cb26-11"><a href="homework-week-2.html#cb26-11" aria-hidden="true" tabindex="-1"></a>d<span class="sc">$</span>weight_s2 <span class="ot">&lt;-</span> <span class="fu">scale</span>(d<span class="sc">$</span>weight) <span class="sc">^</span> <span class="dv">2</span></span>
+<span id="cb26-12"><a href="homework-week-2.html#cb26-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-13"><a href="homework-week-2.html#cb26-13" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">quap</span>(</span>
+<span id="cb26-14"><a href="homework-week-2.html#cb26-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">alist</span>(</span>
+<span id="cb26-15"><a href="homework-week-2.html#cb26-15" aria-hidden="true" tabindex="-1"></a>        height <span class="sc">~</span> <span class="fu">dnorm</span>(mu, sigma),</span>
+<span id="cb26-16"><a href="homework-week-2.html#cb26-16" aria-hidden="true" tabindex="-1"></a>        mu <span class="sc">~</span> a <span class="sc">+</span> b1 <span class="sc">*</span> weight_s <span class="sc">+</span> b2 <span class="sc">*</span> weight_s2,</span>
+<span id="cb26-17"><a href="homework-week-2.html#cb26-17" aria-hidden="true" tabindex="-1"></a>        a <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">178</span>, <span class="dv">20</span>),</span>
+<span id="cb26-18"><a href="homework-week-2.html#cb26-18" aria-hidden="true" tabindex="-1"></a>        b1 <span class="sc">~</span> <span class="fu">dlnorm</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb26-19"><a href="homework-week-2.html#cb26-19" aria-hidden="true" tabindex="-1"></a>        b2 <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb26-20"><a href="homework-week-2.html#cb26-20" aria-hidden="true" tabindex="-1"></a>        sigma <span class="sc">~</span> <span class="fu">dunif</span>(<span class="dv">0</span>, <span class="dv">50</span>)</span>
+<span id="cb26-21"><a href="homework-week-2.html#cb26-21" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb26-22"><a href="homework-week-2.html#cb26-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> d</span>
+<span id="cb26-23"><a href="homework-week-2.html#cb26-23" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb26-24"><a href="homework-week-2.html#cb26-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-25"><a href="homework-week-2.html#cb26-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-26"><a href="homework-week-2.html#cb26-26" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb26-27"><a href="homework-week-2.html#cb26-27" aria-hidden="true" tabindex="-1"></a>sim_x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(d<span class="sc">$</span>weight_s), <span class="fu">max</span>(d<span class="sc">$</span>weight_s), <span class="at">length.out =</span> n)</span>
+<span id="cb26-28"><a href="homework-week-2.html#cb26-28" aria-hidden="true" tabindex="-1"></a>linked <span class="ot">&lt;-</span> <span class="fu">link</span>(</span>
+<span id="cb26-29"><a href="homework-week-2.html#cb26-29" aria-hidden="true" tabindex="-1"></a>    m,</span>
+<span id="cb26-30"><a href="homework-week-2.html#cb26-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> <span class="fu">list</span>(<span class="at">weight_s =</span> sim_x, <span class="at">weight_s2 =</span> sim_x <span class="sc">^</span> <span class="dv">2</span>),</span>
+<span id="cb26-31"><a href="homework-week-2.html#cb26-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">post =</span> <span class="fu">extract.prior</span>(m)</span>
+<span id="cb26-32"><a href="homework-week-2.html#cb26-32" aria-hidden="true" tabindex="-1"></a>)[<span class="dv">1</span><span class="sc">:</span><span class="dv">50</span>,]</span>
+<span id="cb26-33"><a href="homework-week-2.html#cb26-33" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="cn">NULL</span>, <span class="at">xlim =</span> <span class="fu">range</span>(sim_x), <span class="at">ylim =</span> <span class="fu">range</span>(linked) <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="dv">10</span>))</span>
+<span id="cb26-34"><a href="homework-week-2.html#cb26-34" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(linked, <span class="dv">1</span>, <span class="at">FUN =</span> <span class="cf">function</span>(x) <span class="fu">lines</span>(sim_x, x))</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <pre><code>## NULL</code></pre>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="homework-week-2.html#cb30-1" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">quap</span>(</span>
-<span id="cb30-2"><a href="homework-week-2.html#cb30-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">alist</span>(</span>
-<span id="cb30-3"><a href="homework-week-2.html#cb30-3" aria-hidden="true" tabindex="-1"></a>        height <span class="sc">~</span> <span class="fu">dnorm</span>(mu, sigma),</span>
-<span id="cb30-4"><a href="homework-week-2.html#cb30-4" aria-hidden="true" tabindex="-1"></a>        mu <span class="sc">~</span> a <span class="sc">+</span> b1 <span class="sc">*</span> weight_s <span class="sc">+</span> b2 <span class="sc">*</span> weight_s2,</span>
-<span id="cb30-5"><a href="homework-week-2.html#cb30-5" aria-hidden="true" tabindex="-1"></a>        a <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">178</span>, <span class="dv">20</span>),</span>
-<span id="cb30-6"><a href="homework-week-2.html#cb30-6" aria-hidden="true" tabindex="-1"></a>        b1 <span class="sc">~</span> <span class="fu">dlnorm</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
-<span id="cb30-7"><a href="homework-week-2.html#cb30-7" aria-hidden="true" tabindex="-1"></a>        b2 <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="dv">10</span>),</span>
-<span id="cb30-8"><a href="homework-week-2.html#cb30-8" aria-hidden="true" tabindex="-1"></a>        sigma <span class="sc">~</span> <span class="fu">dunif</span>(<span class="dv">0</span>, <span class="dv">50</span>)</span>
-<span id="cb30-9"><a href="homework-week-2.html#cb30-9" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb30-10"><a href="homework-week-2.html#cb30-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> d</span>
-<span id="cb30-11"><a href="homework-week-2.html#cb30-11" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb30-12"><a href="homework-week-2.html#cb30-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-13"><a href="homework-week-2.html#cb30-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-14"><a href="homework-week-2.html#cb30-14" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">20</span></span>
-<span id="cb30-15"><a href="homework-week-2.html#cb30-15" aria-hidden="true" tabindex="-1"></a>sim_x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(d<span class="sc">$</span>weight_s), <span class="fu">max</span>(d<span class="sc">$</span>weight_s), <span class="at">length.out =</span> n)</span>
-<span id="cb30-16"><a href="homework-week-2.html#cb30-16" aria-hidden="true" tabindex="-1"></a>linked <span class="ot">&lt;-</span> <span class="fu">link</span>(</span>
-<span id="cb30-17"><a href="homework-week-2.html#cb30-17" aria-hidden="true" tabindex="-1"></a>    m,</span>
-<span id="cb30-18"><a href="homework-week-2.html#cb30-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> <span class="fu">list</span>(<span class="at">weight_s =</span> sim_x, <span class="at">weight_s2 =</span> sim_x <span class="sc">^</span> <span class="dv">2</span>),</span>
-<span id="cb30-19"><a href="homework-week-2.html#cb30-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">post =</span> <span class="fu">extract.prior</span>(m)</span>
-<span id="cb30-20"><a href="homework-week-2.html#cb30-20" aria-hidden="true" tabindex="-1"></a>)[<span class="dv">1</span><span class="sc">:</span><span class="dv">50</span>,]</span>
-<span id="cb30-21"><a href="homework-week-2.html#cb30-21" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="cn">NULL</span>, <span class="at">xlim =</span> <span class="fu">range</span>(sim_x), <span class="at">ylim =</span> <span class="fu">range</span>(linked) <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="dv">10</span>))</span>
-<span id="cb30-22"><a href="homework-week-2.html#cb30-22" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(linked, <span class="dv">1</span>, <span class="at">FUN =</span> <span class="cf">function</span>(x) <span class="fu">lines</span>(sim_x, x))</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="homework-week-2.html#cb28-1" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">quap</span>(</span>
+<span id="cb28-2"><a href="homework-week-2.html#cb28-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">alist</span>(</span>
+<span id="cb28-3"><a href="homework-week-2.html#cb28-3" aria-hidden="true" tabindex="-1"></a>        height <span class="sc">~</span> <span class="fu">dnorm</span>(mu, sigma),</span>
+<span id="cb28-4"><a href="homework-week-2.html#cb28-4" aria-hidden="true" tabindex="-1"></a>        mu <span class="sc">~</span> a <span class="sc">+</span> b1 <span class="sc">*</span> weight_s <span class="sc">+</span> b2 <span class="sc">*</span> weight_s2,</span>
+<span id="cb28-5"><a href="homework-week-2.html#cb28-5" aria-hidden="true" tabindex="-1"></a>        a <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">178</span>, <span class="dv">20</span>),</span>
+<span id="cb28-6"><a href="homework-week-2.html#cb28-6" aria-hidden="true" tabindex="-1"></a>        b1 <span class="sc">~</span> <span class="fu">dlnorm</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb28-7"><a href="homework-week-2.html#cb28-7" aria-hidden="true" tabindex="-1"></a>        b2 <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="dv">10</span>),</span>
+<span id="cb28-8"><a href="homework-week-2.html#cb28-8" aria-hidden="true" tabindex="-1"></a>        sigma <span class="sc">~</span> <span class="fu">dunif</span>(<span class="dv">0</span>, <span class="dv">50</span>)</span>
+<span id="cb28-9"><a href="homework-week-2.html#cb28-9" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb28-10"><a href="homework-week-2.html#cb28-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> d</span>
+<span id="cb28-11"><a href="homework-week-2.html#cb28-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb28-12"><a href="homework-week-2.html#cb28-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-13"><a href="homework-week-2.html#cb28-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-14"><a href="homework-week-2.html#cb28-14" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb28-15"><a href="homework-week-2.html#cb28-15" aria-hidden="true" tabindex="-1"></a>sim_x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(d<span class="sc">$</span>weight_s), <span class="fu">max</span>(d<span class="sc">$</span>weight_s), <span class="at">length.out =</span> n)</span>
+<span id="cb28-16"><a href="homework-week-2.html#cb28-16" aria-hidden="true" tabindex="-1"></a>linked <span class="ot">&lt;-</span> <span class="fu">link</span>(</span>
+<span id="cb28-17"><a href="homework-week-2.html#cb28-17" aria-hidden="true" tabindex="-1"></a>    m,</span>
+<span id="cb28-18"><a href="homework-week-2.html#cb28-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> <span class="fu">list</span>(<span class="at">weight_s =</span> sim_x, <span class="at">weight_s2 =</span> sim_x <span class="sc">^</span> <span class="dv">2</span>),</span>
+<span id="cb28-19"><a href="homework-week-2.html#cb28-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">post =</span> <span class="fu">extract.prior</span>(m)</span>
+<span id="cb28-20"><a href="homework-week-2.html#cb28-20" aria-hidden="true" tabindex="-1"></a>)[<span class="dv">1</span><span class="sc">:</span><span class="dv">50</span>,]</span>
+<span id="cb28-21"><a href="homework-week-2.html#cb28-21" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="cn">NULL</span>, <span class="at">xlim =</span> <span class="fu">range</span>(sim_x), <span class="at">ylim =</span> <span class="fu">range</span>(linked) <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="dv">10</span>))</span>
+<span id="cb28-22"><a href="homework-week-2.html#cb28-22" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(linked, <span class="dv">1</span>, <span class="at">FUN =</span> <span class="cf">function</span>(x) <span class="fu">lines</span>(sim_x, x))</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 <pre><code>## NULL</code></pre>
 
