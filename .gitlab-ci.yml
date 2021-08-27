@@ -8,4 +8,4 @@ pages:
     paths:
     - docs
   only:
-  - master
+  - main
