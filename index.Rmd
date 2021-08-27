@@ -13,6 +13,8 @@ documentclass: book
 ```
 
 
+## Seed
+
 ```{r}
 set.seed(42)
 ```

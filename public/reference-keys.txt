@@ -1,6 +1,7 @@
 overview
 links
 adaptations
+seed
 homework-week-1
 variables
 joint-model
