@@ -1,18 +1,18 @@
 ---
-title: "Week 2"
 author: "Alec L. Robitaille"
-date: "2021-08-24 [updated: `r Sys.Date()`]"
 output: github_document
 editor_options: 
   chunk_output_type: console
 ---
 
 
-```{r setup, include=FALSE}
+```{r, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(rethinking)
 ```
 
+# Homework: Week 2
+2021-08-24 [updated: `r Sys.Date()`]
 
 ## Question 1
 The weights listed below were recorded in the !Kung census, but heights were not
@@ -171,7 +171,7 @@ ggplot(DT) +
 
 
 
-## Question 3
+## Homework: Question 3
 
 Set up:
 

@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Learning bayesian data analysis with Statistical Rethinking</title>
+  <meta name="description" content="Learning bayesian data analysis with Statistical Rethinking" />
+  <meta name="generator" content="bookdown 0.22.15 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Learning bayesian data analysis with Statistical Rethinking" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Learning bayesian data analysis with Statistical Rethinking" />
+  
+  
+  
+
+<meta name="author" content="Alec L. Robitaille" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+
+<link rel="next" href="homework-week-1.html"/>
+<script src="libs/header-attrs-2.9.5/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Overview</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#links"><i class="fa fa-check"></i><b>1.1</b> Links</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="index.html"><a href="index.html#adaptations"><i class="fa fa-check"></i><b>1.1.1</b> Adaptations</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="homework-week-1.html"><a href="homework-week-1.html"><i class="fa fa-check"></i><b>2</b> Homework: Week 1</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="homework-week-1.html"><a href="homework-week-1.html#variables"><i class="fa fa-check"></i><b>2.1</b> Variables</a></li>
+<li class="chapter" data-level="2.2" data-path="homework-week-1.html"><a href="homework-week-1.html#joint-model"><i class="fa fa-check"></i><b>2.2</b> Joint model</a></li>
+<li class="chapter" data-level="2.3" data-path="homework-week-1.html"><a href="homework-week-1.html#question-1"><i class="fa fa-check"></i><b>2.3</b> Question 1</a></li>
+<li class="chapter" data-level="2.4" data-path="homework-week-1.html"><a href="homework-week-1.html#question-2"><i class="fa fa-check"></i><b>2.4</b> Question 2</a></li>
+<li class="chapter" data-level="2.5" data-path="homework-week-1.html"><a href="homework-week-1.html#question-3"><i class="fa fa-check"></i><b>2.5</b> Question 3</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="homework-week-2.html"><a href="homework-week-2.html"><i class="fa fa-check"></i><b>3</b> Homework: Week 2</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="homework-week-2.html"><a href="homework-week-2.html#question-1-1"><i class="fa fa-check"></i><b>3.1</b> Question 1</a></li>
+<li class="chapter" data-level="3.2" data-path="homework-week-2.html"><a href="homework-week-2.html#question-2-1"><i class="fa fa-check"></i><b>3.2</b> Question 2</a></li>
+<li class="chapter" data-level="3.3" data-path="homework-week-2.html"><a href="homework-week-2.html#homework-question-3"><i class="fa fa-check"></i><b>3.3</b> Homework: Question 3</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="homework-week-3.html"><a href="homework-week-3.html"><i class="fa fa-check"></i><b>4</b> Homework: Week 3</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="homework-week-3.html"><a href="homework-week-3.html#overview-1"><i class="fa fa-check"></i><b>4.1</b> Overview</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="homework-week-3.html"><a href="homework-week-3.html#setup-dag"><i class="fa fa-check"></i><b>4.1.1</b> Setup DAG</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="homework-week-3.html"><a href="homework-week-3.html#question-1-2"><i class="fa fa-check"></i><b>4.2</b> Question 1</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="homework-week-3.html"><a href="homework-week-3.html#workings"><i class="fa fa-check"></i><b>4.2.1</b> Workings</a></li>
+<li class="chapter" data-level="4.2.2" data-path="homework-week-3.html"><a href="homework-week-3.html#model"><i class="fa fa-check"></i><b>4.2.2</b> Model</a></li>
+<li class="chapter" data-level="4.2.3" data-path="homework-week-3.html"><a href="homework-week-3.html#prior-predictive-simulation"><i class="fa fa-check"></i><b>4.2.3</b> Prior predictive simulation</a></li>
+<li class="chapter" data-level="4.2.4" data-path="homework-week-3.html"><a href="homework-week-3.html#paths"><i class="fa fa-check"></i><b>4.2.4</b> Paths</a></li>
+<li class="chapter" data-level="4.2.5" data-path="homework-week-3.html"><a href="homework-week-3.html#interpretation"><i class="fa fa-check"></i><b>4.2.5</b> Interpretation</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="homework-week-3.html"><a href="homework-week-3.html#question-2-2"><i class="fa fa-check"></i><b>4.3</b> Question 2</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="homework-week-3.html"><a href="homework-week-3.html#model-1"><i class="fa fa-check"></i><b>4.3.1</b> Model</a></li>
+<li class="chapter" data-level="4.3.2" data-path="homework-week-3.html"><a href="homework-week-3.html#interpretation-1"><i class="fa fa-check"></i><b>4.3.2</b> Interpretation</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="homework-week-3.html"><a href="homework-week-3.html#question-3-1"><i class="fa fa-check"></i><b>4.4</b> Question 3</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="lecture-01.html"><a href="lecture-01.html"><i class="fa fa-check"></i><b>5</b> Lecture 01</a>
+<ul>
+<li class="chapter" data-level="5.0.1" data-path="lecture-01.html"><a href="lecture-01.html#popper"><i class="fa fa-check"></i><b>5.0.1</b> Popper</a></li>
+<li class="chapter" data-level="5.0.2" data-path="lecture-01.html"><a href="lecture-01.html#approach"><i class="fa fa-check"></i><b>5.0.2</b> Approach</a></li>
+<li class="chapter" data-level="5.1" data-path="lecture-01.html"><a href="lecture-01.html#hypotheses---process-models---statistical-models"><i class="fa fa-check"></i><b>5.1</b> Hypotheses - Process Models - Statistical Models</a></li>
+<li class="chapter" data-level="5.2" data-path="lecture-01.html"><a href="lecture-01.html#small-world-large-world"><i class="fa fa-check"></i><b>5.2</b> Small world / large world</a></li>
+<li class="chapter" data-level="5.3" data-path="lecture-01.html"><a href="lecture-01.html#example-four-marbles"><i class="fa fa-check"></i><b>5.3</b> Example: four marbles</a></li>
+<li class="chapter" data-level="5.4" data-path="lecture-01.html"><a href="lecture-01.html#building-a-model"><i class="fa fa-check"></i><b>5.4</b> Building a model</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="lecture-02.html"><a href="lecture-02.html"><i class="fa fa-check"></i><b>6</b> Lecture 02</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="lecture-02.html"><a href="lecture-02.html#joint-prior-distribution"><i class="fa fa-check"></i><b>6.1</b> Joint prior distribution</a></li>
+<li class="chapter" data-level="6.2" data-path="lecture-02.html"><a href="lecture-02.html#example-inflatable-world"><i class="fa fa-check"></i><b>6.2</b> Example: inflatable world</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="lecture-02.html"><a href="lecture-02.html#design-the-model"><i class="fa fa-check"></i><b>6.2.1</b> <strong>Design the model</strong></a></li>
+<li class="chapter" data-level="6.2.2" data-path="lecture-02.html"><a href="lecture-02.html#condition"><i class="fa fa-check"></i><b>6.2.2</b> <strong>Condition</strong></a></li>
+<li class="chapter" data-level="6.2.3" data-path="lecture-02.html"><a href="lecture-02.html#evaluate"><i class="fa fa-check"></i><b>6.2.3</b> <strong>Evaluate</strong></a></li>
+<li class="chapter" data-level="6.2.4" data-path="lecture-02.html"><a href="lecture-02.html#define-parameters"><i class="fa fa-check"></i><b>6.2.4</b> Define parameters</a></li>
+<li class="chapter" data-level="6.2.5" data-path="lecture-02.html"><a href="lecture-02.html#joint-model-1"><i class="fa fa-check"></i><b>6.2.5</b> Joint model</a></li>
+<li class="chapter" data-level="6.2.6" data-path="lecture-02.html"><a href="lecture-02.html#posterior"><i class="fa fa-check"></i><b>6.2.6</b> Posterior</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="lecture-02.html"><a href="lecture-02.html#grid-approximation"><i class="fa fa-check"></i><b>6.3</b> Grid approximation</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="lecture-02.html"><a href="lecture-02.html#sampling-from-the-posterior"><i class="fa fa-check"></i><b>6.3.1</b> Sampling from the posterior</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="lecture-03.html"><a href="lecture-03.html"><i class="fa fa-check"></i><b>7</b> Lecture 03</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="lecture-03.html"><a href="lecture-03.html#regressions"><i class="fa fa-check"></i><b>7.1</b> Regressions</a></li>
+<li class="chapter" data-level="7.2" data-path="lecture-03.html"><a href="lecture-03.html#normal-distributions"><i class="fa fa-check"></i><b>7.2</b> Normal distributions</a></li>
+<li class="chapter" data-level="7.3" data-path="lecture-03.html"><a href="lecture-03.html#prior-predictive-distributions"><i class="fa fa-check"></i><b>7.3</b> Prior predictive distributions</a></li>
+<li class="chapter" data-level="7.4" data-path="lecture-03.html"><a href="lecture-03.html#quadratic-approximate"><i class="fa fa-check"></i><b>7.4</b> Quadratic approximate</a></li>
+<li class="chapter" data-level="7.5" data-path="lecture-03.html"><a href="lecture-03.html#centering-variables"><i class="fa fa-check"></i><b>7.5</b> Centering variables</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="lecture-04.html"><a href="lecture-04.html"><i class="fa fa-check"></i><b>8</b> Lecture 04</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="lecture-04.html"><a href="lecture-04.html#standardizing-variables"><i class="fa fa-check"></i><b>8.1</b> Standardizing variables</a></li>
+<li class="chapter" data-level="8.2" data-path="lecture-04.html"><a href="lecture-04.html#plotting-uncertainty---sample-from-posterior"><i class="fa fa-check"></i><b>8.2</b> Plotting uncertainty - sample from posterior</a></li>
+<li class="chapter" data-level="8.3" data-path="lecture-04.html"><a href="lecture-04.html#polynomials"><i class="fa fa-check"></i><b>8.3</b> Polynomials</a></li>
+<li class="chapter" data-level="8.4" data-path="lecture-04.html"><a href="lecture-04.html#splines"><i class="fa fa-check"></i><b>8.4</b> Splines</a></li>
+<li class="chapter" data-level="8.5" data-path="lecture-04.html"><a href="lecture-04.html#basis-splines"><i class="fa fa-check"></i><b>8.5</b> Basis splines</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="lecture-04.html"><a href="lecture-04.html#recipe"><i class="fa fa-check"></i><b>8.5.1</b> Recipe</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="lecture-05.html"><a href="lecture-05.html"><i class="fa fa-check"></i><b>9</b> Lecture 05</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="lecture-05.html"><a href="lecture-05.html#multiple-regression-models"><i class="fa fa-check"></i><b>9.1</b> Multiple regression models</a></li>
+<li class="chapter" data-level="9.2" data-path="lecture-05.html"><a href="lecture-05.html#directed-acyclic-graphs-dag"><i class="fa fa-check"></i><b>9.2</b> Directed acyclic graphs (DAG)</a></li>
+<li class="chapter" data-level="9.3" data-path="lecture-05.html"><a href="lecture-05.html#example-age-marriage-divorce"><i class="fa fa-check"></i><b>9.3</b> Example: Age, marriage, divorce</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="lecture-05.html"><a href="lecture-05.html#priors"><i class="fa fa-check"></i><b>9.3.1</b> Priors</a></li>
+<li class="chapter" data-level="9.3.2" data-path="lecture-05.html"><a href="lecture-05.html#prior-predictive-simulation-1"><i class="fa fa-check"></i><b>9.3.2</b> Prior predictive simulation</a></li>
+<li class="chapter" data-level="9.3.3" data-path="lecture-05.html"><a href="lecture-05.html#interpretation-2"><i class="fa fa-check"></i><b>9.3.3</b> Interpretation</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="lecture-05.html"><a href="lecture-05.html#plotting-multivariate-posteriors"><i class="fa fa-check"></i><b>9.4</b> Plotting multivariate posteriors</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="lecture-05.html"><a href="lecture-05.html#posterior-predictive-checks"><i class="fa fa-check"></i><b>9.4.1</b> Posterior predictive checks</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="lecture-05.html"><a href="lecture-05.html#reveal-masked-associations"><i class="fa fa-check"></i><b>9.5</b> Reveal masked associations</a></li>
+<li class="chapter" data-level="9.6" data-path="lecture-05.html"><a href="lecture-05.html#categorical-variables"><i class="fa fa-check"></i><b>9.6</b> Categorical variables</a>
+<ul>
+<li class="chapter" data-level="9.6.1" data-path="lecture-05.html"><a href="lecture-05.html#dummy-variable"><i class="fa fa-check"></i><b>9.6.1</b> Dummy variable</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="lecture-06.html"><a href="lecture-06.html"><i class="fa fa-check"></i><b>10</b> Lecture 06</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="lecture-06.html"><a href="lecture-06.html#index-variable"><i class="fa fa-check"></i><b>10.1</b> Index variable</a></li>
+<li class="chapter" data-level="10.2" data-path="lecture-06.html"><a href="lecture-06.html#four-elemental-confounds"><i class="fa fa-check"></i><b>10.2</b> Four elemental confounds</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="lecture-06.html"><a href="lecture-06.html#notes"><i class="fa fa-check"></i><b>10.2.1</b> Notes</a></li>
+<li class="chapter" data-level="10.2.2" data-path="lecture-06.html"><a href="lecture-06.html#the-fork"><i class="fa fa-check"></i><b>10.2.2</b> The fork</a></li>
+<li class="chapter" data-level="10.2.3" data-path="lecture-06.html"><a href="lecture-06.html#the-path"><i class="fa fa-check"></i><b>10.2.3</b> The path</a></li>
+<li class="chapter" data-level="10.2.4" data-path="lecture-06.html"><a href="lecture-06.html#the-collider"><i class="fa fa-check"></i><b>10.2.4</b> The collider</a></li>
+<li class="chapter" data-level="10.2.5" data-path="lecture-06.html"><a href="lecture-06.html#steps"><i class="fa fa-check"></i><b>10.2.5</b> Steps</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="lecture-07.html"><a href="lecture-07.html"><i class="fa fa-check"></i><b>11</b> Lecture 07</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="lecture-07.html"><a href="lecture-07.html#four-elemental-confounds-continued"><i class="fa fa-check"></i><b>11.1</b> Four elemental confounds (continued)</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="lecture-07.html"><a href="lecture-07.html#unobserved-variables"><i class="fa fa-check"></i><b>11.1.1</b> Unobserved variables</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="lecture-07.html"><a href="lecture-07.html#over-fitting"><i class="fa fa-check"></i><b>11.2</b> Over fitting</a></li>
+<li class="chapter" data-level="11.3" data-path="lecture-07.html"><a href="lecture-07.html#measuring-model-fit"><i class="fa fa-check"></i><b>11.3</b> Measuring model fit</a>
+<ul>
+<li class="chapter" data-level="11.3.1" data-path="lecture-07.html"><a href="lecture-07.html#r-squared"><i class="fa fa-check"></i><b>11.3.1</b> R squared</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="lecture-07.html"><a href="lecture-07.html#obtaining-the-regular-features"><i class="fa fa-check"></i><b>11.4</b> Obtaining the regular features</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Learning bayesian data analysis with Statistical Rethinking</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="header">
+<h1 class="title">Learning bayesian data analysis with Statistical Rethinking</h1>
+<p class="author"><em>Alec L. Robitaille</em></p>
+<p class="date" style="margin-top: 1.5em;"><em>2021-08-18 [updated: 2021-08-26]</em></p>
+</div>
+<div id="overview" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Overview</h1>
+<div id="links" class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> Links</h2>
+<p>Link: <a href="https://github.com/rmcelreath/statrethinking_winter2019">https://github.com/rmcelreath/statrethinking_winter2019</a></p>
+<div id="adaptations" class="section level3" number="1.1.1">
+<h3><span class="header-section-number">1.1.1</span> Adaptations</h3>
+<p>Stan+R: <a href="https://vincentarelbundock.github.io/rethinking2/">https://vincentarelbundock.github.io/rethinking2/</a></p>
+<p>tidy+rethinking: <a href="https://david-salazar.github.io/2020/04/19/statistical-rethinking-week-1/">https://david-salazar.github.io/2020/04/19/statistical-rethinking-week-1/</a></p>
+<p>brms+tidy: <a href="https://bookdown.org/content/4857/">https://bookdown.org/content/4857/</a></p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+<a href="homework-week-1.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "lunr",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,529 @@
+# Lecture 01
+
+### Popper
+
+- generate meaningful (not null) hypotheses and predictions and falsify those
+
+### Approach
+
+A framework for developing + using statistical golems
+
+1. Bayesian data analysis
+    - uses probability to describe uncertainty
+    - "count all the ways data can happen, according to assumptions and the assumptions with more ways consistent with the data are more plausible"
+2. Multilevel models
+    - Models within models
+    - Avoids averaging
+    - ...
+3. Model comparison
+    - Compare meaningful (not null) models
+    - Caution: overfitting
+
+## Hypotheses - Process Models - Statistical Models
+
+Any statistical model M can correspond to multiple process models
+
+Any hypothesis H may correspond to multiple process models
+
+Any statistical model may correspond to multiple hypothesis
+
+![Untitled](Statistical%20Rethinking%209648278528c64765bc03ca8a8a8e1f74/Untitled.png)
+
+## Small world / large world
+
+Small world: models have assumptions, bayesian models fit optimally
+
+Large world: real world, no guarantee of optimality
+
+## Example: four marbles
+
+**Setup**
+
+4 marbles, either black or white, with replacement
+
+Possibilities (5) therefore: WWWW, BWWW, BBWW, BBBW, BBBB
+
+Observation: BWB
+
+**Calculate**
+
+Given 3 observations, there are 4 choices, for a total of 64 possibilities
+
+Given we observed both a white and a black marble, possibilities WWWW and BBBB are not valid
+
+At each branch, there are 3 possibilities it can be white and 1 possibility it can be black
+
+Bayesian is additive, at each branch just sum the possibility
+
+BWWW: 3 = 1 * 3 * 1
+
+BBWW: 8 = 2 * 2 * 2
+
+BBBW: 9 = 3 * 1 * 3
+
+**Using new information**
+
+New information is directly integrated into the old information, therefore just multiply it through
+
+So if we take another measure of B, multiply the property through
+
+BWWW: 3 * 1 = 3
+
+BBWW: 8 * 2 = 16
+
+BBBW: 9 * 3 = 27
+
+**Using other information**
+
+Factory says B measures are rare, but minimum of 1 per bag
+
+               Factory info
+
+WWWW 0 since we observed a B
+
+BWWW: 3
+
+BBWW: 2
+
+BBBW: 1
+
+BBBB 0 since we observed a W
+
+Multiply it through
+
+BWWW: 3 * 3 = 9
+
+BBWW: 16 * 2 = 32
+
+BBBW: 1 * 27 = 27
+
+*Counts get huge - therefore we **normalize them giving us probabilities (0-1)***
+
+Probability theory is just normalized counting
+
+## Building a model
+
+1. Design the model 
+2. Condition on the data
+3. Evaluate, critique the model
+4. (Restart)
+
+# Lecture 02
+
+## Joint prior distribution
+
+The joint prior distribution is the prior probability of distribution + parameters
+
+## Example: inflatable world
+
+### **Design the model**
+
+p: water proportion
+
+1-p: land proportion
+
+### **Condition**
+
+Bayes updating: converts priors to posteriors
+
+- Adds all data at once
+- All posteriors are the prior for next observation
+- Sample size is embodied in the posterior
+
+### **Evaluate**
+
+Golem must be supervised
+
+- Did it malfunction?
+- Does the answer make sense?
+- ...
+
+### Define parameters
+
+N: fixed by experimentor
+
+W: a probability distribution, in this case a binomial distribution
+
+WLWWLWWLW
+
+`dbinom(6, size = 9, prob = 0.5)`
+
+p: prior probability distribution, in this case uniformed
+
+### Joint model
+
+W ~ Binomial(N, p)
+
+p ~ Uniform(0, 1)
+
+(W is distributed binomially with probability p on each measure, p is uniform at 1)
+
+### Posterior
+
+Posterior = (probability observed variables * prior)  / normalizing constant
+
+(If priors are uniform, they don't affect the shape of the posterior. They may influence the shape though)
+
+## Grid approximation
+
+Grid approximation: consider only a finite discrete set of solutions
+
+For example, 1000 solutions
+
+1. Generate a sequence of solutions  `seq_sol <- seq(0, 1, length.out = 1000)`
+2. Prior = uniform 1 across sequence of solutions `prior <- rep(1, seq_sol)`
+3. Probability of data = binomial `prob_data <- dbinom(6, size = 9, prob = seq_sol)`
+4. Posterior numerator = `posterior_num <- prior * prob_data`
+5. Posterior standardized = `posterior_numerator / sum(posterior_num)`
+
+### Sampling from the posterior
+
+Approximate the posterior, then you can sample from the posteriors `sample(p, prob = posterior, 1e4, replace = TRUE)`
+
+**Summarize**
+
+- above/below some value
+- Percentile interval
+- Highest posterior density interval
+- ...
+
+**Predictive checks**
+
+- `rbinorm(1e4, size = 0, prob = samples)`
+- ...
+
+# Lecture 03
+
+## Regressions
+
+- Model of mean and variance of some normally distributed measure
+- Mean as additive combination of weighted vairables
+- Typical assumed constant variable (???)
+- The line returned is the mean - but with bayesian we want to see the distribution of lines, ranked by plausability
+- The model endorses the line, but the line doesn't necessarily fit the data
+- In regressions there will always be more certainty at the means and bowtie towards the limits of the data
+- Regression models don't have arrows like DAGs - they just measure associations.
+
+## Normal distributions
+
+Normal distributions arise when repeated fluctuations tend to cancel near 0
+
+The gaussian distribution is the most conservative distribution to use for a prior, it is the best option if no additional scientific information is available
+
+## Prior predictive distributions
+
+Simulate from the joint posterior distribution and evaluate
+
+1. Setup model with `quap`
+2. `prior <- extract.prior(model)`
+3. `link(model, post = prior, data = seq)` 
+    - where the seq is a sequence of your x variable (eg for standardize -2, 2
+4. Plot lines
+
+These are all the possibility give the prior, **not the data**
+
+If the lines show such a limited relationship that you'd expect that the true relationship is outside of these, expand the priors. 
+
+If alternatively they are widely implausible, tighten the priors. 
+
+## Quadratic approximate
+
+In a multidimensional space, QUAP uses gradient climbing to find peaks
+
+Maximum likelihood estimation = QUAP with flat priors
+
+Function in rethinking is `rethinking::quap`
+
+## Centering variables
+
+`x - mean(x)`
+
+Should be default behaviour when doing a regression
+
+# Lecture 04
+
+## Standardizing variables
+
+`(x - mean(x)) / sd(x)` or `scale(x)`
+
+Result = mean of 0, sd of 1
+
+Helps software fit
+
+Value = 1 is equal to 1 SD
+
+## Plotting uncertainty - sample from posterior
+
+(if multivariate normal)
+
+1. Approximate posterior from mean, standard deviation
+2. Sample from multivariate normal distribution of parameters
+3. Use sampels to generate predictions that integrate over uncertainty
+
+`extract_samples` returns a, b, sigma, ... and you can plot each
+
+## Polynomials
+
+Polynomials have bad behaviour especially at the boundaries of the data
+
+They don't fit locally, and are not actually flexibly. 
+
+Eg. a polynomial of 3rd degree will necessarily have two turns - this has to happen irrespective of the data
+
+## Splines
+
+Locally wiggly functions, combined by interpolation
+
+Geocentric - describing relationships - not exploring them
+
+## Basis splines
+
+Bayesian B-splines = P-splines
+
+Similar to linear models but with synthetic variables
+
+$\mu = \alpha + w_{1} \beta_{1} + + w_{2} \beta_{2} + + w_{3} \beta_{3} + + w_{4} \beta_{4} + ...$
+
+Knots are often picked at equal intervals in data, though strategies vary
+
+At each knot, the knot's function is at 100%, moving away from it, the neighboring functions *turn on*
+
+Parameters always have more uncertainty than predictions
+
+Caution: overfitting
+
+### Recipe
+
+1. Choose knots - points where spline pivots
+2. Choose degree of basis functions - how wiggly, polynomial
+3. Find posterior distribution of weights
+
+# Lecture 05
+
+## Multiple regression models
+
+Why?
+
+- Spurious associations
+- Determining the value of some predictor given other predictors
+    - eg. divorce rate given marriage rate and median age at marriage. Once we know marriage rate, what is the value in knowing median age?
+
+## Directed acyclic graphs (DAG)
+
+Directed: arrows, indicating causal implications
+
+Acyclic: no loops
+
+**Unlike statistical models, DAGs have causal implications**
+
+eg. Median age → marriage rate → divorce rate, Median age → divorce rate
+
+## Example: Age, marriage, divorce
+
+$D_{i} \sim \text{Normal}(\mu_{i}, \sigma)$
+
+$\mu_{i} = \alpha + \beta_{M}M_{i} + \beta_{A}A_{i}$
+
+(M)arriage rate
+
+(A)ge at marriage
+
+(D)ivorce rate
+
+### Priors
+
+Standardize to z-scores 
+
+$\alpha$ = expected value for response when all values are 0. since they are all standardized the response should be 0. Without peaking at the data, this could be hard to guess. But after standardization, it is much simpler. 
+
+Slopes - use prior predictive simulation. Harder. 
+
+### Prior predictive simulation
+
+See [https://www.notion.so/Statistical-Rethinking-79b2bb4d7c664277a8889122c7a03a9f#4b1e14ff04394a6d881331eda4185ec0]()
+
+### Interpretation
+
+Once we know median age at marriage, there is little additional value in knowing marriage rate. 
+
+Once we know marriage rate, there is still value in knowing median age at marriage. 
+
+If we don't know median, it is still useful to know marriage rate, since median age at marriage is related to marriage rate. However, we don't want to try and influence eg. policy on marriage rate, since it isn't causal on divorce rate.
+
+## Plotting multivariate posteriors
+
+1. Regress predictor on other predictors
+2. Compute predictor residuals
+3. Regress outcome on residuals
+
+**Side note: never analyze the residuals.** 
+
+### Posterior predictive checks
+
+Compute implied predictions for observed cases
+
+Again, regressions will always do well in the area around the mean
+
+## Reveal masked associations
+
+Sometimes association between outcome and predictor is masked by another variable
+
+This tends to arise when 2 predictors associated with the outcome have opposite effects on it
+
+## Categorical variables
+
+Two approaches: 
+
+1. Use dummy/indicator variables
+2. Use index variables
+
+**Index variables are much better**
+
+### Dummy variable
+
+"Stand in" variable
+
+Eg. male/female column, translated to 0, 1, 0, 0, 1 where 0 female, 1 male
+
+Model: 
+
+$h_{i} \sim \text{Normal}(\mu_{i}, \sigma)$
+
+$\mu_{i} = \alpha + \beta_{M}M_{i}$
+
+In the case of dummy variables, alpha is the mean when M = 0 (female) and beta M is the change in mean when M = 1 (male). 
+
+Result is 2 intercepts = where alpha alone is for female and alpha + beta M is intercept for males
+
+Problem: for k categories, need k-1 dummy  variables and need priors for each. also, priors aren't balanced because of alpha vs beta
+
+# Lecture 06
+
+## Index variable
+
+(For unordered, categorical variables)
+
+Starts at 1, counts up
+
+Same prior can be given to all
+
+Extends easily > 2
+
+eg. 
+
+```jsx
+m <- quap(
+	alist(
+		height ~ dnorm(mu, sigma),
+		mu <- a[sex],
+		a[sex] ~ dnorm(178, 20),
+		sigma ~ dunif(0, 50)
+	), 
+	data = d
+)
+```
+
+a[sex] and a for each sex and prior for each. directly in precis(m) too. 
+
+Then you can directly calculate the difference between groups in the posteriors, no need to rerun the model
+
+```jsx
+post <- extract.samples(m)
+post$diff <- post$a[, 1] - post$a[, 2]
+precis(post)
+
+#       mean
+# sigma 27
+# a[1]  134
+# a[2]  142
+# diff  -7.7
+```
+
+## Four elemental confounds
+
+When inferring the relationships between X and Y...
+
+Confounds are not determined by model selection, so we use DAGs. 
+
+Arrows indicate causation, and statistical information can flow either way. 
+
+### Notes
+
+- Regression models don't have arrows like DAGs - they just measure associations.
+- You can't tell the difference between the fork and the path given the data alone.
+- Remember DAGs are small world constructs.
+
+### The fork
+
+X ← Z → Y
+
+Z is a common cause of X and Y. Including Z will remove the relationship between X and Y. 
+
+### The path
+
+X → Z → Y
+
+Z is along the path of X and Y, mediating the relationship. 
+
+For example, the influence of treatment on plant height, where treatment has an influence on fungus. 
+
+T → F → H
+
+Since the treatment influences the fungus (a post treatment measure), if we include both the treatment and the fungus, we will see no relationship of treatment on height, only fungus. (once we know fungus, what does treatment tell us - nothing). In this case, the model with both treatment and fungus tells us the relationship between them, but to properly consider the influence of treatment we need to omit fungus
+
+Therefore, understanding the relationship between T and F is important, but for determining causality of T on H, we need to omit it from that model. 
+
+### The collider
+
+X → Z ← Y
+
+Z is common result of X and Y. X and Y are independent, if you condition on Z. 
+
+### Steps
+
+1. List all paths connecting X (treatment) and Y (outcome)
+2. Classify each path as either open or closed. All paths are open unless they contain a collider. 
+3. Classify each path as backdoor/frontdoor. Backdoor paths have an arrow entering X. 
+4. Condition on variables in backdoor paths to close them. 
+
+![Untitled](Statistical%20Rethinking%209648278528c64765bc03ca8a8a8e1f74/Untitled%201.png)
+
+# Lecture 07
+
+## Four elemental confounds (continued)
+
+### Unobserved variables
+
+Careful about unmeasured variables. They can create confounds, without being directly measured. 
+
+Eg. (Haunted DAG). G on C. G → P → C, G → C. But unobserved variable U creates a collider: G → P ← U → C. So including P allows the collider to distort the influence on G on C. 
+
+## Over fitting
+
+Ockham's razor: "plurality should never be posited without necessity"
+
+This isn't sufficient, because we are usually comparing between models that are more complicated but fit the data better, and models that are less complicated but fit worse. 
+
+Two major hazards: too simple, not learning enough from data (under fitting) and too complex, learning too much from data (over fitting)
+
+Goal = to learn from regular features from the sample, those that will generalize to other samples
+
+## Measuring model fit
+
+### R squared
+
+Common, not great
+
+$R_{2} = 1 - \frac{var(residuals)}{var(outcome)}$
+
+"Proportion of variance explained"
+
+You can get R squared = 1 with a parameter for each data point - perfect fit. This is obviously nonsense. 
+
+Therefore there's a trap of picking models solely on their R squared because increase the parameters and you will increase the R squared. 
+
+## Obtaining the regular features
+
+- Regularizing priors
+- Cross validation
+- Information criteria

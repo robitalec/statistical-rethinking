@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>4 Week 3 | Learning bayesian data analysis with Statistical Rethinking</title>
+  <meta name="description" content="4 Week 3 | Learning bayesian data analysis with Statistical Rethinking" />
+  <meta name="generator" content="bookdown 0.22.15 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="4 Week 3 | Learning bayesian data analysis with Statistical Rethinking" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="4 Week 3 | Learning bayesian data analysis with Statistical Rethinking" />
+  
+  
+  
+
+<meta name="author" content="Alec L. Robitaille" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="week-2.html"/>
+
+<script src="libs/header-attrs-2.9.5/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Overview</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#links"><i class="fa fa-check"></i><b>1.1</b> Links</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="index.html"><a href="index.html#adaptations"><i class="fa fa-check"></i><b>1.1.1</b> Adaptations</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="week-1.html"><a href="week-1.html"><i class="fa fa-check"></i><b>2</b> Week 1</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="week-1.html"><a href="week-1.html#variables"><i class="fa fa-check"></i><b>2.1</b> Variables</a></li>
+<li class="chapter" data-level="2.2" data-path="week-1.html"><a href="week-1.html#joint-model"><i class="fa fa-check"></i><b>2.2</b> Joint model</a></li>
+<li class="chapter" data-level="2.3" data-path="week-1.html"><a href="week-1.html#question-1"><i class="fa fa-check"></i><b>2.3</b> Question 1</a></li>
+<li class="chapter" data-level="2.4" data-path="week-1.html"><a href="week-1.html#question-2"><i class="fa fa-check"></i><b>2.4</b> Question 2</a></li>
+<li class="chapter" data-level="2.5" data-path="week-1.html"><a href="week-1.html#question-3"><i class="fa fa-check"></i><b>2.5</b> Question 3</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="week-2.html"><a href="week-2.html"><i class="fa fa-check"></i><b>3</b> Week 2</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="week-2.html"><a href="week-2.html#question-1-1"><i class="fa fa-check"></i><b>3.1</b> Question 1</a></li>
+<li class="chapter" data-level="3.2" data-path="week-2.html"><a href="week-2.html#question-2-1"><i class="fa fa-check"></i><b>3.2</b> Question 2</a></li>
+<li class="chapter" data-level="3.3" data-path="week-2.html"><a href="week-2.html#question-3-1"><i class="fa fa-check"></i><b>3.3</b> Question 3</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="week-3.html"><a href="week-3.html"><i class="fa fa-check"></i><b>4</b> Week 3</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="week-3.html"><a href="week-3.html#overview-1"><i class="fa fa-check"></i><b>4.1</b> Overview</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="week-3.html"><a href="week-3.html#setup-dag"><i class="fa fa-check"></i><b>4.1.1</b> Setup DAG</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="week-3.html"><a href="week-3.html#question-1-2"><i class="fa fa-check"></i><b>4.2</b> Question 1</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="week-3.html"><a href="week-3.html#workings"><i class="fa fa-check"></i><b>4.2.1</b> Workings</a></li>
+<li class="chapter" data-level="4.2.2" data-path="week-3.html"><a href="week-3.html#model"><i class="fa fa-check"></i><b>4.2.2</b> Model</a></li>
+<li class="chapter" data-level="4.2.3" data-path="week-3.html"><a href="week-3.html#prior-predictive-simulation"><i class="fa fa-check"></i><b>4.2.3</b> Prior predictive simulation</a></li>
+<li class="chapter" data-level="4.2.4" data-path="week-3.html"><a href="week-3.html#paths"><i class="fa fa-check"></i><b>4.2.4</b> Paths</a></li>
+<li class="chapter" data-level="4.2.5" data-path="week-3.html"><a href="week-3.html#interpretation"><i class="fa fa-check"></i><b>4.2.5</b> Interpretation</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="week-3.html"><a href="week-3.html#question-2-2"><i class="fa fa-check"></i><b>4.3</b> Question 2</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="week-3.html"><a href="week-3.html#model-1"><i class="fa fa-check"></i><b>4.3.1</b> Model</a></li>
+<li class="chapter" data-level="4.3.2" data-path="week-3.html"><a href="week-3.html#interpretation-1"><i class="fa fa-check"></i><b>4.3.2</b> Interpretation</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="week-3.html"><a href="week-3.html#question-3-2"><i class="fa fa-check"></i><b>4.4</b> Question 3</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Learning bayesian data analysis with Statistical Rethinking</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="week-3" class="section level1" number="4">
+<h1><span class="header-section-number">4</span> Week 3</h1>
+<div id="overview-1" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> Overview</h2>
+<p>All three problems below are based on the same data. The data in <code>data(foxes)</code>
+are 116 foxes from 30 different urban groups in England. These foxes are like
+street gangs. Group size varies from 2 to 8 individuals. Each group maintains
+its own (almost exclusive) urban territory. Some territories are larger than
+others. The area variable encodes this information. Some territories also have
+more avgfood than others. We want to model the weight of each fox. For the
+problems below, assume this DAG</p>
+<div id="setup-dag" class="section level3" number="4.1.1">
+<h3><span class="header-section-number">4.1.1</span> Setup DAG</h3>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="week-3.html#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggdag)</span>
+<span id="cb29-2"><a href="week-3.html#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dagitty)</span>
+<span id="cb29-3"><a href="week-3.html#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
+<span id="cb29-4"><a href="week-3.html#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb29-5"><a href="week-3.html#cb29-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-6"><a href="week-3.html#cb29-6" aria-hidden="true" tabindex="-1"></a>dag_plot <span class="ot">&lt;-</span> <span class="cf">function</span>(dag) {</span>
+<span id="cb29-7"><a href="week-3.html#cb29-7" aria-hidden="true" tabindex="-1"></a>    stat <span class="ot">&lt;-</span> <span class="fu">node_status</span>(dag, <span class="cn">FALSE</span>)</span>
+<span id="cb29-8"><a href="week-3.html#cb29-8" aria-hidden="true" tabindex="-1"></a>    stat<span class="sc">$</span>data<span class="sc">$</span>status[<span class="fu">is.na</span>(stat<span class="sc">$</span>data<span class="sc">$</span>status)] <span class="ot">&lt;-</span> <span class="st">&#39;intermediate&#39;</span></span>
+<span id="cb29-9"><a href="week-3.html#cb29-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(stat, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">xend =</span> xend, <span class="at">yend =</span> yend)) <span class="sc">+</span></span>
+<span id="cb29-10"><a href="week-3.html#cb29-10" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_dag_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> status), <span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">15</span>) <span class="sc">+</span></span>
+<span id="cb29-11"><a href="week-3.html#cb29-11" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_dag_edges</span>() <span class="sc">+</span></span>
+<span id="cb29-12"><a href="week-3.html#cb29-12" aria-hidden="true" tabindex="-1"></a>        <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">&#39;&#39;</span>) <span class="sc">+</span> </span>
+<span id="cb29-13"><a href="week-3.html#cb29-13" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_dag_text</span>(<span class="at">color =</span> <span class="st">&#39;black&#39;</span>) <span class="sc">+</span></span>
+<span id="cb29-14"><a href="week-3.html#cb29-14" aria-hidden="true" tabindex="-1"></a>        <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">list</span>(<span class="st">&#39;exposure&#39;</span> <span class="ot">=</span> <span class="st">&#39;#35608DFF&#39;</span>,</span>
+<span id="cb29-15"><a href="week-3.html#cb29-15" aria-hidden="true" tabindex="-1"></a>                                                                         <span class="st">&#39;outcome&#39;</span> <span class="ot">=</span> <span class="st">&#39;#22A884FF&#39;</span>,</span>
+<span id="cb29-16"><a href="week-3.html#cb29-16" aria-hidden="true" tabindex="-1"></a>                                                                         <span class="st">&#39;intermediate&#39;</span> <span class="ot">=</span> <span class="st">&#39;grey50&#39;</span>)) <span class="sc">+</span> </span>
+<span id="cb29-17"><a href="week-3.html#cb29-17" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme_void</span>()</span>
+<span id="cb29-18"><a href="week-3.html#cb29-18" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb29-19"><a href="week-3.html#cb29-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-20"><a href="week-3.html#cb29-20" aria-hidden="true" tabindex="-1"></a>dag <span class="ot">&lt;-</span> <span class="fu">dagify</span>(</span>
+<span id="cb29-21"><a href="week-3.html#cb29-21" aria-hidden="true" tabindex="-1"></a>    weight <span class="sc">~</span> groupsize <span class="sc">+</span> avgfood,</span>
+<span id="cb29-22"><a href="week-3.html#cb29-22" aria-hidden="true" tabindex="-1"></a>    groupsize <span class="sc">~</span> avgfood,</span>
+<span id="cb29-23"><a href="week-3.html#cb29-23" aria-hidden="true" tabindex="-1"></a>    avgfood <span class="sc">~</span> area,</span>
+<span id="cb29-24"><a href="week-3.html#cb29-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">exposure =</span> <span class="st">&#39;area&#39;</span>,</span>
+<span id="cb29-25"><a href="week-3.html#cb29-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">outcome =</span> <span class="st">&#39;weight&#39;</span></span>
+<span id="cb29-26"><a href="week-3.html#cb29-26" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb29-27"><a href="week-3.html#cb29-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-28"><a href="week-3.html#cb29-28" aria-hidden="true" tabindex="-1"></a><span class="fu">dag_plot</span>(dag)</span></code></pre></div>
+<p><img src="_main_files/figure-html/dag-1.png" width="672" /></p>
+</div>
+</div>
+<div id="question-1-2" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Question 1</h2>
+<p>Use a model to infer the total causal influence of area on weight. Would
+increasing the area available to each fox make it heavier (healthier)? You might
+want to standardize the variables. Regardless, use prior predictive simulation
+to show that your model’s prior predictions stay within the possible outcome
+range.</p>
+<div id="workings" class="section level3" number="4.2.1">
+<h3><span class="header-section-number">4.2.1</span> Workings</h3>
+<p>AREA ON WEIGHT</p>
+<p>scale(weight) ~ dnorm(mu, sigma)<br />
+mu &lt;- a + b * (scale(area))<br />
+a: intercept<br />
+when weight and area are scaled, the expected intercept is 0<br />
+therefore<br />
+a ~ dnorm(0, 0.5)</p>
+<p>b: beta, rate of change given one unit of increase in area<br />
+b ~ dnorm(0, 1)</p>
+<p>sigma: standard deviation<br />
+uniform prior<br />
+sigma ~ dunif(0, 50)</p>
+</div>
+<div id="model" class="section level3" number="4.2.2">
+<h3><span class="header-section-number">4.2.2</span> Model</h3>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="week-3.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
+<span id="cb30-2"><a href="week-3.html#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="week-3.html#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(foxes)</span>
+<span id="cb30-4"><a href="week-3.html#cb30-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-5"><a href="week-3.html#cb30-5" aria-hidden="true" tabindex="-1"></a>foxes<span class="sc">$</span>scale_area <span class="ot">&lt;-</span> <span class="fu">scale</span>(foxes<span class="sc">$</span>area)</span>
+<span id="cb30-6"><a href="week-3.html#cb30-6" aria-hidden="true" tabindex="-1"></a>foxes<span class="sc">$</span>scale_weight <span class="ot">&lt;-</span> <span class="fu">scale</span>(foxes<span class="sc">$</span>weight)</span>
+<span id="cb30-7"><a href="week-3.html#cb30-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-8"><a href="week-3.html#cb30-8" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">quap</span>(</span>
+<span id="cb30-9"><a href="week-3.html#cb30-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">alist</span>(</span>
+<span id="cb30-10"><a href="week-3.html#cb30-10" aria-hidden="true" tabindex="-1"></a>        scale_weight <span class="sc">~</span> <span class="fu">dnorm</span>(mu, sigma),</span>
+<span id="cb30-11"><a href="week-3.html#cb30-11" aria-hidden="true" tabindex="-1"></a>        mu <span class="ot">&lt;-</span> a <span class="sc">+</span> bArea <span class="sc">*</span> scale_area,</span>
+<span id="cb30-12"><a href="week-3.html#cb30-12" aria-hidden="true" tabindex="-1"></a>        a <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.05</span>),</span>
+<span id="cb30-13"><a href="week-3.html#cb30-13" aria-hidden="true" tabindex="-1"></a>        bArea <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.5</span>),</span>
+<span id="cb30-14"><a href="week-3.html#cb30-14" aria-hidden="true" tabindex="-1"></a>        sigma <span class="sc">~</span> <span class="fu">dunif</span>(<span class="dv">0</span>, <span class="dv">50</span>)</span>
+<span id="cb30-15"><a href="week-3.html#cb30-15" aria-hidden="true" tabindex="-1"></a>    ), </span>
+<span id="cb30-16"><a href="week-3.html#cb30-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> foxes</span>
+<span id="cb30-17"><a href="week-3.html#cb30-17" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+</div>
+<div id="prior-predictive-simulation" class="section level3" number="4.2.3">
+<h3><span class="header-section-number">4.2.3</span> Prior predictive simulation</h3>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="week-3.html#cb31-1" aria-hidden="true" tabindex="-1"></a>plot_link <span class="ot">&lt;-</span> <span class="cf">function</span>(DT, n) {</span>
+<span id="cb31-2"><a href="week-3.html#cb31-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">data.table</span>(DT)[<span class="fu">sample</span>(.N, n), </span>
+<span id="cb31-3"><a href="week-3.html#cb31-3" aria-hidden="true" tabindex="-1"></a>                                 <span class="fu">plot</span>(<span class="fu">data.table</span>(<span class="at">x =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">2</span>, <span class="dv">2</span>), .N), </span>
+<span id="cb31-4"><a href="week-3.html#cb31-4" aria-hidden="true" tabindex="-1"></a>                                                                 <span class="at">y =</span> <span class="fu">c</span>(V1, V2)),</span>
+<span id="cb31-5"><a href="week-3.html#cb31-5" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">type =</span> <span class="st">&#39;l&#39;</span>)]</span>
+<span id="cb31-6"><a href="week-3.html#cb31-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb31-7"><a href="week-3.html#cb31-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-8"><a href="week-3.html#cb31-8" aria-hidden="true" tabindex="-1"></a>prior <span class="ot">&lt;-</span> <span class="fu">extract.prior</span>(m1)</span>
+<span id="cb31-9"><a href="week-3.html#cb31-9" aria-hidden="true" tabindex="-1"></a>l <span class="ot">&lt;-</span> <span class="fu">link</span>(m1, <span class="at">post =</span> prior, <span class="at">data =</span> <span class="fu">list</span>(<span class="at">scale_area =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">2</span>, <span class="dv">2</span>)))</span>
+<span id="cb31-10"><a href="week-3.html#cb31-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_link</span>(l, <span class="dv">20</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/prior_predict_1-1.png" width="672" /></p>
+<pre><code>## NULL</code></pre>
+</div>
+<div id="paths" class="section level3" number="4.2.4">
+<h3><span class="header-section-number">4.2.4</span> Paths</h3>
+<p>Interest: Area on Weight</p>
+<p>Paths</p>
+<ol style="list-style-type: decimal">
+<li>Area -&gt; Avgfood -&gt; Weight</li>
+<li>Area -&gt; Avgfood -&gt; Groupsize -&gt; Weight</li>
+</ol>
+<p>There are pipes between Avgfood and between Avgfood and Groupsize.</p>
+</div>
+<div id="interpretation" class="section level3" number="4.2.5">
+<h3><span class="header-section-number">4.2.5</span> Interpretation</h3>
+<blockquote>
+<p>Would increasing the area available to each fox make it heavier (healthier)?</p>
+</blockquote>
+<p><code>bArea</code> has a mean of 0.02, with compatibility intervals around 0.
+Therefore the model does not indicate an influence of
+area on the weight.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="week-3.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(m1)</span></code></pre></div>
+<pre><code>##             mean    sd  5.5% 94.5%
+## a     -0.0000015 0.044 -0.07  0.07
+## bArea  0.0188064 0.091 -0.13  0.16
+## sigma  0.9954876 0.065  0.89  1.10</code></pre>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="week-3.html#cb35-1" aria-hidden="true" tabindex="-1"></a>post <span class="ot">&lt;-</span> <span class="fu">extract.samples</span>(m1)</span>
+<span id="cb35-2"><a href="week-3.html#cb35-2" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">sim</span>(m1, <span class="at">data =</span> <span class="fu">list</span>(<span class="at">scale_area =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">2</span>, <span class="dv">2</span>)), <span class="at">post =</span> post)</span>
+<span id="cb35-3"><a href="week-3.html#cb35-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-4"><a href="week-3.html#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidybayes)</span>
+<span id="cb35-5"><a href="week-3.html#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">data.table</span>(s), <span class="fu">aes</span>(V1)) <span class="sc">+</span></span>
+<span id="cb35-6"><a href="week-3.html#cb35-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stat_halfeye</span>(<span class="at">.width =</span> .<span class="dv">89</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="week-3.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">TODO</span><span class="co">: come back to this</span></span></code></pre></div>
+</div>
+</div>
+<div id="question-2-2" class="section level2" number="4.3">
+<h2><span class="header-section-number">4.3</span> Question 2</h2>
+<p>Now infer the causal impact of adding food to a territory. Would this make foxes
+heavier? Which covariates do you need to adjust for to estimate the total causal
+influence of food?</p>
+<p>Food on weight</p>
+<p>Paths: Food -&gt; Weight, Food -&gt; Groupsize -&gt; Weight</p>
+<p>Since Groupsize is a pipe between Food and Weight, it needs to be adjusted for
+to estimate the total causal influence of food.</p>
+<div id="model-1" class="section level3" number="4.3.1">
+<h3><span class="header-section-number">4.3.1</span> Model</h3>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="week-3.html#cb37-1" aria-hidden="true" tabindex="-1"></a>foxes<span class="sc">$</span>scale_avgfood <span class="ot">&lt;-</span> <span class="fu">scale</span>(foxes<span class="sc">$</span>avgfood)</span>
+<span id="cb37-2"><a href="week-3.html#cb37-2" aria-hidden="true" tabindex="-1"></a>foxes<span class="sc">$</span>scale_groupsize <span class="ot">&lt;-</span> <span class="fu">scale</span>(foxes<span class="sc">$</span>groupsize)</span>
+<span id="cb37-3"><a href="week-3.html#cb37-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-4"><a href="week-3.html#cb37-4" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">quap</span>(</span>
+<span id="cb37-5"><a href="week-3.html#cb37-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">alist</span>(</span>
+<span id="cb37-6"><a href="week-3.html#cb37-6" aria-hidden="true" tabindex="-1"></a>        scale_weight <span class="sc">~</span> <span class="fu">dnorm</span>(mu, sigma),</span>
+<span id="cb37-7"><a href="week-3.html#cb37-7" aria-hidden="true" tabindex="-1"></a>        mu <span class="ot">&lt;-</span> a <span class="sc">+</span> bGroupsize <span class="sc">*</span> scale_groupsize <span class="sc">+</span> bAvgfood <span class="sc">*</span> scale_avgfood,</span>
+<span id="cb37-8"><a href="week-3.html#cb37-8" aria-hidden="true" tabindex="-1"></a>        a <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.05</span>),</span>
+<span id="cb37-9"><a href="week-3.html#cb37-9" aria-hidden="true" tabindex="-1"></a>        bGroupsize <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.5</span>),</span>
+<span id="cb37-10"><a href="week-3.html#cb37-10" aria-hidden="true" tabindex="-1"></a>        bAvgfood <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.5</span>),</span>
+<span id="cb37-11"><a href="week-3.html#cb37-11" aria-hidden="true" tabindex="-1"></a>        sigma <span class="sc">~</span> <span class="fu">dunif</span>(<span class="dv">0</span>, <span class="dv">50</span>)</span>
+<span id="cb37-12"><a href="week-3.html#cb37-12" aria-hidden="true" tabindex="-1"></a>    ), </span>
+<span id="cb37-13"><a href="week-3.html#cb37-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> foxes</span>
+<span id="cb37-14"><a href="week-3.html#cb37-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb37-15"><a href="week-3.html#cb37-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-16"><a href="week-3.html#cb37-16" aria-hidden="true" tabindex="-1"></a>m2_withoutGroupsize <span class="ot">&lt;-</span> <span class="fu">quap</span>(</span>
+<span id="cb37-17"><a href="week-3.html#cb37-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">alist</span>(</span>
+<span id="cb37-18"><a href="week-3.html#cb37-18" aria-hidden="true" tabindex="-1"></a>        scale_weight <span class="sc">~</span> <span class="fu">dnorm</span>(mu, sigma),</span>
+<span id="cb37-19"><a href="week-3.html#cb37-19" aria-hidden="true" tabindex="-1"></a>        mu <span class="ot">&lt;-</span> a <span class="sc">+</span> bAvgfood <span class="sc">*</span> scale_avgfood,</span>
+<span id="cb37-20"><a href="week-3.html#cb37-20" aria-hidden="true" tabindex="-1"></a>        a <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.05</span>),</span>
+<span id="cb37-21"><a href="week-3.html#cb37-21" aria-hidden="true" tabindex="-1"></a>        bAvgfood <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.5</span>),</span>
+<span id="cb37-22"><a href="week-3.html#cb37-22" aria-hidden="true" tabindex="-1"></a>        sigma <span class="sc">~</span> <span class="fu">dunif</span>(<span class="dv">0</span>, <span class="dv">50</span>)</span>
+<span id="cb37-23"><a href="week-3.html#cb37-23" aria-hidden="true" tabindex="-1"></a>    ), </span>
+<span id="cb37-24"><a href="week-3.html#cb37-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> foxes</span>
+<span id="cb37-25"><a href="week-3.html#cb37-25" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb37-26"><a href="week-3.html#cb37-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-27"><a href="week-3.html#cb37-27" aria-hidden="true" tabindex="-1"></a>prior <span class="ot">&lt;-</span> <span class="fu">extract.prior</span>(m2)</span>
+<span id="cb37-28"><a href="week-3.html#cb37-28" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(prior)</span></code></pre></div>
+<pre><code>##                mean     sd   5.5%  94.5%  histogram
+## a           0.00023  0.052 -0.083  0.084   ▁▁▃▇▇▃▁▁
+## bGroupsize  0.02299  0.510 -0.812  0.818    ▁▂▇▇▃▁▁
+## bAvgfood   -0.02402  0.501 -0.829  0.753    ▁▁▂▇▇▂▁
+## sigma      24.29119 14.362  3.470 46.924 ▅▇▇▇▇▅▅▅▇▅</code></pre>
+</div>
+<div id="interpretation-1" class="section level3" number="4.3.2">
+<h3><span class="header-section-number">4.3.2</span> Interpretation</h3>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="week-3.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(m2)</span></code></pre></div>
+<pre><code>##                   mean    sd   5.5%  94.5%
+## a          -0.00000023 0.043 -0.069  0.069
+## bGroupsize -0.57249030 0.180 -0.860 -0.285
+## bAvgfood    0.47623046 0.180  0.189  0.763
+## sigma       0.94589851 0.062  0.846  1.046</code></pre>
+<p>When adjusting for the group size, avgfood has a positive relationship with
+weight and group size has a negative relationship with weight. If group size
+is excluded from the model (as shown below), avgfood does not show a relationship
+to weight.</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="week-3.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(m2_withoutGroupsize)</span></code></pre></div>
+<pre><code>##               mean    sd  5.5% 94.5%
+## a         0.000029 0.044 -0.07  0.07
+## bAvgfood -0.024248 0.091 -0.17  0.12
+## sigma     0.995422 0.065  0.89  1.10</code></pre>
+</div>
+</div>
+<div id="question-3-2" class="section level2" number="4.4">
+<h2><span class="header-section-number">4.4</span> Question 3</h2>
+<p>Now infer the causal impact of group size. Which covariates do you need to
+adjust for? Looking at the posterior distribution of the resulting model, what
+do you think explains these data? That is, can you explain the estimates for all
+three problems? How do they go together?</p>
+<p>Group size on weight</p>
+<p>Paths:</p>
+<p>Groupsize -&gt; Weight, Groupsize &lt;- Avgfood -&gt; Weight</p>
+<p>Avgfood is a fork between groupsize and weight.</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="week-3.html#cb43-1" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">quap</span>(</span>
+<span id="cb43-2"><a href="week-3.html#cb43-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">alist</span>(</span>
+<span id="cb43-3"><a href="week-3.html#cb43-3" aria-hidden="true" tabindex="-1"></a>        scale_weight <span class="sc">~</span> <span class="fu">dnorm</span>(mu, sigma),</span>
+<span id="cb43-4"><a href="week-3.html#cb43-4" aria-hidden="true" tabindex="-1"></a>        mu <span class="ot">&lt;-</span> a <span class="sc">+</span> bGroupsize <span class="sc">*</span> scale_groupsize <span class="sc">+</span> bAvgfood <span class="sc">*</span> scale_avgfood,</span>
+<span id="cb43-5"><a href="week-3.html#cb43-5" aria-hidden="true" tabindex="-1"></a>        a <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.05</span>),</span>
+<span id="cb43-6"><a href="week-3.html#cb43-6" aria-hidden="true" tabindex="-1"></a>        bGroupsize <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.5</span>),</span>
+<span id="cb43-7"><a href="week-3.html#cb43-7" aria-hidden="true" tabindex="-1"></a>        bAvgfood <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.5</span>),</span>
+<span id="cb43-8"><a href="week-3.html#cb43-8" aria-hidden="true" tabindex="-1"></a>        sigma <span class="sc">~</span> <span class="fu">dunif</span>(<span class="dv">0</span>, <span class="dv">50</span>)</span>
+<span id="cb43-9"><a href="week-3.html#cb43-9" aria-hidden="true" tabindex="-1"></a>    ), </span>
+<span id="cb43-10"><a href="week-3.html#cb43-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> foxes</span>
+<span id="cb43-11"><a href="week-3.html#cb43-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb43-12"><a href="week-3.html#cb43-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-13"><a href="week-3.html#cb43-13" aria-hidden="true" tabindex="-1"></a>m2_withoutGroupsize <span class="ot">&lt;-</span> <span class="fu">quap</span>(</span>
+<span id="cb43-14"><a href="week-3.html#cb43-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">alist</span>(</span>
+<span id="cb43-15"><a href="week-3.html#cb43-15" aria-hidden="true" tabindex="-1"></a>        scale_weight <span class="sc">~</span> <span class="fu">dnorm</span>(mu, sigma),</span>
+<span id="cb43-16"><a href="week-3.html#cb43-16" aria-hidden="true" tabindex="-1"></a>        mu <span class="ot">&lt;-</span> a <span class="sc">+</span> bAvgfood <span class="sc">*</span> scale_avgfood,</span>
+<span id="cb43-17"><a href="week-3.html#cb43-17" aria-hidden="true" tabindex="-1"></a>        a <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.05</span>),</span>
+<span id="cb43-18"><a href="week-3.html#cb43-18" aria-hidden="true" tabindex="-1"></a>        bAvgfood <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.5</span>),</span>
+<span id="cb43-19"><a href="week-3.html#cb43-19" aria-hidden="true" tabindex="-1"></a>        sigma <span class="sc">~</span> <span class="fu">dunif</span>(<span class="dv">0</span>, <span class="dv">50</span>)</span>
+<span id="cb43-20"><a href="week-3.html#cb43-20" aria-hidden="true" tabindex="-1"></a>    ), </span>
+<span id="cb43-21"><a href="week-3.html#cb43-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> foxes</span>
+<span id="cb43-22"><a href="week-3.html#cb43-22" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb43-23"><a href="week-3.html#cb43-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-24"><a href="week-3.html#cb43-24" aria-hidden="true" tabindex="-1"></a>prior <span class="ot">&lt;-</span> <span class="fu">extract.prior</span>(m2)</span>
+<span id="cb43-25"><a href="week-3.html#cb43-25" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(prior)</span></code></pre></div>
+<pre><code>##                mean     sd  5.5%  94.5%  histogram
+## a          -0.00063  0.048 -0.08  0.076    ▁▁▂▇▇▂▁
+## bGroupsize  0.00013  0.477 -0.75  0.704  ▁▁▂▇▇▂▁▁▁
+## bAvgfood   -0.01484  0.504 -0.84  0.833   ▁▁▂▇▇▂▁▁
+## sigma      25.28542 14.356  3.21 47.549 ▅▇▇▇▇▅▇▇▇▇</code></pre>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="week-2.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "lunr",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

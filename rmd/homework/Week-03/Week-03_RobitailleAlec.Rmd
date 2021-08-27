@@ -1,20 +1,20 @@
 ---
-title: "Week 3"
 author: "Alec L. Robitaille"
-date: "2021-08-25 [updated: `r Sys.Date()`]"
 output: github_document
 editor_options: 
   chunk_output_type: console
 ---
 
+# Homework: Week 3 
+2021-08-25 [updated: `r Sys.Date()`]
 
-```{r setup, include=FALSE}
+```{r, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(rethinking)
 options(digits = 2, scipen = 999)
 ```
 
-# Overview
+## Overview
 
 All three problems below are based on the same data. The data in `data(foxes)`
 are 116 foxes from 30 different urban groups in England. These foxes are like
@@ -25,7 +25,7 @@ more avgfood than others. We want to model the weight of each fox. For the
 problems below, assume this DAG
 
 
-## Setup DAG
+### Setup DAG
 
 ```{r dag}
 library(ggdag)
@@ -60,7 +60,7 @@ dag_plot(dag)
 
 
 
-# Question 1
+## Question 1
 Use a model to infer the total causal influence of area on weight. Would
 increasing the area available to each fox make it heavier (healthier)? You might
 want to standardize the variables. Regardless, use prior predictive simulation
@@ -68,7 +68,7 @@ to show that your model’s prior predictions stay within the possible outcome
 range.
 
 
-## Workings
+### Workings
 
 AREA ON WEIGHT  
 
@@ -86,7 +86,7 @@ sigma: standard deviation
 uniform prior  
 sigma ~ dunif(0, 50)  
 
-## Model
+### Model
 
 ```{r}
 library(rethinking)
@@ -108,7 +108,7 @@ m1 <- quap(
 )
 ```
 
-## Prior predictive simulation
+### Prior predictive simulation
 
 ```{r prior_predict_1}
 plot_link <- function(DT, n) {
@@ -123,7 +123,7 @@ l <- link(m1, post = prior, data = list(scale_area = c(-2, 2)))
 plot_link(l, 20)
 ```
 
-## Paths
+### Paths
 Interest: Area on Weight
 
 Paths
@@ -133,7 +133,7 @@ Paths
 
 There are pipes between Avgfood and between Avgfood and Groupsize. 
 
-## Interpretation
+### Interpretation
 
 > Would increasing the area available to each fox make it heavier (healthier)? 
 
@@ -155,7 +155,7 @@ ggplot(data.table(s), aes(V1)) +
 ```
 
 
-# Question 2
+## Question 2
 Now infer the causal impact of adding food to a territory. Would this make foxes
 heavier? Which covariates do you need to adjust for to estimate the total causal
 influence of food?
@@ -170,7 +170,7 @@ to estimate the total causal influence of food.
 
 
 
-## Model
+### Model
 
 
 ```{r}
@@ -205,7 +205,7 @@ precis(prior)
 ```
 
 
-## Interpretation
+### Interpretation
 
 ```{r}
 precis(m2)
@@ -222,7 +222,7 @@ precis(m2_withoutGroupsize)
 ```
 
 
-# Question 3
+## Question 3
 
 Now infer the causal impact of group size. Which covariates do you need to
 adjust for? Looking at the posterior distribution of the resulting model, what

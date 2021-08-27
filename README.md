@@ -1,7 +1,3 @@
-# statistical-rethinking
-
-Working through Statistical Rethinking
-
 ## Links
 
 Link: [https://github.com/rmcelreath/statrethinking_winter2019](https://github.com/rmcelreath/statrethinking_winter2019)
