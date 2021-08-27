@@ -455,43 +455,29 @@ to estimate the total causal influence of food.</p>
 <span id="cb38-26"><a href="homework-week-3.html#cb38-26" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb38-27"><a href="homework-week-3.html#cb38-27" aria-hidden="true" tabindex="-1"></a>prior <span class="ot">&lt;-</span> <span class="fu">extract.prior</span>(m2)</span>
 <span id="cb38-28"><a href="homework-week-3.html#cb38-28" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(prior)</span></code></pre></div>
-<pre><code>##                mean     sd   5.5%
-## a           0.00043  0.049 -0.081
-## bGroupsize  0.03018  0.494 -0.795
-## bAvgfood   -0.00139  0.464 -0.726
-## sigma      24.08655 14.656  2.093
-##             94.5%      histogram
-## a           0.082 ▁▁▂▂▃▅▇▇▇▃▂▂▁▁
-## bGroupsize  0.788        ▁▂▇▇▃▁▁
-## bAvgfood    0.743        ▁▂▇▇▂▁▁
-## sigma      47.216     ▇▇▇▅▅▇▅▅▇▅</code></pre>
+<pre><code>##                mean     sd   5.5%  94.5%      histogram
+## a           0.00043  0.049 -0.081  0.082 ▁▁▂▂▃▅▇▇▇▃▂▂▁▁
+## bGroupsize  0.03018  0.494 -0.795  0.788        ▁▂▇▇▃▁▁
+## bAvgfood   -0.00139  0.464 -0.726  0.743        ▁▂▇▇▂▁▁
+## sigma      24.08655 14.656  2.093 47.216     ▇▇▇▅▅▇▅▅▇▅</code></pre>
 </div>
 <div id="interpretation-1" class="section level3" number="4.3.2">
 <h3><span class="header-section-number">4.3.2</span> Interpretation</h3>
 <div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="homework-week-3.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(m2)</span></code></pre></div>
-<pre><code>##                   mean    sd   5.5%
-## a          -0.00000015 0.043 -0.069
-## bGroupsize -0.57249430 0.180 -0.860
-## bAvgfood    0.47623465 0.180  0.189
-## sigma       0.94589590 0.062  0.846
-##             94.5%
-## a           0.069
-## bGroupsize -0.285
-## bAvgfood    0.763
-## sigma       1.046</code></pre>
+<pre><code>##                   mean    sd   5.5%  94.5%
+## a          -0.00000015 0.043 -0.069  0.069
+## bGroupsize -0.57249430 0.180 -0.860 -0.285
+## bAvgfood    0.47623465 0.180  0.189  0.763
+## sigma       0.94589590 0.062  0.846  1.046</code></pre>
 <p>When adjusting for the group size, avgfood has a positive relationship with
 weight and group size has a negative relationship with weight. If group size
 is excluded from the model (as shown below), avgfood does not show a relationship
 to weight.</p>
 <div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="homework-week-3.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(m2_withoutGroupsize)</span></code></pre></div>
-<pre><code>##                 mean    sd  5.5%
-## a         0.00000015 0.044 -0.07
-## bAvgfood -0.02420458 0.091 -0.17
-## sigma     0.99536831 0.065  0.89
-##          94.5%
-## a         0.07
-## bAvgfood  0.12
-## sigma     1.10</code></pre>
+<pre><code>##                 mean    sd  5.5% 94.5%
+## a         0.00000015 0.044 -0.07  0.07
+## bAvgfood -0.02420458 0.091 -0.17  0.12
+## sigma     0.99536831 0.065  0.89  1.10</code></pre>
 </div>
 </div>
 <div id="question-3-1" class="section level2" number="4.4">
@@ -529,16 +515,11 @@ three problems? How do they go together?</p>
 <span id="cb44-23"><a href="homework-week-3.html#cb44-23" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb44-24"><a href="homework-week-3.html#cb44-24" aria-hidden="true" tabindex="-1"></a>prior <span class="ot">&lt;-</span> <span class="fu">extract.prior</span>(m2)</span>
 <span id="cb44-25"><a href="homework-week-3.html#cb44-25" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(prior)</span></code></pre></div>
-<pre><code>##                 mean    sd  5.5%
-## a          -0.000531  0.05 -0.08
-## bGroupsize  0.000082  0.49 -0.82
-## bAvgfood    0.059950  0.49 -0.73
-## sigma      25.157536 14.43  3.25
-##             94.5%  histogram
-## a           0.075   ▁▁▂▇▇▂▁▁
-## bGroupsize  0.762     ▁▂▇▇▂▁
-## bAvgfood    0.856   ▁▁▂▇▇▃▁▁
-## sigma      46.700 ▅▇▅▇▅▅▇▇▅▇</code></pre>
+<pre><code>##                 mean    sd  5.5%  94.5%  histogram
+## a          -0.000531  0.05 -0.08  0.075   ▁▁▂▇▇▂▁▁
+## bGroupsize  0.000082  0.49 -0.82  0.762     ▁▂▇▇▂▁
+## bAvgfood    0.059950  0.49 -0.73  0.856   ▁▁▂▇▇▃▁▁
+## sigma      25.157536 14.43  3.25 46.700 ▅▇▅▇▅▅▇▇▅▇</code></pre>
 
 </div>
 </div>
