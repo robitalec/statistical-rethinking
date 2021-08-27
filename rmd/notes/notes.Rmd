@@ -527,3 +527,7 @@ Therefore there's a trap of picking models solely on their R squared because inc
 - Regularizing priors
 - Cross validation
 - Information criteria
+
+
+
+# Lecture 08
