@@ -11,3 +11,8 @@ documentclass: book
 
 ```{r child="README.md"} 
 ```
+
+
+```{r}
+set.seed(42)
+```
