@@ -142,7 +142,7 @@ no backdoors or colliders.
 > Would increasing the area available to each fox make it heavier (healthier)? 
 
 `bArea` has a mean of 0.02, with compatibility intervals around 0. 
-Therefore the model does not indicate an influence of 
+Therefore the model does not indicate a total causal influence of 
 area on the weight. 
 
 
@@ -200,6 +200,14 @@ ggplot(data.table(s), aes(V1)) +
 
 
 ### Interpretation
+
+> Would this make foxes heavier? Which covariates do you need to adjust for to
+estimate the total causal influence of food?
+
+`bFood` has a mean of -0.02, with compatibility intervals around 0. 
+The model does not indicate a total causal influence of area on the weight. 
+No covariates are needed to estiamte the total causal influence of food 
+because there are no backdoors or colliders. 
 
 
 ## Question 3
