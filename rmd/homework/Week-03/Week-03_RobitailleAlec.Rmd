@@ -245,4 +245,9 @@ m3 <- quap(
 )
 
 precis(m3)
+
+DT <- melt(data.table(extract.samples(m3))[, .(bGroupsize, bFood)])
+ggplot(DT) + 
+	geom_density(aes(value, fill = variable), alpha = 0.6) + 
+	theme_bw() + scale_fill_viridis_d(begin = 0.3, end = 0.8)
 ```
