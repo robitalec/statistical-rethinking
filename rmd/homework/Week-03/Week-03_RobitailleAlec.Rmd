@@ -251,3 +251,18 @@ ggplot(DT) +
 	geom_density(aes(value, fill = variable), alpha = 0.6) + 
 	theme_bw() + scale_fill_viridis_d(begin = 0.3, end = 0.8)
 ```
+
+### Interpretation
+
+> Which covariates do you need to adjust for? Looking at the posterior
+distribution of the resulting model, what do you think explains these data? That
+is, can you explain the estimates for all three problems? How do they go
+together?
+
+The Avgfood covariate needs to be included since it is a collider between
+Groupsize and Weight. The mean and compatibility intervals of bFood are positive,
+while the mean and compatibility intervals of bGroupsize are negative. This
+indicates food's positive relationship with weight could be buffered or interacting
+with the negative relationship of group size. Increased food leads to increased
+body weight, but more food also results in larger groups, which decreases the 
+food availability. 
