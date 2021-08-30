@@ -64,7 +64,7 @@ dag_plot(dag)
 
 
 ## Question 1
-Use a model to infer the total causal influence of area on weight. Would
+> Use a model to infer the total causal influence of area on weight. Would
 increasing the area available to each fox make it heavier (healthier)? You might
 want to standardize the variables. Regardless, use prior predictive simulation
 to show that your model’s prior predictions stay within the possible outcome
@@ -158,7 +158,7 @@ ggplot(data.table(s), aes(V1)) +
 
 
 ## Question 2
-Now infer the causal impact of adding food to a territory. Would this make foxes
+> Now infer the causal impact of adding food to a territory. Would this make foxes
 heavier? Which covariates do you need to adjust for to estimate the total causal
 influence of food?
 
@@ -212,20 +212,22 @@ because there are no backdoors or colliders.
 
 ## Question 3
 
-Now infer the causal impact of group size. Which covariates do you need to
+> Now infer the causal impact of group size. Which covariates do you need to
 adjust for? Looking at the posterior distribution of the resulting model, what
 do you think explains these data? That is, can you explain the estimates for all
 three problems? How do they go together?
 
 
-Group size on weight
+### Paths
+Interest: Group size on weight
 
-Paths:
+Paths: 
 
-Groupsize -> Weight, Groupsize <- Avgfood -> Weight
+1. Groupsize -> Weight
+2. Groupsize <- Avgfood -> Weight
 
-Avgfood is a fork between groupsize and weight. 
-
+Avgfood is a collider between Groupsize and Weight. There is a backdoor
+on Groupsize and the path is closed. 
 
 ```{r}
 m2 <- quap(
