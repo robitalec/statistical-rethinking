@@ -73,7 +73,7 @@ range.
 
 ### Workings
 
-AREA ON WEIGHT  
+Area on weight  
 
 scale(weight) ~ dnorm(mu, sigma)  
 mu <- a + b * (scale(area))  
@@ -134,7 +134,8 @@ Paths
 1. Area -> Avgfood -> Weight
 2. Area -> Avgfood -> Groupsize -> Weight
 
-There are pipes between Avgfood and between Avgfood and Groupsize. 
+Avgfood and Groupsize are pipes between Area and Weight. There are 
+no backdoors or colliders. 
 
 ### Interpretation
 
@@ -151,10 +152,8 @@ precis(m1)
 post <- extract.samples(m1)
 s <- sim(m1, data = list(scale_area = c(-2, 2)), post = post)
 
-library(tidybayes)
 ggplot(data.table(s), aes(V1)) +
 	stat_halfeye(.width = .89)
-# TODO: come back to this
 ```
 
 
