@@ -230,29 +230,19 @@ Avgfood is a collider between Groupsize and Weight. There is a backdoor
 on Groupsize and the path is closed. 
 
 ```{r}
-m2 <- quap(
+foxes$scale_groupsize <- scale(foxes$groupsize)
+
+m3 <- quap(
 	alist(
 		scale_weight ~ dnorm(mu, sigma),
-		mu <- a + bGroupsize * scale_groupsize + bAvgfood * scale_avgfood,
+		mu <- a + bGroupsize * scale_groupsize + bFood * scale_avgfood,
 		a ~ dnorm(0, 0.05),
 		bGroupsize ~ dnorm(0, 0.5),
-		bAvgfood ~ dnorm(0, 0.5),
+		bFood ~ dnorm(0, 0.5),
 		sigma ~ dunif(0, 50)
 	), 
 	data = foxes
 )
 
-m2_withoutGroupsize <- quap(
-	alist(
-		scale_weight ~ dnorm(mu, sigma),
-		mu <- a + bAvgfood * scale_avgfood,
-		a ~ dnorm(0, 0.05),
-		bAvgfood ~ dnorm(0, 0.5),
-		sigma ~ dunif(0, 50)
-	), 
-	data = foxes
-)
-
-prior <- extract.prior(m2)
-precis(prior)
+precis(m3)
 ```
