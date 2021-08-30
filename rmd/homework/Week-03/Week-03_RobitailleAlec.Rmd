@@ -25,14 +25,17 @@ more avgfood than others. We want to model the weight of each fox. For the
 problems below, assume this DAG
 
 
-### Setup DAG
+### Setup
 
 ```{r dag}
+# Packages
 library(ggdag)
 library(dagitty)
 library(data.table)
 library(ggplot2)
+library(tidybayes)
 
+# DAG
 dag_plot <- function(dag) {
 	stat <- node_status(dag, FALSE)
 	stat$data$status[is.na(stat$data$status)] <- 'intermediate'
