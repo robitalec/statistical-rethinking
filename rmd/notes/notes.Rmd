@@ -531,3 +531,322 @@ Therefore there's a trap of picking models solely on their R squared because inc
 
 
 # Lecture 08
+## Information theory
+
+Information: reduction in uncertainty caused by learning an outcome
+
+Therefore it's a scale of uncertainty, and information theory is a system for deriving a metric of uncertainty
+
+Information entropy: uncertainty in a probability distribution is average the log probability of an event. Uncertainty in a distribution, "potential for surprise"
+
+entropy(p) - entropy(q) is what we are trying to minimize (where p is true, q is model)
+
+## Divergence
+
+$D_{KL} = \sum p_{i} (log(p_{i}) - log(q_{i}))$
+
+- Average difference in log probability between the model q and target p
+- It's asymmetrical - recall W/L ratio on Earth → Mars and reverse. Expecting few water events coming from Mars and the reverse coming from Earth
+- Since we don't actually know the "truth", we can't use this to directly measure a model
+- But turns out - we don't need the truth to compare two models, only their average log probability
+
+## Estimating divergence
+
+This is the gold standard for scoring models
+
+### Log pointwise predictive density
+
+`lppd`
+
+Pointwise measure of average probability that the model expects the data
+
+Using the entire posterior, measures the log probability
+
+Summing the vector of lppd returns the total log probability score
+
+Larger values are better, indicating larger average accuracy
+
+### Deviance
+
+Deviance = lppd score * -2
+
+Smaller values are better
+
+Note: deviance decreases with more parameters, however out of sample deviance is best in the model with the right number of parameters (simulated example)
+
+## Regularization
+
+Must always be skeptical of the sample
+
+Regularization: use informative, conservative priors to reduce overfitting (models learn less from sample). 
+
+This is particularly important for small sample sizes and as a result, for multilevel models. 
+
+## Cross validation
+
+Without *known* out of sample measures, you can estimate out of sample deviance
+
+Model with some samples left out, and average over the estimate of those samples
+
+### LOO
+
+Leave one out 
+
+Pareto-smoothed importance sample (PSIS)
+
+`loo` package
+
+## Information criteria
+
+Historically: AIC, a theoretical estimate of the KL distance
+
+Assumptions of AIC include
+
+- priors are flat or overwhelmed by data
+- posterior is essentially gaussian
+- sample size >> number of parameters k
+
+### WAIC
+
+Widely Applicable Information Criterion
+
+- Does not assume gaussian posterior
+
+## Model selection
+
+Avoid model selection
+
+Score models and apply causal inference to use compare competing models to explain
+
+## Model comparison
+
+Model comparison is not causal inference
+
+Add and imagine unobserved confounds
+
+### Example 1: model mis-selection using WAIC
+
+Height 0 → Height 1, Treatment → Fungus → Height 1
+
+F + T, dWAIC = 0
+
+T, dWAIC = 41
+
+intercept = 44
+
+Since f is a pipe on T→F, including it confounds the model
+
+AIC does not indicate causal inference, it simply identifies the best model according to the predicted out of sample deviance
+
+Model comparison AND causal inference are important 
+
+### Example 2: primate lifetime
+
+Body mass → lifespan, Body mass → brain size → lifespan
+
+Relationship of interest: brain size on lifespan
+
+M + B, WAIC = 217
+
+B, WAIC = 218
+
+M = 229
+
+Note: when we have different parameters that return similar WAIC, it's an invitation to poke inside!
+
+Inspecting their estimate posterior we notice that the sign of the brain mass parameter flips from negative to positive across models
+
+**Another approach: since WAIC is pointwise we can plot the difference in WAIC for each point across models**
+
+Comparing life span on Y, and pointwise difference in WAIC between the two models on X
+
+We see that the model M+B is better for some species eg. Cebus, and the simple B model is better for other species eg. Gorilla
+
+Incredible
+
+![](pointwise-waic.png)
+
+# Lecture 09
+
+## Conditioning
+
+Interaction of variables on each other
+
+Dependence on the state
+
+eg. Influence of genes on phenotype depends on environement
+
+Approaches
+
+1. Use interacting terms (simplest)
+2. Generalized linear models
+3. Multilevel models
+
+Interactions arise wherever there is a boundary in the outcome space. All GLMs have interactions. 
+
+In a DAG, an interaction looks like
+
+gene → phenotype ← environment
+
+But DAGs can't fully tell you if it's an interaction
+
+Before interaction terms, all variables are simply independent additive terms. 
+
+### Example: ruggedness
+
+"Ruggedness is bad for the economy outside of Africa, but within Africa is it good"
+
+Reminder - constrain priors to possible outcome space
+
+1. Scale ruggedness between 0, 1
+2. Constrain change in GDP bc evidently eg GDP x 2 would be a huge effect
+
+Keep it reasonable
+
+Options
+
+1. Split the data?
+
+Run two linear regressions. This means there is no statistical criteria to measure the split. 
+
+We are interested in the contrast in slope, but to do that we need to use the same model. 
+
+1. Add a categorical variable for Africa?
+
+Use alpha[id] and different estimates for each
+
+This means the slope is forced to be the same, but difference intercepts. 
+
+Relationship is held constant across groups, not what we want. 
+
+1. Interaction
+
+$\mu_{i} = \alpha_{CID[i]} + \beta_{CID[i]}(r_{i} - \bar{r})$
+
+Slope and intercept are allowed to vary for each
+
+### Example: tulips
+
+Tulip blooms, in varying Water and Shade
+
+$\mu_{i} = \alpha + \beta_{W}W + \beta_{S}S + \beta_{W * S}W*S$
+
+The beta W*S variable is actually a nested linear model 
+
+## Interpreting interactions
+
+- Interpreting interactions is hard
+- The influence of predictors depends upon multiple parameters and their covariation
+- Interactions are symmetric within the data.
+    - Eg. effect of continent depends on ruggedness is the same as effect of ruggedness on continent
+    - Statistically the same
+    - We need to apply our outside knowledge and causal information
+
+## Plotting interactions
+
+Use a triptych
+
+Vary shade at -1, 0, 1
+
+Plot bloom as response and water on x
+
+### Higher order interactions
+
+Caution: hard to interpret, hard to estimate
+
+# Lecture 10
+
+## Markov Chain Monte Carlo
+
+Reminder: bayesian inference is about calculating the posterior. Bayesian ≠ Markov Chains
+
+4 of the ways to compute the posterior
+
+1. Analytical approach (mostly impossible)
+2. Grid approximation (very intensive)
+3. Quadratic approximate (limited)
+4. MCMC (intensive)
+
+Advantages of MCMC
+
+- You don't know the posterior yet you can still visit each part of it in proportion to it's relative probability
+- "Sample from a distribution that we don't know"
+
+### Metropolis algorithm
+
+1. Loop over iterations
+2. Record location
+3. Generate neighbour location proposals
+4. Move based on frequency
+
+Converges in the long run, can be used as long as proposals are symmetric
+
+### Metropolis Hastings
+
+Improvement on Metropolis, does not require the proposals to be symmetrical
+
+### Gibbs sampling
+
+More efficient version of MH
+
+### Hamiltonian Monte Carlo
+
+Markov Chain: No memory. Probability solely depends on current state, not past state. No storage. 
+
+Monte Carlo: Random simulation (eg Monaco casino)
+
+MCMC is a numerical technique to solve for the posterior, with several advantages over Metropolis and Gibbs
+
+- Metropolis and Gibbs use optimization but optimization is not a good strategy in high dimensions (see concentration of measure)
+- Hamiltonian Monte Carlo uses a gradient to avoid the guess + check of Metropolis and Gibbs
+- Especially in high dimensional space, acceptance rate decreases and methods take more time
+
+Hamiltonian Monte Carlo:
+
+1. Uses a physics simulation representing the parameter state as a particle
+2. Flicks the particle around a frictionless log-posterior surface
+3. Follows curvature of the surface, so it doesn't get stuck
+4. Uses random direction and random speed
+5. Slows as it climbs, speeds as it drops
+
+This is much more computationally intensive, but requires less steps, has much fewer rejections
+
+It's also easier to determine if MCMC has failed
+
+### Tuning MCMC
+
+Step size: time the simulation is run. Increase step size = increase efficiency but overestimates curvature
+
+U Turn risk is solved by NUTS (No U Turn Sampler)
+
+1. Warm up phase - finding the step size to maximize acceptance rate. Default = good (half the number of samples)
+2. Runs in both directions and gives uncorrelated samples. No need to pick leap frog steps
+
+### Stan
+
+Stan uses NUTS
+
+### ulam
+
+1. Create list of data only what you need
+2. `ulam` with formulas as in `quap`
+3. `ulam` translates the formulas to Stan
+4. Builds the NUTS sampler
+5. Sampler runs
+6. Returns posterior
+
+### Diagnosis
+
+Neff: number of effective samples. Can be greater than the number of samples from the Markov Chan. Effective if no autocorrelation
+
+Rhat: Convergence diagnostic. 1 is good. Ratio of variance within vs ratio of variance across chains. 
+
+"**Typically when you have a computational problem, often there's a problem with your model"**
+
+### Checking the chain
+
+TODO: p283
+
+# Lecture 11
+
+Flat distributions have the highest entropy and have many more ways that they can be realized
