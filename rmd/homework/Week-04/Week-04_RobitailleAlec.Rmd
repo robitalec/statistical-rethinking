@@ -103,11 +103,7 @@ Model 1 predicts target 3 best (lowest divergence at 0.63) and target 2 best (lo
 ## Question 2 
 
 > Recall the marriage, age, and happiness collider bias example from Chapter
-6. Run models m6.9 and m6.10 again. Compare these two models using WAIC (or LOO,
-they will produce identical results). Which model is expected to make better
-predictions? Which model provides the correct causal inference about the
-influence of age on happiness? Can you explain why the answers to these two
-questions disagree?
+6. Run models m6.9 and m6.10 again. 
 
 
 ### DAG
@@ -163,4 +159,16 @@ m6.10 <- quap(
 )
 
 precis(m6.10, depth = 2)
+```
+
+### Interpretation
+
+> Compare these two models using WAIC (or LOO, they will produce identical
+results). Which model is expected to make better predictions? Which model
+provides the correct causal inference about the influence of age on happiness?
+Can you explain why the answers to these two questions disagree?
+
+
+```{r}
+compare(m6.9, m6.10)
 ```
