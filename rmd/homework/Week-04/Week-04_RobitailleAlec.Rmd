@@ -121,3 +121,18 @@ m6.9 <- quap(
 
 precis(m6.9, depth = 2)
 ```
+
+
+```{r}
+m6.10 <- quap(
+	alist(
+		happiness ~ dnorm(mu, sigma),
+		mu <- a + bA * A,
+		a ~ dnorm(0, 1),
+		bA ~ dnorm(0, 2),
+		sigma ~ dexp(1)
+	), data = d2
+)
+
+precis(m6.10, depth = 2)
+```
