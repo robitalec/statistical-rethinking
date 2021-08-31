@@ -101,7 +101,7 @@ d <- sim_happiness(seed = 1977, N_years = 1e3)
 
 d2 <- d[d$age > 17,]
 d2$A <- (d2$age - 18) / (65 - 18)
-d2$mid <- married + 1
+d2$mid <- d2$married + 1
 
 precis(d2)
 ```
