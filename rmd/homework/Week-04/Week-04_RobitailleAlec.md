@@ -2,7 +2,7 @@ Alec L. Robitaille
 
 # Homework: Week 4
 
-2021-08-30 \[updated: 2021-08-30\]
+2021-08-30 \[updated: 2021-08-31\]
 
 ### Setup
 
@@ -73,17 +73,35 @@ Statistical Rethinking 7.2). Island 1 has the highest entropy, with the
 flat probability of 0.2 across 5 bird species. Island 2 has the lowest
 entropy, including species A with the highest overall proportion 0.8.
 
+> Second, use each island’s birb distribution to predict the other two.
+> This means to compute the K-L Divergence of each island from the
+> others, treating each island as if it were a statistical model of the
+> other islands. You should end up with 6 different K-L Divergence
+> values. Which island predicts the others best? Why?
+
 ``` r
 divergence <- function(p, q) sum(p * (log(p) - log(q)))
-z <- CJ(DT$island, DT$island, unique = TRUE)[, row_id := .I]
-div <- z[, divergence(DT[island == V2, proportion], 
-                                            DT[island == V1, proportion]), 
-                 by = row_id]
+z <- CJ(p = DT$island, q = DT$island, unique = TRUE)[, row_id := .I]
+z[, div := divergence(DT[island == p, proportion], 
+                                            DT[island == q, proportion]),
+    by = row_id]
 
-matrix(div$V1, ncol = 3, nrow = 3, byrow = TRUE)
+z[p != q]
 ```
 
-    ##      [,1] [,2] [,3]
-    ## [1,] 0.00 0.87 0.63
-    ## [2,] 0.97 0.00 1.84
-    ## [3,] 0.64 2.01 0.00
+    ##         p      q row_id   div
+    ##    <char> <char>  <int> <num>
+    ## 1:      1      2      2  0.97
+    ## 2:      1      3      3  0.64
+    ## 3:      2      1      4  0.87
+    ## 4:      2      3      6  2.01
+    ## 5:      3      1      7  0.63
+    ## 6:      3      2      8  1.84
+
+`divergence(p, q)` = “Average difference in log probability between the
+target (p) and the model (q)”.
+
+Model 1 predicts target 3 best (lowest divergence at 0.63) and target 2
+best (lowest divergence at 0.87) because it has the highest entropy.
+Model 3 predicts target 1 best (lowest divergence at 0.64) because it
+has higher entropy than model 2.
