@@ -27,7 +27,7 @@ problems below, assume this DAG
 
 ### Setup
 
-```{r dag}
+```{r}
 # Packages
 library(ggdag)
 library(dagitty)
@@ -113,7 +113,7 @@ m1 <- quap(
 
 ### Prior predictive simulation
 
-```{r prior_predict_1}
+```{r}
 plot_link <- function(DT, n) {
 	data.table(DT)[sample(.N, n), 
 								 plot(data.table(x = rep(c(-2, 2), .N), 

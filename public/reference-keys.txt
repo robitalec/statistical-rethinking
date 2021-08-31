@@ -1,6 +1,7 @@
 overview
 links
 adaptations
+etc
 seed
 homework-week-1
 variables
@@ -14,7 +15,7 @@ question-2-1
 homework-question-3
 homework-week-3
 overview-1
-setup-dag
+setup
 question-1-2
 workings
 model
@@ -22,9 +23,14 @@ prior-predictive-simulation
 paths
 interpretation
 question-2-2
+paths-1
 model-1
 interpretation-1
 question-3-1
+paths-2
+interpretation-2
+homework-week-4
+setup-1
 lecture-01
 popper
 approach
@@ -62,7 +68,7 @@ directed-acyclic-graphs-dag
 example-age-marriage-divorce
 priors
 prior-predictive-simulation-1
-interpretation-2
+interpretation-3
 plotting-multivariate-posteriors
 posterior-predictive-checks
 reveal-masked-associations
@@ -83,3 +89,4 @@ over-fitting
 measuring-model-fit
 r-squared
 obtaining-the-regular-features
+lecture-08
