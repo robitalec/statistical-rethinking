@@ -109,6 +109,19 @@ predictions? Which model provides the correct causal inference about the
 influence of age on happiness? Can you explain why the answers to these two
 questions disagree?
 
+
+### DAG
+```{r}
+dag <- dagify(
+	marriage ~ happiness,
+	marriage ~ age,
+	exposure = 'age',
+	outcome = 'happiness'
+)
+
+dag_plot(dag)
+```
+
 ### Data
 ```{r}
 library(rethinking)
