@@ -9,3 +9,7 @@ Stan+R: [https://vincentarelbundock.github.io/rethinking2/](https://vincentarelb
 tidy+rethinking: [https://david-salazar.github.io/2020/04/19/statistical-rethinking-week-1/](https://david-salazar.github.io/2020/04/19/statistical-rethinking-week-1/)
 
 brms+tidy: [https://bookdown.org/content/4857/](https://bookdown.org/content/4857/)
+
+
+### Etc
+https://chi-feng.github.io/mcmc-demo
