@@ -340,7 +340,7 @@ Slopes - use prior predictive simulation. Harder.
 
 ### Prior predictive simulation
 
-See [https://www.notion.so/Statistical-Rethinking-79b2bb4d7c664277a8889122c7a03a9f#4b1e14ff04394a6d881331eda4185ec0]()
+See [Prior predictive distributions](https://www.statistical-rethinking.robitalec.ca/lecture-03.html#prior-predictive-distributions)
 
 ### Interpretation
 
