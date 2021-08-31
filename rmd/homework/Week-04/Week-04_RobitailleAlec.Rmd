@@ -83,3 +83,31 @@ z[p != q]
 
 
 Model 1 predicts target 3 best (lowest divergence at 0.63) and target 2 best (lowest divergence at 0.87) because it has the highest entropy. Model 3 predicts target 1 best (lowest divergence at 0.64) because it has higher entropy than model 2. 
+
+
+## Question 2 
+
+> Recall the marriage, age, and happiness collider bias example from Chapter
+6. Run models m6.9 and m6.10 again. Compare these two models using WAIC (or LOO,
+they will produce identical results). Which model is expected to make better
+predictions? Which model provides the correct causal inference about the
+influence of age on happiness? Can you explain why the answers to these two
+questions disagree?
+
+### Data
+```{r}
+library(rethinking)
+d <- sim_happiness(seed = 1977, N_years = 1e3)
+
+d2 <- d[d$age > 17,]
+d2$A <- (d2$age - 18) / (65 - 18)
+d2$mid <- married + 1
+
+precis(d2)
+```
+
+### Models
+
+```{r}
+m6.9 <- uqap
+```
