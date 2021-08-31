@@ -1,9 +1,10 @@
-Week 3
-================
 Alec L. Robitaille
-2021-08-25 \[updated: 2021-08-25\]
 
-# Overview
+# Homework: Week 3
+
+2021-08-25 \[updated: 2021-08-30\]
+
+## Overview
 
 All three problems below are based on the same data. The data in
 `data(foxes)` are 116 foxes from 30 different urban groups in England.
@@ -14,9 +15,10 @@ encodes this information. Some territories also have more avgfood than
 others. We want to model the weight of each fox. For the problems below,
 assume this DAG
 
-## Setup DAG
+### Setup
 
 ``` r
+# Packages
 library(ggdag)
 ```
 
@@ -31,7 +33,9 @@ library(ggdag)
 library(dagitty)
 library(data.table)
 library(ggplot2)
+library(tidybayes)
 
+# DAG
 dag_plot <- function(dag) {
     stat <- node_status(dag, FALSE)
     stat$data$status[is.na(stat$data$status)] <- 'intermediate'
@@ -59,17 +63,17 @@ dag_plot(dag)
 
 ![](Week-03_RobitailleAlec_files/figure-gfm/dag-1.png)<!-- -->
 
-# Question 1
+## Question 1
 
-Use a model to infer the total causal influence of area on weight. Would
-increasing the area available to each fox make it heavier (healthier)?
-You might want to standardize the variables. Regardless, use prior
-predictive simulation to show that your model’s prior predictions stay
-within the possible outcome range.
+> Use a model to infer the total causal influence of area on weight.
+> Would increasing the area available to each fox make it heavier
+> (healthier)? You might want to standardize the variables. Regardless,
+> use prior predictive simulation to show that your model’s prior
+> predictions stay within the possible outcome range.
 
-## Workings
+### Workings
 
-AREA ON WEIGHT
+Area on weight
 
 scale(weight) \~ dnorm(mu, sigma)  
 mu &lt;- a + b \* (scale(area))  
@@ -85,7 +89,7 @@ sigma: standard deviation
 uniform prior  
 sigma \~ dunif(0, 50)
 
-## Model
+### Model
 
 ``` r
 library(rethinking)
@@ -107,7 +111,7 @@ m1 <- quap(
 )
 ```
 
-## Prior predictive simulation
+### Prior predictive simulation
 
 ``` r
 plot_link <- function(DT, n) {
@@ -126,7 +130,7 @@ plot_link(l, 20)
 
     ## NULL
 
-## Paths
+### Paths
 
 Interest: Area on Weight
 
@@ -135,164 +139,173 @@ Paths
 1.  Area -&gt; Avgfood -&gt; Weight
 2.  Area -&gt; Avgfood -&gt; Groupsize -&gt; Weight
 
-There are pipes between Avgfood and between Avgfood and Groupsize.
+Avgfood and Groupsize are pipes between Area and Weight. There are no
+backdoors or colliders.
 
-## Interpretation
+### Interpretation
 
 > Would increasing the area available to each fox make it heavier
 > (healthier)?
 
 `bArea` has a mean of 0.02, with compatibility intervals around 0.
-Therefore the model does not indicate an influence of area on the
-weight.
+Therefore the model does not indicate a total causal influence of area
+on the weight.
 
 ``` r
 precis(m1)
 ```
 
-    ##             mean    sd  5.5% 94.5%
-    ## a     0.00000013 0.044 -0.07  0.07
-    ## bArea 0.01882826 0.091 -0.13  0.16
-    ## sigma 0.99549245 0.065  0.89  1.10
+    ##           mean    sd  5.5% 94.5%
+    ## a     0.000031 0.044 -0.07  0.07
+    ## bArea 0.018799 0.091 -0.13  0.16
+    ## sigma 0.995555 0.065  0.89  1.10
 
 ``` r
 post <- extract.samples(m1)
 s <- sim(m1, data = list(scale_area = c(-2, 2)), post = post)
 
-library(tidybayes)
 ggplot(data.table(s), aes(V1)) +
     stat_halfeye(.width = .89)
 ```
 
-![](Week-03_RobitailleAlec_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+![](Week-03_RobitailleAlec_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
-``` r
-# TODO: come back to this
-```
+## Question 2
 
-# Question 2
+> Now infer the causal impact of adding food to a territory. Would this
+> make foxes heavier? Which covariates do you need to adjust for to
+> estimate the total causal influence of food?
 
-Now infer the causal impact of adding food to a territory. Would this
-make foxes heavier? Which covariates do you need to adjust for to
-estimate the total causal influence of food?
+### Paths
 
-Food on weight
-
-Paths: Food -&gt; Weight, Food -&gt; Groupsize -&gt; Weight
-
-Since Groupsize is a pipe between Food and Weight, it needs to be
-adjusted for to estimate the total causal influence of food.
-
-## Model
-
-``` r
-foxes$scale_avgfood <- scale(foxes$avgfood)
-foxes$scale_groupsize <- scale(foxes$groupsize)
-
-m2 <- quap(
-    alist(
-        scale_weight ~ dnorm(mu, sigma),
-        mu <- a + bGroupsize * scale_groupsize + bAvgfood * scale_avgfood,
-        a ~ dnorm(0, 0.05),
-        bGroupsize ~ dnorm(0, 0.5),
-        bAvgfood ~ dnorm(0, 0.5),
-        sigma ~ dunif(0, 50)
-    ), 
-    data = foxes
-)
-
-m2_withoutGroupsize <- quap(
-    alist(
-        scale_weight ~ dnorm(mu, sigma),
-        mu <- a + bAvgfood * scale_avgfood,
-        a ~ dnorm(0, 0.05),
-        bAvgfood ~ dnorm(0, 0.5),
-        sigma ~ dunif(0, 50)
-    ), 
-    data = foxes
-)
-
-prior <- extract.prior(m2)
-precis(prior)
-```
-
-    ##                mean     sd   5.5%  94.5%  histogram
-    ## a          -0.00034  0.049 -0.081  0.076     ▁▂▇▇▂▁
-    ## bGroupsize  0.02572  0.495 -0.787  0.834    ▁▂▇▇▃▁▁
-    ## bAvgfood   -0.01768  0.493 -0.818  0.756   ▁▁▂▇▇▂▁▁
-    ## sigma      25.14531 14.697  2.746 47.440 ▇▇▇▅▇▅▇▇▇▇
-
-## Interpretation
-
-``` r
-precis(m2)
-```
-
-    ##                  mean    sd   5.5%  94.5%
-    ## a          -0.0000032 0.043 -0.069  0.069
-    ## bGroupsize -0.5727490 0.180 -0.860 -0.286
-    ## bAvgfood    0.4764850 0.180  0.189  0.764
-    ## sigma       0.9458692 0.062  0.846  1.046
-
-When adjusting for the group size, avgfood has a positive relationship
-with weight and group size has a negative relationship with weight. If
-group size is excluded from the model (as shown below), avgfood does not
-show a relationship to weight.
-
-``` r
-precis(m2_withoutGroupsize)
-```
-
-    ##                 mean    sd  5.5% 94.5%
-    ## a         0.00000017 0.044 -0.07  0.07
-    ## bAvgfood -0.02420457 0.091 -0.17  0.12
-    ## sigma     0.99536883 0.065  0.89  1.10
-
-# Question 3
-
-Now infer the causal impact of group size. Which covariates do you need
-to adjust for? Looking at the posterior distribution of the resulting
-model, what do you think explains these data? That is, can you explain
-the estimates for all three problems? How do they go together?
-
-Group size on weight
+Interest: Food on weight
 
 Paths:
 
-Groupsize -&gt; Weight, Groupsize &lt;- Avgfood -&gt; Weight
+1.  Food -&gt; Weight
+2.  Food -&gt; Groupsize -&gt; Weight
 
-Avgfood is a fork between groupsize and weight.
+Groupsize is a pipe between Area and Weight. There are no backdoors or
+colliders.
+
+### Model
 
 ``` r
+foxes$scale_avgfood <- scale(foxes$avgfood)
+
 m2 <- quap(
     alist(
         scale_weight ~ dnorm(mu, sigma),
-        mu <- a + bGroupsize * scale_groupsize + bAvgfood * scale_avgfood,
+        mu <- a + bFood * scale_avgfood,
         a ~ dnorm(0, 0.05),
-        bGroupsize ~ dnorm(0, 0.5),
-        bAvgfood ~ dnorm(0, 0.5),
+        bFood ~ dnorm(0, 0.5),
         sigma ~ dunif(0, 50)
     ), 
     data = foxes
 )
 
-m2_withoutGroupsize <- quap(
-    alist(
-        scale_weight ~ dnorm(mu, sigma),
-        mu <- a + bAvgfood * scale_avgfood,
-        a ~ dnorm(0, 0.05),
-        bAvgfood ~ dnorm(0, 0.5),
-        sigma ~ dunif(0, 50)
-    ), 
-    data = foxes
-)
-
-prior <- extract.prior(m2)
-precis(prior)
+precis(m2)
 ```
 
-    ##                mean     sd   5.5%  94.5%  histogram
-    ## a          -0.00094  0.049 -0.081  0.079     ▁▂▇▇▃▁
-    ## bGroupsize -0.00434  0.496 -0.778  0.784    ▁▁▂▇▇▂▁
-    ## bAvgfood    0.01009  0.520 -0.803  0.834   ▁▁▃▇▇▃▁▁
-    ## sigma      25.65023 14.338  2.912 47.021 ▅▇▅▇▅▇▇▇▇▇
+    ##            mean    sd  5.5% 94.5%
+    ## a     -0.000031 0.044 -0.07  0.07
+    ## bFood -0.024198 0.091 -0.17  0.12
+    ## sigma  0.995399 0.065  0.89  1.10
+
+``` r
+post <- extract.samples(m2)
+s <- sim(m2, data = list(scale_avgfood = c(-2, 2)), post = post)
+
+ggplot(data.table(s), aes(V1)) +
+    stat_halfeye(.width = .89)
+```
+
+![](Week-03_RobitailleAlec_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+
+### Interpretation
+
+> Would this make foxes heavier? Which covariates do you need to adjust
+> for to estimate the total causal influence of food?
+
+`bFood` has a mean of -0.02, with compatibility intervals around 0. The
+model does not indicate a total causal influence of area on the weight.
+No covariates are needed to estiamte the total causal influence of food
+because there are no backdoors or colliders.
+
+## Question 3
+
+> Now infer the causal impact of group size. Which covariates do you
+> need to adjust for? Looking at the posterior distribution of the
+> resulting model, what do you think explains these data? That is, can
+> you explain the estimates for all three problems? How do they go
+> together?
+
+### Paths
+
+Interest: Group size on weight
+
+Paths:
+
+1.  Groupsize -&gt; Weight
+2.  Groupsize &lt;- Avgfood -&gt; Weight
+
+Avgfood is a collider between Groupsize and Weight. There is a backdoor
+on Groupsize and the path is closed.
+
+``` r
+foxes$scale_groupsize <- scale(foxes$groupsize)
+
+m3 <- quap(
+    alist(
+        scale_weight ~ dnorm(mu, sigma),
+        mu <- a + bGroupsize * scale_groupsize + bFood * scale_avgfood,
+        a ~ dnorm(0, 0.05),
+        bGroupsize ~ dnorm(0, 0.5),
+        bFood ~ dnorm(0, 0.5),
+        sigma ~ dunif(0, 50)
+    ), 
+    data = foxes
+)
+
+precis(m3)
+```
+
+    ##                  mean    sd   5.5%  94.5%
+    ## a          -0.0000082 0.043 -0.069  0.069
+    ## bGroupsize -0.5724746 0.180 -0.860 -0.285
+    ## bFood       0.4762252 0.180  0.189  0.763
+    ## sigma       0.9458928 0.062  0.846  1.046
+
+``` r
+DT <- melt(data.table(extract.samples(m3))[, .(bGroupsize, bFood)])
+```
+
+    ## Warning in melt.data.table(data.table(extract.samples(m3))[, .(bGroupsize, :
+    ## id.vars and measure.vars are internally guessed when both are 'NULL'. All
+    ## non-numeric/integer/logical type columns are considered id.vars, which in this
+    ## case are columns []. Consider providing at least one of 'id' or 'measure' vars
+    ## in future.
+
+``` r
+ggplot(DT) + 
+    geom_density(aes(value, fill = variable), alpha = 0.6) + 
+    theme_bw() + scale_fill_viridis_d(begin = 0.3, end = 0.8)
+```
+
+![](Week-03_RobitailleAlec_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+
+### Interpretation
+
+> Which covariates do you need to adjust for? Looking at the posterior
+> distribution of the resulting model, what do you think explains these
+> data? That is, can you explain the estimates for all three problems?
+> How do they go together?
+
+The Avgfood covariate needs to be included since it is a collider
+between Groupsize and Weight. The mean and compatibility intervals of
+bFood are positive, while the mean and compatibility intervals of
+bGroupsize are negative. This indicates food’s positive relationship
+with weight could be buffered or interacting with the negative
+relationship of group size. Increased food leads to increased body
+weight, but more food also results in larger groups, which decreases the
+food availability.
