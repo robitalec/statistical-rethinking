@@ -172,3 +172,6 @@ Can you explain why the answers to these two questions disagree?
 ```{r}
 compare(m6.9, m6.10)
 ```
+
+
+Model 6.9 has a lower WAIC score, 

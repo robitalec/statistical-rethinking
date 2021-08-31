@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>10 Lecture 05 | Learning bayesian data analysis with Statistical Rethinking</title>
-  <meta name="description" content="10 Lecture 05 | Learning bayesian data analysis with Statistical Rethinking" />
+  <title>16 Lecture 11 | Learning bayesian data analysis with Statistical Rethinking</title>
+  <meta name="description" content="16 Lecture 11 | Learning bayesian data analysis with Statistical Rethinking" />
   <meta name="generator" content="bookdown 0.22.15 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="10 Lecture 05 | Learning bayesian data analysis with Statistical Rethinking" />
+  <meta property="og:title" content="16 Lecture 11 | Learning bayesian data analysis with Statistical Rethinking" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="10 Lecture 05 | Learning bayesian data analysis with Statistical Rethinking" />
+  <meta name="twitter:title" content="16 Lecture 11 | Learning bayesian data analysis with Statistical Rethinking" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="lecture-04.html"/>
-<link rel="next" href="lecture-06.html"/>
+<link rel="prev" href="lecture-10.html"/>
+
 <script src="libs/header-attrs-2.9.5/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -354,97 +354,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="lecture-05" class="section level1" number="10">
-<h1><span class="header-section-number">10</span> Lecture 05</h1>
-<div id="multiple-regression-models" class="section level2" number="10.1">
-<h2><span class="header-section-number">10.1</span> Multiple regression models</h2>
-<p>Why?</p>
-<ul>
-<li>Spurious associations</li>
-<li>Determining the value of some predictor given other predictors
-<ul>
-<li>eg. divorce rate given marriage rate and median age at marriage. Once we know marriage rate, what is the value in knowing median age?</li>
-</ul></li>
-</ul>
-</div>
-<div id="directed-acyclic-graphs-dag" class="section level2" number="10.2">
-<h2><span class="header-section-number">10.2</span> Directed acyclic graphs (DAG)</h2>
-<p>Directed: arrows, indicating causal implications</p>
-<p>Acyclic: no loops</p>
-<p><strong>Unlike statistical models, DAGs have causal implications</strong></p>
-<p>eg. Median age → marriage rate → divorce rate, Median age → divorce rate</p>
-</div>
-<div id="example-age-marriage-divorce" class="section level2" number="10.3">
-<h2><span class="header-section-number">10.3</span> Example: Age, marriage, divorce</h2>
-<p><span class="math inline">\(D_{i} \sim \text{Normal}(\mu_{i}, \sigma)\)</span></p>
-<p><span class="math inline">\(\mu_{i} = \alpha + \beta_{M}M_{i} + \beta_{A}A_{i}\)</span></p>
-<p>(M)arriage rate</p>
-<p>(A)ge at marriage</p>
-<p>(D)ivorce rate</p>
-<div id="priors" class="section level3" number="10.3.1">
-<h3><span class="header-section-number">10.3.1</span> Priors</h3>
-<p>Standardize to z-scores</p>
-<p><span class="math inline">\(\alpha\)</span> = expected value for response when all values are 0. since they are all standardized the response should be 0. Without peaking at the data, this could be hard to guess. But after standardization, it is much simpler.</p>
-<p>Slopes - use prior predictive simulation. Harder.</p>
-</div>
-<div id="prior-predictive-simulation-1" class="section level3" number="10.3.2">
-<h3><span class="header-section-number">10.3.2</span> Prior predictive simulation</h3>
-<p>See <a href="">https://www.notion.so/Statistical-Rethinking-79b2bb4d7c664277a8889122c7a03a9f#4b1e14ff04394a6d881331eda4185ec0</a></p>
-</div>
-<div id="interpretation-4" class="section level3" number="10.3.3">
-<h3><span class="header-section-number">10.3.3</span> Interpretation</h3>
-<p>Once we know median age at marriage, there is little additional value in knowing marriage rate.</p>
-<p>Once we know marriage rate, there is still value in knowing median age at marriage.</p>
-<p>If we don’t know median, it is still useful to know marriage rate, since median age at marriage is related to marriage rate. However, we don’t want to try and influence eg. policy on marriage rate, since it isn’t causal on divorce rate.</p>
-</div>
-</div>
-<div id="plotting-multivariate-posteriors" class="section level2" number="10.4">
-<h2><span class="header-section-number">10.4</span> Plotting multivariate posteriors</h2>
-<ol style="list-style-type: decimal">
-<li>Regress predictor on other predictors</li>
-<li>Compute predictor residuals</li>
-<li>Regress outcome on residuals</li>
-</ol>
-<p><strong>Side note: never analyze the residuals.</strong></p>
-<div id="posterior-predictive-checks" class="section level3" number="10.4.1">
-<h3><span class="header-section-number">10.4.1</span> Posterior predictive checks</h3>
-<p>Compute implied predictions for observed cases</p>
-<p>Again, regressions will always do well in the area around the mean</p>
-</div>
-</div>
-<div id="reveal-masked-associations" class="section level2" number="10.5">
-<h2><span class="header-section-number">10.5</span> Reveal masked associations</h2>
-<p>Sometimes association between outcome and predictor is masked by another variable</p>
-<p>This tends to arise when 2 predictors associated with the outcome have opposite effects on it</p>
-</div>
-<div id="categorical-variables" class="section level2" number="10.6">
-<h2><span class="header-section-number">10.6</span> Categorical variables</h2>
-<p>Two approaches:</p>
-<ol style="list-style-type: decimal">
-<li>Use dummy/indicator variables</li>
-<li>Use index variables</li>
-</ol>
-<p><strong>Index variables are much better</strong></p>
-<div id="dummy-variable" class="section level3" number="10.6.1">
-<h3><span class="header-section-number">10.6.1</span> Dummy variable</h3>
-<p>“Stand in” variable</p>
-<p>Eg. male/female column, translated to 0, 1, 0, 0, 1 where 0 female, 1 male</p>
-<p>Model:</p>
-<p><span class="math inline">\(h_{i} \sim \text{Normal}(\mu_{i}, \sigma)\)</span></p>
-<p><span class="math inline">\(\mu_{i} = \alpha + \beta_{M}M_{i}\)</span></p>
-<p>In the case of dummy variables, alpha is the mean when M = 0 (female) and beta M is the change in mean when M = 1 (male).</p>
-<p>Result is 2 intercepts = where alpha alone is for female and alpha + beta M is intercept for males</p>
-<p>Problem: for k categories, need k-1 dummy variables and need priors for each. also, priors aren’t balanced because of alpha vs beta</p>
-</div>
-</div>
+<div id="lecture-11" class="section level1" number="16">
+<h1><span class="header-section-number">16</span> Lecture 11</h1>
+<p>Flat distributions have the highest entropy and have many more ways that they can be realized</p>
+
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="lecture-04.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="lecture-06.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="lecture-10.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

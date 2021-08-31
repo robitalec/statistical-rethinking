@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>10 Lecture 05 | Learning bayesian data analysis with Statistical Rethinking</title>
-  <meta name="description" content="10 Lecture 05 | Learning bayesian data analysis with Statistical Rethinking" />
+  <title>15 Lecture 10 | Learning bayesian data analysis with Statistical Rethinking</title>
+  <meta name="description" content="15 Lecture 10 | Learning bayesian data analysis with Statistical Rethinking" />
   <meta name="generator" content="bookdown 0.22.15 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="10 Lecture 05 | Learning bayesian data analysis with Statistical Rethinking" />
+  <meta property="og:title" content="15 Lecture 10 | Learning bayesian data analysis with Statistical Rethinking" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="10 Lecture 05 | Learning bayesian data analysis with Statistical Rethinking" />
+  <meta name="twitter:title" content="15 Lecture 10 | Learning bayesian data analysis with Statistical Rethinking" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="lecture-04.html"/>
-<link rel="next" href="lecture-06.html"/>
+<link rel="prev" href="lecture-09.html"/>
+<link rel="next" href="lecture-11.html"/>
 <script src="libs/header-attrs-2.9.5/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -354,87 +354,95 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="lecture-05" class="section level1" number="10">
-<h1><span class="header-section-number">10</span> Lecture 05</h1>
-<div id="multiple-regression-models" class="section level2" number="10.1">
-<h2><span class="header-section-number">10.1</span> Multiple regression models</h2>
-<p>Why?</p>
+<div id="lecture-10" class="section level1" number="15">
+<h1><span class="header-section-number">15</span> Lecture 10</h1>
+<div id="markov-chain-monte-carlo" class="section level2" number="15.1">
+<h2><span class="header-section-number">15.1</span> Markov Chain Monte Carlo</h2>
+<p>Reminder: bayesian inference is about calculating the posterior. Bayesian ≠ Markov Chains</p>
+<p>4 of the ways to compute the posterior</p>
+<ol style="list-style-type: decimal">
+<li>Analytical approach (mostly impossible)</li>
+<li>Grid approximation (very intensive)</li>
+<li>Quadratic approximate (limited)</li>
+<li>MCMC (intensive)</li>
+</ol>
+<p>Advantages of MCMC</p>
 <ul>
-<li>Spurious associations</li>
-<li>Determining the value of some predictor given other predictors
-<ul>
-<li>eg. divorce rate given marriage rate and median age at marriage. Once we know marriage rate, what is the value in knowing median age?</li>
-</ul></li>
+<li>You don’t know the posterior yet you can still visit each part of it in proportion to it’s relative probability</li>
+<li>“Sample from a distribution that we don’t know”</li>
 </ul>
-</div>
-<div id="directed-acyclic-graphs-dag" class="section level2" number="10.2">
-<h2><span class="header-section-number">10.2</span> Directed acyclic graphs (DAG)</h2>
-<p>Directed: arrows, indicating causal implications</p>
-<p>Acyclic: no loops</p>
-<p><strong>Unlike statistical models, DAGs have causal implications</strong></p>
-<p>eg. Median age → marriage rate → divorce rate, Median age → divorce rate</p>
-</div>
-<div id="example-age-marriage-divorce" class="section level2" number="10.3">
-<h2><span class="header-section-number">10.3</span> Example: Age, marriage, divorce</h2>
-<p><span class="math inline">\(D_{i} \sim \text{Normal}(\mu_{i}, \sigma)\)</span></p>
-<p><span class="math inline">\(\mu_{i} = \alpha + \beta_{M}M_{i} + \beta_{A}A_{i}\)</span></p>
-<p>(M)arriage rate</p>
-<p>(A)ge at marriage</p>
-<p>(D)ivorce rate</p>
-<div id="priors" class="section level3" number="10.3.1">
-<h3><span class="header-section-number">10.3.1</span> Priors</h3>
-<p>Standardize to z-scores</p>
-<p><span class="math inline">\(\alpha\)</span> = expected value for response when all values are 0. since they are all standardized the response should be 0. Without peaking at the data, this could be hard to guess. But after standardization, it is much simpler.</p>
-<p>Slopes - use prior predictive simulation. Harder.</p>
-</div>
-<div id="prior-predictive-simulation-1" class="section level3" number="10.3.2">
-<h3><span class="header-section-number">10.3.2</span> Prior predictive simulation</h3>
-<p>See <a href="">https://www.notion.so/Statistical-Rethinking-79b2bb4d7c664277a8889122c7a03a9f#4b1e14ff04394a6d881331eda4185ec0</a></p>
-</div>
-<div id="interpretation-4" class="section level3" number="10.3.3">
-<h3><span class="header-section-number">10.3.3</span> Interpretation</h3>
-<p>Once we know median age at marriage, there is little additional value in knowing marriage rate.</p>
-<p>Once we know marriage rate, there is still value in knowing median age at marriage.</p>
-<p>If we don’t know median, it is still useful to know marriage rate, since median age at marriage is related to marriage rate. However, we don’t want to try and influence eg. policy on marriage rate, since it isn’t causal on divorce rate.</p>
-</div>
-</div>
-<div id="plotting-multivariate-posteriors" class="section level2" number="10.4">
-<h2><span class="header-section-number">10.4</span> Plotting multivariate posteriors</h2>
+<div id="metropolis-algorithm" class="section level3" number="15.1.1">
+<h3><span class="header-section-number">15.1.1</span> Metropolis algorithm</h3>
 <ol style="list-style-type: decimal">
-<li>Regress predictor on other predictors</li>
-<li>Compute predictor residuals</li>
-<li>Regress outcome on residuals</li>
+<li>Loop over iterations</li>
+<li>Record location</li>
+<li>Generate neighbour location proposals</li>
+<li>Move based on frequency</li>
 </ol>
-<p><strong>Side note: never analyze the residuals.</strong></p>
-<div id="posterior-predictive-checks" class="section level3" number="10.4.1">
-<h3><span class="header-section-number">10.4.1</span> Posterior predictive checks</h3>
-<p>Compute implied predictions for observed cases</p>
-<p>Again, regressions will always do well in the area around the mean</p>
+<p>Converges in the long run, can be used as long as proposals are symmetric</p>
 </div>
+<div id="metropolis-hastings" class="section level3" number="15.1.2">
+<h3><span class="header-section-number">15.1.2</span> Metropolis Hastings</h3>
+<p>Improvement on Metropolis, does not require the proposals to be symmetrical</p>
 </div>
-<div id="reveal-masked-associations" class="section level2" number="10.5">
-<h2><span class="header-section-number">10.5</span> Reveal masked associations</h2>
-<p>Sometimes association between outcome and predictor is masked by another variable</p>
-<p>This tends to arise when 2 predictors associated with the outcome have opposite effects on it</p>
+<div id="gibbs-sampling" class="section level3" number="15.1.3">
+<h3><span class="header-section-number">15.1.3</span> Gibbs sampling</h3>
+<p>More efficient version of MH</p>
 </div>
-<div id="categorical-variables" class="section level2" number="10.6">
-<h2><span class="header-section-number">10.6</span> Categorical variables</h2>
-<p>Two approaches:</p>
+<div id="hamiltonian-monte-carlo" class="section level3" number="15.1.4">
+<h3><span class="header-section-number">15.1.4</span> Hamiltonian Monte Carlo</h3>
+<p>Markov Chain: No memory. Probability solely depends on current state, not past state. No storage.</p>
+<p>Monte Carlo: Random simulation (eg Monaco casino)</p>
+<p>MCMC is a numerical technique to solve for the posterior, with several advantages over Metropolis and Gibbs</p>
+<ul>
+<li>Metropolis and Gibbs use optimization but optimization is not a good strategy in high dimensions (see concentration of measure)</li>
+<li>Hamiltonian Monte Carlo uses a gradient to avoid the guess + check of Metropolis and Gibbs</li>
+<li>Especially in high dimensional space, acceptance rate decreases and methods take more time</li>
+</ul>
+<p>Hamiltonian Monte Carlo:</p>
 <ol style="list-style-type: decimal">
-<li>Use dummy/indicator variables</li>
-<li>Use index variables</li>
+<li>Uses a physics simulation representing the parameter state as a particle</li>
+<li>Flicks the particle around a frictionless log-posterior surface</li>
+<li>Follows curvature of the surface, so it doesn’t get stuck</li>
+<li>Uses random direction and random speed</li>
+<li>Slows as it climbs, speeds as it drops</li>
 </ol>
-<p><strong>Index variables are much better</strong></p>
-<div id="dummy-variable" class="section level3" number="10.6.1">
-<h3><span class="header-section-number">10.6.1</span> Dummy variable</h3>
-<p>“Stand in” variable</p>
-<p>Eg. male/female column, translated to 0, 1, 0, 0, 1 where 0 female, 1 male</p>
-<p>Model:</p>
-<p><span class="math inline">\(h_{i} \sim \text{Normal}(\mu_{i}, \sigma)\)</span></p>
-<p><span class="math inline">\(\mu_{i} = \alpha + \beta_{M}M_{i}\)</span></p>
-<p>In the case of dummy variables, alpha is the mean when M = 0 (female) and beta M is the change in mean when M = 1 (male).</p>
-<p>Result is 2 intercepts = where alpha alone is for female and alpha + beta M is intercept for males</p>
-<p>Problem: for k categories, need k-1 dummy variables and need priors for each. also, priors aren’t balanced because of alpha vs beta</p>
+<p>This is much more computationally intensive, but requires less steps, has much fewer rejections</p>
+<p>It’s also easier to determine if MCMC has failed</p>
+</div>
+<div id="tuning-mcmc" class="section level3" number="15.1.5">
+<h3><span class="header-section-number">15.1.5</span> Tuning MCMC</h3>
+<p>Step size: time the simulation is run. Increase step size = increase efficiency but overestimates curvature</p>
+<p>U Turn risk is solved by NUTS (No U Turn Sampler)</p>
+<ol style="list-style-type: decimal">
+<li>Warm up phase - finding the step size to maximize acceptance rate. Default = good (half the number of samples)</li>
+<li>Runs in both directions and gives uncorrelated samples. No need to pick leap frog steps</li>
+</ol>
+</div>
+<div id="stan" class="section level3" number="15.1.6">
+<h3><span class="header-section-number">15.1.6</span> Stan</h3>
+<p>Stan uses NUTS</p>
+</div>
+<div id="ulam" class="section level3" number="15.1.7">
+<h3><span class="header-section-number">15.1.7</span> ulam</h3>
+<ol style="list-style-type: decimal">
+<li>Create list of data only what you need</li>
+<li><code>ulam</code> with formulas as in <code>quap</code></li>
+<li><code>ulam</code> translates the formulas to Stan</li>
+<li>Builds the NUTS sampler</li>
+<li>Sampler runs</li>
+<li>Returns posterior</li>
+</ol>
+</div>
+<div id="diagnosis" class="section level3" number="15.1.8">
+<h3><span class="header-section-number">15.1.8</span> Diagnosis</h3>
+<p>Neff: number of effective samples. Can be greater than the number of samples from the Markov Chan. Effective if no autocorrelation</p>
+<p>Rhat: Convergence diagnostic. 1 is good. Ratio of variance within vs ratio of variance across chains.</p>
+<p>"<strong>Typically when you have a computational problem, often there’s a problem with your model"</strong></p>
+</div>
+<div id="checking-the-chain" class="section level3" number="15.1.9">
+<h3><span class="header-section-number">15.1.9</span> Checking the chain</h3>
+<p>TODO: p283</p>
 </div>
 </div>
 </div>
@@ -443,8 +451,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="lecture-04.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="lecture-06.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="lecture-09.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="lecture-11.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
