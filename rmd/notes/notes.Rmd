@@ -477,7 +477,7 @@ Therefore, understanding the relationship between T and F is important, but for 
 
 X → Z ← Y
 
-Z is common result of X and Y. X and Y are independent, if you condition on Z. 
+Z is common result of X and Y. X and Y are independent, if you condition on Z. Careful about statistical correlations that do not indicate causation here. 
 
 ### Steps
 
