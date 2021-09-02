@@ -185,3 +185,16 @@ happiness, making age and happiness independent. Therefore, despite the WAIC for
 m6.9 being lower, it does not tell us anything about causation between the
 variables.
 
+
+## Question 3
+
+> Reconsider the urban fox analysis from last week’s homework. Use WAIC or LOO
+based model comparison on five different models, each using weight as the
+outcome, and containing these sets of predictor variables:
+
+1. avgfood + groupsize + area
+2. avgfood + groupsize
+3. groupsize + area
+4. avgfood
+5. area
+
