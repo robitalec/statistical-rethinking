@@ -876,8 +876,8 @@ m11.4 <- ulam(
 		b[treatment] ~ dnorm(0, 0.5)
 	), 
 	data = dat_list,
-	chains = 4,
-	log_lik = TRUE
+	chains = 4#,
+	# log_lik = TRUE
 )
 
 writeLines(m11.4@model)
