@@ -169,9 +169,19 @@ provides the correct causal inference about the influence of age on happiness?
 Can you explain why the answers to these two questions disagree?
 
 
-```{r}
+```{r, eval = FALSE}
 compare(m6.9, m6.10)
 ```
 
+```{r, echo = FALSE}
+round(compare(m6.9, m6.10), 2)
+```
 
-Model 6.9 has a lower WAIC score, 
+
+Model m6.9 includes marriage while m6.10 does not. The causal influence of age
+on happiness is confounded by marriage because marriage is a collider between
+age and happiness. Conditioning on marriage opens the path between age and
+happiness, making age and happiness independent. Therefore, despite the WAIC for
+m6.9 being lower, it does not tell us anything about causation between the
+variables.
+

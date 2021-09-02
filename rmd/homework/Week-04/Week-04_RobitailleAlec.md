@@ -214,11 +214,15 @@ precis(m6.10, depth = 2)
 compare(m6.9, m6.10)
 ```
 
-    ##       WAIC SE dWAIC dSE pWAIC
-    ## m6.9  2714 38     0  NA   3.7
-    ## m6.10 3102 28   388  35   2.3
-    ##                                                                                         weight
-    ## m6.9  1.00000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-    ## m6.10 0.00000000000000000000000000000000000000000000000000000000000000000000000000000000000057
+``` r
+round(compare(m6.9, m6.10), 2)
+```
 
-Model 6.9 has a lower WAIC score,
+    ##       WAIC SE dWAIC dSE pWAIC weight
+    ## m6.9  2714 38     0  NA   3.7      1
+    ## m6.10 3102 28   388  35   2.3      0
+
+Model m6.9 includes marriage while m6.10 does not. The causal influence
+of age on happiness is confounded by marriage because marriage is a
+collider between when investigating the causal influence of age on
+happiness
