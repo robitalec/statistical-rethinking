@@ -275,9 +275,14 @@ m5 <- quap(
 )
 ```
 
+
+### Interpretation
+
 > Can you explain the relative differences in WAIC scores, using the fox DAG
 from last week’s homework? Be sure to pay attention to the standard error of the
 score differences (dSE).
 
-
+```{r}
+compare(m1, m2, m3, m4, m5)
+```
 

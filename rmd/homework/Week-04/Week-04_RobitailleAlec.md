@@ -214,15 +214,119 @@ precis(m6.10, depth = 2)
 compare(m6.9, m6.10)
 ```
 
-``` r
-round(compare(m6.9, m6.10), 2)
-```
-
     ##       WAIC SE dWAIC dSE pWAIC weight
     ## m6.9  2714 38     0  NA   3.7      1
     ## m6.10 3102 28   388  35   2.3      0
 
 Model m6.9 includes marriage while m6.10 does not. The causal influence
 of age on happiness is confounded by marriage because marriage is a
-collider between when investigating the causal influence of age on
-happiness
+collider between age and happiness. Conditioning on marriage opens the
+path between age and happiness, making age and happiness independent.
+Therefore, despite the WAIC for m6.9 being lower, it does not tell us
+anything about causation between the variables.
+
+## Question 3
+
+> Reconsider the urban fox analysis from last week’s homework. Use WAIC
+> or LOO based model comparison on five different models, each using
+> weight as the outcome, and containing these sets of predictor
+> variables:
+
+1.  avgfood + groupsize + area
+2.  avgfood + groupsize
+3.  groupsize + area
+4.  avgfood
+5.  area
+
+### Data
+
+``` r
+library(rethinking)
+
+data(foxes)
+```
+
+### Models
+
+``` r
+foxes$scale_area <- scale(foxes$area)
+foxes$scale_weight <- scale(foxes$weight)
+foxes$scale_avgfood <- scale(foxes$avgfood)
+foxes$scale_groupsize <- scale(foxes$groupsize)
+
+m1 <- quap(
+    alist(
+        scale_weight ~ dnorm(mu, sigma),
+        mu <- a + bFood * scale_avgfood + bGroup * scale_groupsize + bArea * scale_area,
+        a ~ dnorm(0, 0.05),
+        bFood ~ dnorm(0, 0.5),
+        bGroup ~ dnorm(0, 0.5),
+        bArea ~ dnorm(0, 0.5),
+        sigma ~ dunif(0, 50)
+    ), 
+    data = foxes
+)
+
+m2 <- quap(
+    alist(
+        scale_weight ~ dnorm(mu, sigma),
+        mu <- a + bFood * scale_avgfood + bGroup * scale_groupsize,
+        a ~ dnorm(0, 0.05),
+        bFood ~ dnorm(0, 0.5),
+        bGroup ~ dnorm(0, 0.5),
+        sigma ~ dunif(0, 50)
+    ), 
+    data = foxes
+)
+
+m3 <- quap(
+    alist(
+        scale_weight ~ dnorm(mu, sigma),
+        mu <- a + bGroup * scale_groupsize + bArea * scale_area,
+        a ~ dnorm(0, 0.05),
+        bArea ~ dnorm(0, 0.5),
+        bGroup ~ dnorm(0, 0.5),
+        sigma ~ dunif(0, 50)
+    ), 
+    data = foxes
+)
+
+m4 <- quap(
+    alist(
+        scale_weight ~ dnorm(mu, sigma),
+        mu <- a + bFood * scale_avgfood,
+        a ~ dnorm(0, 0.05),
+        bFood ~ dnorm(0, 0.5),
+        sigma ~ dunif(0, 50)
+    ), 
+    data = foxes
+)
+
+m5 <- quap(
+    alist(
+        scale_weight ~ dnorm(mu, sigma),
+        mu <- a + bArea * scale_area,
+        a ~ dnorm(0, 0.05),
+        bArea ~ dnorm(0, 0.5),
+        sigma ~ dunif(0, 50)
+    ), 
+    data = foxes
+)
+```
+
+### Interpretation
+
+> Can you explain the relative differences in WAIC scores, using the fox
+> DAG from last week’s homework? Be sure to pay attention to the
+> standard error of the score differences (dSE).
+
+``` r
+compare(m1, m2, m3, m4, m5)
+```
+
+    ##    WAIC SE dWAIC dSE pWAIC weight
+    ## m1  322 16  0.00  NA   4.1 0.4394
+    ## m2  323 16  0.85 3.5   3.0 0.2866
+    ## m3  323 15  0.98 3.0   3.1 0.2698
+    ## m4  332 14 10.58 7.2   1.8 0.0022
+    ## m5  332 14 10.73 7.2   2.0 0.0021
