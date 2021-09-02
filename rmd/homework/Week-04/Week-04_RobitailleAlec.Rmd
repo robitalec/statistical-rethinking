@@ -198,3 +198,86 @@ outcome, and containing these sets of predictor variables:
 4. avgfood
 5. area
 
+
+### Data
+```{r}
+library(rethinking)
+
+data(foxes)
+```
+
+
+### Models
+
+```{r}
+foxes$scale_area <- scale(foxes$area)
+foxes$scale_weight <- scale(foxes$weight)
+foxes$scale_avgfood <- scale(foxes$avgfood)
+foxes$scale_groupsize <- scale(foxes$groupsize)
+
+m1 <- quap(
+	alist(
+		scale_weight ~ dnorm(mu, sigma),
+		mu <- a + bFood * scale_avgfood + bGroup * scale_groupsize + bArea * scale_area,
+		a ~ dnorm(0, 0.05),
+		bFood ~ dnorm(0, 0.5),
+		bGroup ~ dnorm(0, 0.5),
+		bArea ~ dnorm(0, 0.5),
+		sigma ~ dunif(0, 50)
+	), 
+	data = foxes
+)
+
+m2 <- quap(
+	alist(
+		scale_weight ~ dnorm(mu, sigma),
+		mu <- a + bFood * scale_avgfood + bGroup * scale_groupsize,
+		a ~ dnorm(0, 0.05),
+		bFood ~ dnorm(0, 0.5),
+		bGroup ~ dnorm(0, 0.5),
+		sigma ~ dunif(0, 50)
+	), 
+	data = foxes
+)
+
+m3 <- quap(
+	alist(
+		scale_weight ~ dnorm(mu, sigma),
+		mu <- a + bGroup * scale_groupsize + bArea * scale_area,
+		a ~ dnorm(0, 0.05),
+		bArea ~ dnorm(0, 0.5),
+		bGroup ~ dnorm(0, 0.5),
+		sigma ~ dunif(0, 50)
+	), 
+	data = foxes
+)
+
+m4 <- quap(
+	alist(
+		scale_weight ~ dnorm(mu, sigma),
+		mu <- a + bFood * scale_avgfood,
+		a ~ dnorm(0, 0.05),
+		bFood ~ dnorm(0, 0.5),
+		sigma ~ dunif(0, 50)
+	), 
+	data = foxes
+)
+
+m5 <- quap(
+	alist(
+		scale_weight ~ dnorm(mu, sigma),
+		mu <- a + bArea * scale_area,
+		a ~ dnorm(0, 0.05),
+		bArea ~ dnorm(0, 0.5),
+		sigma ~ dunif(0, 50)
+	), 
+	data = foxes
+)
+```
+
+> Can you explain the relative differences in WAIC scores, using the fox DAG
+from last week’s homework? Be sure to pay attention to the standard error of the
+score differences (dSE).
+
+
+
