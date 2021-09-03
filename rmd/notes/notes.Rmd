@@ -612,6 +612,12 @@ Widely Applicable Information Criterion
 
 - Does not assume gaussian posterior
 
+### Standard error
+
+Presented in `rethinking::compare` and available for LOO or AIC comparisons. The standard error is the approximate standard error of each WAIC. Caution: with small sample sizes, the standard error reported underestimates the uncertainty. 
+
+To determine if two models can be distinguished, use the standard error of their difference (dSE). Using the `compare` function, you can get the `@dSE` slot to return a matrix of dSE for each pair of models. 
+
 ## Model selection
 
 Avoid model selection
