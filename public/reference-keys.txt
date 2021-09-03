@@ -37,6 +37,11 @@ dag
 data
 models
 interpretation-3
+question-3-2
+data-1
+models-1
+dag-1
+interpretation-4
 lecture-01
 popper
 approach
@@ -74,7 +79,7 @@ directed-acyclic-graphs-dag
 example-age-marriage-divorce
 priors
 prior-predictive-simulation-1
-interpretation-4
+interpretation-5
 plotting-multivariate-posteriors
 posterior-predictive-checks
 reveal-masked-associations
@@ -106,6 +111,7 @@ cross-validation
 loo
 information-criteria
 waic
+standard-error
 model-selection
 model-comparison
 example-1-model-mis-selection-using-waic
@@ -129,3 +135,4 @@ ulam
 diagnosis
 checking-the-chain
 lecture-11
+lecture-12

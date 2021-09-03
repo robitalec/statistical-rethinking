@@ -192,6 +192,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.2.3" data-path="homework-week-4.html"><a href="homework-week-4.html#models"><i class="fa fa-check"></i><b>5.2.3</b> Models</a></li>
 <li class="chapter" data-level="5.2.4" data-path="homework-week-4.html"><a href="homework-week-4.html#interpretation-3"><i class="fa fa-check"></i><b>5.2.4</b> Interpretation</a></li>
 </ul></li>
+<li class="chapter" data-level="5.3" data-path="homework-week-4.html"><a href="homework-week-4.html#question-3-2"><i class="fa fa-check"></i><b>5.3</b> Question 3</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="homework-week-4.html"><a href="homework-week-4.html#data-1"><i class="fa fa-check"></i><b>5.3.1</b> Data</a></li>
+<li class="chapter" data-level="5.3.2" data-path="homework-week-4.html"><a href="homework-week-4.html#models-1"><i class="fa fa-check"></i><b>5.3.2</b> Models</a></li>
+<li class="chapter" data-level="5.3.3" data-path="homework-week-4.html"><a href="homework-week-4.html#dag-1"><i class="fa fa-check"></i><b>5.3.3</b> DAG</a></li>
+<li class="chapter" data-level="5.3.4" data-path="homework-week-4.html"><a href="homework-week-4.html#interpretation-4"><i class="fa fa-check"></i><b>5.3.4</b> Interpretation</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="lecture-01.html"><a href="lecture-01.html"><i class="fa fa-check"></i><b>6</b> Lecture 01</a>
 <ul>
@@ -246,7 +253,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="10.3.1" data-path="lecture-05.html"><a href="lecture-05.html#priors"><i class="fa fa-check"></i><b>10.3.1</b> Priors</a></li>
 <li class="chapter" data-level="10.3.2" data-path="lecture-05.html"><a href="lecture-05.html#prior-predictive-simulation-1"><i class="fa fa-check"></i><b>10.3.2</b> Prior predictive simulation</a></li>
-<li class="chapter" data-level="10.3.3" data-path="lecture-05.html"><a href="lecture-05.html#interpretation-4"><i class="fa fa-check"></i><b>10.3.3</b> Interpretation</a></li>
+<li class="chapter" data-level="10.3.3" data-path="lecture-05.html"><a href="lecture-05.html#interpretation-5"><i class="fa fa-check"></i><b>10.3.3</b> Interpretation</a></li>
 </ul></li>
 <li class="chapter" data-level="10.4" data-path="lecture-05.html"><a href="lecture-05.html#plotting-multivariate-posteriors"><i class="fa fa-check"></i><b>10.4</b> Plotting multivariate posteriors</a>
 <ul>
@@ -300,6 +307,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="13.6" data-path="lecture-08.html"><a href="lecture-08.html#information-criteria"><i class="fa fa-check"></i><b>13.6</b> Information criteria</a>
 <ul>
 <li class="chapter" data-level="13.6.1" data-path="lecture-08.html"><a href="lecture-08.html#waic"><i class="fa fa-check"></i><b>13.6.1</b> WAIC</a></li>
+<li class="chapter" data-level="13.6.2" data-path="lecture-08.html"><a href="lecture-08.html#standard-error"><i class="fa fa-check"></i><b>13.6.2</b> Standard error</a></li>
 </ul></li>
 <li class="chapter" data-level="13.7" data-path="lecture-08.html"><a href="lecture-08.html#model-selection"><i class="fa fa-check"></i><b>13.7</b> Model selection</a></li>
 <li class="chapter" data-level="13.8" data-path="lecture-08.html"><a href="lecture-08.html#model-comparison"><i class="fa fa-check"></i><b>13.8</b> Model comparison</a>
@@ -337,6 +345,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="lecture-11.html"><a href="lecture-11.html"><i class="fa fa-check"></i><b>16</b> Lecture 11</a></li>
+<li class="chapter" data-level="17" data-path="lecture-12.html"><a href="lecture-12.html"><i class="fa fa-check"></i><b>17</b> Lecture 12</a></li>
 </ul>
 
       </nav>
@@ -356,7 +365,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="homework-week-4" class="section level1" number="5">
 <h1><span class="header-section-number">5</span> Homework: Week 4</h1>
-<p>2021-08-30 [updated: 2021-08-31]</p>
+<p>2021-08-30 [updated: 2021-09-03]</p>
 <div id="setup-1" class="section level3" number="5.0.1">
 <h3><span class="header-section-number">5.0.1</span> Setup</h3>
 <div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="homework-week-4.html#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Packages</span></span>
@@ -522,13 +531,175 @@ provides the correct causal inference about the influence of age on happiness?
 Can you explain why the answers to these two questions disagree?</p>
 </blockquote>
 <div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="homework-week-4.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">compare</span>(m6<span class="fl">.9</span>, m6<span class="fl">.10</span>)</span></code></pre></div>
-<pre><code>##       WAIC SE dWAIC dSE pWAIC
-## m6.9  2714 38     0  NA   3.7
-## m6.10 3102 28   388  35   2.3
-##                                                                                         weight
-## m6.9  1.00000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-## m6.10 0.00000000000000000000000000000000000000000000000000000000000000000000000000000000000057</code></pre>
-<p>Model 6.9 has a lower WAIC score,</p>
+<pre><code>##       WAIC SE dWAIC dSE pWAIC weight
+## m6.9  2714 38     0  NA   3.7      1
+## m6.10 3102 28   388  35   2.3      0</code></pre>
+<p>Model m6.9 includes marriage while m6.10 does not. The causal influence of age
+on happiness is confounded by marriage because marriage is a collider between
+age and happiness. Conditioning on marriage opens the path between age and
+happiness, making age and happiness independent. Therefore, despite the WAIC for
+m6.9 being lower, it does not tell us anything about causation between the
+variables.</p>
+</div>
+</div>
+<div id="question-3-2" class="section level2" number="5.3">
+<h2><span class="header-section-number">5.3</span> Question 3</h2>
+<blockquote>
+<p>Reconsider the urban fox analysis from last week’s homework. Use WAIC or LOO
+based model comparison on five different models, each using weight as the
+outcome, and containing these sets of predictor variables:</p>
+</blockquote>
+<ol style="list-style-type: decimal">
+<li>avgfood + groupsize + area</li>
+<li>avgfood + groupsize</li>
+<li>groupsize + area</li>
+<li>avgfood</li>
+<li>area</li>
+</ol>
+<div id="data-1" class="section level3" number="5.3.1">
+<h3><span class="header-section-number">5.3.1</span> Data</h3>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="homework-week-4.html#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
+<span id="cb61-2"><a href="homework-week-4.html#cb61-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-3"><a href="homework-week-4.html#cb61-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(foxes)</span></code></pre></div>
+</div>
+<div id="models-1" class="section level3" number="5.3.2">
+<h3><span class="header-section-number">5.3.2</span> Models</h3>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="homework-week-4.html#cb62-1" aria-hidden="true" tabindex="-1"></a>foxes<span class="sc">$</span>scale_area <span class="ot">&lt;-</span> <span class="fu">scale</span>(foxes<span class="sc">$</span>area)</span>
+<span id="cb62-2"><a href="homework-week-4.html#cb62-2" aria-hidden="true" tabindex="-1"></a>foxes<span class="sc">$</span>scale_weight <span class="ot">&lt;-</span> <span class="fu">scale</span>(foxes<span class="sc">$</span>weight)</span>
+<span id="cb62-3"><a href="homework-week-4.html#cb62-3" aria-hidden="true" tabindex="-1"></a>foxes<span class="sc">$</span>scale_avgfood <span class="ot">&lt;-</span> <span class="fu">scale</span>(foxes<span class="sc">$</span>avgfood)</span>
+<span id="cb62-4"><a href="homework-week-4.html#cb62-4" aria-hidden="true" tabindex="-1"></a>foxes<span class="sc">$</span>scale_groupsize <span class="ot">&lt;-</span> <span class="fu">scale</span>(foxes<span class="sc">$</span>groupsize)</span>
+<span id="cb62-5"><a href="homework-week-4.html#cb62-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-6"><a href="homework-week-4.html#cb62-6" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">quap</span>(</span>
+<span id="cb62-7"><a href="homework-week-4.html#cb62-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">alist</span>(</span>
+<span id="cb62-8"><a href="homework-week-4.html#cb62-8" aria-hidden="true" tabindex="-1"></a>        scale_weight <span class="sc">~</span> <span class="fu">dnorm</span>(mu, sigma),</span>
+<span id="cb62-9"><a href="homework-week-4.html#cb62-9" aria-hidden="true" tabindex="-1"></a>        mu <span class="ot">&lt;-</span> a <span class="sc">+</span> bFood <span class="sc">*</span> scale_avgfood <span class="sc">+</span> bGroup <span class="sc">*</span> scale_groupsize <span class="sc">+</span> bArea <span class="sc">*</span> scale_area,</span>
+<span id="cb62-10"><a href="homework-week-4.html#cb62-10" aria-hidden="true" tabindex="-1"></a>        a <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.2</span>),</span>
+<span id="cb62-11"><a href="homework-week-4.html#cb62-11" aria-hidden="true" tabindex="-1"></a>        bFood <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.5</span>),</span>
+<span id="cb62-12"><a href="homework-week-4.html#cb62-12" aria-hidden="true" tabindex="-1"></a>        bGroup <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.5</span>),</span>
+<span id="cb62-13"><a href="homework-week-4.html#cb62-13" aria-hidden="true" tabindex="-1"></a>        bArea <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.5</span>),</span>
+<span id="cb62-14"><a href="homework-week-4.html#cb62-14" aria-hidden="true" tabindex="-1"></a>        sigma <span class="sc">~</span> <span class="fu">dunif</span>(<span class="dv">0</span>, <span class="dv">50</span>)</span>
+<span id="cb62-15"><a href="homework-week-4.html#cb62-15" aria-hidden="true" tabindex="-1"></a>    ), </span>
+<span id="cb62-16"><a href="homework-week-4.html#cb62-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> foxes</span>
+<span id="cb62-17"><a href="homework-week-4.html#cb62-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb62-18"><a href="homework-week-4.html#cb62-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-19"><a href="homework-week-4.html#cb62-19" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">quap</span>(</span>
+<span id="cb62-20"><a href="homework-week-4.html#cb62-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">alist</span>(</span>
+<span id="cb62-21"><a href="homework-week-4.html#cb62-21" aria-hidden="true" tabindex="-1"></a>        scale_weight <span class="sc">~</span> <span class="fu">dnorm</span>(mu, sigma),</span>
+<span id="cb62-22"><a href="homework-week-4.html#cb62-22" aria-hidden="true" tabindex="-1"></a>        mu <span class="ot">&lt;-</span> a <span class="sc">+</span> bFood <span class="sc">*</span> scale_avgfood <span class="sc">+</span> bGroup <span class="sc">*</span> scale_groupsize,</span>
+<span id="cb62-23"><a href="homework-week-4.html#cb62-23" aria-hidden="true" tabindex="-1"></a>        a <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.2</span>),</span>
+<span id="cb62-24"><a href="homework-week-4.html#cb62-24" aria-hidden="true" tabindex="-1"></a>        bFood <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.5</span>),</span>
+<span id="cb62-25"><a href="homework-week-4.html#cb62-25" aria-hidden="true" tabindex="-1"></a>        bGroup <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.5</span>),</span>
+<span id="cb62-26"><a href="homework-week-4.html#cb62-26" aria-hidden="true" tabindex="-1"></a>        sigma <span class="sc">~</span> <span class="fu">dunif</span>(<span class="dv">0</span>, <span class="dv">50</span>)</span>
+<span id="cb62-27"><a href="homework-week-4.html#cb62-27" aria-hidden="true" tabindex="-1"></a>    ), </span>
+<span id="cb62-28"><a href="homework-week-4.html#cb62-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> foxes</span>
+<span id="cb62-29"><a href="homework-week-4.html#cb62-29" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb62-30"><a href="homework-week-4.html#cb62-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-31"><a href="homework-week-4.html#cb62-31" aria-hidden="true" tabindex="-1"></a>m3 <span class="ot">&lt;-</span> <span class="fu">quap</span>(</span>
+<span id="cb62-32"><a href="homework-week-4.html#cb62-32" aria-hidden="true" tabindex="-1"></a>    <span class="fu">alist</span>(</span>
+<span id="cb62-33"><a href="homework-week-4.html#cb62-33" aria-hidden="true" tabindex="-1"></a>        scale_weight <span class="sc">~</span> <span class="fu">dnorm</span>(mu, sigma),</span>
+<span id="cb62-34"><a href="homework-week-4.html#cb62-34" aria-hidden="true" tabindex="-1"></a>        mu <span class="ot">&lt;-</span> a <span class="sc">+</span> bGroup <span class="sc">*</span> scale_groupsize <span class="sc">+</span> bArea <span class="sc">*</span> scale_area,</span>
+<span id="cb62-35"><a href="homework-week-4.html#cb62-35" aria-hidden="true" tabindex="-1"></a>        a <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.2</span>),</span>
+<span id="cb62-36"><a href="homework-week-4.html#cb62-36" aria-hidden="true" tabindex="-1"></a>        bArea <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.5</span>),</span>
+<span id="cb62-37"><a href="homework-week-4.html#cb62-37" aria-hidden="true" tabindex="-1"></a>        bGroup <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.5</span>),</span>
+<span id="cb62-38"><a href="homework-week-4.html#cb62-38" aria-hidden="true" tabindex="-1"></a>        sigma <span class="sc">~</span> <span class="fu">dunif</span>(<span class="dv">0</span>, <span class="dv">50</span>)</span>
+<span id="cb62-39"><a href="homework-week-4.html#cb62-39" aria-hidden="true" tabindex="-1"></a>    ), </span>
+<span id="cb62-40"><a href="homework-week-4.html#cb62-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> foxes</span>
+<span id="cb62-41"><a href="homework-week-4.html#cb62-41" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb62-42"><a href="homework-week-4.html#cb62-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-43"><a href="homework-week-4.html#cb62-43" aria-hidden="true" tabindex="-1"></a>m4 <span class="ot">&lt;-</span> <span class="fu">quap</span>(</span>
+<span id="cb62-44"><a href="homework-week-4.html#cb62-44" aria-hidden="true" tabindex="-1"></a>    <span class="fu">alist</span>(</span>
+<span id="cb62-45"><a href="homework-week-4.html#cb62-45" aria-hidden="true" tabindex="-1"></a>        scale_weight <span class="sc">~</span> <span class="fu">dnorm</span>(mu, sigma),</span>
+<span id="cb62-46"><a href="homework-week-4.html#cb62-46" aria-hidden="true" tabindex="-1"></a>        mu <span class="ot">&lt;-</span> a <span class="sc">+</span> bFood <span class="sc">*</span> scale_avgfood,</span>
+<span id="cb62-47"><a href="homework-week-4.html#cb62-47" aria-hidden="true" tabindex="-1"></a>        a <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.2</span>),</span>
+<span id="cb62-48"><a href="homework-week-4.html#cb62-48" aria-hidden="true" tabindex="-1"></a>        bFood <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.5</span>),</span>
+<span id="cb62-49"><a href="homework-week-4.html#cb62-49" aria-hidden="true" tabindex="-1"></a>        sigma <span class="sc">~</span> <span class="fu">dunif</span>(<span class="dv">0</span>, <span class="dv">50</span>)</span>
+<span id="cb62-50"><a href="homework-week-4.html#cb62-50" aria-hidden="true" tabindex="-1"></a>    ), </span>
+<span id="cb62-51"><a href="homework-week-4.html#cb62-51" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> foxes</span>
+<span id="cb62-52"><a href="homework-week-4.html#cb62-52" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb62-53"><a href="homework-week-4.html#cb62-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-54"><a href="homework-week-4.html#cb62-54" aria-hidden="true" tabindex="-1"></a>m5 <span class="ot">&lt;-</span> <span class="fu">quap</span>(</span>
+<span id="cb62-55"><a href="homework-week-4.html#cb62-55" aria-hidden="true" tabindex="-1"></a>    <span class="fu">alist</span>(</span>
+<span id="cb62-56"><a href="homework-week-4.html#cb62-56" aria-hidden="true" tabindex="-1"></a>        scale_weight <span class="sc">~</span> <span class="fu">dnorm</span>(mu, sigma),</span>
+<span id="cb62-57"><a href="homework-week-4.html#cb62-57" aria-hidden="true" tabindex="-1"></a>        mu <span class="ot">&lt;-</span> a <span class="sc">+</span> bArea <span class="sc">*</span> scale_area,</span>
+<span id="cb62-58"><a href="homework-week-4.html#cb62-58" aria-hidden="true" tabindex="-1"></a>        a <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.2</span>),</span>
+<span id="cb62-59"><a href="homework-week-4.html#cb62-59" aria-hidden="true" tabindex="-1"></a>        bArea <span class="sc">~</span> <span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="fl">0.5</span>),</span>
+<span id="cb62-60"><a href="homework-week-4.html#cb62-60" aria-hidden="true" tabindex="-1"></a>        sigma <span class="sc">~</span> <span class="fu">dunif</span>(<span class="dv">0</span>, <span class="dv">50</span>)</span>
+<span id="cb62-61"><a href="homework-week-4.html#cb62-61" aria-hidden="true" tabindex="-1"></a>    ), </span>
+<span id="cb62-62"><a href="homework-week-4.html#cb62-62" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> foxes</span>
+<span id="cb62-63"><a href="homework-week-4.html#cb62-63" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+</div>
+<div id="dag-1" class="section level3" number="5.3.3">
+<h3><span class="header-section-number">5.3.3</span> DAG</h3>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="homework-week-4.html#cb63-1" aria-hidden="true" tabindex="-1"></a>dag <span class="ot">&lt;-</span> <span class="fu">dagify</span>(</span>
+<span id="cb63-2"><a href="homework-week-4.html#cb63-2" aria-hidden="true" tabindex="-1"></a>    weight <span class="sc">~</span> groupsize <span class="sc">+</span> avgfood,</span>
+<span id="cb63-3"><a href="homework-week-4.html#cb63-3" aria-hidden="true" tabindex="-1"></a>    groupsize <span class="sc">~</span> avgfood,</span>
+<span id="cb63-4"><a href="homework-week-4.html#cb63-4" aria-hidden="true" tabindex="-1"></a>    avgfood <span class="sc">~</span> area,</span>
+<span id="cb63-5"><a href="homework-week-4.html#cb63-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">exposure =</span> <span class="st">&#39;area&#39;</span>,</span>
+<span id="cb63-6"><a href="homework-week-4.html#cb63-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">outcome =</span> <span class="st">&#39;weight&#39;</span></span>
+<span id="cb63-7"><a href="homework-week-4.html#cb63-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb63-8"><a href="homework-week-4.html#cb63-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-9"><a href="homework-week-4.html#cb63-9" aria-hidden="true" tabindex="-1"></a><span class="fu">dag_plot</span>(dag)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
+</div>
+<div id="interpretation-4" class="section level3" number="5.3.4">
+<h3><span class="header-section-number">5.3.4</span> Interpretation</h3>
+<blockquote>
+<p>Can you explain the relative differences in WAIC scores, using the fox DAG
+from last week’s homework? Be sure to pay attention to the standard error of the
+score differences (dSE).</p>
+</blockquote>
+<ol style="list-style-type: decimal">
+<li>weight ~ avgfood + groupsize + area</li>
+<li>weight ~ avgfood + groupsize</li>
+<li>weight ~ groupsize + area</li>
+<li>weight ~ avgfood</li>
+<li>weight ~ area</li>
+</ol>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="homework-week-4.html#cb64-1" aria-hidden="true" tabindex="-1"></a>compare_models <span class="ot">&lt;-</span> <span class="fu">compare</span>(m1, m2, m3, m4, m5)</span>
+<span id="cb64-2"><a href="homework-week-4.html#cb64-2" aria-hidden="true" tabindex="-1"></a>compare_models</span></code></pre></div>
+<pre><code>##    WAIC SE dWAIC dSE pWAIC weight
+## m1  323 16  0.00  NA   4.6 0.4568
+## m2  324 16  0.97 3.6   3.7 0.2811
+## m3  324 16  1.15 2.9   3.8 0.2575
+## m4  333 14 10.56 7.1   2.4 0.0023
+## m5  334 14 10.66 7.2   2.6 0.0022</code></pre>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="homework-week-4.html#cb66-1" aria-hidden="true" tabindex="-1"></a>compare_models<span class="sc">@</span>dSE</span></code></pre></div>
+<pre><code>##     m1  m2  m3   m4   m5
+## m1  NA 3.6 2.9 7.13 7.19
+## m2 3.6  NA 5.8 6.55 6.79
+## m3 2.9 5.8  NA 6.54 6.59
+## m4 7.1 6.5 6.5   NA 0.84
+## m5 7.2 6.8 6.6 0.84   NA</code></pre>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="homework-week-4.html#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filled points: in-sample deviance</span></span>
+<span id="cb68-2"><a href="homework-week-4.html#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Open points: WAIC </span></span>
+<span id="cb68-3"><a href="homework-week-4.html#cb68-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Dark lines: standard error of WAIC</span></span>
+<span id="cb68-4"><a href="homework-week-4.html#cb68-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Light lines with triangles: standard error of difference in WAIC between each model and top model</span></span>
+<span id="cb68-5"><a href="homework-week-4.html#cb68-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(compare_models)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="homework-week-4.html#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coeftab</span>(m1, m2, m3, m4, m5)</span></code></pre></div>
+<pre><code>##        m1      m2      m3      m4      m5     
+## a            0       0       0       0       0
+## bFood     0.30    0.48      NA   -0.02      NA
+## bGroup   -0.64   -0.57   -0.48      NA      NA
+## bArea     0.28      NA    0.41      NA    0.02
+## sigma     0.93    0.95    0.95    1.00    1.00
+## nobs       116     116     116     116     116</code></pre>
+<p>Weight is the outcome in all of the models. Looking at the DAG, we see a
+potential back door into avgfood and group size, but no colliders. Avgfood is a
+path between area and weight, as is groupsize between avgfood and weight. The
+paths for each variable that does not have confounds shown in the DAG:</p>
+<p>Model 2: Weight ~ <strong>groupsize</strong> + avgfood (to determine causal effect of groupsize on weight, including avgfood to open the collider)
+Model 4: Weight ~ <strong>avgfood</strong> (to determine causal effect of avgfood, without groupsize confusing the relationship since it’s a pipe)
+Model 5: Weight ~ <strong>area</strong> (with avgfood and groupsize excluded)</p>
+<p>Model 1 includes the most parameters and, as expected, has the highest model
+fit. The dSE column returned by the <code>compare</code> function indicates the standard
+error of the difference between models, with the <code>@dSE</code> slot showing this for
+all combinations of models. Models 4 and 5 barely differ, as there is likely a
+strong influence of area on average food. Including both area and avgfood is
+like conditioning on the intermediate treatment effect. Models 4 and 5 are most
+different from models 1, 2, 3. Models 1, 2, and 3 all have groupsize and the
+WAIC and coeftab, as well as the DAG, indicate the models have the same
+inference.</p>
 
 </div>
 </div>
