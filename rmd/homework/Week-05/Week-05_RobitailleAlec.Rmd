@@ -43,3 +43,48 @@ dag_plot <- function(dag) {
 
 
 ## Question 1
+
+> Consider the `data(Wines2012)` data table. These data are expert ratings of 20
+different French and American wines by 9 different French and American judges.
+
+
+
+
+### Data
+> Your goal is to model score, the subjective rating assigned by each judge to
+each wine. I recommend standardizing it. In this first problem, consider only
+variation among judges and wines. Construct index variables of judge and wine
+and then use these index variables to construct a linear regression model.
+
+```{r}
+library(rethinking)
+library(data.table)
+
+data("Wines2012")
+
+DT <- data.table(Wines2012)
+
+DT[, scale_score := scale(score)]
+DT[, judge_id := .GRP, judge]
+DT[, wine_id := .GRP, wine]
+```
+
+
+### Model
+```{r}
+
+
+```
+
+
+
+Justify your priors. You should end up with 9 judge parameters and 20 wine
+parameters. Use ulam instead of quap to build this model, and be sure to check
+the chains for convergence. If you’d rather build the model directly in Stan or
+PyMC3, go ahead. I just want you to use Hamiltonian Monte Carlo instead of
+quadratic approximation. 
+
+How do you interpret the variation among individual
+judges and individual wines? Do you notice any patterns, just by plotting the
+differences? Which judges gave the highest/lowest ratings? Which wines were
+rated worst/ best on average?
