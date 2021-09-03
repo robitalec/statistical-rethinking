@@ -276,13 +276,38 @@ m5 <- quap(
 ```
 
 
+### DAG
+```{r}
+dag <- dagify(
+	weight ~ groupsize + avgfood,
+	groupsize ~ avgfood,
+	avgfood ~ area,
+	exposure = 'area',
+	outcome = 'weight'
+)
+
+dag_plot(dag)
+```
+
 ### Interpretation
 
 > Can you explain the relative differences in WAIC scores, using the fox DAG
 from last week’s homework? Be sure to pay attention to the standard error of the
 score differences (dSE).
 
+1. weight ~ avgfood + groupsize + area
+2. weight ~ avgfood + groupsize
+3. weight ~ groupsize + area
+4. weight ~ avgfood
+5. weight ~ area
+
 ```{r}
-compare(m1, m2, m3, m4, m5)
+compare_models <- compare(m1, m2, m3, m4, m5)
+compare_models
+
+compare_models@dSE
+
+plot(compare_models)
 ```
 
+Weight is the outcome in all of the models. Looking at the DAG, we see a potential back door into avgfood and group size, but no colliders. Avgfood is a path between area and weight, as is groupsize between avgfood and weight. Model 1 includes the most parameters and, as expected, has the highest model fit. 
