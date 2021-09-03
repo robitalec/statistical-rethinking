@@ -65,23 +65,32 @@ data("Wines2012")
 DT <- data.table(Wines2012)
 
 DT[, scale_score := scale(score)]
-DT[, judge_id := .GRP, judge]
-DT[, wine_id := .GRP, wine]
+DT[, index_judge := .GRP, judge]
+DT[, index_wine := .GRP, wine]
 ```
 
+### Prior predictive simulation
+```{r}
+
+x <- c(-2, 2)
+```
 
 ### Model
 ```{r}
+data_m1 <- as.list(DT[, .(scale_score, index_judge, index_wine)])
 m1 <- ulam(
-	list(
-		scale_score ~ dnorm(mu, sigma)
-		mu <- alpha + bJudge * judge_id + bWine * wine_id,
+	alist(
+		scale_score ~ dnorm(mu, sigma),
+		mu <- alpha + beta_judge * judge_id + beta_wine * wine_id,
 		alpha ~ dnorm(0, 0.2),
-		bJudge ~ dnorm(0, 0.5),
-		bWine ~ dnorm(0, 0.5),
-		sigma ~ exp(1),
-	)
+		beta_judge ~ dnorm(0, 0.5),
+		beta_wine ~ dnorm(0, 0.5),
+		sigma ~ dexp(1)
+	),
+	data = data_m1,
+	chains = 1
 )
+extract.prior(m1)
 
 ```
 
