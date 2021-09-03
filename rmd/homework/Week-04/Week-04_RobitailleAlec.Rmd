@@ -219,7 +219,7 @@ m1 <- quap(
 	alist(
 		scale_weight ~ dnorm(mu, sigma),
 		mu <- a + bFood * scale_avgfood + bGroup * scale_groupsize + bArea * scale_area,
-		a ~ dnorm(0, 0.05),
+		a ~ dnorm(0, 0.2),
 		bFood ~ dnorm(0, 0.5),
 		bGroup ~ dnorm(0, 0.5),
 		bArea ~ dnorm(0, 0.5),
@@ -232,7 +232,7 @@ m2 <- quap(
 	alist(
 		scale_weight ~ dnorm(mu, sigma),
 		mu <- a + bFood * scale_avgfood + bGroup * scale_groupsize,
-		a ~ dnorm(0, 0.05),
+		a ~ dnorm(0, 0.2),
 		bFood ~ dnorm(0, 0.5),
 		bGroup ~ dnorm(0, 0.5),
 		sigma ~ dunif(0, 50)
@@ -244,7 +244,7 @@ m3 <- quap(
 	alist(
 		scale_weight ~ dnorm(mu, sigma),
 		mu <- a + bGroup * scale_groupsize + bArea * scale_area,
-		a ~ dnorm(0, 0.05),
+		a ~ dnorm(0, 0.2),
 		bArea ~ dnorm(0, 0.5),
 		bGroup ~ dnorm(0, 0.5),
 		sigma ~ dunif(0, 50)
@@ -256,7 +256,7 @@ m4 <- quap(
 	alist(
 		scale_weight ~ dnorm(mu, sigma),
 		mu <- a + bFood * scale_avgfood,
-		a ~ dnorm(0, 0.05),
+		a ~ dnorm(0, 0.2),
 		bFood ~ dnorm(0, 0.5),
 		sigma ~ dunif(0, 50)
 	), 
@@ -267,7 +267,7 @@ m5 <- quap(
 	alist(
 		scale_weight ~ dnorm(mu, sigma),
 		mu <- a + bArea * scale_area,
-		a ~ dnorm(0, 0.05),
+		a ~ dnorm(0, 0.2),
 		bArea ~ dnorm(0, 0.5),
 		sigma ~ dunif(0, 50)
 	), 
