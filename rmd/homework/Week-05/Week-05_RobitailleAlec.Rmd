@@ -72,7 +72,16 @@ DT[, wine_id := .GRP, wine]
 
 ### Model
 ```{r}
-
+m1 <- ulam(
+	list(
+		scale_score ~ dnorm(mu, sigma)
+		mu <- alpha + bJudge * judge_id + bWine * wine_id,
+		alpha ~ dnorm(0, 0.2),
+		bJudge ~ dnorm(0, 0.5),
+		bWine ~ dnorm(0, 0.5),
+		sigma ~ exp(1),
+	)
+)
 
 ```
 
