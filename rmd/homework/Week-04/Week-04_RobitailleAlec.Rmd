@@ -307,7 +307,32 @@ compare_models
 
 compare_models@dSE
 
+# Filled points: in-sample deviance
+# Open points: WAIC 
+# Dark lines: standard error of WAIC
+# Light lines with triangles: standard error of difference in WAIC between each model and top model
 plot(compare_models)
+
+
+coeftab(m1, m2, m3, m4, m5)
 ```
 
-Weight is the outcome in all of the models. Looking at the DAG, we see a potential back door into avgfood and group size, but no colliders. Avgfood is a path between area and weight, as is groupsize between avgfood and weight. Model 1 includes the most parameters and, as expected, has the highest model fit. 
+Weight is the outcome in all of the models. Looking at the DAG, we see a
+potential back door into avgfood and group size, but no colliders. Avgfood is a
+path between area and weight, as is groupsize between avgfood and weight. The
+paths for each variable that does not have confounds shown in the DAG:
+
+Model 2: Weight ~ **groupsize** + avgfood (to determine causal effect of groupsize on weight, including avgfood to open the collider)
+Model 4: Weight ~ **avgfood** (to determine causal effect of avgfood, without groupsize confusing the relationship since it's a pipe)
+Model 5: Weight ~ **area** (with avgfood and groupsize excluded)
+
+
+Model 1 includes the most parameters and, as expected, has the highest model
+fit. The dSE column returned by the `compare` function indicates the standard
+error of the difference between models, with the `@dSE` slot showing this for
+all combinations of models. Models 4 and 5 barely differ, as there is likely a
+strong influence of area on average food. Including both area and avgfood is
+like conditioning on the intermediate treatment effect. Models 4 and 5 are most
+different from models 1, 2, 3. Models 1, 2, and 3 all have groupsize and the
+WAIC and coeftab, as well as the DAG, indicate the models have the same
+inference.
