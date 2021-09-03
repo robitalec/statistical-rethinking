@@ -323,7 +323,9 @@ path between area and weight, as is groupsize between avgfood and weight. The
 paths for each variable that does not have confounds shown in the DAG:
 
 Model 2: Weight ~ **groupsize** + avgfood (to determine causal effect of groupsize on weight, including avgfood to open the collider)
+
 Model 4: Weight ~ **avgfood** (to determine causal effect of avgfood, without groupsize confusing the relationship since it's a pipe)
+
 Model 5: Weight ~ **area** (with avgfood and groupsize excluded)
 
 
