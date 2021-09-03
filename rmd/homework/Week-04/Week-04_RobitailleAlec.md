@@ -2,7 +2,7 @@ Alec L. Robitaille
 
 # Homework: Week 4
 
-2021-08-30 \[updated: 2021-09-02\]
+2021-08-30 \[updated: 2021-09-03\]
 
 ### Setup
 
@@ -258,7 +258,7 @@ m1 <- quap(
     alist(
         scale_weight ~ dnorm(mu, sigma),
         mu <- a + bFood * scale_avgfood + bGroup * scale_groupsize + bArea * scale_area,
-        a ~ dnorm(0, 0.05),
+        a ~ dnorm(0, 0.2),
         bFood ~ dnorm(0, 0.5),
         bGroup ~ dnorm(0, 0.5),
         bArea ~ dnorm(0, 0.5),
@@ -271,7 +271,7 @@ m2 <- quap(
     alist(
         scale_weight ~ dnorm(mu, sigma),
         mu <- a + bFood * scale_avgfood + bGroup * scale_groupsize,
-        a ~ dnorm(0, 0.05),
+        a ~ dnorm(0, 0.2),
         bFood ~ dnorm(0, 0.5),
         bGroup ~ dnorm(0, 0.5),
         sigma ~ dunif(0, 50)
@@ -283,7 +283,7 @@ m3 <- quap(
     alist(
         scale_weight ~ dnorm(mu, sigma),
         mu <- a + bGroup * scale_groupsize + bArea * scale_area,
-        a ~ dnorm(0, 0.05),
+        a ~ dnorm(0, 0.2),
         bArea ~ dnorm(0, 0.5),
         bGroup ~ dnorm(0, 0.5),
         sigma ~ dunif(0, 50)
@@ -295,7 +295,7 @@ m4 <- quap(
     alist(
         scale_weight ~ dnorm(mu, sigma),
         mu <- a + bFood * scale_avgfood,
-        a ~ dnorm(0, 0.05),
+        a ~ dnorm(0, 0.2),
         bFood ~ dnorm(0, 0.5),
         sigma ~ dunif(0, 50)
     ), 
@@ -306,7 +306,7 @@ m5 <- quap(
     alist(
         scale_weight ~ dnorm(mu, sigma),
         mu <- a + bArea * scale_area,
-        a ~ dnorm(0, 0.05),
+        a ~ dnorm(0, 0.2),
         bArea ~ dnorm(0, 0.5),
         sigma ~ dunif(0, 50)
     ), 
@@ -314,19 +314,97 @@ m5 <- quap(
 )
 ```
 
+### DAG
+
+``` r
+dag <- dagify(
+    weight ~ groupsize + avgfood,
+    groupsize ~ avgfood,
+    avgfood ~ area,
+    exposure = 'area',
+    outcome = 'weight'
+)
+
+dag_plot(dag)
+```
+
+![](Week-04_RobitailleAlec_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
+
 ### Interpretation
 
 > Can you explain the relative differences in WAIC scores, using the fox
 > DAG from last week’s homework? Be sure to pay attention to the
 > standard error of the score differences (dSE).
 
+1.  weight \~ avgfood + groupsize + area
+2.  weight \~ avgfood + groupsize
+3.  weight \~ groupsize + area
+4.  weight \~ avgfood
+5.  weight \~ area
+
 ``` r
-compare(m1, m2, m3, m4, m5)
+compare_models <- compare(m1, m2, m3, m4, m5)
+compare_models
 ```
 
     ##    WAIC SE dWAIC dSE pWAIC weight
-    ## m1  322 16  0.00  NA   4.1 0.4394
-    ## m2  323 16  0.85 3.5   3.0 0.2866
-    ## m3  323 15  0.98 3.0   3.1 0.2698
-    ## m4  332 14 10.58 7.2   1.8 0.0022
-    ## m5  332 14 10.73 7.2   2.0 0.0021
+    ## m1  323 16  0.00  NA   4.6 0.4568
+    ## m2  324 16  0.97 3.6   3.7 0.2811
+    ## m3  324 16  1.15 2.9   3.8 0.2575
+    ## m4  333 14 10.56 7.1   2.4 0.0023
+    ## m5  334 14 10.66 7.2   2.6 0.0022
+
+``` r
+compare_models@dSE
+```
+
+    ##     m1  m2  m3   m4   m5
+    ## m1  NA 3.6 2.9 7.13 7.19
+    ## m2 3.6  NA 5.8 6.55 6.79
+    ## m3 2.9 5.8  NA 6.54 6.59
+    ## m4 7.1 6.5 6.5   NA 0.84
+    ## m5 7.2 6.8 6.6 0.84   NA
+
+``` r
+# Filled points: in-sample deviance
+# Open points: WAIC 
+# Dark lines: standard error of WAIC
+# Light lines with triangles: standard error of difference in WAIC between each model and top model
+plot(compare_models)
+```
+
+![](Week-04_RobitailleAlec_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
+
+``` r
+coeftab(m1, m2, m3, m4, m5)
+```
+
+    ##        m1      m2      m3      m4      m5     
+    ## a            0       0       0       0       0
+    ## bFood     0.30    0.48      NA   -0.02      NA
+    ## bGroup   -0.64   -0.57   -0.48      NA      NA
+    ## bArea     0.28      NA    0.41      NA    0.02
+    ## sigma     0.93    0.95    0.95    1.00    1.00
+    ## nobs       116     116     116     116     116
+
+Weight is the outcome in all of the models. Looking at the DAG, we see a
+potential back door into avgfood and group size, but no colliders.
+Avgfood is a path between area and weight, as is groupsize between
+avgfood and weight. The paths for each variable that does not have
+confounds shown in the DAG:
+
+Model 2: Weight \~ **groupsize** + avgfood (to determine causal effect
+of groupsize on weight, including avgfood to open the collider) Model 4:
+Weight \~ **avgfood** (to determine causal effect of avgfood, without
+groupsize confusing the relationship since it’s a pipe) Model 5: Weight
+\~ **area** (with avgfood and groupsize excluded)
+
+Model 1 includes the most parameters and, as expected, has the highest
+model fit. The dSE column returned by the `compare` function indicates
+the standard error of the difference between models, with the `@dSE`
+slot showing this for all combinations of models. Models 4 and 5 barely
+differ, as there is likely a strong influence of area on average food.
+Including both area and avgfood is like conditioning on the intermediate
+treatment effect. Models 4 and 5 are most different from models 1, 2, 3.
+Models 1, 2, and 3 all have groupsize and the WAIC and coeftab, as well
+as the DAG, indicate the models have the same inference.
