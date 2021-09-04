@@ -58,6 +58,7 @@ and then use these index variables to construct a linear regression model.
 
 ```{r}
 library(rethinking)
+library(cmdstanr)
 library(data.table)
 
 data("Wines2012")
@@ -71,8 +72,12 @@ DT[, index_wine := .GRP, wine]
 
 ### Prior predictive simulation
 ```{r}
-
 x <- c(-2, 2)
+alpha ~ dnorm(0, 0.2),
+beta_judge ~ dnorm(0, 0.5),
+beta_wine ~ dnorm(0, 0.5),
+sigma ~ dexp(1)
+		
 ```
 
 ### Model
@@ -117,16 +122,25 @@ model{
 }'
 )
 
-library(cmdstanr)
-
 m1_stan_file <- write_stan_file(m1_stan)
-
 m1_stan_model <- cmdstan_model(m1_stan_file)
 m1_stan_model_sample <- m1_stan_model$sample(data_m1, chains = 1)
 
 
-extract.prior(m1)
-link(m1, post = p, data = list(index_judge = c(-2, 2)))
+prior_stan <- c('
+data {
+  int<lower = 0> N;
+  vector[N] x;
+}
+generated quantities {
+  real alpha = normal_rng(0, 1);
+  real beta = normal_rng(0, 1);
+  real y_sim[N] = poisson_log_rng(alpha + beta * x);
+}
+')
+prior_stan_file <- write_stan_file(prior_stan)
+prior_stan_model <- cmdstan_model(prior_stan_file)
+prior_stan_model_sample <- prior_stan_model$sample(data = list(N = c(1, 2)))
 ```
 
 
