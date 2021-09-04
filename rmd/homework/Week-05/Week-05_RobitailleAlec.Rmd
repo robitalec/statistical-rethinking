@@ -72,12 +72,39 @@ DT[, index_wine := .GRP, wine]
 
 ### Prior predictive simulation
 ```{r}
-x <- c(-2, 2)
-alpha ~ dnorm(0, 0.2),
-beta_judge ~ dnorm(0, 0.5),
-beta_wine ~ dnorm(0, 0.5),
-sigma ~ dexp(1)
-		
+library(data.table)
+n <- 100
+
+DT <- CJ(
+	index_judge = c(-2, 2),
+	index_wine = c(-2, 2)
+)[rep(seq.int(.N), each = n / .N)]
+
+DT[, alpha := rnorm(.N, 0, 0.2)]
+DT[, beta_judge := rnorm(.N, 0, 0.5)]
+DT[, beta_wine := rnorm(.N, 0, 0.5)]
+DT[, sigma := rexp(.N, 1)]
+DT[, mu := alpha + beta_judge * index_judge + beta_wine * index_wine]
+
+DT[, rep(seq.int(.N), each = n / .N)]
+DT[, .N]
+library(ggplot2)
+
+ggplot(DT) + 
+	geom_point(aes(index_judge, mu)) +
+	facet_wrap(~index_wine)
+
+ggplot() + 
+	xlim(c(-2, 2)) +
+	geom_function(fun = function(x) ~  alpha + beta_judge * x + beta_wine * index_wine)
+
+beta_judge <- rnorm(n, 0, 0.5)
+beta_wine <- rnorm(n, 0, 0.5)
+sigma <- rexp(n, 1)
+mu <- alpha + beta_judge * index_judge + beta_wine * index_wine
+df <- data.frame(x = rep(), y = mu)
+plot()
+scale_score <- dnorm(mu, sigma)
 ```
 
 ### Model
@@ -127,20 +154,7 @@ m1_stan_model <- cmdstan_model(m1_stan_file)
 m1_stan_model_sample <- m1_stan_model$sample(data_m1, chains = 1)
 
 
-prior_stan <- c('
-data {
-  int<lower = 0> N;
-  vector[N] x;
-}
-generated quantities {
-  real alpha = normal_rng(0, 1);
-  real beta = normal_rng(0, 1);
-  real y_sim[N] = poisson_log_rng(alpha + beta * x);
-}
-')
-prior_stan_file <- write_stan_file(prior_stan)
-prior_stan_model <- cmdstan_model(prior_stan_file)
-prior_stan_model_sample <- prior_stan_model$sample(data = list(N = c(1, 2)))
+
 ```
 
 
