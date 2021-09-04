@@ -90,8 +90,43 @@ m1 <- ulam(
 	data = data_m1,
 	chains = 1
 )
-extract.prior(m1)
+writeLines(m1@model)
 
+m1_stan <- c(	'
+data{
+    vector[180] scale_score;
+    int index_wine[180];
+    int index_judge[180];
+}
+parameters{
+    real alpha;
+    real beta_judge;
+    real beta_wine;
+    real<lower=0> sigma;
+}
+model{
+    vector[180] mu;
+    sigma ~ exponential( 1 );
+    beta_wine ~ normal( 0 , 0.5 );
+    beta_judge ~ normal( 0 , 0.5 );
+    alpha ~ normal( 0 , 0.2 );
+    for ( i in 1:180 ) {
+        mu[i] = alpha + beta_judge * index_judge[i] + beta_wine * index_wine[i];
+    }
+    scale_score ~ normal( mu , sigma );
+}'
+)
+
+library(cmdstanr)
+
+m1_stan_file <- write_stan_file(m1_stan)
+
+m1_stan_model <- cmdstan_model(m1_stan_file)
+m1_stan_model_sample <- m1_stan_model$sample(data_m1, chains = 1)
+
+
+extract.prior(m1)
+link(m1, post = p, data = list(index_judge = c(-2, 2)))
 ```
 
 
