@@ -75,24 +75,47 @@ DT[, index_wine := .GRP, wine]
 library(data.table)
 n <- 100
 
-DT <- CJ(
-	index_judge = c(-2, 2),
-	index_wine = c(-2, 2)
+DT <- data.table(
+	index_judge_low = -2,
+	index_judge_high = 2,
+	index_wine_low = -2,
+	index_wine_high = -2
 )[rep(seq.int(.N), each = n / .N)]
+#[, combination_id := .I][rep(seq.int(.N), each = n / .N)]
 
+# index_judge <- c(-2, 2)
 DT[, alpha := rnorm(.N, 0, 0.2)]
 DT[, beta_judge := rnorm(.N, 0, 0.5)]
 DT[, beta_wine := rnorm(.N, 0, 0.5)]
 DT[, sigma := rexp(.N, 1)]
 DT[, mu := alpha + beta_judge * index_judge + beta_wine * index_wine]
 
+
+ggplot(DT) + 
+	geom_segment(aes(
+		x = index_judge_low,
+		xend = index_judge_high,
+		y = alpha + beta_judge * index_judge_low + beta_wine * index_wine_low,
+		yend = alpha + beta_judge * index_judge_high + beta_wine * index_wine_low
+	))
+
+mu_function <- function(alpha, beta_judge, beta_wine, sigma) {
+	alpha + beta_judge * index_judge + beta_wine * index_wine
+}
+
+DT[, mu := quote()]
+
 DT[, rep(seq.int(.N), each = n / .N)]
-DT[, .N]
 library(ggplot2)
 
 ggplot(DT) + 
 	geom_point(aes(index_judge, mu)) +
 	facet_wrap(~index_wine)
+
+ggplot(DT) + 
+	geom_point(aes(index_judge, mu)) +
+	facet_wrap(~index_wine)
+
 
 ggplot() + 
 	xlim(c(-2, 2)) +
