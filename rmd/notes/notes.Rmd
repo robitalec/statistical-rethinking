@@ -857,34 +857,343 @@ TODO: p283
 
 Flat distributions have the highest entropy and have many more ways that they can be realized
 
+## Maximum entropy
+
+Distribution with the largest entropy is the distribution most consistent with stated assumptions
+
+For parameters: helps understand priors. What are the constraints that make a prior reasonable?
+
+For observations: way to understand likelihood
+
+Solving for the posterior = getting the distribution that is as flat as possible and consistent with data within constraints
+
+Highest entropy answer = distance to the truth is smaller
+
+### Distributions
+
+| Constraints | Maxent distribution | Example |
+|---|---|---|
+| Real value in interval | Uniform | Bird proportions |
+| Real value, finite variance | Gaussian | Coin flip |
+| Binary events, fixed probability | Binomial | Marble drawing, globe tossing |
+| Non negative real, has mean | Exponential | Amount of time until event |
+
+## Generalized linear model
+
+Connect linear model to outcome variable
+
+1. Pick outcome distribution
+2. Model its parameter using links to linear models
+3. Compute posterior
+
+Extends to multivariate relationships and non-linear responses
+
+Building blocks of multilevel models
+
+Very common and widely applicable
+
+### Picking a distribution
+
+Mostly exponential family because all are maximum entropy interpretations and arise from natural processes
+
+**Do not pick by looking at a histogram -** no way an aggregate histogram of outcomes unconditional on something else is going to have a relevant distribution
+
+Just use principles.
+
+
+![](exponential-distributions.png)
+
+- Exponential: non negative real. Lambda is a rate and the mean is 1/lambda
+- Binomial: count events emerging from an exponential distribution
+- Poisson: count events, low rate
+- Gamma: sum of exponential
+- Normal: gamma with large mean
+
+Tide prediction machine - complex "parameters" at the bottom. "Can understand models if you resist the urge to understand parameters"
+
+### Types of outcomes
+
+Distances and durations
+
+- Exponential
+- Gamma
+
+Counts
+
+- Poisson
+- Binomial
+- Multinomial
+- Geometry
+
+Monsters
+
+- Ranks, ordered categories
+
+Mixtures
+
+- Beta binomial
+- Gamma-poisson
+- Etc
+
+### Model parameters with a link function
+
+Yi ~ Normal(mu, sigma)
+
+mu ~ alpha + beta * X
+
+Linear regressions and only linear regressions have the same scientific units for both the outcome variable and parameters for the mean
+
+Another example - binomial
+
+Count: Y ~ Binomial(N, p) (unit is count of something)
+
+Probability: P ? alpha + beta * X (unitless)
+
+We need some function 
+
+f(p) = alpha + beta * X
+
+## Binomial distribution
+
+Counts of a specific event out of n possible trials
+
+min: 0, max: n
+
+Constant expected value
+
+Maxent: binomial
+
+y ~ Binomial(n, p)
+
+count successes is distribution binomially with n trials and p probability of success
+
+### Link
+
+Goal is to map linear model to [0, 1]
+
+y ~ Binomial(n, p)
+
+logit(p) = alpha + beta * x
+
+logit is the log odds
+
+Given this link function, priors on the logit scale are the not same shape as priors on the probability scale
+
+Prosocial monkey example
+
+y ~ Binomial(n, p)
+
+logit(p) = alpha[actor] + beta[treatment] * Treatment
+
+precis(m)
+
+a[1] ... a[7] a are the different chimps, the posterior means are on the logit scale
+
+b[1] ... b[4] b are the treatments, the average log odd deviations after chimp handedness has been considered
+
+Investigating
+
+1. extract samples
+2. inv_logit to transform to probability score
+3. precis
+
+It's really hard to understand just using the precis output therefore
+
+1. Plot on the outcome scale with link = posterior predictive sampling
+
+Controlling for handedness here isn't because of the backdoor criterion. Handedness = noise, controlling for it gives us a more precise criteria
 
 # Lecture 12
 
-```{r}
-library(rethinking)
-data(chimpanzees)
-d <- chimpanzees
-d$treatment <- 1 + d$prosoc_left + 2 * d$condition
+## Relative and absolute effects
 
-xtabs( ~ treatment + prosoc_left + condition, d)
+Effect sizes two ways
 
-dat_list <- list(
-	pulled_left = d$pulled_left,
-	actor = d$actor,
-	treatment = as.integer(d$treatment)
-)
+1. Relative effect scale: parameters have relative differences in their effect
+2. Absolute effect scale: used for predictions
 
-m11.4 <- ulam(
-	alist(
-		pulled_left ~ dbinom(1, p),
-		logit(p) <- a[actor] + b[treatment],
-		a[actor] ~ dnorm(0, 1.5),
-		b[treatment] ~ dnorm(0, 0.5)
-	), 
-	data = dat_list,
-	chains = 4#,
-	# log_lik = TRUE
-)
+Proportional odds eg treatment 4 and 2
 
-writeLines(m11.4@model)
-```
+post ← extract.samples
+
+mean
+
+0.9 = 90% of previous odds 
+
+Therefore 2→4 expects reduction of odds by 10%
+
+But this disregards base rate
+
+Risk of relative effects like proportional odds is they don't consider absolute likelihood
+
+Relative shark vs absolute deer - need both
+
+## Logistic regression
+
+0, 1 trials (bernoulli trials)
+
+Aggregate binomial: aggregated from each 0, 1 to counts for each category
+
+Example - UC Berkeley 1970s
+
+Gender → Department → Acceptance, Gender → Acceptance
+
+Recall: regressions are very literal to exactly the question you are asking
+
+Model 1
+
+Acceptance ~ Binomial(N, p)
+
+logit(p) = alpha [gender]
+
+Statistical question: what are the average probabilites of admission by gender across all departments?
+
+Causal question: what is the total causal influence of gender?
+
+It's asking for the total effect, not the discrimination effect
+
+Therefore, all paths are in play (Gender → Department → Acceptance, Gender → Acceptance)
+
+Model 2
+
+Close the backdoor. 
+
+Acceptance ~ Binomial(N, p)
+
+logit(p) = alpha [gender] + beta department
+
+Statistical question: what is the average difference in probability of admission for genders within department?
+
+Causal question: what is the direct influence of gender?
+
+These are equally valid, but different questions. 
+
+# Lecture 13
+
+## Poisson
+
+Poisson with varied exposure/offset
+
+## Survival analysis
+
+Estimate rates by modeling time-to-event
+
+Can't ignore censored cases
+
+- Left censored: don't when when time started
+- Right censored: something else cut off end
+
+Example cats
+
+Time to adoption for observed adoptions is simplest, an exponential function
+
+For censored cats
+
+1. use the cumulative distribution
+2. take the complement
+3. calculate probability no event yet
+
+## Monsters
+
+Specialized complex distributions
+
+eg. ordered categories, ranks
+
+## Mixtures
+
+Blends of stochastic processes
+
+eg. varing means, probabilities, rates
+
+eg. zero-inflation, hurdles
+
+Example monks
+
+Number of manuscripts per day
+
+Can we infer the number of days they get drunk?
+
+Drunkenness is a hidden state
+
+There is a probability that they drink or work, and within the work, a probability that they produce 0 or 1+ manuscripts
+
+# Lecture 14
+
+## Ordered categories
+
+Discrete outcomes with defined order, defined min and max
+
+But the "distances" between categories is unknown and not metric
+
+Hard to model because it isn't continuous and bounded by min-max but not a count. 
+
+Solution: use a log-cumulative-odds link probability model
+
+TODO fill
+
+# Lecture 15
+
+## Multilevel models
+
+Most models forget things about the data as they move from one case to the other
+
+Fixed effects: the model forgets everything between clusters. no information is passed between clusters. 
+
+Multilevel model: remember and pool information
+
+**Default should be multilevel modeling**
+
+- nearly every case is improved by multilevel modeling
+- if not, it's just as good
+
+Why use multilevel modeling?
+
+- deal with clustering in data (eg. classroom within schools, students within classrooms, ...)
+- handles imbalance in sampling
+- handles pseudoreplications
+
+## Varying intercepts
+
+Example tadpole
+
+Outcome: number surviving
+
+Tadpoles in tanks at different densities
+
+Model 1 index for each tank
+
+Model 2 multilevel with varying intercepts
+
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/ab98d30d-1d20-42a5-8f43-c9717e5fceb0/Untitled.png)
+
+Varying intercepts = random intercepts
+
+"Random" and "varying" unclear
+
+Distinction of varying intercepts is the prior learns from the data 
+
+Adaptive regularization
+
+From the example, survival across tanks has some distribution. This distribution is the prior for each tank. And the distribution needs its own prior
+
+## Shrinkage
+
+Model doesn't retrodict samples exactly
+
+Shrinkage towards the population mean caused by regularization
+
+Larger variation = more shrinkage
+
+Less data per cluster = more shrinkage
+
+Increased difference from mean = more shrinkage
+
+## Pooling
+
+Why are varying effects more accurate than fixed effects?
+
+- Grand mean - maximum underfitting - complete pooling
+- Fixed effects - maximum overfitting - no pooling
+- Varying effects - adaptive regularization - partial pooling
+
+
