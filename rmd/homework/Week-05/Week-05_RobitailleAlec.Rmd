@@ -105,139 +105,20 @@ ggplot(m2) +
 ```
 
 
-```{r, eval = FALSE}
-DT <- data.table(
-	index_judge_low = -2,
-	index_judge_high = 2,
-	index_wine_low = -2,
-	index_wine_high = 2
-)[rep(seq.int(.N), each = n / .N)]
-DT[, alpha := rnorm(.N, 0, 0.2)]
-DT[, beta_judge := rnorm(.N, 0, 0.5)]
-DT[, beta_wine := rnorm(.N, 0, 0.5)]
-DT[, sigma := rexp(.N, 1)]
-
-m <- melt(DT, measure.vars = c('index_judge_low', 'index_judge_high',
-													'index_wine_low', 'index_wine_high'))
-
-
-DT[, mu_for_judge_low := alpha + beta_judge * index_judge + beta_wine * index_wine]
-
-mod <- m$sample(list(index_judge = as.integer(c(-2, 2)), index_wine = as.integer(c(-2, 2))))
-posterior::as_draws_df(mod$draws()) -> mdrw
-
-
-# TODO: this doesnt make sense - an index doesnt have this range
-DT <- data.table(
-	index_judge_low = -2,
-	index_judge_high = 2,
-	index_wine_low = -2,
-	index_wine_high = 2
-)[rep(seq.int(.N), each = n / .N)]
-#[, combination_id := .I][rep(seq.int(.N), each = n / .N)]
-
-# index_judge <- c(-2, 2)
-DT[, alpha := rnorm(.N, 0, 0.2)]
-DT[, beta_judge := rnorm(.N, 0, 0.5)]
-DT[, beta_wine := rnorm(.N, 0, 0.5)]
-DT[, sigma := rexp(.N, 1)]
-DT[, mu := alpha + beta_judge * index_judge + beta_wine * index_wine]
-
-
-# TODO how to auto flex
-ggplot(DT) + 
-	geom_segment(aes(
-		x = index_judge_low,
-		xend = index_judge_high,
-		y = alpha + beta_judge * index_judge_low + beta_wine * index_wine_low,
-		yend = alpha + beta_judge * index_judge_high + beta_wine * index_wine_low
-	))
-
-ggplot(DT) + 
-	geom_segment(aes(
-		x = index_wine_low,
-		xend = index_wine_high,
-		y = alpha + beta_judge * index_judge_low + beta_wine * index_wine_low,
-		yend = alpha + beta_judge * index_judge_low + beta_wine * index_wine_high
-	))
-
-mu_function <- function(alpha, beta_judge, beta_wine, sigma) {
-	alpha + beta_judge * index_judge + beta_wine * index_wine
-}
-
-DT[, mu := quote()]
-
-DT[, rep(seq.int(.N), each = n / .N)]
-library(ggplot2)
-
-ggplot(DT) + 
-	geom_point(aes(index_judge, mu)) +
-	facet_wrap(~index_wine)
-
-ggplot(DT) + 
-	geom_point(aes(index_judge, mu)) +
-	facet_wrap(~index_wine)
-
-
-ggplot() + 
-	xlim(c(-2, 2)) +
-	geom_function(fun = function(x) ~  alpha + beta_judge * x + beta_wine * index_wine)
-
-beta_judge <- rnorm(n, 0, 0.5)
-beta_wine <- rnorm(n, 0, 0.5)
-sigma <- rexp(n, 1)
-mu <- alpha + beta_judge * index_judge + beta_wine * index_wine
-df <- data.frame(x = rep(), y = mu)
-plot()
-scale_score <- dnorm(mu, sigma)
-```
-
 ### Model
-```{r, eval = FALSE}
-data_m1 <- as.list(DT[, .(scale_score, index_judge, index_wine)])
-m1 <- ulam(
-	alist(
-		scale_score ~ dnorm(mu, sigma),
-		mu <- alpha + beta_judge * index_judge + beta_wine * index_wine,
-		alpha ~ dnorm(0, 0.2),
-		beta_judge ~ dnorm(0, 0.5),
-		beta_wine ~ dnorm(0, 0.5),
-		sigma ~ dexp(1)
-	),
-	data = data_m1,
-	chains = 1
+
+```{r}
+q1_stan <- 'rmd/homework/Week-05/q1.stan'
+writeLines(readLines(q1_stan))
+
+
+q1_prior <- cmdstan_model(q1_stan)
+
+q1_prior_sample <- q1_prior$sample(
+	data = list(N = n_rows,
+							N_judges = n_index_judge,
+							N_wines = n_index_wine)
 )
-writeLines(m1@model)
-
-m1_stan <- c(	'
-data{
-    vector[180] scale_score;
-    int index_wine[180];
-    int index_judge[180];
-}
-parameters{
-    real alpha;
-    real beta_judge;
-    real beta_wine;
-    real<lower=0> sigma;
-}
-model{
-    vector[180] mu;
-    sigma ~ exponential( 1 );
-    beta_wine ~ normal( 0 , 0.5 );
-    beta_judge ~ normal( 0 , 0.5 );
-    alpha ~ normal( 0 , 0.2 );
-    for ( i in 1:180 ) {
-        mu[i] = alpha + beta_judge * index_judge[i] + beta_wine * index_wine[i];
-    }
-    scale_score ~ normal( mu , sigma );
-}'
-)
-
-m1_stan_file <- write_stan_file(m1_stan)
-m1_stan_model <- cmdstan_model(m1_stan_file)
-m1_stan_model_sample <- m1_stan_model$sample(data_m1, chains = 1)
-
 
 
 ```
