@@ -68,12 +68,19 @@ DT <- data.table(Wines2012)
 DT[, scale_score := scale(score)]
 DT[, index_judge := .GRP, judge]
 DT[, index_wine := .GRP, wine]
+
+n_index_judge <- DT[, uniqueN(index_judge)]
+n_index_wine <- DT[, uniqueN(index_wine)]
+n_rows <- DT[, .N]
 ```
 
 ### Prior predictive simulation
-```{r, eval = FALSE}
-n <- 100
 
+```{r, eval = FALSE}
+
+
+```
+```{r, eval = FALSE}
 DT <- data.table(
 	index_judge_low = -2,
 	index_judge_high = 2,
