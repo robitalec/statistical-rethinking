@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>10 Lecture 04 | Learning bayesian data analysis with Statistical Rethinking</title>
-  <meta name="description" content="10 Lecture 04 | Learning bayesian data analysis with Statistical Rethinking" />
+  <title>19 Lecture 13 | Learning bayesian data analysis with Statistical Rethinking</title>
+  <meta name="description" content="19 Lecture 13 | Learning bayesian data analysis with Statistical Rethinking" />
   <meta name="generator" content="bookdown 0.22.15 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="10 Lecture 04 | Learning bayesian data analysis with Statistical Rethinking" />
+  <meta property="og:title" content="19 Lecture 13 | Learning bayesian data analysis with Statistical Rethinking" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="10 Lecture 04 | Learning bayesian data analysis with Statistical Rethinking" />
+  <meta name="twitter:title" content="19 Lecture 13 | Learning bayesian data analysis with Statistical Rethinking" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="lecture-03.html"/>
-<link rel="next" href="lecture-05.html"/>
+<link rel="prev" href="lecture-12.html"/>
+<link rel="next" href="lecture-14.html"/>
 <script src="libs/header-attrs-2.9.5/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -411,53 +411,44 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="lecture-04" class="section level1" number="10">
-<h1><span class="header-section-number">10</span> Lecture 04</h1>
-<div id="standardizing-variables" class="section level2" number="10.1">
-<h2><span class="header-section-number">10.1</span> Standardizing variables</h2>
-<p><code>(x - mean(x)) / sd(x)</code> or <code>scale(x)</code></p>
-<p>Result = mean of 0, sd of 1</p>
-<p>Helps software fit</p>
-<p>Value = 1 is equal to 1 SD</p>
+<div id="lecture-13" class="section level1" number="19">
+<h1><span class="header-section-number">19</span> Lecture 13</h1>
+<div id="poisson" class="section level2" number="19.1">
+<h2><span class="header-section-number">19.1</span> Poisson</h2>
+<p>Poisson with varied exposure/offset</p>
 </div>
-<div id="plotting-uncertainty---sample-from-posterior" class="section level2" number="10.2">
-<h2><span class="header-section-number">10.2</span> Plotting uncertainty - sample from posterior</h2>
-<p>(if multivariate normal)</p>
+<div id="survival-analysis" class="section level2" number="19.2">
+<h2><span class="header-section-number">19.2</span> Survival analysis</h2>
+<p>Estimate rates by modeling time-to-event</p>
+<p>Can’t ignore censored cases</p>
+<ul>
+<li>Left censored: don’t when when time started</li>
+<li>Right censored: something else cut off end</li>
+</ul>
+<p>Example cats</p>
+<p>Time to adoption for observed adoptions is simplest, an exponential function</p>
+<p>For censored cats</p>
 <ol style="list-style-type: decimal">
-<li>Approximate posterior from mean, standard deviation</li>
-<li>Sample from multivariate normal distribution of parameters</li>
-<li>Use sampels to generate predictions that integrate over uncertainty</li>
-</ol>
-<p><code>extract_samples</code> returns a, b, sigma, … and you can plot each</p>
-</div>
-<div id="polynomials" class="section level2" number="10.3">
-<h2><span class="header-section-number">10.3</span> Polynomials</h2>
-<p>Polynomials have bad behaviour especially at the boundaries of the data</p>
-<p>They don’t fit locally, and are not actually flexibly.</p>
-<p>Eg. a polynomial of 3rd degree will necessarily have two turns - this has to happen irrespective of the data</p>
-</div>
-<div id="splines" class="section level2" number="10.4">
-<h2><span class="header-section-number">10.4</span> Splines</h2>
-<p>Locally wiggly functions, combined by interpolation</p>
-<p>Geocentric - describing relationships - not exploring them</p>
-</div>
-<div id="basis-splines" class="section level2" number="10.5">
-<h2><span class="header-section-number">10.5</span> Basis splines</h2>
-<p>Bayesian B-splines = P-splines</p>
-<p>Similar to linear models but with synthetic variables</p>
-<p><span class="math inline">\(\mu = \alpha + w_{1} \beta_{1} + + w_{2} \beta_{2} + + w_{3} \beta_{3} + + w_{4} \beta_{4} + ...\)</span></p>
-<p>Knots are often picked at equal intervals in data, though strategies vary</p>
-<p>At each knot, the knot’s function is at 100%, moving away from it, the neighboring functions <em>turn on</em></p>
-<p>Parameters always have more uncertainty than predictions</p>
-<p>Caution: overfitting</p>
-<div id="recipe" class="section level3" number="10.5.1">
-<h3><span class="header-section-number">10.5.1</span> Recipe</h3>
-<ol style="list-style-type: decimal">
-<li>Choose knots - points where spline pivots</li>
-<li>Choose degree of basis functions - how wiggly, polynomial</li>
-<li>Find posterior distribution of weights</li>
+<li>use the cumulative distribution</li>
+<li>take the complement</li>
+<li>calculate probability no event yet</li>
 </ol>
 </div>
+<div id="monsters" class="section level2" number="19.3">
+<h2><span class="header-section-number">19.3</span> Monsters</h2>
+<p>Specialized complex distributions</p>
+<p>eg. ordered categories, ranks</p>
+</div>
+<div id="mixtures" class="section level2" number="19.4">
+<h2><span class="header-section-number">19.4</span> Mixtures</h2>
+<p>Blends of stochastic processes</p>
+<p>eg. varing means, probabilities, rates</p>
+<p>eg. zero-inflation, hurdles</p>
+<p>Example monks</p>
+<p>Number of manuscripts per day</p>
+<p>Can we infer the number of days they get drunk?</p>
+<p>Drunkenness is a hidden state</p>
+<p>There is a probability that they drink or work, and within the work, a probability that they produce 0 or 1+ manuscripts</p>
 </div>
 </div>
             </section>
@@ -465,8 +456,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="lecture-03.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="lecture-05.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="lecture-12.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="lecture-14.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

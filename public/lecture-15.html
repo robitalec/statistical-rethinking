@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>10 Lecture 04 | Learning bayesian data analysis with Statistical Rethinking</title>
-  <meta name="description" content="10 Lecture 04 | Learning bayesian data analysis with Statistical Rethinking" />
+  <title>21 Lecture 15 | Learning bayesian data analysis with Statistical Rethinking</title>
+  <meta name="description" content="21 Lecture 15 | Learning bayesian data analysis with Statistical Rethinking" />
   <meta name="generator" content="bookdown 0.22.15 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="10 Lecture 04 | Learning bayesian data analysis with Statistical Rethinking" />
+  <meta property="og:title" content="21 Lecture 15 | Learning bayesian data analysis with Statistical Rethinking" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="10 Lecture 04 | Learning bayesian data analysis with Statistical Rethinking" />
+  <meta name="twitter:title" content="21 Lecture 15 | Learning bayesian data analysis with Statistical Rethinking" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="lecture-03.html"/>
-<link rel="next" href="lecture-05.html"/>
+<link rel="prev" href="lecture-14.html"/>
+
 <script src="libs/header-attrs-2.9.5/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -411,53 +411,59 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="lecture-04" class="section level1" number="10">
-<h1><span class="header-section-number">10</span> Lecture 04</h1>
-<div id="standardizing-variables" class="section level2" number="10.1">
-<h2><span class="header-section-number">10.1</span> Standardizing variables</h2>
-<p><code>(x - mean(x)) / sd(x)</code> or <code>scale(x)</code></p>
-<p>Result = mean of 0, sd of 1</p>
-<p>Helps software fit</p>
-<p>Value = 1 is equal to 1 SD</p>
+<div id="lecture-15" class="section level1" number="21">
+<h1><span class="header-section-number">21</span> Lecture 15</h1>
+<div id="multilevel-models" class="section level2" number="21.1">
+<h2><span class="header-section-number">21.1</span> Multilevel models</h2>
+<p>Most models forget things about the data as they move from one case to the other</p>
+<p>Fixed effects: the model forgets everything between clusters. no information is passed between clusters.</p>
+<p>Multilevel model: remember and pool information</p>
+<p><strong>Default should be multilevel modeling</strong></p>
+<ul>
+<li>nearly every case is improved by multilevel modeling</li>
+<li>if not, it’s just as good</li>
+</ul>
+<p>Why use multilevel modeling?</p>
+<ul>
+<li>deal with clustering in data (eg. classroom within schools, students within classrooms, …)</li>
+<li>handles imbalance in sampling</li>
+<li>handles pseudoreplications</li>
+</ul>
 </div>
-<div id="plotting-uncertainty---sample-from-posterior" class="section level2" number="10.2">
-<h2><span class="header-section-number">10.2</span> Plotting uncertainty - sample from posterior</h2>
-<p>(if multivariate normal)</p>
-<ol style="list-style-type: decimal">
-<li>Approximate posterior from mean, standard deviation</li>
-<li>Sample from multivariate normal distribution of parameters</li>
-<li>Use sampels to generate predictions that integrate over uncertainty</li>
-</ol>
-<p><code>extract_samples</code> returns a, b, sigma, … and you can plot each</p>
+<div id="varying-intercepts" class="section level2" number="21.2">
+<h2><span class="header-section-number">21.2</span> Varying intercepts</h2>
+<p>Example tadpole</p>
+<p>Outcome: number surviving</p>
+<p>Tadpoles in tanks at different densities</p>
+<p>Model 1 index for each tank</p>
+<p>Model 2 multilevel with varying intercepts</p>
+<div class="figure">
+<img src="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/ab98d30d-1d20-42a5-8f43-c9717e5fceb0/Untitled.png" alt="" />
+<p class="caption">Untitled</p>
 </div>
-<div id="polynomials" class="section level2" number="10.3">
-<h2><span class="header-section-number">10.3</span> Polynomials</h2>
-<p>Polynomials have bad behaviour especially at the boundaries of the data</p>
-<p>They don’t fit locally, and are not actually flexibly.</p>
-<p>Eg. a polynomial of 3rd degree will necessarily have two turns - this has to happen irrespective of the data</p>
+<p>Varying intercepts = random intercepts</p>
+<p>“Random” and “varying” unclear</p>
+<p>Distinction of varying intercepts is the prior learns from the data</p>
+<p>Adaptive regularization</p>
+<p>From the example, survival across tanks has some distribution. This distribution is the prior for each tank. And the distribution needs its own prior</p>
 </div>
-<div id="splines" class="section level2" number="10.4">
-<h2><span class="header-section-number">10.4</span> Splines</h2>
-<p>Locally wiggly functions, combined by interpolation</p>
-<p>Geocentric - describing relationships - not exploring them</p>
+<div id="shrinkage" class="section level2" number="21.3">
+<h2><span class="header-section-number">21.3</span> Shrinkage</h2>
+<p>Model doesn’t retrodict samples exactly</p>
+<p>Shrinkage towards the population mean caused by regularization</p>
+<p>Larger variation = more shrinkage</p>
+<p>Less data per cluster = more shrinkage</p>
+<p>Increased difference from mean = more shrinkage</p>
 </div>
-<div id="basis-splines" class="section level2" number="10.5">
-<h2><span class="header-section-number">10.5</span> Basis splines</h2>
-<p>Bayesian B-splines = P-splines</p>
-<p>Similar to linear models but with synthetic variables</p>
-<p><span class="math inline">\(\mu = \alpha + w_{1} \beta_{1} + + w_{2} \beta_{2} + + w_{3} \beta_{3} + + w_{4} \beta_{4} + ...\)</span></p>
-<p>Knots are often picked at equal intervals in data, though strategies vary</p>
-<p>At each knot, the knot’s function is at 100%, moving away from it, the neighboring functions <em>turn on</em></p>
-<p>Parameters always have more uncertainty than predictions</p>
-<p>Caution: overfitting</p>
-<div id="recipe" class="section level3" number="10.5.1">
-<h3><span class="header-section-number">10.5.1</span> Recipe</h3>
-<ol style="list-style-type: decimal">
-<li>Choose knots - points where spline pivots</li>
-<li>Choose degree of basis functions - how wiggly, polynomial</li>
-<li>Find posterior distribution of weights</li>
-</ol>
-</div>
+<div id="pooling" class="section level2" number="21.4">
+<h2><span class="header-section-number">21.4</span> Pooling</h2>
+<p>Why are varying effects more accurate than fixed effects?</p>
+<ul>
+<li>Grand mean - maximum underfitting - complete pooling</li>
+<li>Fixed effects - maximum overfitting - no pooling</li>
+<li>Varying effects - adaptive regularization - partial pooling</li>
+</ul>
+
 </div>
 </div>
             </section>
@@ -465,8 +471,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="lecture-03.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="lecture-05.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="lecture-14.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
