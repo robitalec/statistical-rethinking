@@ -102,34 +102,43 @@ m2
 
 ggplot(m2) + 
 	geom_density(aes(alpha + beta_judge + beta_wine, color = judge), alpha = 0.3)
+
+ggplot(m2) + 
+	geom_density(aes(alpha + beta_judge + beta_wine, color = wine), alpha = 0.3)
 ```
 
+> Justify your priors. You should end up with 9 judge parameters and 20 wine
+parameters. 
+
+Given the parameters are scaled, the prior predictive plots show scaled wine scores mostly between -2 and 2. Since we do not have any prior knowledge about how this relationship (positive/negative slopes), we are satisfied with this 
+relatively conservative prior. 
 
 ### Model
+
+> Use ulam instead of quap to build this model, and be sure to check
+the chains for convergence. If you’d rather build the model directly in Stan or
+PyMC3, go ahead. I just want you to use Hamiltonian Monte Carlo instead of
+quadratic approximation. 
 
 ```{r}
 q1_stan <- 'rmd/homework/Week-05/q1.stan'
 writeLines(readLines(q1_stan))
 
+q1_model <- cmdstan_model(q1_stan)
 
-q1_prior <- cmdstan_model(q1_stan)
-
-q1_prior_sample <- q1_prior$sample(
+q1_sample <- q1_model$sample(
 	data = list(N = n_rows,
 							N_judges = n_index_judge,
-							N_wines = n_index_wine)
+							N_wines = n_index_wine,
+							scale_score = DT[, as.numeric(scale_score)],
+							index_judge = DT[, as.numeric(index_judge)],
+							index_wine = DT[, as.numeric(index_wine)]
+							)
 )
-
-
 ```
 
 
 
-Justify your priors. You should end up with 9 judge parameters and 20 wine
-parameters. Use ulam instead of quap to build this model, and be sure to check
-the chains for convergence. If you’d rather build the model directly in Stan or
-PyMC3, go ahead. I just want you to use Hamiltonian Monte Carlo instead of
-quadratic approximation. 
 
 How do you interpret the variation among individual
 judges and individual wines? Do you notice any patterns, just by plotting the
