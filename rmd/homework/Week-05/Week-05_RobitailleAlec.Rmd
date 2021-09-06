@@ -72,14 +72,35 @@ DT[, index_wine := .GRP, wine]
 
 ### Prior predictive simulation
 ```{r}
-library(data.table)
 n <- 100
 
 DT <- data.table(
 	index_judge_low = -2,
 	index_judge_high = 2,
 	index_wine_low = -2,
-	index_wine_high = -2
+	index_wine_high = 2
+)[rep(seq.int(.N), each = n / .N)]
+DT[, alpha := rnorm(.N, 0, 0.2)]
+DT[, beta_judge := rnorm(.N, 0, 0.5)]
+DT[, beta_wine := rnorm(.N, 0, 0.5)]
+DT[, sigma := rexp(.N, 1)]
+
+m <- melt(DT, measure.vars = c('index_judge_low', 'index_judge_high',
+													'index_wine_low', 'index_wine_high'))
+
+
+DT[, mu_for_judge_low := alpha + beta_judge * index_judge + beta_wine * index_wine]
+
+mod <- m$sample(list(index_judge = as.integer(c(-2, 2)), index_wine = as.integer(c(-2, 2))))
+posterior::as_draws_df(mod$draws()) -> mdrw
+
+
+# TODO: this doesnt make sense - an index doesnt have this range
+DT <- data.table(
+	index_judge_low = -2,
+	index_judge_high = 2,
+	index_wine_low = -2,
+	index_wine_high = 2
 )[rep(seq.int(.N), each = n / .N)]
 #[, combination_id := .I][rep(seq.int(.N), each = n / .N)]
 
@@ -91,12 +112,21 @@ DT[, sigma := rexp(.N, 1)]
 DT[, mu := alpha + beta_judge * index_judge + beta_wine * index_wine]
 
 
+# TODO how to auto flex
 ggplot(DT) + 
 	geom_segment(aes(
 		x = index_judge_low,
 		xend = index_judge_high,
 		y = alpha + beta_judge * index_judge_low + beta_wine * index_wine_low,
 		yend = alpha + beta_judge * index_judge_high + beta_wine * index_wine_low
+	))
+
+ggplot(DT) + 
+	geom_segment(aes(
+		x = index_wine_low,
+		xend = index_wine_high,
+		y = alpha + beta_judge * index_judge_low + beta_wine * index_wine_low,
+		yend = alpha + beta_judge * index_judge_low + beta_wine * index_wine_high
 	))
 
 mu_function <- function(alpha, beta_judge, beta_wine, sigma) {
