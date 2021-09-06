@@ -137,16 +137,27 @@ q1_sample <- q1_model$sample(
 )
 
 q1_draws <- as_draws_df(q1_sample$draws())
-
-precis(q1_draws, depth = 2)[3:11,]
-
-precis(q1_draws, depth = 2)[12:31,]
 ```
 
+> How do you interpret the variation among individual judges and individual
+wines? Do you notice any patterns, just by plotting the differences? Which
+judges gave the highest/lowest ratings? Which wines were rated worst/ best on
+average?
 
 
+```{r}
+# Judges
+precis(q1_draws, depth = 2)[3:11,]
+melt(q1_draws, measure.vars = patterns('beta_judge'))[, .(mean_score = mean(value)), variable][order(-mean_score)]
 
-How do you interpret the variation among individual
-judges and individual wines? Do you notice any patterns, just by plotting the
-differences? Which judges gave the highest/lowest ratings? Which wines were
-rated worst/ best on average?
+
+precis(q1_draws, depth = 2)[12:31,]
+melt(q1_draws, measure.vars = patterns('beta_wine'))[, .(mean_score = mean(value)), variable][order(-mean_score)]
+```
+
+Accounting for judges, most wines are scored with similar distributions. Wine 19
+however was particularly poorly scored. Judges, however, have much more variable
+scoring with three individuals (judges 1, 2, 5) entirely or almost entirely
+scoring lower than other judges. The worst scoring judge was judge 5.
+
+
