@@ -135,6 +135,12 @@ q1_sample <- q1_model$sample(
 							index_wine = DT[, as.numeric(index_wine)]
 							)
 )
+
+q1_draws <- as_draws_df(q1_sample$draws())
+
+precis(q1_draws, depth = 2)[3:11,]
+
+precis(q1_draws, depth = 2)[12:31,]
 ```
 
 
