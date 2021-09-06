@@ -71,7 +71,7 @@ DT[, index_wine := .GRP, wine]
 ```
 
 ### Prior predictive simulation
-```{r}
+```{r, eval = FALSE}
 n <- 100
 
 DT <- data.table(
@@ -161,7 +161,7 @@ scale_score <- dnorm(mu, sigma)
 ```
 
 ### Model
-```{r}
+```{r, eval = FALSE}
 data_m1 <- as.list(DT[, .(scale_score, index_judge, index_wine)])
 m1 <- ulam(
 	alist(
