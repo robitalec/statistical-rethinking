@@ -1,7 +1,12 @@
+data {
+  int<lower=0> N;
+  int<lower=0> N_judges;
+  int<lower=0> N_wines;
+}
 parameters{
   real alpha;
-  real beta_judge;
-  real beta_wine;
+  vector[N_judges] beta_judge;
+  vector[N_wines] beta_wine;
   real<lower=0> sigma;
 }
 model{

@@ -60,6 +60,7 @@ and then use these index variables to construct a linear regression model.
 library(rethinking)
 library(cmdstanr)
 library(data.table)
+library(posterior)
 
 data("Wines2012")
 
@@ -77,9 +78,33 @@ n_rows <- DT[, .N]
 ### Prior predictive simulation
 
 ```{r, eval = FALSE}
+q1_stan <- 'rmd/homework/Week-05/q1_prior.stan'
+writeLines(readLines(q1_stan))
 
+q1_prior <- cmdstan_model(q1_stan)
 
+q1_prior_sample <- q1_prior$sample(
+	data = list(N = n_rows,
+							N_judges = n_index_judge,
+							N_wines = n_index_wine)
+)
+
+q1_prior_draws <- as_draws_df(q1_prior_sample$draws())
+setDT(q1_prior_draws)
+
+m <- melt(q1_prior_draws,
+					measure.vars = grep('beta_judge', colnames(q1_prior_draws), value = TRUE),
+					variable.name = 'judge', value.name = 'beta_judge')
+m2 <- melt(m,
+					 measure.vars = grep('beta_wine', colnames(q1_prior_draws), value = TRUE),
+					variable.name = 'wine', value.name = 'beta_wine')
+m2
+
+ggplot(m2) + 
+	geom_density(aes(alpha + beta_judge + beta_wine, color = judge), alpha = 0.3)
 ```
+
+
 ```{r, eval = FALSE}
 DT <- data.table(
 	index_judge_low = -2,
