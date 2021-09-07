@@ -127,9 +127,9 @@ model{
 ```
 
 ```{r}
-q1_stan <- 'q1_prior.stan'
-writeLines(readLines(q1_stan))
-q1_prior <- cmdstan_model(q1_stan)
+# q1_stan <- 'q1_prior.stan'
+# writeLines(readLines(q1_stan))
+# q1_prior <- cmdstan_model(q1_stan)
 
 q1_prior_sample <- q1_prior$sample(data = q1_data[c('N',
 																										'N_gender',
@@ -143,6 +143,50 @@ mcmc_areas(q1_prior_draws, regex_pars = 'beta_gender')
 mcmc_areas(q1_prior_draws, regex_pars = 'beta_discipline')
 ```
 
+### Model
+```{cmdstan, output.var = 'q1_model'}
+data {
+  int<lower=0> N;
+  int<lower=0> N_gender;
+  int<lower=0> N_discipline;
+  int awards;
+  int index_gender;
+  int index_discipline;
+}
+parameters{
+  real alpha;
+  vector[N_gender] beta_gender;
+  vector[N_discipline] beta_discipline;
+  real<lower=0> sigma;
+  real<lower=0,upper=1> theta;
+}
+model{
+  alpha ~ normal(0, 0.2);
+  beta_gender ~ normal(0, 0.25);
+  beta_discipline ~ normal(0, 0.25);
+  sigma ~ exponential(1);
+  theta ~ beta(1, 1);
+  awards ~ binomial(N, theta);
+}
+
+```
+
+```{r}
+q1_stan <- 'q1.stan'
+writeLines(readLines(q1_stan))
+q1_model <- cmdstan_model(q1_stan)
+
+q1_sample <- q1_model$sample(data = q1_data[c('N',
+																										'N_gender',
+																										'N_discipline')])
+
+q1_draws <- cmd_draws(q1_sample)
+
+mcmc_areas(q1_draws, regex_pars = 'theta')
+mcmc_areas(q1_draws, regex_pars = 'sigma')
+mcmc_areas(q1_draws, regex_pars = 'beta_gender')
+mcmc_areas(q1_draws, regex_pars = 'beta_discipline')
+```
 > What is your causal interpretation? If NWO’s goal is to equalize rates of
 funding between the genders, what type of intervention would be most effective?
 
