@@ -47,8 +47,26 @@ cmd_draws <- function(model) {
 }
 ```
 
+## Question 1
+
+> The data in `data(NWOGrants)` are outcomes for scientific funding applications
+for the Netherlands Organization for Scientific Research (NWO) from 2010–2012
+(see van der Lee and Ellemers doi:10.1073/pnas.1510159112). These data have a
+very similar structure to the UCBAdmit data discussed in Chapter 11. I want you
+to consider a similar question: What are the total and indirect causal effects
+of gender on grant awards? Consider a mediation path (a pipe) through dis-
+cipline. Draw the corresponding DAG and then use one or more binomial GLMs to
+answer the question.
 
 
+## Data
+
+```{r}
+data(NWOGrants)
+
+precis(NWOGrants)
+summary(NWOGrants)
+```
 
 
 ```{r}
