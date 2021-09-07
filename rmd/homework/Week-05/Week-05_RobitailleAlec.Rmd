@@ -38,6 +38,10 @@ dag_plot <- function(dag) {
 																		 'intermediate' = 'grey50')) + 
 	  theme_void()
 }
+
+cmd_draws <- function(model) {
+	as_draws_df(model$draws())
+}
 ```
 
 
