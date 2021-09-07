@@ -293,3 +293,14 @@ q3_sample$summary()
 
 mcmc_trace(q3_draws)
 ```
+
+```{r}
+DT[, judge_char := ifelse(judge.amer == 0, 'French Judge', 'American Judge')]
+DT[, wine_char := ifelse(wine.amer == 0, 'French Wine', 'American Wine')]
+
+labs <- DT[, .(.GRP, paste(.BY, collapse = ', ')), by = .(judge_char, wine_char, as.character(flight))][, .(GRP, V2)]
+labs <- setNames(labs$V2, paste0('beta_interactions[', labs$GRP, ']'))
+mcmc_areas(q3_draws, regex_pars = 'interaction') + scale_y_discrete(labels = labs)
+```
+
+
