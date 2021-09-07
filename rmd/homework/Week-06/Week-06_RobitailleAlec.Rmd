@@ -74,15 +74,14 @@ summary(NWOGrants)
 * Applications: count
 * Awards: count
 
-Decision - translate awards and applications to a rate and use binomial response
 
 ```{r}
-NWOGrants[, success_rate := awards / applications]
+NWOGrants[, scale_awards := as.numeric(scale(awards))]
 NWOGrants[, index_gender := .GRP, gender]
 NWOGrants[, index_discipline := .GRP, discipline]
 
 q1_data <- c(
-	as.list(NWOGrants[, success_rate, index_gender, index_discipline]),
+	as.list(NWOGrants[, .(scale_awards, index_gender, index_discipline)]),
 	N = NWOGrants[, .N],
 	N_gender = NWOGrants[, uniqueN(index_gender)],
 	N_discipline = NWOGrants[, uniqueN(index_discipline)]
@@ -92,10 +91,10 @@ q1_data <- c(
 ### DAG
 ```{r}
 dag <- dagify(
-	success_rate ~ index_gender + index_discipline,
+	scale_awards ~ index_gender + index_discipline,
 	index_discipline ~ index_gender,
 	exposure = 'index_gender',
-	outcome = 'success_rate'
+	outcome = 'scale_awards'
 )
 
 dag_plot(dag)
