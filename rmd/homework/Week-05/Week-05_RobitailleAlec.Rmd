@@ -128,8 +128,8 @@ q1_sample <- q1_model$sample(
 							index_wine = DT[, as.numeric(index_wine)]
 							)
 )
-
-q1_draws <- as_draws_df(q1_sample$draws())
+q1_draws <- cmd_draws(q1_sample)
+setDT(q1_draws)
 ```
 
 > How do you interpret the variation among individual judges and individual
@@ -142,10 +142,11 @@ average?
 # Judges
 precis(q1_draws, depth = 2)[3:11,]
 melt(q1_draws, measure.vars = patterns('beta_judge'))[, .(mean_score = mean(value)), variable][order(-mean_score)]
-
+mcmc_areas(q1_draws, regex_pars = 'judge')
 
 precis(q1_draws, depth = 2)[12:31,]
 melt(q1_draws, measure.vars = patterns('beta_wine'))[, .(mean_score = mean(value)), variable][order(-mean_score)]
+mcmc_areas(q1_draws, regex_pars = 'wine')
 ```
 
 Accounting for judges, most wines are scored with similar distributions. Wine 19
