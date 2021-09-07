@@ -1066,6 +1066,7 @@ Statistical question: what is the average difference in probability of admission
 Causal question: what is the direct influence of gender?
 
 These are equally valid, but different questions. 
+
 ## Simpsons paradox
 
 Flip of covariates sign when adding/removing a variable
