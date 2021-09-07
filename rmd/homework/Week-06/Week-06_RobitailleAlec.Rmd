@@ -181,38 +181,38 @@ q1_draws$dif_alpha <- (inv.logit(q1_draws$`alpha[1]`) -
 mcmc_areas(q1_draws, regex_pars = 'dif_alpha')
 ```
 
-With department
+With discipline
 
-```{cmdstan, output.var = 'q1_model_department'}
+```{cmdstan, output.var = 'q1_model_discipline'}
 data {
   int<lower=0> N;
   int<lower=0> N_gender;
-  int<lower=0> N_department;
+  int<lower=0> N_discipline;
   int awards[N];
   int applications [N];
   int index_gender[N];
-  int index_department[N];
+  int index_discipline[N];
 }
 parameters{
   vector[N_gender] alpha;
-  vector[N_department] beta;
+  vector[N_discipline] beta;
 }
 model{
   vector[N] p;
   alpha ~ normal(-1, 1);
   beta ~ normal(0, 0.25);
 
-  p = inv_logit(alpha[index_gender] + beta[index_department]);
+  p = inv_logit(alpha[index_gender] + beta[index_discipline]);
   awards ~ binomial(applications, p);
 }
 ```
 
 ```{r}
-q1_stan <- 'q1_department.stan'
-writeLines(readLines(q1_stan))
-q1_model_department <- cmdstan_model(q1_stan)
+# q1_stan <- 'q1_discipline.stan'
+# writeLines(readLines(q1_stan))
+# q1_model_discipline <- cmdstan_model(q1_stan)
 
-q1_sample <- q1_model_department$sample(data = q1_data)
+q1_sample <- q1_model_discipline$sample(data = q1_data)
 
 q1_draws <- cmd_draws(q1_sample)
 
