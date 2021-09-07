@@ -181,7 +181,43 @@ q1_draws$dif_alpha <- (inv.logit(q1_draws$`alpha[1]`) -
 mcmc_areas(q1_draws, regex_pars = 'dif_alpha')
 ```
 
+With department
 
+```{cmdstan, output.var = 'q1_model'}
+data {
+  int<lower=0> N;
+  int<lower=0> N_gender;
+  int awards[N];
+  int applications [N];
+  int index_gender[N];
+}
+parameters{
+  vector[N_gender] alpha;
+}
+model{
+  vector[N] p;
+  alpha ~ normal(-1, 1);
+
+  p = inv_logit(alpha[index_gender]);
+  awards ~ binomial(applications, p);
+}
+```
+
+```{r}
+q1_stan <- 'q1.stan'
+writeLines(readLines(q1_stan))
+q1_model <- cmdstan_model(q1_stan)
+
+q1_sample <- q1_model$sample(data = q1_data)
+
+q1_draws <- cmd_draws(q1_sample)
+
+mcmc_areas(q1_draws, regex_pars = 'alpha')
+
+q1_draws$dif_alpha <- (inv.logit(q1_draws$`alpha[1]`) -
+	inv.logit(q1_draws$`alpha[2]`)) * 100
+mcmc_areas(q1_draws, regex_pars = 'dif_alpha')
+```
 
 > What is your causal interpretation? If NWO’s goal is to equalize rates of
 funding between the genders, what type of intervention would be most effective?
