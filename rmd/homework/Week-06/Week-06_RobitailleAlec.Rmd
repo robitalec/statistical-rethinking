@@ -63,11 +63,36 @@ answer the question.
 
 ```{r}
 data(NWOGrants)
+setDT(NWOGrants)
 
 precis(NWOGrants)
 summary(NWOGrants)
 ```
 
+* Discipline: factor with 9 levels
+* Gender: factor with 2 levels in this data (...)
+* Applications: count
+* Awards: count
+
+Decision - translate awards and applications to a rate and use binomial response
+
+```{r}
+NWOGrants[, success_rate := awards / applications]
+NWOGrants[, index_gender := .GRP, gender]
+NWOGrants[, index_discipline := .GRP, discipline]
+```
+
+## DAG
+```{r}
+dag <- dagify(
+	success_rate ~ index_gender + index_discipline,
+	index_discipline ~ index_gender,
+	exposure = 'index_gender',
+	outcome = 'success_rate'
+)
+
+dag_plot(dag)
+```
 
 ```{r}
 register_knitr_engine(override = FALSE)
