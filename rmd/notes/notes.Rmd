@@ -17,7 +17,7 @@ A framework for developing + using statistical golems
     - ...
 3. Model comparison
     - Compare meaningful (not null) models
-    - Caution: overfitting
+    - Caution: over fitting
 
 ## Hypotheses - Process Models - Statistical Models
 
@@ -31,7 +31,7 @@ Any statistical model may correspond to multiple hypothesis
 
 ## Small world / large world
 
-Small world: models have assumptions, bayesian models fit optimally
+Small world: models have assumptions, Bayesian models fit optimally
 
 Large world: real world, no guarantee of optimality
 
@@ -140,7 +140,7 @@ Golem must be supervised
 
 ### Define parameters
 
-N: fixed by experimentor
+N: fixed by experimenter
 
 W: a probability distribution, in this case a binomial distribution
 
@@ -197,18 +197,18 @@ Approximate the posterior, then you can sample from the posteriors `sample(p, pr
 ## Regressions
 
 - Model of mean and variance of some normally distributed measure
-- Mean as additive combination of weighted vairables
+- Mean as additive combination of weighted variables
 - Typical assumed constant variable (???)
-- The line returned is the mean - but with bayesian we want to see the distribution of lines, ranked by plausability
+- The line returned is the mean - but with Bayesian we want to see the distribution of lines, ranked by plausibility
 - The model endorses the line, but the line doesn't necessarily fit the data
-- In regressions there will always be more certainty at the means and bowtie towards the limits of the data
+- In regressions there will always be more certainty at the means and bow tie towards the limits of the data
 - Regression models don't have arrows like DAGs - they just measure associations.
 
 ## Normal distributions
 
 Normal distributions arise when repeated fluctuations tend to cancel near 0
 
-The gaussian distribution is the most conservative distribution to use for a prior, it is the best option if no additional scientific information is available
+The Gaussian distribution is the most conservative distribution to use for a prior, it is the best option if no additional scientific information is available
 
 ## Prior predictive distributions
 
@@ -238,7 +238,7 @@ Function in rethinking is `rethinking::quap`
 
 `x - mean(x)`
 
-Should be default behaviour when doing a regression
+Should be default behavior when doing a regression
 
 # Lecture 04
 
@@ -258,13 +258,13 @@ Value = 1 is equal to 1 SD
 
 1. Approximate posterior from mean, standard deviation
 2. Sample from multivariate normal distribution of parameters
-3. Use sampels to generate predictions that integrate over uncertainty
+3. Use samples to generate predictions that integrate over uncertainty
 
 `extract_samples` returns a, b, sigma, ... and you can plot each
 
 ## Polynomials
 
-Polynomials have bad behaviour especially at the boundaries of the data
+Polynomials have bad behavior especially at the boundaries of the data
 
 They don't fit locally, and are not actually flexibly. 
 
@@ -290,7 +290,7 @@ At each knot, the knot's function is at 100%, moving away from it, the neighbori
 
 Parameters always have more uncertainty than predictions
 
-Caution: overfitting
+Caution: over fitting
 
 ### Recipe
 
@@ -483,7 +483,7 @@ Z is common result of X and Y. X and Y are independent, if you condition on Z. C
 
 1. List all paths connecting X (treatment) and Y (outcome)
 2. Classify each path as either open or closed. All paths are open unless they contain a collider. 
-3. Classify each path as backdoor/frontdoor. Backdoor paths have an arrow entering X. 
+3. Classify each path as backdoor/front door. Backdoor paths have an arrow entering X. 
 4. Condition on variables in backdoor paths to close them. 
 
 ![Untitled](Statistical%20Rethinking%209648278528c64765bc03ca8a8a8e1f74/Untitled%201.png)
@@ -558,7 +558,7 @@ This is the gold standard for scoring models
 
 `lppd`
 
-Pointwise measure of average probability that the model expects the data
+Point wise measure of average probability that the model expects the data
 
 Using the entire posterior, measures the log probability
 
@@ -578,7 +578,7 @@ Note: deviance decreases with more parameters, however out of sample deviance is
 
 Must always be skeptical of the sample
 
-Regularization: use informative, conservative priors to reduce overfitting (models learn less from sample). 
+Regularization: use informative, conservative priors to reduce over fitting (models learn less from sample). 
 
 This is particularly important for small sample sizes and as a result, for multilevel models. 
 
@@ -603,14 +603,14 @@ Historically: AIC, a theoretical estimate of the KL distance
 Assumptions of AIC include
 
 - priors are flat or overwhelmed by data
-- posterior is essentially gaussian
+- posterior is essentially Gaussian
 - sample size >> number of parameters k
 
 ### WAIC
 
 Widely Applicable Information Criterion
 
-- Does not assume gaussian posterior
+- Does not assume Gaussian posterior
 
 ### Standard error
 
@@ -662,9 +662,9 @@ Note: when we have different parameters that return similar WAIC, it's an invita
 
 Inspecting their estimate posterior we notice that the sign of the brain mass parameter flips from negative to positive across models
 
-**Another approach: since WAIC is pointwise we can plot the difference in WAIC for each point across models**
+**Another approach: since WAIC is point wise we can plot the difference in WAIC for each point across models**
 
-Comparing life span on Y, and pointwise difference in WAIC between the two models on X
+Comparing life span on Y, and point wise difference in WAIC between the two models on X
 
 We see that the model M+B is better for some species eg. Cebus, and the simple B model is better for other species eg. Gorilla
 
@@ -680,7 +680,7 @@ Interaction of variables on each other
 
 Dependence on the state
 
-eg. Influence of genes on phenotype depends on environement
+eg. Influence of genes on phenotype depends on environment
 
 Approaches
 
@@ -742,7 +742,7 @@ The beta W*S variable is actually a nested linear model
 ## Interpreting interactions
 
 - Interpreting interactions is hard
-- The influence of predictors depends upon multiple parameters and their covariation
+- The influence of predictors depends upon multiple parameters and their co variation
 - Interactions are symmetric within the data.
     - Eg. effect of continent depends on ruggedness is the same as effect of ruggedness on continent
     - Statistically the same
@@ -764,7 +764,7 @@ Caution: hard to interpret, hard to estimate
 
 ## Markov Chain Monte Carlo
 
-Reminder: bayesian inference is about calculating the posterior. Bayesian ≠ Markov Chains
+Reminder: Bayesian inference is about calculating the posterior. Bayesian ≠ Markov Chains
 
 4 of the ways to compute the posterior
 
@@ -782,7 +782,7 @@ Advantages of MCMC
 
 1. Loop over iterations
 2. Record location
-3. Generate neighbour location proposals
+3. Generate neighbor location proposals
 4. Move based on frequency
 
 Converges in the long run, can be used as long as proposals are symmetric
@@ -810,7 +810,7 @@ MCMC is a numerical technique to solve for the posterior, with several advantage
 Hamiltonian Monte Carlo:
 
 1. Uses a physics simulation representing the parameter state as a particle
-2. Flicks the particle around a frictionless log-posterior surface
+2. Flicks the particle around a friction less log-posterior surface
 3. Follows curvature of the surface, so it doesn't get stuck
 4. Uses random direction and random speed
 5. Slows as it climbs, speeds as it drops
@@ -947,7 +947,7 @@ Another example - binomial
 
 Count: Y ~ Binomial(N, p) (unit is count of something)
 
-Probability: P ? alpha + beta * X (unitless)
+Probability: P ? alpha + beta * X (unit less)
 
 We need some function 
 
@@ -1030,7 +1030,7 @@ Relative shark vs absolute deer - need both
 
 ## Logistic regression
 
-0, 1 trials (bernoulli trials)
+0, 1 trials (Bernoulli trials)
 
 Aggregate binomial: aggregated from each 0, 1 to counts for each category
 
@@ -1046,7 +1046,7 @@ Acceptance ~ Binomial(N, p)
 
 logit(p) = alpha [gender]
 
-Statistical question: what are the average probabilites of admission by gender across all departments?
+Statistical question: what are the average probabilities of admission by gender across all departments?
 
 Causal question: what is the total causal influence of gender?
 
@@ -1090,7 +1090,7 @@ Example of oceanic tool complexity
 
 Modeled with a poisson link
 
-The model outcomes are terrible - though they fit the data, the intercepts don't pass through origina
+The model outcomes are terrible - though they fit the data, the intercepts don't pass through origin
 
 Wouldn't we expect zero population = zero tools?
 
@@ -1141,7 +1141,7 @@ eg. ordered categories, ranks
 
 Blends of stochastic processes
 
-eg. varing means, probabilities, rates
+eg. varying means, probabilities, rates
 
 eg. zero-inflation, hurdles
 
@@ -1188,7 +1188,7 @@ Why use multilevel modeling?
 
 - deal with clustering in data (eg. classroom within schools, students within classrooms, ...)
 - handles imbalance in sampling
-- handles pseudoreplications
+- handles pseudo replications
 
 ## Varying intercepts
 
@@ -1230,8 +1230,8 @@ Increased difference from mean = more shrinkage
 
 Why are varying effects more accurate than fixed effects?
 
-- Grand mean - maximum underfitting - complete pooling
-- Fixed effects - maximum overfitting - no pooling
+- Grand mean - maximum under fitting - complete pooling
+- Fixed effects - maximum over fitting - no pooling
 - Varying effects - adaptive regularization - partial pooling
 
 
