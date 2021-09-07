@@ -217,12 +217,19 @@ q1_sample <- q1_model_discipline$sample(data = q1_data)
 q1_draws <- cmd_draws(q1_sample)
 
 mcmc_areas(q1_draws, regex_pars = 'alpha')
+mcmc_areas(q1_draws, regex_pars = 'beta')
 
-q1_draws$dif_alpha <- (inv.logit(q1_draws$`alpha[1]`) -
-	inv.logit(q1_draws$`alpha[2]`)) * 100
-mcmc_areas(q1_draws, regex_pars = 'dif_alpha')
+# Need to account for base rates to look at absolute rate
+# q1_draws$dif_alpha <- (inv.logit(q1_draws$`alpha[1]`) -
+# 	inv.logit(q1_draws$`alpha[2]`)) * 100
+# mcmc_areas(q1_draws, regex_pars = 'dif_alpha')
+
+# We can look at relative rates though
+q1_draws$dif_alpha_rel <- q1_draws$`alpha[1]` - q1_draws$`alpha[2]`
+mcmc_areas(q1_draws, regex_pars = 'dif_alpha_rel')
 ```
 
 > What is your causal interpretation? If NWO’s goal is to equalize rates of
 funding between the genders, what type of intervention would be most effective?
 
+Investigate departmental levels, since once this is included the relative differences are small. 
