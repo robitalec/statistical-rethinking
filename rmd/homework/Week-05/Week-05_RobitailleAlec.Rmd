@@ -218,9 +218,10 @@ writeLines(readLines(q2_stan))
 
 q2_model <- cmdstan_model(q2_stan)
 
-q2_sample <- q2_model$sample(data = q2data)
+q2_sample <- q2_model$sample(data = q2_data)
 q2_draws <- cmd_draws(q2_sample)
-setDT(q2_draws)
+
+mcmc_trace(q2_draws)
 ```
 
 What do you conclude about the differences
