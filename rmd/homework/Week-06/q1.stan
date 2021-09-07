@@ -11,13 +11,17 @@ parameters{
   vector[N_gender] beta_gender;
   vector[N_discipline] beta_discipline;
   real<lower=0> sigma;
-  real<lower=0,upper=1> theta;
+  // real<lower=0,upper=1> theta;
+  real p[N];
 }
 model{
   alpha ~ normal(0, 0.2);
   beta_gender ~ normal(0, 0.25);
   beta_discipline ~ normal(0, 0.25);
   sigma ~ exponential(1);
-  theta ~ beta(1, 1);
-  awards ~ binomial(N, theta);
+  // theta ~ beta(1, 1);
+//
+//   real p;
+  p ~ inv_logit(alpha + beta_gender[N_discipline]);
+  awards ~ binomial(N, p);
 }
