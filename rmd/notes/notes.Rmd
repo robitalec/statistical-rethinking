@@ -1067,12 +1067,50 @@ Statistical question: what is the average difference in probability of admission
 Causal question: what is the direct influence of gender?
 
 These are equally valid, but different questions. 
+## Simpsons paradox
+
+Flip of covariates sign when adding/removing a variable
+
 
 # Lecture 13
 
+## Binomial
+
+Outcome is a count from zero to some known upper bound
+
 ## Poisson
 
+Binomial events with N trials large/unknown and probability of event is small
+
 Poisson with varied exposure/offset
+
+## Generalized linear madness
+
+Example of oceanic tool complexity
+
+Modeled with a poisson link
+
+The model outcomes are terrible - though they fit the data, the intercepts don't pass through origina
+
+Wouldn't we expect zero population = zero tools?
+
+Solution is a scientific model
+
+## Scientific model
+
+The relationship can be thought of as a change in tools per unit time
+
+Change in time = alpha P ^ beta
+
+Alpha: innovation rate, P: population per person  = each person has some change of inventing something
+
+Beta: diminishing returns, saturation effect, "someone else will invent it for you"
+
+TODO: read more about this, highlight it, etc
+
+The resulting model using this function based in the scientific model is not perfect, but meanings are clearer, the intercept actually goes through 0
+
+This is an ad hoc function, not a link
 
 ## Survival analysis
 
