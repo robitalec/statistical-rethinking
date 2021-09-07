@@ -247,11 +247,10 @@ mcmc_areas(q2_draws, regex_pars = 'wine') + scale_y_discrete(labels = labs)
 ```
 
 
-> What do you conclude about the differences among the wines and judges? Try to
-relate the results to the inferences in Problem 1
+<!-- > What do you conclude about the differences among the wines and judges? Try to -->
+<!-- relate the results to the inferences in Problem 1 -->
 
-No real difference between scores for American and non-American wines. American 
-judges
+
 
 ## Question 3
 
@@ -264,3 +263,33 @@ not on the scale of individual parameters. You can use link to help with this,
 or just use your knowledge of the linear model instead. What do you conclude
 about the features and the scores? Can you relate the results of your model(s)
 to the individual judge and wine inferences from Problem 1?
+
+
+### Data
+
+```{r}
+DT[, index_interactions := .GRP, .(judge.amer, wine.amer, flight)]
+n_index_interactions <- DT[, uniqueN(index_interactions)]
+
+q3_data <- c(
+	as.list(DT[, .(scale_score = as.numeric(scale_score),
+								 index_interactions)]),
+	N_interactions = n_index_interactions,
+	N = n_rows
+)
+```
+
+### Model
+```{r}
+q3_stan <- 'q3.stan'
+writeLines(readLines(q3_stan))
+
+q3_model <- cmdstan_model(q3_stan)
+
+q3_sample <- q3_model$sample(data = q3_data)
+q3_draws <- cmd_draws(q3_sample)
+
+q3_sample$summary()
+
+mcmc_trace(q3_draws)
+```
