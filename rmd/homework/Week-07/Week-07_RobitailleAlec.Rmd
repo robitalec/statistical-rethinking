@@ -48,4 +48,36 @@ cmd_draws <- function(model) {
 }
 ```
 
+### Data
+
+```{r}
+data(Trolley)
+DT <- data.table(Trolley)
+precis(DT)
+```
+
+Response: 1-7 integer, "how morally permissible the action to be taken (or not) is". Categorical, ordered, but distances between categories is not metric or known. 
+
+Logit = log-odds, cumulative logit = log-cumulative-odds. Both constrained between 0-1. 
+
+Log-cumulative-odds for response 7 will be infinity since log(1/(1-1)) = infinity. 
+Given this, we only need K-1 = 6 intercepts. 
+
+
+### Model
+
+Probability of data: $R_{i} \sim \text{Ordered-logit}(\phi_{i}, K)$
+
+Linear model: $\phi_{i} = 0$
+
+Prior for each intercept: $K_{k} \sim \text{Normal}(0, 1.5)$
+
+
+```{r}
+register_knitr_engine(override = FALSE)
+```
+
+
+
+
 ## Question 1
