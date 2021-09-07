@@ -80,7 +80,7 @@ NWOGrants[, index_gender := .GRP, gender]
 NWOGrants[, index_discipline := .GRP, discipline]
 
 q1_data <- c(
-	as.list(NWOGrants[, .(awards, index_gender, index_discipline)]),
+	as.list(NWOGrants[, .(awards, applications, index_gender, index_discipline)]),
 	N = NWOGrants[, .N],
 	N_gender = NWOGrants[, uniqueN(index_gender)],
 	N_discipline = NWOGrants[, uniqueN(index_discipline)]

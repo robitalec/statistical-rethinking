@@ -3,6 +3,7 @@ data {
   int<lower=0> N_gender;
   int<lower=0> N_discipline;
   int awards[N];
+  int applications [N];
   int index_gender[N];
   int index_discipline[N];
 }
