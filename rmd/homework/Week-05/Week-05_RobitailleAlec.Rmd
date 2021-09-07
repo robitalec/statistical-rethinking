@@ -410,9 +410,9 @@ model{
 ```
 
 ```{r}
-q3_stan <- 'q3.stan'
-writeLines(readLines(q3_stan))
-q3_model <- cmdstan_model(q3_stan)
+# q3_stan <- 'q3.stan'
+# writeLines(readLines(q3_stan))
+# q3_model <- cmdstan_model(q3_stan)
 
 q3_sample <- q3_model$sample(data = q3_data)
 q3_draws <- cmd_draws(q3_sample)

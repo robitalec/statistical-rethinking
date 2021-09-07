@@ -48,6 +48,13 @@ question-1-4
 data-2
 prior-predictive-simulation-1
 model-2
+question-2-4
+data-3
+priors
+model-3
+question-3-3
+data-4
+model-4
 lecture-01
 popper
 approach
@@ -83,7 +90,7 @@ lecture-05
 multiple-regression-models
 directed-acyclic-graphs-dag
 example-age-marriage-divorce
-priors
+priors-1
 prior-predictive-simulation-2
 interpretation-5
 plotting-multivariate-posteriors
@@ -153,7 +160,10 @@ lecture-12
 relative-and-absolute-effects
 logistic-regression
 lecture-13
+binomial
 poisson
+generalized-linear-madness
+scientific-model
 survival-analysis
 monsters
 mixtures
