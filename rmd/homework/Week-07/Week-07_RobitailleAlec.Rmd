@@ -94,7 +94,7 @@ data {
 model_data <- c(
 	as.list(DT[, .(response, action, intention, contact)]), 
 	N = DT[, .N],
-	K = DT[, uniqueN(response)]
+	K = DT[, uniqueN(response) - 1]
 )
 
 ```
