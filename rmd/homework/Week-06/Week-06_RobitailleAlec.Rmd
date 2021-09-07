@@ -80,6 +80,13 @@ Decision - translate awards and applications to a rate and use binomial response
 NWOGrants[, success_rate := awards / applications]
 NWOGrants[, index_gender := .GRP, gender]
 NWOGrants[, index_discipline := .GRP, discipline]
+
+q1_data <- c(
+	as.list(NWOGrants[, success_rate, index_gender, index_discipline]),
+	N = NWOGrants[, .N],
+	N_gender = NWOGrants[, uniqueN(index_gender)],
+	N_discipline = NWOGrants[, uniqueN(index_discipline)]
+)
 ```
 
 ### DAG
