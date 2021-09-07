@@ -82,8 +82,8 @@ n_rows <- DT[, .N]
 
 ### Prior predictive simulation
 
-```{r, eval = FALSE}
-q1_stan <- 'rmd/homework/Week-05/q1_prior.stan'
+```{r}
+q1_stan <- 'q1_prior.stan'
 writeLines(readLines(q1_stan))
 
 q1_prior <- cmdstan_model(q1_stan)
@@ -114,7 +114,7 @@ PyMC3, go ahead. I just want you to use Hamiltonian Monte Carlo instead of
 quadratic approximation. 
 
 ```{r}
-q1_stan <- 'rmd/homework/Week-05/q1.stan'
+q1_stan <- 'q1.stan'
 writeLines(readLines(q1_stan))
 
 q1_model <- cmdstan_model(q1_stan)
