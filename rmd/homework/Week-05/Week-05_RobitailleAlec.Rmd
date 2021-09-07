@@ -228,15 +228,30 @@ mcmc_trace(q2_draws)
 
 
 ```{r}
-mcmc_areas(q2_draws, regex_pars = 'flight')
-mcmc_areas(q2_draws, regex_pars = 'judge')
-mcmc_areas(q2_draws, regex_pars = 'wine')
+# Recall: 
+DT[, .N, .(flight, index_flight)]
+DT[, .N, .(judge.amer, index_judge_american)]
+DT[, .N, .(wine.amer, index_wine_american)]
+
+labs <- c(
+	'beta_flights[1]' = 'White Wine',
+	'beta_flights[2]' = 'Red Wine',
+	'beta_wine_american[1]' = 'French Wine',
+	'beta_wine_american[2]' = 'American Wine',
+	'beta_judge_american[1]' = 'American Judge',
+	'beta_judge_american[2]' = 'French Judge'
+)
+mcmc_areas(q2_draws, regex_pars = 'flight') + scale_y_discrete(labels = labs)
+mcmc_areas(q2_draws, regex_pars = 'judge') + scale_y_discrete(labels = labs)
+mcmc_areas(q2_draws, regex_pars = 'wine') + scale_y_discrete(labels = labs)
 ```
 
 
 > What do you conclude about the differences among the wines and judges? Try to
 relate the results to the inferences in Problem 1
 
+No real difference between scores for American and non-American wines. American 
+judges
 
 ## Question 3
 
