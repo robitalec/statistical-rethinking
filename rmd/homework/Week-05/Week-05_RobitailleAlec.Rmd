@@ -159,3 +159,36 @@ scoring lower than other judges. The worst scoring judge was judge 5.
 
 ## Question 2
 
+> Now consider three features of the wines and judges: (1) flight: Whether the wine is red or white. (2) wine.amer: Indicator variable for American wines. (3) judge.amer: Indicator variable for American judges. Use indicator or index variables to model the influence of these features on the scores. Omit the individual judge and wine index variables from Problem
+1. Do not include interaction effects yet. Again use ulam, justify your priors,
+and be sure to check the chains. 
+
+### Data
+```{r}
+DT[, scale_score := scale(score)]
+DT[, index_flight := .GRP, flight]
+DT[, index_wine_american := .GRP, wine.amer]
+DT[, index_judge_american := .GRP, judge.amer]
+
+n_index_flight <- DT[, uniqueN(flight)]
+n_index_wine_american <- DT[, uniqueN(index_wine_american)]
+n_index_judge_american <- DT[, uniqueN(index_judge_american)]
+n_rows <- DT[, .N]
+
+q2_data <- c(
+	as.list(DT[, .(scale_score,
+								 index_flight,
+								 index_wine_american,
+								 index_judge_american)]),
+	n_index_flight = n_index_flight,
+	n_index_wine_american = n_index_wine_american,
+	n_index_judge_american = n_index_judge_american,
+	n_rows = n_rows
+)
+```
+
+
+
+What do you conclude about the differences
+among the wines and judges? Try to relate the results to the inferences in
+Problem 1
