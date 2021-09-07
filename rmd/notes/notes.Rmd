@@ -486,7 +486,6 @@ Z is common result of X and Y. X and Y are independent, if you condition on Z. C
 3. Classify each path as backdoor/front door. Backdoor paths have an arrow entering X. 
 4. Condition on variables in backdoor paths to close them. 
 
-![Untitled](Statistical%20Rethinking%209648278528c64765bc03ca8a8a8e1f74/Untitled%201.png)
 
 # Lecture 07
 
