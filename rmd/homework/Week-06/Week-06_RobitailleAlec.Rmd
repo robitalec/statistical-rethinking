@@ -166,9 +166,9 @@ model{
 ```
 
 ```{r}
-q1_stan <- 'q1.stan'
-writeLines(readLines(q1_stan))
-q1_model <- cmdstan_model(q1_stan)
+# q1_stan <- 'q1.stan'
+# writeLines(readLines(q1_stan))
+# q1_model <- cmdstan_model(q1_stan)
 
 q1_sample <- q1_model$sample(data = q1_data)
 
@@ -183,32 +183,36 @@ mcmc_areas(q1_draws, regex_pars = 'dif_alpha')
 
 With department
 
-```{cmdstan, output.var = 'q1_model'}
+```{cmdstan, output.var = 'q1_model_department'}
 data {
   int<lower=0> N;
   int<lower=0> N_gender;
+  int<lower=0> N_department;
   int awards[N];
   int applications [N];
   int index_gender[N];
+  int index_department[N];
 }
 parameters{
   vector[N_gender] alpha;
+  vector[N_department] beta;
 }
 model{
   vector[N] p;
   alpha ~ normal(-1, 1);
+  beta ~ normal(0, 0.25);
 
-  p = inv_logit(alpha[index_gender]);
+  p = inv_logit(alpha[index_gender] + beta[index_department]);
   awards ~ binomial(applications, p);
 }
 ```
 
 ```{r}
-q1_stan <- 'q1.stan'
+q1_stan <- 'q1_department.stan'
 writeLines(readLines(q1_stan))
-q1_model <- cmdstan_model(q1_stan)
+q1_model_department <- cmdstan_model(q1_stan)
 
-q1_sample <- q1_model$sample(data = q1_data)
+q1_sample <- q1_model_department$sample(data = q1_data)
 
 q1_draws <- cmd_draws(q1_sample)
 
