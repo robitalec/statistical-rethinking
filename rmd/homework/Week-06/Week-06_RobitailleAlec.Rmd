@@ -26,6 +26,7 @@ library(rethinking)
 library(cmdstanr)
 library(posterior)
 library(bayesplot)
+library(boot)
 
 # Functions
 dag_plot <- function(dag) {
@@ -174,7 +175,14 @@ q1_sample <- q1_model$sample(data = q1_data)
 q1_draws <- cmd_draws(q1_sample)
 
 mcmc_areas(q1_draws, regex_pars = 'alpha')
+
+q1_draws$dif_alpha <- (inv.logit(q1_draws$`alpha[1]`) -
+	inv.logit(q1_draws$`alpha[2]`)) * 100
+mcmc_areas(q1_draws, regex_pars = 'dif_alpha')
 ```
+
+
+
 > What is your causal interpretation? If NWO’s goal is to equalize rates of
 funding between the genders, what type of intervention would be most effective?
 
