@@ -180,13 +180,29 @@ q2_data <- c(
 								 index_flight,
 								 index_wine_american,
 								 index_judge_american)]),
-	n_index_flight = n_index_flight,
-	n_index_wine_american = n_index_wine_american,
-	n_index_judge_american = n_index_judge_american,
-	n_rows = n_rows
+	N_flights = n_index_flight,
+	N_wine_american = n_index_wine_american,
+	N_judge_american = n_index_judge_american,
+	N = n_rows
 )
 ```
 
+```{r}
+q2_stan <- 'rmd/homework/Week-05/q2_prior.stan'
+writeLines(readLines(q2_stan))
+
+q2_prior <- cmdstan_model(q2_stan)
+
+q2_prior_sample <- q2_prior$sample(data = q2_data[c('N_flights',
+																										'N_wine_american',
+																										'N_judge_american',
+																										'N')])
+
+q2_prior_draws <- cmd_draws(q2_prior_sample)
+
+mcmc_areas(q2_prior_draws, regex_pars = 'judge')
+mcmc_areas(q2_prior_draws, regex_pars = 'wine')
+```
 
 
 What do you conclude about the differences
