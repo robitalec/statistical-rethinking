@@ -236,3 +236,16 @@ mcmc_areas(q2_draws, regex_pars = 'wine')
 
 > What do you conclude about the differences among the wines and judges? Try to
 relate the results to the inferences in Problem 1
+
+
+## Question 3
+
+> Now consider two-way interactions among the three features. You should end up
+with three different interaction terms in your model. These will be easier to
+build, if you use indicator variables. Again use ulam, justify your priors, and
+be sure to check the chains. Explain what each interaction means. Be sure to
+interpret the model’s predictions on the outcome scale (mu, the expected score),
+not on the scale of individual parameters. You can use link to help with this,
+or just use your knowledge of the linear model instead. What do you conclude
+about the features and the scores? Can you relate the results of your model(s)
+to the individual judge and wine inferences from Problem 1?
