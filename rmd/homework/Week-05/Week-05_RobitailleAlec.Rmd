@@ -221,9 +221,18 @@ q2_model <- cmdstan_model(q2_stan)
 q2_sample <- q2_model$sample(data = q2_data)
 q2_draws <- cmd_draws(q2_sample)
 
+q2_sample$summary()
+
 mcmc_trace(q2_draws)
 ```
 
-What do you conclude about the differences
-among the wines and judges? Try to relate the results to the inferences in
-Problem 1
+
+```{r}
+mcmc_areas(q2_draws, regex_pars = 'flight')
+mcmc_areas(q2_draws, regex_pars = 'judge')
+mcmc_areas(q2_draws, regex_pars = 'wine')
+```
+
+
+> What do you conclude about the differences among the wines and judges? Try to
+relate the results to the inferences in Problem 1
