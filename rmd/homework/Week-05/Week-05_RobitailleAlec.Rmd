@@ -155,3 +155,7 @@ scoring with three individuals (judges 1, 2, 5) entirely or almost entirely
 scoring lower than other judges. The worst scoring judge was judge 5.
 
 
+
+
+## Question 2
+
