@@ -59,7 +59,7 @@ cipline. Draw the corresponding DAG and then use one or more binomial GLMs to
 answer the question.
 
 
-## Data
+### Data
 
 ```{r}
 data(NWOGrants)
@@ -82,7 +82,7 @@ NWOGrants[, index_gender := .GRP, gender]
 NWOGrants[, index_discipline := .GRP, discipline]
 ```
 
-## DAG
+### DAG
 ```{r}
 dag <- dagify(
 	success_rate ~ index_gender + index_discipline,
@@ -94,9 +94,17 @@ dag <- dagify(
 dag_plot(dag)
 ```
 
+### Priors
+
+
 ```{r}
 register_knitr_engine(override = FALSE)
 ```
 
 ```{cmdstan, output.var = 'q1_prior'}
 ```
+
+
+> What is your causal interpretation? If NWO’s goal is to equalize rates of
+funding between the genders, what type of intervention would be most effective?
+
