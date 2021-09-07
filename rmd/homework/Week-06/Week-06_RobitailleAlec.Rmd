@@ -168,7 +168,6 @@ model{
   theta ~ beta(1, 1);
   awards ~ binomial(N, theta);
 }
-
 ```
 
 ```{r}
@@ -176,9 +175,7 @@ q1_stan <- 'q1.stan'
 writeLines(readLines(q1_stan))
 q1_model <- cmdstan_model(q1_stan)
 
-q1_sample <- q1_model$sample(data = q1_data[c('N',
-																										'N_gender',
-																										'N_discipline')])
+q1_sample <- q1_model$sample(data = q1_data)
 
 q1_draws <- cmd_draws(q1_sample)
 
