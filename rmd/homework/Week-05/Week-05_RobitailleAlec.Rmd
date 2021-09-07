@@ -81,12 +81,34 @@ n_rows <- DT[, .N]
 ```
 
 ### Prior predictive simulation
+```{r}
+register_knitr_engine(override = FALSE)
+```
+
+```{cmdstan, output.var = 'q1_prior'}
+data {
+  int<lower=0> N;
+  int<lower=0> N_judges;
+  int<lower=0> N_wines;
+}
+parameters{
+  real alpha;
+  vector[N_judges] beta_judge;
+  vector[N_wines] beta_wine;
+  real<lower=0> sigma;
+}
+model{
+  sigma ~ exponential(1);
+  beta_wine ~ normal(0, 0.5);
+  beta_judge~normal(0, 0.5);
+  alpha~normal(0, 0.2);
+}
+```
 
 ```{r}
-q1_stan <- 'q1_prior.stan'
-writeLines(readLines(q1_stan))
-
-q1_prior <- cmdstan_model(q1_stan)
+# q1_stan <- 'q1_prior.stan'
+# writeLines(readLines(q1_stan))
+# q1_prior <- cmdstan_model(q1_stan)
 
 q1_prior_sample <- q1_prior$sample(
 	data = list(N = n_rows,
@@ -113,11 +135,36 @@ the chains for convergence. If you’d rather build the model directly in Stan o
 PyMC3, go ahead. I just want you to use Hamiltonian Monte Carlo instead of
 quadratic approximation. 
 
-```{r}
-q1_stan <- 'q1.stan'
-writeLines(readLines(q1_stan))
+```{cmdstan, output.var = 'q1_model'}
+data {
+  int<lower=0> N;
+  int<lower=0> N_judges;
+  int<lower=0> N_wines;
+  int index_judge[N];
+  int index_wine[N];
+  vector[N] scale_score;
+}
+parameters{
+  real alpha;
+  vector[N_judges] beta_judge;
+  vector[N_wines] beta_wine;
+  real<lower=0> sigma;
+}
+model{
+  alpha ~ normal(0, 0.2);
+  beta_wine ~ normal(0, 0.5);
+  beta_judge ~ normal(0, 0.5);
+  sigma ~ exponential(1);
 
-q1_model <- cmdstan_model(q1_stan)
+  vector[N] mu;
+  mu = beta_wine[index_wine] + beta_judge[index_judge];
+  scale_score ~ normal(mu, sigma);
+}
+```
+```{r}
+# q1_stan <- 'q1.stan'
+# writeLines(readLines(q1_stan))
+# q1_model <- cmdstan_model(q1_stan)
 
 q1_sample <- q1_model$sample(
 	data = list(N = n_rows,
@@ -190,11 +237,35 @@ q2_data <- c(
 
 
 ### Priors
-```{r}
-q2_stan <- 'q2_prior.stan'
-writeLines(readLines(q2_stan))
 
-q2_prior <- cmdstan_model(q2_stan)
+```{cmdstan, output.var = 'q2_prior'}
+data {
+  int<lower=0> N;
+  int<lower=0> N_flights;
+  int<lower=0> N_wine_american;
+  int<lower=0> N_judge_american;
+}
+parameters{
+  real alpha;
+  vector[N_flights] beta_flights;
+  vector[N_wine_american] beta_wine_american;
+  vector[N_judge_american] beta_judge_american;
+  real<lower=0> sigma;
+}
+model{
+  alpha ~ normal(0, 0.2);
+  beta_flights ~ normal(0, 0.5);
+  beta_wine_american ~ normal(0, 0.5);
+  beta_judge_american ~ normal(0, 0.5);
+  sigma ~ exponential(1);
+}
+```
+
+
+```{r}
+# q2_stan <- 'q2_prior.stan'
+# writeLines(readLines(q2_stan))
+# q2_prior <- cmdstan_model(q2_stan)
 
 q2_prior_sample <- q2_prior$sample(data = q2_data[c('N_flights',
 																										'N_wine_american',
@@ -212,11 +283,43 @@ mcmc_areas(q2_prior_draws, regex_pars = 'wine')
 
 ### Model
 
-```{r}
-q2_stan <- 'q2.stan'
-writeLines(readLines(q2_stan))
+```{cmdstan, output.var = 'q2_model'}
+data {
+  int<lower=0> N;
+  int<lower=0> N_flights;
+  int<lower=0> N_wine_american;
+  int<lower=0> N_judge_american;
 
-q2_model <- cmdstan_model(q2_stan)
+  int index_flight[N];
+  int index_wine_american[N];
+  int index_judge_american[N];
+
+  vector[N] scale_score;
+}
+parameters{
+  real alpha;
+  vector[N_flights] beta_flights;
+  vector[N_wine_american] beta_wine_american;
+  vector[N_judge_american] beta_judge_american;
+  real<lower=0> sigma;
+}
+model{
+  alpha ~ normal(0, 0.2);
+  beta_flights ~ normal(0, 0.5);
+  beta_wine_american ~ normal(0, 0.5);
+  beta_judge_american ~ normal(0, 0.5);
+  sigma ~ exponential(1);
+
+  vector[N] mu;
+  mu = beta_flights[index_flight] + beta_wine_american[index_wine_american] + beta_judge_american[index_judge_american];
+  scale_score ~ normal(mu, sigma);
+}
+```
+
+```{r}
+# q2_stan <- 'q2.stan'
+# writeLines(readLines(q2_stan))
+# q2_model <- cmdstan_model(q2_stan)
 
 q2_sample <- q2_model$sample(data = q2_data)
 q2_draws <- cmd_draws(q2_sample)
@@ -280,10 +383,35 @@ q3_data <- c(
 ```
 
 ### Model
+```{cmdstan, output.var = 'q3_model'}
+data {
+  int<lower=0> N;
+  int<lower=0> N_interactions;
+
+  int index_interactions[N];
+
+  vector[N] scale_score;
+}
+parameters{
+  real alpha;
+  vector[N_interactions] beta_interactions;
+  real<lower=0> sigma;
+}
+model{
+  alpha ~ normal(0, 0.2);
+  beta_interactions ~ normal(0, 0.25);
+  sigma ~ exponential(1);
+
+  vector[N] mu;
+  mu = alpha + beta_interactions[index_interactions];
+
+  scale_score ~ normal(mu, sigma);
+}
+```
+
 ```{r}
 q3_stan <- 'q3.stan'
 writeLines(readLines(q3_stan))
-
 q3_model <- cmdstan_model(q3_stan)
 
 q3_sample <- q3_model$sample(data = q3_data)
