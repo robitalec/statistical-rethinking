@@ -144,6 +144,7 @@ precis(q1_draws, depth = 2)[3:11,]
 melt(q1_draws, measure.vars = patterns('beta_judge'))[, .(mean_score = mean(value)), variable][order(-mean_score)]
 mcmc_areas(q1_draws, regex_pars = 'judge')
 
+# Wines
 precis(q1_draws, depth = 2)[12:31,]
 melt(q1_draws, measure.vars = patterns('beta_wine'))[, .(mean_score = mean(value)), variable][order(-mean_score)]
 mcmc_areas(q1_draws, regex_pars = 'wine')
@@ -176,7 +177,7 @@ n_index_judge_american <- DT[, uniqueN(index_judge_american)]
 n_rows <- DT[, .N]
 
 q2_data <- c(
-	as.list(DT[, .(scale_score,
+	as.list(DT[, .(scale_score = as.numeric(scale_score),
 								 index_flight,
 								 index_wine_american,
 								 index_judge_american)]),
@@ -190,7 +191,7 @@ q2_data <- c(
 
 ### Priors
 ```{r}
-q2_stan <- 'rmd/homework/Week-05/q2_prior.stan'
+q2_stan <- 'q2_prior.stan'
 writeLines(readLines(q2_stan))
 
 q2_prior <- cmdstan_model(q2_stan)
@@ -202,7 +203,6 @@ q2_prior_sample <- q2_prior$sample(data = q2_data[c('N_flights',
 
 q2_prior_draws <- cmd_draws(q2_prior_sample)
 
-
 mcmc_areas(q2_prior_draws, regex_pars = 'flights')
 mcmc_areas(q2_prior_draws, regex_pars = 'judge')
 mcmc_areas(q2_prior_draws, regex_pars = 'wine')
@@ -213,7 +213,7 @@ mcmc_areas(q2_prior_draws, regex_pars = 'wine')
 ### Model
 
 ```{r}
-q2_stan <- 'rmd/homework/Week-05/q2.stan'
+q2_stan <- 'q2.stan'
 writeLines(readLines(q2_stan))
 
 q2_model <- cmdstan_model(q2_stan)
