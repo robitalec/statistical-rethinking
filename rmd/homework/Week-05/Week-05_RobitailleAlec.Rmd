@@ -200,6 +200,8 @@ q2_prior_sample <- q2_prior$sample(data = q2_data[c('N_flights',
 
 q2_prior_draws <- cmd_draws(q2_prior_sample)
 
+
+mcmc_areas(q2_prior_draws, regex_pars = 'flights')
 mcmc_areas(q2_prior_draws, regex_pars = 'judge')
 mcmc_areas(q2_prior_draws, regex_pars = 'wine')
 ```
