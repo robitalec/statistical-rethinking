@@ -76,12 +76,11 @@ summary(NWOGrants)
 
 
 ```{r}
-NWOGrants[, scale_awards := as.numeric(scale(awards))]
 NWOGrants[, index_gender := .GRP, gender]
 NWOGrants[, index_discipline := .GRP, discipline]
 
 q1_data <- c(
-	as.list(NWOGrants[, .(scale_awards, index_gender, index_discipline)]),
+	as.list(NWOGrants[, .(awards, index_gender, index_discipline)]),
 	N = NWOGrants[, .N],
 	N_gender = NWOGrants[, uniqueN(index_gender)],
 	N_discipline = NWOGrants[, uniqueN(index_discipline)]
@@ -91,10 +90,10 @@ q1_data <- c(
 ### DAG
 ```{r}
 dag <- dagify(
-	scale_awards ~ index_gender + index_discipline,
+	awards ~ index_gender + index_discipline,
 	index_discipline ~ index_gender,
 	exposure = 'index_gender',
-	outcome = 'scale_awards'
+	outcome = 'awards'
 )
 
 dag_plot(dag)
@@ -104,8 +103,6 @@ dag_plot(dag)
 ```{r}
 register_knitr_engine(override = FALSE)
 ```
-
-
 
 ```{cmdstan, output.var = 'q1_prior'}
 data {
