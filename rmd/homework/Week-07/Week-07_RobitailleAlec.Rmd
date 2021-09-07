@@ -77,7 +77,26 @@ Prior for each intercept: $K_{k} \sim \text{Normal}(0, 1.5)$
 register_knitr_engine(override = FALSE)
 ```
 
+```{cmdstanr, model}
+data {
+  int N;
+  int K;
+  int response[n];
+  int action[n];
+  int intention[n];
+  int contact[n];
+}
 
+```
 
+```{r}
+
+model_data <- c(
+	as.list(DT[, .(response, action, intention, contact)]), 
+	N = DT[, .N],
+	K = DT[, uniqueN(response)]
+)
+
+```
 
 ## Question 1
