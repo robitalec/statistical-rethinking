@@ -77,7 +77,7 @@ Prior for each intercept: $K_{k} \sim \text{Normal}(0, 1.5)$
 register_knitr_engine(override = FALSE)
 ```
 
-```{cmdstanr, output.var = 'model1'}
+```{cmdstan, output.var = 'model1'}
 data {
   int N;
   int K;
@@ -133,7 +133,7 @@ mcmc_areas(model1_draws, regex_pars = 'beta')
 ```
 
 
-```{cmdstanr, output.var = 'model1_interactions'}
+```{cmdstan, output.var = 'model1_interactions'}
 data {
   int N;
   int K;
