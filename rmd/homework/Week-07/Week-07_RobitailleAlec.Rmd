@@ -407,6 +407,12 @@ mcmc_areas(model2_draws, regex_pars = 'cut', transformations = inv.logit) + xlim
 
 ## Question 2
 
+> Consider one more variable in the Trolley data: Gender. Suppose that gender
+might influence education as well as response directly. Draw the DAG now that
+includes response, education, age, and gender. Using only the DAG, is it
+possible that the inferences from Problem 1 are con founded by gender? If so,
+define any additional models you need to infer the causal influence of education
+on response. What do you conclude?
 
 ```{r}
 dag <- dagify(
