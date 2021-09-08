@@ -98,17 +98,16 @@ model {
   phi = beta_action * action + beta_contact * contact + beta_intention * intention;
   response ~ ordered_logistic(phi, cutpoints);
   cutpoints ~ normal(0, 1.5);
-  bA ~ normal(0, 0.5);
-  bI ~ normal(0, 0.5);
-  bC ~ normal(0, 0.5);
+  beta_action ~ normal(0, 0.5);
+  beta_contact ~ normal(0, 0.5);
+  beta_intention ~ normal(0, 0.5);
 }
-
 ```
 
 ```{r}
-# model1_stan <- 'model1.stan'
-# writeLines(readLines(model1_stan))
-# model1 <- cmdstan_model(model1_stan)
+model1_stan <- 'model1.stan'
+writeLines(readLines(model1_stan))
+model1 <- cmdstan_model(model1_stan, cpp_options = list(stan_threads = TRUE))
 
 model_data <- c(
 	as.list(DT[, .(response, action, intention, contact)]), 

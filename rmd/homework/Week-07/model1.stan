@@ -15,10 +15,16 @@ parameters {
 }
 model {
   vector[N] phi;
-  phi = beta_action * action + beta_contact * contact + beta_intention * intention;
-  response ~ ordered_logistic(phi, cutpoints);
+  // phi = beta_action * action + beta_contact * contact + beta_intention * intention;
+  // response ~ ordered_logistic(phi, cutpoints);
+
+	for (i in 1:N) {
+		phi[i] = beta_action * action[i] + beta_contact * contact[i] + beta_intention * intention[i];
+		response[i] ~ ordered_logistic(phi[i], cutpoints);
+	}
+
   cutpoints ~ normal(0, 1.5);
-  bA ~ normal(0, 0.5);
-  bI ~ normal(0, 0.5);
-  bC ~ normal(0, 0.5);
+  beta_action ~ normal(0, 0.5);
+  beta_contact ~ normal(0, 0.5);
+  beta_intention ~ normal(0, 0.5);
 }
