@@ -115,6 +115,13 @@ model_data <- c(
 	K = DT[, uniqueN(response) - 1]
 )
 
+model1_sample <-
+	model1$sample(
+		data = model_data,
+		chains = 4,
+		parallel_chains = 4,
+		threads_per_chain = 4
+	)
 ```
 
 ## Question 1
