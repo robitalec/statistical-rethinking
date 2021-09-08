@@ -1,11 +1,13 @@
 data {
   int N;
   int K;
+  int N_edu;
   int response[N];
   int action[N];
   int intention[N];
   int contact[N];
   int education[N];
+  vector[N_edu - 1] alpha;
 }
 parameters {
 	// Cut points are the positions of responses along cumulative odds

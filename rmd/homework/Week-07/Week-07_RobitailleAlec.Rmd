@@ -222,7 +222,8 @@ model_data <- c(
 	as.list(DT[, .(response, action, intention, contact, education)]), 
 	N = DT[, .N],
 	K = DT[, uniqueN(response) - 1],
-	N_edu = DT[, uniqueN(education)]
+	N_edu = DT[, uniqueN(education)],
+	alpha = rep(2, 7)
 )
 
 ```
