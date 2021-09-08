@@ -152,3 +152,4 @@ model_frogs_4_draws <- cmd_draws(model_frogs_4_sample)
 mcmc_areas(model_frogs_4_draws, regex_pars = 'beta')
 ```
 
+Negative influence of predation is somewhat balanced by size of tank. 
