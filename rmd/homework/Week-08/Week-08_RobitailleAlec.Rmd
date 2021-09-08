@@ -292,8 +292,10 @@ precis(DT)
 
 DT[, id := as.integer(woman)]
 DT[, district := as.integer(as.factor(district))]
+DT[, contraception := use.contraception]
 
-model_data <- c(as.list(DT), N = DT[, .N])
+model_data <- c(as.list(DT[, .(contraception, district)]), 
+								N = DT[, .N], N_district = DT[, uniqueN(district)])
 ```
 
 Now, focus on predicting `use.contraception`, clustered by `district_id`. Fit
@@ -308,3 +310,44 @@ pattern of disagreement? In particular, can you explain the most extreme cases
 of disagreement, both why they happen where they do and why the models reach
 different inferences?
 
+
+Fixed effects model
+
+```{cmdstan, output.var = 'model_bang_fixed', cache = TRUE}
+data {
+  int<lower=0> N;
+  int<lower=0> N_district;
+	int district[N];
+	vector[N] contraception;
+}
+parameters {
+	real sigma;
+	real alpha;
+	vector[N_district] beta_district;
+}
+model {
+	alpha ~ normal(0, 0.5);
+	sigma ~ exponential(1);
+	beta_district ~ normal(0, 0.5);
+
+  vector[N] mu;
+  mu = beta_district[district];
+  contraception ~ normal(mu, sigma);
+}
+
+```
+
+```{r, cache = TRUE}
+model_bang_fixed_stan <- 'model_bang_fixed.stan'
+writeLines(readLines(model_bang_fixed_stan))
+model_bang_fixed <- cmdstan_model(model_bang_fixed_stan, cpp_options = list(stan_threads = TRUE))
+
+model_bang_fixed_sample <-
+	model_bang_fixed$sample(
+		data = model_data,
+		chains = 4,
+		parallel_chains = 4,
+		threads_per_chain = 4
+	)
+model_bang_fixed_draws <- cmd_draws(model_bang_fixed_sample)
+mcmc_areas(model_bang_fixed_draws, regex_pars = 'size')
