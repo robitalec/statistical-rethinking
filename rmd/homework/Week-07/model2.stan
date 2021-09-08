@@ -28,8 +28,11 @@ model {
   delta_j = append_row(0, delta);
 
 	for (i in 1:N) {
-		phi[i] = beta_action * action[i] + beta_contact * contact[i] + beta_intention * intention[i];
-		response[i] ~ ordered_logistic(phi[i], cutpoints);
+    phi[i] = beta_education * sum(delta_j[1:education[i]]) +
+      beta_action * action[i] +
+      beta_contact * contact[i] +
+      beta_intention * intention[i];
+    response[i] ~ ordered_logistic(phi[i], cutpoints);
 	}
 
   cutpoints ~ normal(0, 1.5);
