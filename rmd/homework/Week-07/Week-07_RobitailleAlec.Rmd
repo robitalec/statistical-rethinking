@@ -77,7 +77,7 @@ Prior for each intercept: $K_{k} \sim \text{Normal}(0, 1.5)$
 register_knitr_engine(override = FALSE)
 ```
 
-```{cmdstan, output.var = 'model1'}
+```{cmdstan, output.var = 'model1', cache = TRUE}
 data {
   int N;
   int K;
@@ -108,7 +108,7 @@ model {
 }
 ```
 
-```{r}
+```{r, cache = TRUE}
 # model1_stan <- 'model1.stan'
 # writeLines(readLines(model1_stan))
 # model1 <- cmdstan_model(model1_stan, cpp_options = list(stan_threads = TRUE))
@@ -133,7 +133,7 @@ mcmc_areas(model1_draws, regex_pars = 'beta')
 ```
 
 
-```{cmdstan, output.var = 'model1_interactions'}
+```{cmdstan, output.var = 'model1_interactions', cache = TRUE}
 data {
   int N;
   int K;
@@ -167,7 +167,7 @@ model {
 }
 ```
 
-```{r}
+```{r, cache = TRUE}
 # model1_interactions_stan <- 'model1_interactions.stan'
 # writeLines(readLines(model1_interactions_stan))
 # model1_interactions <- cmdstan_model(model1_interactions_stan, cpp_options = list(stan_threads = TRUE))
