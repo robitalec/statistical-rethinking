@@ -1,0 +1,1376 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>9 Homework: Week 8 | Learning bayesian data analysis with Statistical Rethinking</title>
+  <meta name="description" content="9 Homework: Week 8 | Learning bayesian data analysis with Statistical Rethinking" />
+  <meta name="generator" content="bookdown 0.22.15 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="9 Homework: Week 8 | Learning bayesian data analysis with Statistical Rethinking" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="9 Homework: Week 8 | Learning bayesian data analysis with Statistical Rethinking" />
+  
+  
+  
+
+<meta name="author" content="Alec L. Robitaille" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="homework-week-7.html"/>
+<link rel="next" href="lecture-01.html"/>
+<script src="libs/header-attrs-2.9.5/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Overview</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#links"><i class="fa fa-check"></i><b>1.1</b> Links</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="index.html"><a href="index.html#adaptations"><i class="fa fa-check"></i><b>1.1.1</b> Adaptations</a></li>
+<li class="chapter" data-level="1.1.2" data-path="index.html"><a href="index.html#etc"><i class="fa fa-check"></i><b>1.1.2</b> Etc</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#seed"><i class="fa fa-check"></i><b>1.2</b> Seed</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="homework-week-1.html"><a href="homework-week-1.html"><i class="fa fa-check"></i><b>2</b> Homework: Week 1</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="homework-week-1.html"><a href="homework-week-1.html#variables"><i class="fa fa-check"></i><b>2.1</b> Variables</a></li>
+<li class="chapter" data-level="2.2" data-path="homework-week-1.html"><a href="homework-week-1.html#joint-model"><i class="fa fa-check"></i><b>2.2</b> Joint model</a></li>
+<li class="chapter" data-level="2.3" data-path="homework-week-1.html"><a href="homework-week-1.html#question-1"><i class="fa fa-check"></i><b>2.3</b> Question 1</a></li>
+<li class="chapter" data-level="2.4" data-path="homework-week-1.html"><a href="homework-week-1.html#question-2"><i class="fa fa-check"></i><b>2.4</b> Question 2</a></li>
+<li class="chapter" data-level="2.5" data-path="homework-week-1.html"><a href="homework-week-1.html#question-3"><i class="fa fa-check"></i><b>2.5</b> Question 3</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="homework-week-2.html"><a href="homework-week-2.html"><i class="fa fa-check"></i><b>3</b> Homework: Week 2</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="homework-week-2.html"><a href="homework-week-2.html#question-1-1"><i class="fa fa-check"></i><b>3.1</b> Question 1</a></li>
+<li class="chapter" data-level="3.2" data-path="homework-week-2.html"><a href="homework-week-2.html#question-2-1"><i class="fa fa-check"></i><b>3.2</b> Question 2</a></li>
+<li class="chapter" data-level="3.3" data-path="homework-week-2.html"><a href="homework-week-2.html#homework-question-3"><i class="fa fa-check"></i><b>3.3</b> Homework: Question 3</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="homework-week-3.html"><a href="homework-week-3.html"><i class="fa fa-check"></i><b>4</b> Homework: Week 3</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="homework-week-3.html"><a href="homework-week-3.html#overview-1"><i class="fa fa-check"></i><b>4.1</b> Overview</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="homework-week-3.html"><a href="homework-week-3.html#setup"><i class="fa fa-check"></i><b>4.1.1</b> Setup</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="homework-week-3.html"><a href="homework-week-3.html#question-1-2"><i class="fa fa-check"></i><b>4.2</b> Question 1</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="homework-week-3.html"><a href="homework-week-3.html#workings"><i class="fa fa-check"></i><b>4.2.1</b> Workings</a></li>
+<li class="chapter" data-level="4.2.2" data-path="homework-week-3.html"><a href="homework-week-3.html#model"><i class="fa fa-check"></i><b>4.2.2</b> Model</a></li>
+<li class="chapter" data-level="4.2.3" data-path="homework-week-3.html"><a href="homework-week-3.html#prior-predictive-simulation"><i class="fa fa-check"></i><b>4.2.3</b> Prior predictive simulation</a></li>
+<li class="chapter" data-level="4.2.4" data-path="homework-week-3.html"><a href="homework-week-3.html#paths"><i class="fa fa-check"></i><b>4.2.4</b> Paths</a></li>
+<li class="chapter" data-level="4.2.5" data-path="homework-week-3.html"><a href="homework-week-3.html#interpretation"><i class="fa fa-check"></i><b>4.2.5</b> Interpretation</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="homework-week-3.html"><a href="homework-week-3.html#question-2-2"><i class="fa fa-check"></i><b>4.3</b> Question 2</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="homework-week-3.html"><a href="homework-week-3.html#paths-1"><i class="fa fa-check"></i><b>4.3.1</b> Paths</a></li>
+<li class="chapter" data-level="4.3.2" data-path="homework-week-3.html"><a href="homework-week-3.html#model-1"><i class="fa fa-check"></i><b>4.3.2</b> Model</a></li>
+<li class="chapter" data-level="4.3.3" data-path="homework-week-3.html"><a href="homework-week-3.html#interpretation-1"><i class="fa fa-check"></i><b>4.3.3</b> Interpretation</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="homework-week-3.html"><a href="homework-week-3.html#question-3-1"><i class="fa fa-check"></i><b>4.4</b> Question 3</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="homework-week-3.html"><a href="homework-week-3.html#paths-2"><i class="fa fa-check"></i><b>4.4.1</b> Paths</a></li>
+<li class="chapter" data-level="4.4.2" data-path="homework-week-3.html"><a href="homework-week-3.html#interpretation-2"><i class="fa fa-check"></i><b>4.4.2</b> Interpretation</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="homework-week-4.html"><a href="homework-week-4.html"><i class="fa fa-check"></i><b>5</b> Homework: Week 4</a>
+<ul>
+<li class="chapter" data-level="5.0.1" data-path="homework-week-4.html"><a href="homework-week-4.html#setup-1"><i class="fa fa-check"></i><b>5.0.1</b> Setup</a></li>
+<li class="chapter" data-level="5.1" data-path="homework-week-4.html"><a href="homework-week-4.html#question-1-3"><i class="fa fa-check"></i><b>5.1</b> Question 1</a></li>
+<li class="chapter" data-level="5.2" data-path="homework-week-4.html"><a href="homework-week-4.html#question-2-3"><i class="fa fa-check"></i><b>5.2</b> Question 2</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="homework-week-4.html"><a href="homework-week-4.html#dag"><i class="fa fa-check"></i><b>5.2.1</b> DAG</a></li>
+<li class="chapter" data-level="5.2.2" data-path="homework-week-4.html"><a href="homework-week-4.html#data"><i class="fa fa-check"></i><b>5.2.2</b> Data</a></li>
+<li class="chapter" data-level="5.2.3" data-path="homework-week-4.html"><a href="homework-week-4.html#models"><i class="fa fa-check"></i><b>5.2.3</b> Models</a></li>
+<li class="chapter" data-level="5.2.4" data-path="homework-week-4.html"><a href="homework-week-4.html#interpretation-3"><i class="fa fa-check"></i><b>5.2.4</b> Interpretation</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="homework-week-4.html"><a href="homework-week-4.html#question-3-2"><i class="fa fa-check"></i><b>5.3</b> Question 3</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="homework-week-4.html"><a href="homework-week-4.html#data-1"><i class="fa fa-check"></i><b>5.3.1</b> Data</a></li>
+<li class="chapter" data-level="5.3.2" data-path="homework-week-4.html"><a href="homework-week-4.html#models-1"><i class="fa fa-check"></i><b>5.3.2</b> Models</a></li>
+<li class="chapter" data-level="5.3.3" data-path="homework-week-4.html"><a href="homework-week-4.html#dag-1"><i class="fa fa-check"></i><b>5.3.3</b> DAG</a></li>
+<li class="chapter" data-level="5.3.4" data-path="homework-week-4.html"><a href="homework-week-4.html#interpretation-4"><i class="fa fa-check"></i><b>5.3.4</b> Interpretation</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="homework-week-5.html"><a href="homework-week-5.html"><i class="fa fa-check"></i><b>6</b> Homework: Week 5</a>
+<ul>
+<li class="chapter" data-level="6.0.1" data-path="homework-week-5.html"><a href="homework-week-5.html#setup-2"><i class="fa fa-check"></i><b>6.0.1</b> Setup</a></li>
+<li class="chapter" data-level="6.1" data-path="homework-week-5.html"><a href="homework-week-5.html#question-1-4"><i class="fa fa-check"></i><b>6.1</b> Question 1</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="homework-week-5.html"><a href="homework-week-5.html#data-2"><i class="fa fa-check"></i><b>6.1.1</b> Data</a></li>
+<li class="chapter" data-level="6.1.2" data-path="homework-week-5.html"><a href="homework-week-5.html#prior-predictive-simulation-1"><i class="fa fa-check"></i><b>6.1.2</b> Prior predictive simulation</a></li>
+<li class="chapter" data-level="6.1.3" data-path="homework-week-5.html"><a href="homework-week-5.html#model-2"><i class="fa fa-check"></i><b>6.1.3</b> Model</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="homework-week-5.html"><a href="homework-week-5.html#question-2-4"><i class="fa fa-check"></i><b>6.2</b> Question 2</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="homework-week-5.html"><a href="homework-week-5.html#data-3"><i class="fa fa-check"></i><b>6.2.1</b> Data</a></li>
+<li class="chapter" data-level="6.2.2" data-path="homework-week-5.html"><a href="homework-week-5.html#priors"><i class="fa fa-check"></i><b>6.2.2</b> Priors</a></li>
+<li class="chapter" data-level="6.2.3" data-path="homework-week-5.html"><a href="homework-week-5.html#model-3"><i class="fa fa-check"></i><b>6.2.3</b> Model</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="homework-week-5.html"><a href="homework-week-5.html#question-3-3"><i class="fa fa-check"></i><b>6.3</b> Question 3</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="homework-week-5.html"><a href="homework-week-5.html#data-4"><i class="fa fa-check"></i><b>6.3.1</b> Data</a></li>
+<li class="chapter" data-level="6.3.2" data-path="homework-week-5.html"><a href="homework-week-5.html#model-4"><i class="fa fa-check"></i><b>6.3.2</b> Model</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="homework-week-6.html"><a href="homework-week-6.html"><i class="fa fa-check"></i><b>7</b> Homework: Week 6</a>
+<ul>
+<li class="chapter" data-level="7.0.1" data-path="homework-week-6.html"><a href="homework-week-6.html#setup-3"><i class="fa fa-check"></i><b>7.0.1</b> Setup</a></li>
+<li class="chapter" data-level="7.1" data-path="homework-week-6.html"><a href="homework-week-6.html#question-1-5"><i class="fa fa-check"></i><b>7.1</b> Question 1</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="homework-week-6.html"><a href="homework-week-6.html#data-5"><i class="fa fa-check"></i><b>7.1.1</b> Data</a></li>
+<li class="chapter" data-level="7.1.2" data-path="homework-week-6.html"><a href="homework-week-6.html#dag-2"><i class="fa fa-check"></i><b>7.1.2</b> DAG</a></li>
+<li class="chapter" data-level="7.1.3" data-path="homework-week-6.html"><a href="homework-week-6.html#priors-1"><i class="fa fa-check"></i><b>7.1.3</b> Priors</a></li>
+<li class="chapter" data-level="7.1.4" data-path="homework-week-6.html"><a href="homework-week-6.html#model-5"><i class="fa fa-check"></i><b>7.1.4</b> Model</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="homework-week-7.html"><a href="homework-week-7.html"><i class="fa fa-check"></i><b>8</b> Homework: Week 7</a>
+<ul>
+<li class="chapter" data-level="8.0.1" data-path="homework-week-7.html"><a href="homework-week-7.html#setup-4"><i class="fa fa-check"></i><b>8.0.1</b> Setup</a></li>
+<li class="chapter" data-level="8.0.2" data-path="homework-week-7.html"><a href="homework-week-7.html#data-6"><i class="fa fa-check"></i><b>8.0.2</b> Data</a></li>
+<li class="chapter" data-level="8.0.3" data-path="homework-week-7.html"><a href="homework-week-7.html#model-ordered-categorical-outcome"><i class="fa fa-check"></i><b>8.0.3</b> Model: ordered categorical outcome</a></li>
+<li class="chapter" data-level="8.0.4" data-path="homework-week-7.html"><a href="homework-week-7.html#model-ordered-categorical-predictors"><i class="fa fa-check"></i><b>8.0.4</b> Model: ordered categorical predictors</a></li>
+<li class="chapter" data-level="8.1" data-path="homework-week-7.html"><a href="homework-week-7.html#question-1-6"><i class="fa fa-check"></i><b>8.1</b> Question 1</a></li>
+<li class="chapter" data-level="8.2" data-path="homework-week-7.html"><a href="homework-week-7.html#question-2-5"><i class="fa fa-check"></i><b>8.2</b> Question 2</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="homework-week-8.html"><a href="homework-week-8.html"><i class="fa fa-check"></i><b>9</b> Homework: Week 8</a>
+<ul>
+<li class="chapter" data-level="9.0.1" data-path="homework-week-8.html"><a href="homework-week-8.html#setup-5"><i class="fa fa-check"></i><b>9.0.1</b> Setup</a></li>
+<li class="chapter" data-level="9.1" data-path="homework-week-8.html"><a href="homework-week-8.html#question-1-7"><i class="fa fa-check"></i><b>9.1</b> Question 1</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="homework-week-8.html"><a href="homework-week-8.html#data-7"><i class="fa fa-check"></i><b>9.1.1</b> Data</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="homework-week-8.html"><a href="homework-week-8.html#question-2-6"><i class="fa fa-check"></i><b>9.2</b> Question 2</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="lecture-01.html"><a href="lecture-01.html"><i class="fa fa-check"></i><b>10</b> Lecture 01</a>
+<ul>
+<li class="chapter" data-level="10.0.1" data-path="lecture-01.html"><a href="lecture-01.html#popper"><i class="fa fa-check"></i><b>10.0.1</b> Popper</a></li>
+<li class="chapter" data-level="10.0.2" data-path="lecture-01.html"><a href="lecture-01.html#approach"><i class="fa fa-check"></i><b>10.0.2</b> Approach</a></li>
+<li class="chapter" data-level="10.1" data-path="lecture-01.html"><a href="lecture-01.html#hypotheses---process-models---statistical-models"><i class="fa fa-check"></i><b>10.1</b> Hypotheses - Process Models - Statistical Models</a></li>
+<li class="chapter" data-level="10.2" data-path="lecture-01.html"><a href="lecture-01.html#small-world-large-world"><i class="fa fa-check"></i><b>10.2</b> Small world / large world</a></li>
+<li class="chapter" data-level="10.3" data-path="lecture-01.html"><a href="lecture-01.html#example-four-marbles"><i class="fa fa-check"></i><b>10.3</b> Example: four marbles</a></li>
+<li class="chapter" data-level="10.4" data-path="lecture-01.html"><a href="lecture-01.html#building-a-model"><i class="fa fa-check"></i><b>10.4</b> Building a model</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="lecture-02.html"><a href="lecture-02.html"><i class="fa fa-check"></i><b>11</b> Lecture 02</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="lecture-02.html"><a href="lecture-02.html#joint-prior-distribution"><i class="fa fa-check"></i><b>11.1</b> Joint prior distribution</a></li>
+<li class="chapter" data-level="11.2" data-path="lecture-02.html"><a href="lecture-02.html#example-inflatable-world"><i class="fa fa-check"></i><b>11.2</b> Example: inflatable world</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="lecture-02.html"><a href="lecture-02.html#design-the-model"><i class="fa fa-check"></i><b>11.2.1</b> <strong>Design the model</strong></a></li>
+<li class="chapter" data-level="11.2.2" data-path="lecture-02.html"><a href="lecture-02.html#condition"><i class="fa fa-check"></i><b>11.2.2</b> <strong>Condition</strong></a></li>
+<li class="chapter" data-level="11.2.3" data-path="lecture-02.html"><a href="lecture-02.html#evaluate"><i class="fa fa-check"></i><b>11.2.3</b> <strong>Evaluate</strong></a></li>
+<li class="chapter" data-level="11.2.4" data-path="lecture-02.html"><a href="lecture-02.html#define-parameters"><i class="fa fa-check"></i><b>11.2.4</b> Define parameters</a></li>
+<li class="chapter" data-level="11.2.5" data-path="lecture-02.html"><a href="lecture-02.html#joint-model-1"><i class="fa fa-check"></i><b>11.2.5</b> Joint model</a></li>
+<li class="chapter" data-level="11.2.6" data-path="lecture-02.html"><a href="lecture-02.html#posterior"><i class="fa fa-check"></i><b>11.2.6</b> Posterior</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="lecture-02.html"><a href="lecture-02.html#grid-approximation"><i class="fa fa-check"></i><b>11.3</b> Grid approximation</a>
+<ul>
+<li class="chapter" data-level="11.3.1" data-path="lecture-02.html"><a href="lecture-02.html#sampling-from-the-posterior"><i class="fa fa-check"></i><b>11.3.1</b> Sampling from the posterior</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="lecture-03.html"><a href="lecture-03.html"><i class="fa fa-check"></i><b>12</b> Lecture 03</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="lecture-03.html"><a href="lecture-03.html#regressions"><i class="fa fa-check"></i><b>12.1</b> Regressions</a></li>
+<li class="chapter" data-level="12.2" data-path="lecture-03.html"><a href="lecture-03.html#normal-distributions"><i class="fa fa-check"></i><b>12.2</b> Normal distributions</a></li>
+<li class="chapter" data-level="12.3" data-path="lecture-03.html"><a href="lecture-03.html#prior-predictive-distributions"><i class="fa fa-check"></i><b>12.3</b> Prior predictive distributions</a></li>
+<li class="chapter" data-level="12.4" data-path="lecture-03.html"><a href="lecture-03.html#quadratic-approximate"><i class="fa fa-check"></i><b>12.4</b> Quadratic approximate</a></li>
+<li class="chapter" data-level="12.5" data-path="lecture-03.html"><a href="lecture-03.html#centering-variables"><i class="fa fa-check"></i><b>12.5</b> Centering variables</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="lecture-04.html"><a href="lecture-04.html"><i class="fa fa-check"></i><b>13</b> Lecture 04</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="lecture-04.html"><a href="lecture-04.html#standardizing-variables"><i class="fa fa-check"></i><b>13.1</b> Standardizing variables</a></li>
+<li class="chapter" data-level="13.2" data-path="lecture-04.html"><a href="lecture-04.html#plotting-uncertainty---sample-from-posterior"><i class="fa fa-check"></i><b>13.2</b> Plotting uncertainty - sample from posterior</a></li>
+<li class="chapter" data-level="13.3" data-path="lecture-04.html"><a href="lecture-04.html#polynomials"><i class="fa fa-check"></i><b>13.3</b> Polynomials</a></li>
+<li class="chapter" data-level="13.4" data-path="lecture-04.html"><a href="lecture-04.html#splines"><i class="fa fa-check"></i><b>13.4</b> Splines</a></li>
+<li class="chapter" data-level="13.5" data-path="lecture-04.html"><a href="lecture-04.html#basis-splines"><i class="fa fa-check"></i><b>13.5</b> Basis splines</a>
+<ul>
+<li class="chapter" data-level="13.5.1" data-path="lecture-04.html"><a href="lecture-04.html#recipe"><i class="fa fa-check"></i><b>13.5.1</b> Recipe</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="lecture-05.html"><a href="lecture-05.html"><i class="fa fa-check"></i><b>14</b> Lecture 05</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="lecture-05.html"><a href="lecture-05.html#multiple-regression-models"><i class="fa fa-check"></i><b>14.1</b> Multiple regression models</a></li>
+<li class="chapter" data-level="14.2" data-path="lecture-05.html"><a href="lecture-05.html#directed-acyclic-graphs-dag"><i class="fa fa-check"></i><b>14.2</b> Directed acyclic graphs (DAG)</a></li>
+<li class="chapter" data-level="14.3" data-path="lecture-05.html"><a href="lecture-05.html#example-age-marriage-divorce"><i class="fa fa-check"></i><b>14.3</b> Example: Age, marriage, divorce</a>
+<ul>
+<li class="chapter" data-level="14.3.1" data-path="lecture-05.html"><a href="lecture-05.html#priors-2"><i class="fa fa-check"></i><b>14.3.1</b> Priors</a></li>
+<li class="chapter" data-level="14.3.2" data-path="lecture-05.html"><a href="lecture-05.html#prior-predictive-simulation-2"><i class="fa fa-check"></i><b>14.3.2</b> Prior predictive simulation</a></li>
+<li class="chapter" data-level="14.3.3" data-path="lecture-05.html"><a href="lecture-05.html#interpretation-5"><i class="fa fa-check"></i><b>14.3.3</b> Interpretation</a></li>
+</ul></li>
+<li class="chapter" data-level="14.4" data-path="lecture-05.html"><a href="lecture-05.html#plotting-multivariate-posteriors"><i class="fa fa-check"></i><b>14.4</b> Plotting multivariate posteriors</a>
+<ul>
+<li class="chapter" data-level="14.4.1" data-path="lecture-05.html"><a href="lecture-05.html#posterior-predictive-checks"><i class="fa fa-check"></i><b>14.4.1</b> Posterior predictive checks</a></li>
+</ul></li>
+<li class="chapter" data-level="14.5" data-path="lecture-05.html"><a href="lecture-05.html#reveal-masked-associations"><i class="fa fa-check"></i><b>14.5</b> Reveal masked associations</a></li>
+<li class="chapter" data-level="14.6" data-path="lecture-05.html"><a href="lecture-05.html#categorical-variables"><i class="fa fa-check"></i><b>14.6</b> Categorical variables</a>
+<ul>
+<li class="chapter" data-level="14.6.1" data-path="lecture-05.html"><a href="lecture-05.html#dummy-variable"><i class="fa fa-check"></i><b>14.6.1</b> Dummy variable</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="lecture-06.html"><a href="lecture-06.html"><i class="fa fa-check"></i><b>15</b> Lecture 06</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="lecture-06.html"><a href="lecture-06.html#index-variable"><i class="fa fa-check"></i><b>15.1</b> Index variable</a></li>
+<li class="chapter" data-level="15.2" data-path="lecture-06.html"><a href="lecture-06.html#four-elemental-confounds"><i class="fa fa-check"></i><b>15.2</b> Four elemental confounds</a>
+<ul>
+<li class="chapter" data-level="15.2.1" data-path="lecture-06.html"><a href="lecture-06.html#notes"><i class="fa fa-check"></i><b>15.2.1</b> Notes</a></li>
+<li class="chapter" data-level="15.2.2" data-path="lecture-06.html"><a href="lecture-06.html#the-fork"><i class="fa fa-check"></i><b>15.2.2</b> The fork</a></li>
+<li class="chapter" data-level="15.2.3" data-path="lecture-06.html"><a href="lecture-06.html#the-path"><i class="fa fa-check"></i><b>15.2.3</b> The path</a></li>
+<li class="chapter" data-level="15.2.4" data-path="lecture-06.html"><a href="lecture-06.html#the-collider"><i class="fa fa-check"></i><b>15.2.4</b> The collider</a></li>
+<li class="chapter" data-level="15.2.5" data-path="lecture-06.html"><a href="lecture-06.html#steps"><i class="fa fa-check"></i><b>15.2.5</b> Steps</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="lecture-07.html"><a href="lecture-07.html"><i class="fa fa-check"></i><b>16</b> Lecture 07</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="lecture-07.html"><a href="lecture-07.html#four-elemental-confounds-continued"><i class="fa fa-check"></i><b>16.1</b> Four elemental confounds (continued)</a>
+<ul>
+<li class="chapter" data-level="16.1.1" data-path="lecture-07.html"><a href="lecture-07.html#unobserved-variables"><i class="fa fa-check"></i><b>16.1.1</b> Unobserved variables</a></li>
+</ul></li>
+<li class="chapter" data-level="16.2" data-path="lecture-07.html"><a href="lecture-07.html#over-fitting"><i class="fa fa-check"></i><b>16.2</b> Over fitting</a></li>
+<li class="chapter" data-level="16.3" data-path="lecture-07.html"><a href="lecture-07.html#measuring-model-fit"><i class="fa fa-check"></i><b>16.3</b> Measuring model fit</a>
+<ul>
+<li class="chapter" data-level="16.3.1" data-path="lecture-07.html"><a href="lecture-07.html#r-squared"><i class="fa fa-check"></i><b>16.3.1</b> R squared</a></li>
+</ul></li>
+<li class="chapter" data-level="16.4" data-path="lecture-07.html"><a href="lecture-07.html#obtaining-the-regular-features"><i class="fa fa-check"></i><b>16.4</b> Obtaining the regular features</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="lecture-08.html"><a href="lecture-08.html"><i class="fa fa-check"></i><b>17</b> Lecture 08</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="lecture-08.html"><a href="lecture-08.html#information-theory"><i class="fa fa-check"></i><b>17.1</b> Information theory</a></li>
+<li class="chapter" data-level="17.2" data-path="lecture-08.html"><a href="lecture-08.html#divergence"><i class="fa fa-check"></i><b>17.2</b> Divergence</a></li>
+<li class="chapter" data-level="17.3" data-path="lecture-08.html"><a href="lecture-08.html#estimating-divergence"><i class="fa fa-check"></i><b>17.3</b> Estimating divergence</a>
+<ul>
+<li class="chapter" data-level="17.3.1" data-path="lecture-08.html"><a href="lecture-08.html#log-pointwise-predictive-density"><i class="fa fa-check"></i><b>17.3.1</b> Log pointwise predictive density</a></li>
+<li class="chapter" data-level="17.3.2" data-path="lecture-08.html"><a href="lecture-08.html#deviance"><i class="fa fa-check"></i><b>17.3.2</b> Deviance</a></li>
+</ul></li>
+<li class="chapter" data-level="17.4" data-path="lecture-08.html"><a href="lecture-08.html#regularization"><i class="fa fa-check"></i><b>17.4</b> Regularization</a></li>
+<li class="chapter" data-level="17.5" data-path="lecture-08.html"><a href="lecture-08.html#cross-validation"><i class="fa fa-check"></i><b>17.5</b> Cross validation</a>
+<ul>
+<li class="chapter" data-level="17.5.1" data-path="lecture-08.html"><a href="lecture-08.html#loo"><i class="fa fa-check"></i><b>17.5.1</b> LOO</a></li>
+</ul></li>
+<li class="chapter" data-level="17.6" data-path="lecture-08.html"><a href="lecture-08.html#information-criteria"><i class="fa fa-check"></i><b>17.6</b> Information criteria</a>
+<ul>
+<li class="chapter" data-level="17.6.1" data-path="lecture-08.html"><a href="lecture-08.html#waic"><i class="fa fa-check"></i><b>17.6.1</b> WAIC</a></li>
+<li class="chapter" data-level="17.6.2" data-path="lecture-08.html"><a href="lecture-08.html#standard-error"><i class="fa fa-check"></i><b>17.6.2</b> Standard error</a></li>
+</ul></li>
+<li class="chapter" data-level="17.7" data-path="lecture-08.html"><a href="lecture-08.html#model-selection"><i class="fa fa-check"></i><b>17.7</b> Model selection</a></li>
+<li class="chapter" data-level="17.8" data-path="lecture-08.html"><a href="lecture-08.html#model-comparison"><i class="fa fa-check"></i><b>17.8</b> Model comparison</a>
+<ul>
+<li class="chapter" data-level="17.8.1" data-path="lecture-08.html"><a href="lecture-08.html#example-1-model-mis-selection-using-waic"><i class="fa fa-check"></i><b>17.8.1</b> Example 1: model mis-selection using WAIC</a></li>
+<li class="chapter" data-level="17.8.2" data-path="lecture-08.html"><a href="lecture-08.html#example-2-primate-lifetime"><i class="fa fa-check"></i><b>17.8.2</b> Example 2: primate lifetime</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="lecture-09.html"><a href="lecture-09.html"><i class="fa fa-check"></i><b>18</b> Lecture 09</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="lecture-09.html"><a href="lecture-09.html#conditioning"><i class="fa fa-check"></i><b>18.1</b> Conditioning</a>
+<ul>
+<li class="chapter" data-level="18.1.1" data-path="lecture-09.html"><a href="lecture-09.html#example-ruggedness"><i class="fa fa-check"></i><b>18.1.1</b> Example: ruggedness</a></li>
+<li class="chapter" data-level="18.1.2" data-path="lecture-09.html"><a href="lecture-09.html#example-tulips"><i class="fa fa-check"></i><b>18.1.2</b> Example: tulips</a></li>
+</ul></li>
+<li class="chapter" data-level="18.2" data-path="lecture-09.html"><a href="lecture-09.html#interpreting-interactions"><i class="fa fa-check"></i><b>18.2</b> Interpreting interactions</a></li>
+<li class="chapter" data-level="18.3" data-path="lecture-09.html"><a href="lecture-09.html#plotting-interactions"><i class="fa fa-check"></i><b>18.3</b> Plotting interactions</a>
+<ul>
+<li class="chapter" data-level="18.3.1" data-path="lecture-09.html"><a href="lecture-09.html#higher-order-interactions"><i class="fa fa-check"></i><b>18.3.1</b> Higher order interactions</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="lecture-10.html"><a href="lecture-10.html"><i class="fa fa-check"></i><b>19</b> Lecture 10</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="lecture-10.html"><a href="lecture-10.html#markov-chain-monte-carlo"><i class="fa fa-check"></i><b>19.1</b> Markov Chain Monte Carlo</a>
+<ul>
+<li class="chapter" data-level="19.1.1" data-path="lecture-10.html"><a href="lecture-10.html#metropolis-algorithm"><i class="fa fa-check"></i><b>19.1.1</b> Metropolis algorithm</a></li>
+<li class="chapter" data-level="19.1.2" data-path="lecture-10.html"><a href="lecture-10.html#metropolis-hastings"><i class="fa fa-check"></i><b>19.1.2</b> Metropolis Hastings</a></li>
+<li class="chapter" data-level="19.1.3" data-path="lecture-10.html"><a href="lecture-10.html#gibbs-sampling"><i class="fa fa-check"></i><b>19.1.3</b> Gibbs sampling</a></li>
+<li class="chapter" data-level="19.1.4" data-path="lecture-10.html"><a href="lecture-10.html#hamiltonian-monte-carlo"><i class="fa fa-check"></i><b>19.1.4</b> Hamiltonian Monte Carlo</a></li>
+<li class="chapter" data-level="19.1.5" data-path="lecture-10.html"><a href="lecture-10.html#tuning-mcmc"><i class="fa fa-check"></i><b>19.1.5</b> Tuning MCMC</a></li>
+<li class="chapter" data-level="19.1.6" data-path="lecture-10.html"><a href="lecture-10.html#stan"><i class="fa fa-check"></i><b>19.1.6</b> Stan</a></li>
+<li class="chapter" data-level="19.1.7" data-path="lecture-10.html"><a href="lecture-10.html#ulam"><i class="fa fa-check"></i><b>19.1.7</b> ulam</a></li>
+<li class="chapter" data-level="19.1.8" data-path="lecture-10.html"><a href="lecture-10.html#diagnosis"><i class="fa fa-check"></i><b>19.1.8</b> Diagnosis</a></li>
+<li class="chapter" data-level="19.1.9" data-path="lecture-10.html"><a href="lecture-10.html#checking-the-chain"><i class="fa fa-check"></i><b>19.1.9</b> Checking the chain</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="lecture-11.html"><a href="lecture-11.html"><i class="fa fa-check"></i><b>20</b> Lecture 11</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="lecture-11.html"><a href="lecture-11.html#maximum-entropy"><i class="fa fa-check"></i><b>20.1</b> Maximum entropy</a>
+<ul>
+<li class="chapter" data-level="20.1.1" data-path="lecture-11.html"><a href="lecture-11.html#distributions"><i class="fa fa-check"></i><b>20.1.1</b> Distributions</a></li>
+</ul></li>
+<li class="chapter" data-level="20.2" data-path="lecture-11.html"><a href="lecture-11.html#generalized-linear-model"><i class="fa fa-check"></i><b>20.2</b> Generalized linear model</a>
+<ul>
+<li class="chapter" data-level="20.2.1" data-path="lecture-11.html"><a href="lecture-11.html#picking-a-distribution"><i class="fa fa-check"></i><b>20.2.1</b> Picking a distribution</a></li>
+<li class="chapter" data-level="20.2.2" data-path="lecture-11.html"><a href="lecture-11.html#types-of-outcomes"><i class="fa fa-check"></i><b>20.2.2</b> Types of outcomes</a></li>
+<li class="chapter" data-level="20.2.3" data-path="lecture-11.html"><a href="lecture-11.html#model-parameters-with-a-link-function"><i class="fa fa-check"></i><b>20.2.3</b> Model parameters with a link function</a></li>
+</ul></li>
+<li class="chapter" data-level="20.3" data-path="lecture-11.html"><a href="lecture-11.html#binomial-distribution"><i class="fa fa-check"></i><b>20.3</b> Binomial distribution</a>
+<ul>
+<li class="chapter" data-level="20.3.1" data-path="lecture-11.html"><a href="lecture-11.html#link"><i class="fa fa-check"></i><b>20.3.1</b> Link</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="lecture-12.html"><a href="lecture-12.html"><i class="fa fa-check"></i><b>21</b> Lecture 12</a>
+<ul>
+<li class="chapter" data-level="21.1" data-path="lecture-12.html"><a href="lecture-12.html#relative-and-absolute-effects"><i class="fa fa-check"></i><b>21.1</b> Relative and absolute effects</a></li>
+<li class="chapter" data-level="21.2" data-path="lecture-12.html"><a href="lecture-12.html#logistic-regression"><i class="fa fa-check"></i><b>21.2</b> Logistic regression</a></li>
+<li class="chapter" data-level="21.3" data-path="lecture-12.html"><a href="lecture-12.html#simpsons-paradox"><i class="fa fa-check"></i><b>21.3</b> Simpsons paradox</a></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="lecture-13.html"><a href="lecture-13.html"><i class="fa fa-check"></i><b>22</b> Lecture 13</a>
+<ul>
+<li class="chapter" data-level="22.1" data-path="lecture-13.html"><a href="lecture-13.html#binomial"><i class="fa fa-check"></i><b>22.1</b> Binomial</a></li>
+<li class="chapter" data-level="22.2" data-path="lecture-13.html"><a href="lecture-13.html#poisson"><i class="fa fa-check"></i><b>22.2</b> Poisson</a></li>
+<li class="chapter" data-level="22.3" data-path="lecture-13.html"><a href="lecture-13.html#generalized-linear-madness"><i class="fa fa-check"></i><b>22.3</b> Generalized linear madness</a></li>
+<li class="chapter" data-level="22.4" data-path="lecture-13.html"><a href="lecture-13.html#scientific-model"><i class="fa fa-check"></i><b>22.4</b> Scientific model</a></li>
+<li class="chapter" data-level="22.5" data-path="lecture-13.html"><a href="lecture-13.html#survival-analysis"><i class="fa fa-check"></i><b>22.5</b> Survival analysis</a></li>
+<li class="chapter" data-level="22.6" data-path="lecture-13.html"><a href="lecture-13.html#monsters"><i class="fa fa-check"></i><b>22.6</b> Monsters</a></li>
+<li class="chapter" data-level="22.7" data-path="lecture-13.html"><a href="lecture-13.html#mixtures"><i class="fa fa-check"></i><b>22.7</b> Mixtures</a></li>
+</ul></li>
+<li class="chapter" data-level="23" data-path="lecture-14.html"><a href="lecture-14.html"><i class="fa fa-check"></i><b>23</b> Lecture 14</a>
+<ul>
+<li class="chapter" data-level="23.1" data-path="lecture-14.html"><a href="lecture-14.html#ordered-categories"><i class="fa fa-check"></i><b>23.1</b> Ordered categories</a></li>
+</ul></li>
+<li class="chapter" data-level="24" data-path="lecture-15.html"><a href="lecture-15.html"><i class="fa fa-check"></i><b>24</b> Lecture 15</a>
+<ul>
+<li class="chapter" data-level="24.1" data-path="lecture-15.html"><a href="lecture-15.html#multilevel-models"><i class="fa fa-check"></i><b>24.1</b> Multilevel models</a></li>
+<li class="chapter" data-level="24.2" data-path="lecture-15.html"><a href="lecture-15.html#varying-intercepts"><i class="fa fa-check"></i><b>24.2</b> Varying intercepts</a></li>
+<li class="chapter" data-level="24.3" data-path="lecture-15.html"><a href="lecture-15.html#shrinkage"><i class="fa fa-check"></i><b>24.3</b> Shrinkage</a></li>
+<li class="chapter" data-level="24.4" data-path="lecture-15.html"><a href="lecture-15.html#pooling"><i class="fa fa-check"></i><b>24.4</b> Pooling</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Learning bayesian data analysis with Statistical Rethinking</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="homework-week-8" class="section level1" number="9">
+<h1><span class="header-section-number">9</span> Homework: Week 8</h1>
+<p>2021-09-08 [updated: 2021-09-08]</p>
+<div id="setup-5" class="section level3" number="9.0.1">
+<h3><span class="header-section-number">9.0.1</span> Setup</h3>
+<div class="sourceCode" id="cb1077"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1077-1"><a href="homework-week-8.html#cb1077-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Packages</span></span>
+<span id="cb1077-2"><a href="homework-week-8.html#cb1077-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggdag)</span>
+<span id="cb1077-3"><a href="homework-week-8.html#cb1077-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dagitty)</span>
+<span id="cb1077-4"><a href="homework-week-8.html#cb1077-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
+<span id="cb1077-5"><a href="homework-week-8.html#cb1077-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1077-6"><a href="homework-week-8.html#cb1077-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
+<span id="cb1077-7"><a href="homework-week-8.html#cb1077-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cmdstanr)</span>
+<span id="cb1077-8"><a href="homework-week-8.html#cb1077-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(posterior)</span>
+<span id="cb1077-9"><a href="homework-week-8.html#cb1077-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(bayesplot)</span>
+<span id="cb1077-10"><a href="homework-week-8.html#cb1077-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(boot)</span>
+<span id="cb1077-11"><a href="homework-week-8.html#cb1077-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1077-12"><a href="homework-week-8.html#cb1077-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Functions</span></span>
+<span id="cb1077-13"><a href="homework-week-8.html#cb1077-13" aria-hidden="true" tabindex="-1"></a>dag_plot <span class="ot">&lt;-</span> <span class="cf">function</span>(dag) {</span>
+<span id="cb1077-14"><a href="homework-week-8.html#cb1077-14" aria-hidden="true" tabindex="-1"></a>    stat <span class="ot">&lt;-</span> <span class="fu">node_status</span>(dag, <span class="cn">FALSE</span>)</span>
+<span id="cb1077-15"><a href="homework-week-8.html#cb1077-15" aria-hidden="true" tabindex="-1"></a>    stat<span class="sc">$</span>data<span class="sc">$</span>status[<span class="fu">is.na</span>(stat<span class="sc">$</span>data<span class="sc">$</span>status)] <span class="ot">&lt;-</span> <span class="st">&#39;intermediate&#39;</span></span>
+<span id="cb1077-16"><a href="homework-week-8.html#cb1077-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(stat, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">xend =</span> xend, <span class="at">yend =</span> yend)) <span class="sc">+</span></span>
+<span id="cb1077-17"><a href="homework-week-8.html#cb1077-17" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_dag_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> status), <span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">15</span>) <span class="sc">+</span></span>
+<span id="cb1077-18"><a href="homework-week-8.html#cb1077-18" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_dag_edges</span>() <span class="sc">+</span></span>
+<span id="cb1077-19"><a href="homework-week-8.html#cb1077-19" aria-hidden="true" tabindex="-1"></a>        <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">&#39;&#39;</span>) <span class="sc">+</span> </span>
+<span id="cb1077-20"><a href="homework-week-8.html#cb1077-20" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_dag_text</span>(<span class="at">color =</span> <span class="st">&#39;black&#39;</span>) <span class="sc">+</span></span>
+<span id="cb1077-21"><a href="homework-week-8.html#cb1077-21" aria-hidden="true" tabindex="-1"></a>        <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">list</span>(<span class="st">&#39;exposure&#39;</span> <span class="ot">=</span> <span class="st">&#39;#35608DFF&#39;</span>,</span>
+<span id="cb1077-22"><a href="homework-week-8.html#cb1077-22" aria-hidden="true" tabindex="-1"></a>                                                                         <span class="st">&#39;outcome&#39;</span> <span class="ot">=</span> <span class="st">&#39;#22A884FF&#39;</span>,</span>
+<span id="cb1077-23"><a href="homework-week-8.html#cb1077-23" aria-hidden="true" tabindex="-1"></a>                                                                         <span class="st">&#39;intermediate&#39;</span> <span class="ot">=</span> <span class="st">&#39;grey50&#39;</span>)) <span class="sc">+</span> </span>
+<span id="cb1077-24"><a href="homework-week-8.html#cb1077-24" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme_void</span>()</span>
+<span id="cb1077-25"><a href="homework-week-8.html#cb1077-25" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1077-26"><a href="homework-week-8.html#cb1077-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1077-27"><a href="homework-week-8.html#cb1077-27" aria-hidden="true" tabindex="-1"></a>cmd_draws <span class="ot">&lt;-</span> <span class="cf">function</span>(model) {</span>
+<span id="cb1077-28"><a href="homework-week-8.html#cb1077-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as_draws_df</span>(model<span class="sc">$</span><span class="fu">draws</span>())</span>
+<span id="cb1077-29"><a href="homework-week-8.html#cb1077-29" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<div id="question-1-7" class="section level2" number="9.1">
+<h2><span class="header-section-number">9.1</span> Question 1</h2>
+<div id="data-7" class="section level3" number="9.1.1">
+<h3><span class="header-section-number">9.1.1</span> Data</h3>
+<div class="sourceCode" id="cb1078"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1078-1"><a href="homework-week-8.html#cb1078-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(reedfrogs)</span>
+<span id="cb1078-2"><a href="homework-week-8.html#cb1078-2" aria-hidden="true" tabindex="-1"></a>DT <span class="ot">&lt;-</span> <span class="fu">data.table</span>(reedfrogs)</span>
+<span id="cb1078-3"><a href="homework-week-8.html#cb1078-3" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(DT)</span></code></pre></div>
+<pre><code>##           mean    sd  5.5% 94.5%     histogram
+## density  23.33 10.38 10.00    35 ▇▁▁▁▁▁▁▇▁▁▁▁▇
+## pred       NaN    NA    NA    NA              
+## size       NaN    NA    NA    NA              
+## surv     16.31  9.88  4.58    33       ▂▇▂▁▃▁▃
+## propsurv  0.72  0.27  0.29     1     ▁▁▃▁▁▂▁▅▇</code></pre>
+<div class="sourceCode" id="cb1080"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1080-1"><a href="homework-week-8.html#cb1080-1" aria-hidden="true" tabindex="-1"></a><span class="fu">register_knitr_engine</span>(<span class="at">override =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<pre class="stan"><code>data {
+    int N;
+    int survival[N];
+    int density[N];
+    int tank[N];
+}
+parameters {
+    real sigma;
+    real alpha[N];
+    real alpha_bar;
+}
+transformed parameters {
+    vector[N] p;
+
+    for (i in 1:N) {
+        p[i] = inv_logit(alpha[i]);
+    }
+}
+model {
+    alpha ~ normal(alpha_bar, sigma);
+    sigma ~ exponential(1);
+    for (i in 1:N) {
+        survival[i] ~ binomial(density[i], p[i]);
+    }
+}
+</code></pre>
+<div class="sourceCode" id="cb1082"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1082-1"><a href="homework-week-8.html#cb1082-1" aria-hidden="true" tabindex="-1"></a><span class="co"># model_frogs_1_stan &lt;- &#39;model_frogs_1.stan&#39;</span></span>
+<span id="cb1082-2"><a href="homework-week-8.html#cb1082-2" aria-hidden="true" tabindex="-1"></a><span class="co"># writeLines(readLines(model_frogs_1_stan))</span></span>
+<span id="cb1082-3"><a href="homework-week-8.html#cb1082-3" aria-hidden="true" tabindex="-1"></a><span class="co"># model_frogs_1 &lt;- cmdstan_model(model_frogs_1_stan, cpp_options = list(stan_threads = TRUE))</span></span>
+<span id="cb1082-4"><a href="homework-week-8.html#cb1082-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1082-5"><a href="homework-week-8.html#cb1082-5" aria-hidden="true" tabindex="-1"></a>model_data <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb1082-6"><a href="homework-week-8.html#cb1082-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.list</span>(DT[, .(</span>
+<span id="cb1082-7"><a href="homework-week-8.html#cb1082-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">survival =</span> surv,</span>
+<span id="cb1082-8"><a href="homework-week-8.html#cb1082-8" aria-hidden="true" tabindex="-1"></a>        density,</span>
+<span id="cb1082-9"><a href="homework-week-8.html#cb1082-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">predation =</span> <span class="fu">as.integer</span>(pred),</span>
+<span id="cb1082-10"><a href="homework-week-8.html#cb1082-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">size =</span> <span class="fu">as.integer</span>(size),</span>
+<span id="cb1082-11"><a href="homework-week-8.html#cb1082-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">tank =</span> <span class="fu">seq.int</span>(.N)</span>
+<span id="cb1082-12"><a href="homework-week-8.html#cb1082-12" aria-hidden="true" tabindex="-1"></a>    )]), </span>
+<span id="cb1082-13"><a href="homework-week-8.html#cb1082-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">N =</span> DT[, .N]</span>
+<span id="cb1082-14"><a href="homework-week-8.html#cb1082-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1082-15"><a href="homework-week-8.html#cb1082-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1082-16"><a href="homework-week-8.html#cb1082-16" aria-hidden="true" tabindex="-1"></a>model_frogs_1_sample <span class="ot">&lt;-</span></span>
+<span id="cb1082-17"><a href="homework-week-8.html#cb1082-17" aria-hidden="true" tabindex="-1"></a>    model_frogs_1<span class="sc">$</span><span class="fu">sample</span>(</span>
+<span id="cb1082-18"><a href="homework-week-8.html#cb1082-18" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> model_data,</span>
+<span id="cb1082-19"><a href="homework-week-8.html#cb1082-19" aria-hidden="true" tabindex="-1"></a>        <span class="at">chains =</span> <span class="dv">4</span>,</span>
+<span id="cb1082-20"><a href="homework-week-8.html#cb1082-20" aria-hidden="true" tabindex="-1"></a>        <span class="at">parallel_chains =</span> <span class="dv">4</span>,</span>
+<span id="cb1082-21"><a href="homework-week-8.html#cb1082-21" aria-hidden="true" tabindex="-1"></a>        <span class="at">threads_per_chain =</span> <span class="dv">4</span></span>
+<span id="cb1082-22"><a href="homework-week-8.html#cb1082-22" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
+<pre><code>## Warning: &#39;threads_per_chain&#39; is set but the model was not compiled with
+## &#39;cpp_options = list(stan_threads = TRUE)&#39; so &#39;threads_per_chain&#39; will have no
+## effect!</code></pre>
+<pre><code>## Running MCMC with 4 parallel chains...</code></pre>
+<pre><code>## Chain 1 Rejecting initial value:</code></pre>
+<pre><code>## Chain 1   Error evaluating the log probability at the initial value.</code></pre>
+<pre><code>## Chain 1 Exception: normal_lpdf: Scale parameter is -0.302923, but must be positive! (in &#39;/tmp/Rtmpyit6q5/model-a72b5b748bd7.stan&#39;, line 20, column 1 to column 34)
+## Chain 1 Exception: normal_lpdf: Scale parameter is -0.302923, but must be positive! (in &#39;/tmp/Rtmpyit6q5/model-a72b5b748bd7.stan&#39;, line 20, column 1 to column 34)</code></pre>
+<pre><code>## Chain 1 Iteration:    1 / 2000 [  0%]  (Warmup) 
+## Chain 1 Iteration:  100 / 2000 [  5%]  (Warmup) 
+## Chain 1 Iteration:  200 / 2000 [ 10%]  (Warmup) 
+## Chain 1 Iteration:  300 / 2000 [ 15%]  (Warmup) 
+## Chain 1 Iteration:  400 / 2000 [ 20%]  (Warmup) 
+## Chain 1 Iteration:  500 / 2000 [ 25%]  (Warmup) 
+## Chain 1 Iteration:  600 / 2000 [ 30%]  (Warmup) 
+## Chain 1 Iteration:  700 / 2000 [ 35%]  (Warmup) 
+## Chain 1 Iteration:  800 / 2000 [ 40%]  (Warmup) 
+## Chain 1 Iteration:  900 / 2000 [ 45%]  (Warmup) 
+## Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+## Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+## Chain 1 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
+## Chain 1 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
+## Chain 1 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
+## Chain 1 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
+## Chain 1 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
+## Chain 1 Iteration: 1600 / 2000 [ 80%]  (Sampling)</code></pre>
+<pre><code>## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 1 Exception: normal_lpdf: Scale parameter is -0.00566913, but must be positive! (in &#39;/tmp/Rtmpyit6q5/model-a72b5b748bd7.stan&#39;, line 20, column 1 to column 34)</code></pre>
+<pre><code>## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 1</code></pre>
+<pre><code>## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 1 Exception: normal_lpdf: Scale parameter is -3.22946, but must be positive! (in &#39;/tmp/Rtmpyit6q5/model-a72b5b748bd7.stan&#39;, line 20, column 1 to column 34)</code></pre>
+<pre><code>## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 1</code></pre>
+<pre><code>## Chain 2 Iteration:    1 / 2000 [  0%]  (Warmup) 
+## Chain 2 Iteration:  100 / 2000 [  5%]  (Warmup) 
+## Chain 2 Iteration:  200 / 2000 [ 10%]  (Warmup) 
+## Chain 2 Iteration:  300 / 2000 [ 15%]  (Warmup) 
+## Chain 2 Iteration:  400 / 2000 [ 20%]  (Warmup) 
+## Chain 2 Iteration:  500 / 2000 [ 25%]  (Warmup) 
+## Chain 2 Iteration:  600 / 2000 [ 30%]  (Warmup) 
+## Chain 2 Iteration:  700 / 2000 [ 35%]  (Warmup) 
+## Chain 2 Iteration:  800 / 2000 [ 40%]  (Warmup) 
+## Chain 2 Iteration:  900 / 2000 [ 45%]  (Warmup) 
+## Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+## Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+## Chain 2 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
+## Chain 2 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
+## Chain 2 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
+## Chain 2 Iteration: 1400 / 2000 [ 70%]  (Sampling)</code></pre>
+<pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 2 Exception: normal_lpdf: Scale parameter is -20.7527, but must be positive! (in &#39;/tmp/Rtmpyit6q5/model-a72b5b748bd7.stan&#39;, line 20, column 1 to column 34)</code></pre>
+<pre><code>## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 2</code></pre>
+<pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 2 Exception: normal_lpdf: Scale parameter is -1.65316, but must be positive! (in &#39;/tmp/Rtmpyit6q5/model-a72b5b748bd7.stan&#39;, line 20, column 1 to column 34)</code></pre>
+<pre><code>## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 2</code></pre>
+<pre><code>## Chain 3 Rejecting initial value:</code></pre>
+<pre><code>## Chain 3   Error evaluating the log probability at the initial value.</code></pre>
+<pre><code>## Chain 3 Exception: normal_lpdf: Scale parameter is -1.64371, but must be positive! (in &#39;/tmp/Rtmpyit6q5/model-a72b5b748bd7.stan&#39;, line 20, column 1 to column 34)
+## Chain 3 Exception: normal_lpdf: Scale parameter is -1.64371, but must be positive! (in &#39;/tmp/Rtmpyit6q5/model-a72b5b748bd7.stan&#39;, line 20, column 1 to column 34)</code></pre>
+<pre><code>## Chain 3 Rejecting initial value:</code></pre>
+<pre><code>## Chain 3   Error evaluating the log probability at the initial value.</code></pre>
+<pre><code>## Chain 3 Exception: normal_lpdf: Scale parameter is -0.820706, but must be positive! (in &#39;/tmp/Rtmpyit6q5/model-a72b5b748bd7.stan&#39;, line 20, column 1 to column 34)
+## Chain 3 Exception: normal_lpdf: Scale parameter is -0.820706, but must be positive! (in &#39;/tmp/Rtmpyit6q5/model-a72b5b748bd7.stan&#39;, line 20, column 1 to column 34)</code></pre>
+<pre><code>## Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup) 
+## Chain 3 Iteration:  100 / 2000 [  5%]  (Warmup) 
+## Chain 3 Iteration:  200 / 2000 [ 10%]  (Warmup) 
+## Chain 3 Iteration:  300 / 2000 [ 15%]  (Warmup) 
+## Chain 3 Iteration:  400 / 2000 [ 20%]  (Warmup) 
+## Chain 3 Iteration:  500 / 2000 [ 25%]  (Warmup) 
+## Chain 3 Iteration:  600 / 2000 [ 30%]  (Warmup) 
+## Chain 3 Iteration:  700 / 2000 [ 35%]  (Warmup) 
+## Chain 3 Iteration:  800 / 2000 [ 40%]  (Warmup) 
+## Chain 3 Iteration:  900 / 2000 [ 45%]  (Warmup) 
+## Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+## Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+## Chain 3 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
+## Chain 3 Iteration: 1200 / 2000 [ 60%]  (Sampling)</code></pre>
+<pre><code>## Chain 3 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 3 Exception: normal_lpdf: Scale parameter is -0.592547, but must be positive! (in &#39;/tmp/Rtmpyit6q5/model-a72b5b748bd7.stan&#39;, line 20, column 1 to column 34)</code></pre>
+<pre><code>## Chain 3 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 3 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 3</code></pre>
+<pre><code>## Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup) 
+## Chain 4 Iteration:  100 / 2000 [  5%]  (Warmup) 
+## Chain 4 Iteration:  200 / 2000 [ 10%]  (Warmup) 
+## Chain 4 Iteration:  300 / 2000 [ 15%]  (Warmup) 
+## Chain 4 Iteration:  400 / 2000 [ 20%]  (Warmup) 
+## Chain 4 Iteration:  500 / 2000 [ 25%]  (Warmup) 
+## Chain 4 Iteration:  600 / 2000 [ 30%]  (Warmup) 
+## Chain 4 Iteration:  700 / 2000 [ 35%]  (Warmup) 
+## Chain 4 Iteration:  800 / 2000 [ 40%]  (Warmup) 
+## Chain 4 Iteration:  900 / 2000 [ 45%]  (Warmup) 
+## Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+## Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+## Chain 4 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
+## Chain 4 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
+## Chain 4 Iteration: 1300 / 2000 [ 65%]  (Sampling)</code></pre>
+<pre><code>## Chain 4 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 4 Exception: normal_lpdf: Scale parameter is -0.0720808, but must be positive! (in &#39;/tmp/Rtmpyit6q5/model-a72b5b748bd7.stan&#39;, line 20, column 1 to column 34)</code></pre>
+<pre><code>## Chain 4 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 4 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 4</code></pre>
+<pre><code>## Chain 4 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 4 Exception: normal_lpdf: Scale parameter is -2.9413, but must be positive! (in &#39;/tmp/Rtmpyit6q5/model-a72b5b748bd7.stan&#39;, line 20, column 1 to column 34)</code></pre>
+<pre><code>## Chain 4 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 4 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 4</code></pre>
+<pre><code>## Chain 4 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 4 Exception: normal_lpdf: Scale parameter is -0.927967, but must be positive! (in &#39;/tmp/Rtmpyit6q5/model-a72b5b748bd7.stan&#39;, line 20, column 1 to column 34)</code></pre>
+<pre><code>## Chain 4 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 4 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 4</code></pre>
+<pre><code>## Chain 1 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
+## Chain 1 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
+## Chain 1 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
+## Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
+## Chain 1 finished in 0.2 seconds.
+## Chain 2 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
+## Chain 2 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
+## Chain 2 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
+## Chain 2 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
+## Chain 2 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
+## Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
+## Chain 2 finished in 0.2 seconds.
+## Chain 3 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
+## Chain 3 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
+## Chain 3 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
+## Chain 3 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
+## Chain 3 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
+## Chain 3 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
+## Chain 3 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
+## Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
+## Chain 4 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
+## Chain 4 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
+## Chain 4 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
+## Chain 4 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
+## Chain 4 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
+## Chain 4 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
+## Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
+## Chain 3 finished in 0.2 seconds.
+## Chain 4 finished in 0.3 seconds.
+## 
+## All 4 chains finished successfully.
+## Mean chain execution time: 0.2 seconds.
+## Total execution time: 0.4 seconds.</code></pre>
+<div class="sourceCode" id="cb1139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1139-1"><a href="homework-week-8.html#cb1139-1" aria-hidden="true" tabindex="-1"></a>model_frogs_1_draws <span class="ot">&lt;-</span> <span class="fu">cmd_draws</span>(model_frogs_1_sample)</span>
+<span id="cb1139-2"><a href="homework-week-8.html#cb1139-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1139-3"><a href="homework-week-8.html#cb1139-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(model_frogs_1_draws, <span class="at">regex_pars =</span> <span class="st">&#39;alpha&#39;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-86-1.png" width="672" /></p>
+<div class="sourceCode" id="cb1140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1140-1"><a href="homework-week-8.html#cb1140-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(model_frogs_1_draws, <span class="at">regex_pars =</span> <span class="st">&#39;p</span><span class="sc">\\</span><span class="st">[&#39;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-86-2.png" width="672" /></p>
+<pre class="stan"><code>data {
+    int N;
+    int survival[N];
+    int density[N];
+    int tank[N];
+    int predation[N];
+}
+parameters {
+    real sigma;
+    real alpha[N];
+    real alpha_bar;
+    real beta_predation;
+}
+transformed parameters {
+    vector[N] p;
+
+    for (i in 1:N) {
+        p[i] = inv_logit(alpha[i] + beta_predation * predation[i]);
+    }
+}
+model {
+    alpha ~ normal(alpha_bar, sigma);
+    beta_predation ~ normal(0, 0.5);
+    sigma ~ exponential(1);
+    for (i in 1:N) {
+        survival[i] ~ binomial(density[i], p[i]);
+    }
+}</code></pre>
+<div class="sourceCode" id="cb1142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1142-1"><a href="homework-week-8.html#cb1142-1" aria-hidden="true" tabindex="-1"></a><span class="co"># model_frogs_2_stan &lt;- &#39;model_frogs_2.stan&#39;</span></span>
+<span id="cb1142-2"><a href="homework-week-8.html#cb1142-2" aria-hidden="true" tabindex="-1"></a><span class="co"># writeLines(readLines(model_frogs_2_stan))</span></span>
+<span id="cb1142-3"><a href="homework-week-8.html#cb1142-3" aria-hidden="true" tabindex="-1"></a><span class="co"># model_frogs_2 &lt;- cmdstan_model(model_frogs_2_stan, cpp_options = list(stan_threads = TRUE))</span></span>
+<span id="cb1142-4"><a href="homework-week-8.html#cb1142-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1142-5"><a href="homework-week-8.html#cb1142-5" aria-hidden="true" tabindex="-1"></a>model_frogs_2_sample <span class="ot">&lt;-</span></span>
+<span id="cb1142-6"><a href="homework-week-8.html#cb1142-6" aria-hidden="true" tabindex="-1"></a>    model_frogs_2<span class="sc">$</span><span class="fu">sample</span>(</span>
+<span id="cb1142-7"><a href="homework-week-8.html#cb1142-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> model_data,</span>
+<span id="cb1142-8"><a href="homework-week-8.html#cb1142-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">chains =</span> <span class="dv">4</span>,</span>
+<span id="cb1142-9"><a href="homework-week-8.html#cb1142-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">parallel_chains =</span> <span class="dv">4</span>,</span>
+<span id="cb1142-10"><a href="homework-week-8.html#cb1142-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">threads_per_chain =</span> <span class="dv">4</span></span>
+<span id="cb1142-11"><a href="homework-week-8.html#cb1142-11" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
+<pre><code>## Warning: &#39;threads_per_chain&#39; is set but the model was not compiled with
+## &#39;cpp_options = list(stan_threads = TRUE)&#39; so &#39;threads_per_chain&#39; will have no
+## effect!</code></pre>
+<pre><code>## Running MCMC with 4 parallel chains...
+## 
+## Chain 1 Iteration:    1 / 2000 [  0%]  (Warmup) 
+## Chain 1 Iteration:  100 / 2000 [  5%]  (Warmup) 
+## Chain 1 Iteration:  200 / 2000 [ 10%]  (Warmup) 
+## Chain 1 Iteration:  300 / 2000 [ 15%]  (Warmup) 
+## Chain 1 Iteration:  400 / 2000 [ 20%]  (Warmup) 
+## Chain 1 Iteration:  500 / 2000 [ 25%]  (Warmup) 
+## Chain 1 Iteration:  600 / 2000 [ 30%]  (Warmup)</code></pre>
+<pre><code>## Chain 2 Rejecting initial value:</code></pre>
+<pre><code>## Chain 2   Error evaluating the log probability at the initial value.</code></pre>
+<pre><code>## Chain 2 Exception: normal_lpdf: Scale parameter is -0.934527, but must be positive! (in &#39;/tmp/Rtmpyit6q5/model-a72b3e802a7a.stan&#39;, line 22, column 1 to column 34)
+## Chain 2 Exception: normal_lpdf: Scale parameter is -0.934527, but must be positive! (in &#39;/tmp/Rtmpyit6q5/model-a72b3e802a7a.stan&#39;, line 22, column 1 to column 34)</code></pre>
+<pre><code>## Chain 2 Rejecting initial value:</code></pre>
+<pre><code>## Chain 2   Error evaluating the log probability at the initial value.</code></pre>
+<pre><code>## Chain 2 Exception: normal_lpdf: Scale parameter is -0.222269, but must be positive! (in &#39;/tmp/Rtmpyit6q5/model-a72b3e802a7a.stan&#39;, line 22, column 1 to column 34)
+## Chain 2 Exception: normal_lpdf: Scale parameter is -0.222269, but must be positive! (in &#39;/tmp/Rtmpyit6q5/model-a72b3e802a7a.stan&#39;, line 22, column 1 to column 34)</code></pre>
+<pre><code>## Chain 2 Rejecting initial value:</code></pre>
+<pre><code>## Chain 2   Error evaluating the log probability at the initial value.</code></pre>
+<pre><code>## Chain 2 Exception: normal_lpdf: Scale parameter is -0.48673, but must be positive! (in &#39;/tmp/Rtmpyit6q5/model-a72b3e802a7a.stan&#39;, line 22, column 1 to column 34)
+## Chain 2 Exception: normal_lpdf: Scale parameter is -0.48673, but must be positive! (in &#39;/tmp/Rtmpyit6q5/model-a72b3e802a7a.stan&#39;, line 22, column 1 to column 34)</code></pre>
+<pre><code>## Chain 2 Iteration:    1 / 2000 [  0%]  (Warmup) 
+## Chain 2 Iteration:  100 / 2000 [  5%]  (Warmup) 
+## Chain 2 Iteration:  200 / 2000 [ 10%]  (Warmup) 
+## Chain 2 Iteration:  300 / 2000 [ 15%]  (Warmup) 
+## Chain 2 Iteration:  400 / 2000 [ 20%]  (Warmup) 
+## Chain 2 Iteration:  500 / 2000 [ 25%]  (Warmup) 
+## Chain 2 Iteration:  600 / 2000 [ 30%]  (Warmup)</code></pre>
+<pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 2 Exception: normal_lpdf: Scale parameter is -530.687, but must be positive! (in &#39;/tmp/Rtmpyit6q5/model-a72b3e802a7a.stan&#39;, line 22, column 1 to column 34)</code></pre>
+<pre><code>## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 2</code></pre>
+<pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 2 Exception: normal_lpdf: Scale parameter is -9.13345, but must be positive! (in &#39;/tmp/Rtmpyit6q5/model-a72b3e802a7a.stan&#39;, line 22, column 1 to column 34)</code></pre>
+<pre><code>## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 2</code></pre>
+<pre><code>## Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup) 
+## Chain 3 Iteration:  100 / 2000 [  5%]  (Warmup) 
+## Chain 3 Iteration:  200 / 2000 [ 10%]  (Warmup) 
+## Chain 3 Iteration:  300 / 2000 [ 15%]  (Warmup)</code></pre>
+<pre><code>## Chain 3 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 3 Exception: normal_lpdf: Scale parameter is -1729.7, but must be positive! (in &#39;/tmp/Rtmpyit6q5/model-a72b3e802a7a.stan&#39;, line 22, column 1 to column 34)</code></pre>
+<pre><code>## Chain 3 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 3 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 3</code></pre>
+<pre><code>## Chain 3 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 3 Exception: normal_lpdf: Scale parameter is -46.2979, but must be positive! (in &#39;/tmp/Rtmpyit6q5/model-a72b3e802a7a.stan&#39;, line 22, column 1 to column 34)</code></pre>
+<pre><code>## Chain 3 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 3 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 3</code></pre>
+<pre><code>## Chain 4 Rejecting initial value:</code></pre>
+<pre><code>## Chain 4   Error evaluating the log probability at the initial value.</code></pre>
+<pre><code>## Chain 4 Exception: normal_lpdf: Scale parameter is -1.22032, but must be positive! (in &#39;/tmp/Rtmpyit6q5/model-a72b3e802a7a.stan&#39;, line 22, column 1 to column 34)
+## Chain 4 Exception: normal_lpdf: Scale parameter is -1.22032, but must be positive! (in &#39;/tmp/Rtmpyit6q5/model-a72b3e802a7a.stan&#39;, line 22, column 1 to column 34)</code></pre>
+<pre><code>## Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup) 
+## Chain 4 Iteration:  100 / 2000 [  5%]  (Warmup) 
+## Chain 4 Iteration:  200 / 2000 [ 10%]  (Warmup) 
+## Chain 4 Iteration:  300 / 2000 [ 15%]  (Warmup) 
+## Chain 4 Iteration:  400 / 2000 [ 20%]  (Warmup) 
+## Chain 1 Iteration:  700 / 2000 [ 35%]  (Warmup) 
+## Chain 1 Iteration:  800 / 2000 [ 40%]  (Warmup) 
+## Chain 1 Iteration:  900 / 2000 [ 45%]  (Warmup) 
+## Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+## Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+## Chain 1 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
+## Chain 1 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
+## Chain 1 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
+## Chain 2 Iteration:  700 / 2000 [ 35%]  (Warmup) 
+## Chain 2 Iteration:  800 / 2000 [ 40%]  (Warmup) 
+## Chain 2 Iteration:  900 / 2000 [ 45%]  (Warmup) 
+## Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+## Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+## Chain 2 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
+## Chain 3 Iteration:  400 / 2000 [ 20%]  (Warmup) 
+## Chain 3 Iteration:  500 / 2000 [ 25%]  (Warmup) 
+## Chain 3 Iteration:  600 / 2000 [ 30%]  (Warmup) 
+## Chain 3 Iteration:  700 / 2000 [ 35%]  (Warmup) 
+## Chain 4 Iteration:  500 / 2000 [ 25%]  (Warmup) 
+## Chain 4 Iteration:  600 / 2000 [ 30%]  (Warmup) 
+## Chain 4 Iteration:  700 / 2000 [ 35%]  (Warmup) 
+## Chain 4 Iteration:  800 / 2000 [ 40%]  (Warmup) 
+## Chain 4 Iteration:  900 / 2000 [ 45%]  (Warmup) 
+## Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+## Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+## Chain 1 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
+## Chain 1 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
+## Chain 1 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
+## Chain 1 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
+## Chain 2 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
+## Chain 2 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
+## Chain 2 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
+## Chain 2 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
+## Chain 3 Iteration:  800 / 2000 [ 40%]  (Warmup) 
+## Chain 3 Iteration:  900 / 2000 [ 45%]  (Warmup) 
+## Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+## Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+## Chain 3 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
+## Chain 3 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
+## Chain 4 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
+## Chain 4 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
+## Chain 4 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
+## Chain 4 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
+## Chain 1 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
+## Chain 1 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
+## Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
+## Chain 2 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
+## Chain 2 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
+## Chain 2 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
+## Chain 3 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
+## Chain 3 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
+## Chain 3 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
+## Chain 3 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
+## Chain 3 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
+## Chain 4 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
+## Chain 4 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
+## Chain 4 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
+## Chain 4 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
+## Chain 1 finished in 0.4 seconds.
+## Chain 2 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
+## Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
+## Chain 3 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
+## Chain 3 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
+## Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
+## Chain 4 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
+## Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
+## Chain 2 finished in 0.5 seconds.
+## Chain 3 finished in 0.5 seconds.
+## Chain 4 finished in 0.5 seconds.
+## 
+## All 4 chains finished successfully.
+## Mean chain execution time: 0.5 seconds.
+## Total execution time: 0.6 seconds.</code></pre>
+<div class="sourceCode" id="cb1180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1180-1"><a href="homework-week-8.html#cb1180-1" aria-hidden="true" tabindex="-1"></a>model_frogs_2_draws <span class="ot">&lt;-</span> <span class="fu">cmd_draws</span>(model_frogs_2_sample)</span>
+<span id="cb1180-2"><a href="homework-week-8.html#cb1180-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(model_frogs_2_draws, <span class="at">regex_pars =</span> <span class="st">&#39;predation&#39;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-88-1.png" width="672" /></p>
+<pre class="stan"><code>data {
+    int N;
+    int survival[N];
+    int density[N];
+    int tank[N];
+    int size[N];
+}
+parameters {
+    real sigma;
+    real alpha[N];
+    real alpha_bar;
+    real beta_size;
+}
+transformed parameters {
+    vector[N] p;
+
+    for (i in 1:N) {
+        p[i] = inv_logit(alpha[i] + beta_size * size[i]);
+    }
+}
+model {
+    alpha ~ normal(alpha_bar, sigma);
+    beta_size ~ normal(0, 0.5);
+    sigma ~ exponential(1);
+    for (i in 1:N) {
+        survival[i] ~ binomial(density[i], p[i]);
+    }
+}</code></pre>
+<div class="sourceCode" id="cb1182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1182-1"><a href="homework-week-8.html#cb1182-1" aria-hidden="true" tabindex="-1"></a><span class="co"># model_frogs_3_stan &lt;- &#39;model_frogs_3.stan&#39;</span></span>
+<span id="cb1182-2"><a href="homework-week-8.html#cb1182-2" aria-hidden="true" tabindex="-1"></a><span class="co"># writeLines(readLines(model_frogs_3_stan))</span></span>
+<span id="cb1182-3"><a href="homework-week-8.html#cb1182-3" aria-hidden="true" tabindex="-1"></a><span class="co"># model_frogs_3 &lt;- cmdstan_model(model_frogs_3_stan, cpp_options = list(stan_threads = TRUE))</span></span>
+<span id="cb1182-4"><a href="homework-week-8.html#cb1182-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1182-5"><a href="homework-week-8.html#cb1182-5" aria-hidden="true" tabindex="-1"></a>model_frogs_3_sample <span class="ot">&lt;-</span></span>
+<span id="cb1182-6"><a href="homework-week-8.html#cb1182-6" aria-hidden="true" tabindex="-1"></a>    model_frogs_3<span class="sc">$</span><span class="fu">sample</span>(</span>
+<span id="cb1182-7"><a href="homework-week-8.html#cb1182-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> model_data,</span>
+<span id="cb1182-8"><a href="homework-week-8.html#cb1182-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">chains =</span> <span class="dv">4</span>,</span>
+<span id="cb1182-9"><a href="homework-week-8.html#cb1182-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">parallel_chains =</span> <span class="dv">4</span>,</span>
+<span id="cb1182-10"><a href="homework-week-8.html#cb1182-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">threads_per_chain =</span> <span class="dv">4</span></span>
+<span id="cb1182-11"><a href="homework-week-8.html#cb1182-11" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
+<pre><code>## Warning: &#39;threads_per_chain&#39; is set but the model was not compiled with
+## &#39;cpp_options = list(stan_threads = TRUE)&#39; so &#39;threads_per_chain&#39; will have no
+## effect!</code></pre>
+<pre><code>## Running MCMC with 4 parallel chains...
+## 
+## Chain 1 Iteration:    1 / 2000 [  0%]  (Warmup) 
+## Chain 1 Iteration:  100 / 2000 [  5%]  (Warmup) 
+## Chain 1 Iteration:  200 / 2000 [ 10%]  (Warmup) 
+## Chain 1 Iteration:  300 / 2000 [ 15%]  (Warmup) 
+## Chain 1 Iteration:  400 / 2000 [ 20%]  (Warmup)</code></pre>
+<pre><code>## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 1 Exception: normal_lpdf: Scale parameter is -202.106, but must be positive! (in &#39;/tmp/Rtmpyit6q5/model-a72b26061871.stan&#39;, line 22, column 1 to column 34)</code></pre>
+<pre><code>## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 1</code></pre>
+<pre><code>## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 1 Exception: normal_lpdf: Scale parameter is -1.5052, but must be positive! (in &#39;/tmp/Rtmpyit6q5/model-a72b26061871.stan&#39;, line 22, column 1 to column 34)</code></pre>
+<pre><code>## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 1</code></pre>
+<pre><code>## Chain 2 Rejecting initial value:</code></pre>
+<pre><code>## Chain 2   Error evaluating the log probability at the initial value.</code></pre>
+<pre><code>## Chain 2 Exception: normal_lpdf: Scale parameter is -0.234149, but must be positive! (in &#39;/tmp/Rtmpyit6q5/model-a72b26061871.stan&#39;, line 22, column 1 to column 34)
+## Chain 2 Exception: normal_lpdf: Scale parameter is -0.234149, but must be positive! (in &#39;/tmp/Rtmpyit6q5/model-a72b26061871.stan&#39;, line 22, column 1 to column 34)</code></pre>
+<pre><code>## Chain 2 Rejecting initial value:</code></pre>
+<pre><code>## Chain 2   Error evaluating the log probability at the initial value.</code></pre>
+<pre><code>## Chain 2 Exception: normal_lpdf: Scale parameter is -1.15708, but must be positive! (in &#39;/tmp/Rtmpyit6q5/model-a72b26061871.stan&#39;, line 22, column 1 to column 34)
+## Chain 2 Exception: normal_lpdf: Scale parameter is -1.15708, but must be positive! (in &#39;/tmp/Rtmpyit6q5/model-a72b26061871.stan&#39;, line 22, column 1 to column 34)</code></pre>
+<pre><code>## Chain 2 Rejecting initial value:</code></pre>
+<pre><code>## Chain 2   Error evaluating the log probability at the initial value.</code></pre>
+<pre><code>## Chain 2 Exception: normal_lpdf: Scale parameter is -0.358842, but must be positive! (in &#39;/tmp/Rtmpyit6q5/model-a72b26061871.stan&#39;, line 22, column 1 to column 34)
+## Chain 2 Exception: normal_lpdf: Scale parameter is -0.358842, but must be positive! (in &#39;/tmp/Rtmpyit6q5/model-a72b26061871.stan&#39;, line 22, column 1 to column 34)</code></pre>
+<pre><code>## Chain 2 Rejecting initial value:</code></pre>
+<pre><code>## Chain 2   Error evaluating the log probability at the initial value.</code></pre>
+<pre><code>## Chain 2 Exception: normal_lpdf: Scale parameter is -1.09549, but must be positive! (in &#39;/tmp/Rtmpyit6q5/model-a72b26061871.stan&#39;, line 22, column 1 to column 34)
+## Chain 2 Exception: normal_lpdf: Scale parameter is -1.09549, but must be positive! (in &#39;/tmp/Rtmpyit6q5/model-a72b26061871.stan&#39;, line 22, column 1 to column 34)</code></pre>
+<pre><code>## Chain 2 Rejecting initial value:</code></pre>
+<pre><code>## Chain 2   Error evaluating the log probability at the initial value.</code></pre>
+<pre><code>## Chain 2 Exception: normal_lpdf: Scale parameter is -0.30469, but must be positive! (in &#39;/tmp/Rtmpyit6q5/model-a72b26061871.stan&#39;, line 22, column 1 to column 34)
+## Chain 2 Exception: normal_lpdf: Scale parameter is -0.30469, but must be positive! (in &#39;/tmp/Rtmpyit6q5/model-a72b26061871.stan&#39;, line 22, column 1 to column 34)</code></pre>
+<pre><code>## Chain 2 Rejecting initial value:</code></pre>
+<pre><code>## Chain 2   Error evaluating the log probability at the initial value.</code></pre>
+<pre><code>## Chain 2 Exception: normal_lpdf: Scale parameter is -0.00310604, but must be positive! (in &#39;/tmp/Rtmpyit6q5/model-a72b26061871.stan&#39;, line 22, column 1 to column 34)
+## Chain 2 Exception: normal_lpdf: Scale parameter is -0.00310604, but must be positive! (in &#39;/tmp/Rtmpyit6q5/model-a72b26061871.stan&#39;, line 22, column 1 to column 34)</code></pre>
+<pre><code>## Chain 2 Iteration:    1 / 2000 [  0%]  (Warmup) 
+## Chain 2 Iteration:  100 / 2000 [  5%]  (Warmup) 
+## Chain 2 Iteration:  200 / 2000 [ 10%]  (Warmup) 
+## Chain 2 Iteration:  300 / 2000 [ 15%]  (Warmup) 
+## Chain 2 Iteration:  400 / 2000 [ 20%]  (Warmup) 
+## Chain 2 Iteration:  500 / 2000 [ 25%]  (Warmup)</code></pre>
+<pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 2 Exception: normal_lpdf: Scale parameter is -2024.24, but must be positive! (in &#39;/tmp/Rtmpyit6q5/model-a72b26061871.stan&#39;, line 22, column 1 to column 34)</code></pre>
+<pre><code>## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 2</code></pre>
+<pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 2 Exception: normal_lpdf: Scale parameter is -57.0462, but must be positive! (in &#39;/tmp/Rtmpyit6q5/model-a72b26061871.stan&#39;, line 22, column 1 to column 34)</code></pre>
+<pre><code>## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 2</code></pre>
+<pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 2 Exception: normal_lpdf: Scale parameter is -0.208902, but must be positive! (in &#39;/tmp/Rtmpyit6q5/model-a72b26061871.stan&#39;, line 22, column 1 to column 34)</code></pre>
+<pre><code>## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 2</code></pre>
+<pre><code>## Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup) 
+## Chain 3 Iteration:  100 / 2000 [  5%]  (Warmup) 
+## Chain 3 Iteration:  200 / 2000 [ 10%]  (Warmup) 
+## Chain 3 Iteration:  300 / 2000 [ 15%]  (Warmup) 
+## Chain 3 Iteration:  400 / 2000 [ 20%]  (Warmup) 
+## Chain 3 Iteration:  500 / 2000 [ 25%]  (Warmup)</code></pre>
+<pre><code>## Chain 4 Rejecting initial value:</code></pre>
+<pre><code>## Chain 4   Error evaluating the log probability at the initial value.</code></pre>
+<pre><code>## Chain 4 Exception: normal_lpdf: Scale parameter is -1.05196, but must be positive! (in &#39;/tmp/Rtmpyit6q5/model-a72b26061871.stan&#39;, line 22, column 1 to column 34)
+## Chain 4 Exception: normal_lpdf: Scale parameter is -1.05196, but must be positive! (in &#39;/tmp/Rtmpyit6q5/model-a72b26061871.stan&#39;, line 22, column 1 to column 34)</code></pre>
+<pre><code>## Chain 4 Rejecting initial value:</code></pre>
+<pre><code>## Chain 4   Error evaluating the log probability at the initial value.</code></pre>
+<pre><code>## Chain 4 Exception: normal_lpdf: Scale parameter is -0.330177, but must be positive! (in &#39;/tmp/Rtmpyit6q5/model-a72b26061871.stan&#39;, line 22, column 1 to column 34)
+## Chain 4 Exception: normal_lpdf: Scale parameter is -0.330177, but must be positive! (in &#39;/tmp/Rtmpyit6q5/model-a72b26061871.stan&#39;, line 22, column 1 to column 34)</code></pre>
+<pre><code>## Chain 4 Rejecting initial value:</code></pre>
+<pre><code>## Chain 4   Error evaluating the log probability at the initial value.</code></pre>
+<pre><code>## Chain 4 Exception: normal_lpdf: Scale parameter is -1.48565, but must be positive! (in &#39;/tmp/Rtmpyit6q5/model-a72b26061871.stan&#39;, line 22, column 1 to column 34)
+## Chain 4 Exception: normal_lpdf: Scale parameter is -1.48565, but must be positive! (in &#39;/tmp/Rtmpyit6q5/model-a72b26061871.stan&#39;, line 22, column 1 to column 34)</code></pre>
+<pre><code>## Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup) 
+## Chain 4 Iteration:  100 / 2000 [  5%]  (Warmup) 
+## Chain 4 Iteration:  200 / 2000 [ 10%]  (Warmup) 
+## Chain 4 Iteration:  300 / 2000 [ 15%]  (Warmup) 
+## Chain 1 Iteration:  500 / 2000 [ 25%]  (Warmup) 
+## Chain 1 Iteration:  600 / 2000 [ 30%]  (Warmup) 
+## Chain 1 Iteration:  700 / 2000 [ 35%]  (Warmup) 
+## Chain 1 Iteration:  800 / 2000 [ 40%]  (Warmup) 
+## Chain 1 Iteration:  900 / 2000 [ 45%]  (Warmup) 
+## Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+## Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+## Chain 2 Iteration:  600 / 2000 [ 30%]  (Warmup) 
+## Chain 2 Iteration:  700 / 2000 [ 35%]  (Warmup) 
+## Chain 2 Iteration:  800 / 2000 [ 40%]  (Warmup) 
+## Chain 2 Iteration:  900 / 2000 [ 45%]  (Warmup) 
+## Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+## Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+## Chain 2 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
+## Chain 2 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
+## Chain 3 Iteration:  600 / 2000 [ 30%]  (Warmup) 
+## Chain 3 Iteration:  700 / 2000 [ 35%]  (Warmup) 
+## Chain 3 Iteration:  800 / 2000 [ 40%]  (Warmup) 
+## Chain 3 Iteration:  900 / 2000 [ 45%]  (Warmup) 
+## Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+## Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+## Chain 3 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
+## Chain 4 Iteration:  400 / 2000 [ 20%]  (Warmup) 
+## Chain 4 Iteration:  500 / 2000 [ 25%]  (Warmup) 
+## Chain 4 Iteration:  600 / 2000 [ 30%]  (Warmup) 
+## Chain 4 Iteration:  700 / 2000 [ 35%]  (Warmup) 
+## Chain 4 Iteration:  800 / 2000 [ 40%]  (Warmup) 
+## Chain 4 Iteration:  900 / 2000 [ 45%]  (Warmup) 
+## Chain 1 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
+## Chain 1 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
+## Chain 1 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
+## Chain 1 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
+## Chain 2 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
+## Chain 2 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
+## Chain 2 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
+## Chain 3 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
+## Chain 3 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
+## Chain 3 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
+## Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+## Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+## Chain 4 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
+## Chain 4 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
+## Chain 4 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
+## Chain 1 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
+## Chain 1 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
+## Chain 1 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
+## Chain 1 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
+## Chain 2 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
+## Chain 2 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
+## Chain 2 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
+## Chain 2 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
+## Chain 3 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
+## Chain 3 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
+## Chain 3 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
+## Chain 3 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
+## Chain 4 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
+## Chain 4 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
+## Chain 4 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
+## Chain 4 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
+## Chain 1 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
+## Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
+## Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
+## Chain 3 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
+## Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
+## Chain 4 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
+## Chain 4 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
+## Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
+## Chain 1 finished in 0.6 seconds.
+## Chain 2 finished in 0.5 seconds.
+## Chain 3 finished in 0.5 seconds.
+## Chain 4 finished in 0.5 seconds.
+## 
+## All 4 chains finished successfully.
+## Mean chain execution time: 0.5 seconds.
+## Total execution time: 0.7 seconds.</code></pre>
+<div class="sourceCode" id="cb1240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1240-1"><a href="homework-week-8.html#cb1240-1" aria-hidden="true" tabindex="-1"></a>model_frogs_3_draws <span class="ot">&lt;-</span> <span class="fu">cmd_draws</span>(model_frogs_3_sample)</span>
+<span id="cb1240-2"><a href="homework-week-8.html#cb1240-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(model_frogs_3_draws, <span class="at">regex_pars =</span> <span class="st">&#39;size&#39;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-90-1.png" width="672" /></p>
+<pre class="stan"><code>data {
+    int N;
+    int survival[N];
+    int density[N];
+    int tank[N];
+    int size[N];
+    int predation[N];
+}
+parameters {
+    real sigma;
+    real alpha[N];
+    real alpha_bar;
+    real beta_size;
+    real beta_predation;
+    real beta_interaction;
+}
+transformed parameters {
+    vector[N] p;
+
+    for (i in 1:N) {
+        p[i] = inv_logit(alpha[i] + beta_size * size[i] + beta_predation * predation[i] + beta_interaction * (size[i] * predation[i]));
+    }
+}
+model {
+    alpha ~ normal(alpha_bar, sigma);
+    beta_size ~ normal(0, 0.5);
+    beta_predation ~ normal(0, 0.5);
+    beta_interaction ~ normal(0, 0.25);
+    sigma ~ exponential(1);
+    for (i in 1:N) {
+        survival[i] ~ binomial(density[i], p[i]);
+    }
+}</code></pre>
+<div class="sourceCode" id="cb1242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1242-1"><a href="homework-week-8.html#cb1242-1" aria-hidden="true" tabindex="-1"></a><span class="co"># model_frogs_4_stan &lt;- &#39;model_frogs_4.stan&#39;</span></span>
+<span id="cb1242-2"><a href="homework-week-8.html#cb1242-2" aria-hidden="true" tabindex="-1"></a><span class="co"># writeLines(readLines(model_frogs_4_stan))</span></span>
+<span id="cb1242-3"><a href="homework-week-8.html#cb1242-3" aria-hidden="true" tabindex="-1"></a><span class="co"># model_frogs_4 &lt;- cmdstan_model(model_frogs_4_stan, cpp_options = list(stan_threads = TRUE))</span></span>
+<span id="cb1242-4"><a href="homework-week-8.html#cb1242-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1242-5"><a href="homework-week-8.html#cb1242-5" aria-hidden="true" tabindex="-1"></a>model_frogs_4_sample <span class="ot">&lt;-</span></span>
+<span id="cb1242-6"><a href="homework-week-8.html#cb1242-6" aria-hidden="true" tabindex="-1"></a>    model_frogs_4<span class="sc">$</span><span class="fu">sample</span>(</span>
+<span id="cb1242-7"><a href="homework-week-8.html#cb1242-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> model_data,</span>
+<span id="cb1242-8"><a href="homework-week-8.html#cb1242-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">chains =</span> <span class="dv">4</span>,</span>
+<span id="cb1242-9"><a href="homework-week-8.html#cb1242-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">parallel_chains =</span> <span class="dv">4</span>,</span>
+<span id="cb1242-10"><a href="homework-week-8.html#cb1242-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">threads_per_chain =</span> <span class="dv">4</span></span>
+<span id="cb1242-11"><a href="homework-week-8.html#cb1242-11" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
+<pre><code>## Warning: &#39;threads_per_chain&#39; is set but the model was not compiled with
+## &#39;cpp_options = list(stan_threads = TRUE)&#39; so &#39;threads_per_chain&#39; will have no
+## effect!</code></pre>
+<pre><code>## Running MCMC with 4 parallel chains...</code></pre>
+<pre><code>## Chain 1 Rejecting initial value:</code></pre>
+<pre><code>## Chain 1   Error evaluating the log probability at the initial value.</code></pre>
+<pre><code>## Chain 1 Exception: normal_lpdf: Scale parameter is -1.71381, but must be positive! (in &#39;/tmp/Rtmpyit6q5/model-a72b64d5af84.stan&#39;, line 25, column 1 to column 34)
+## Chain 1 Exception: normal_lpdf: Scale parameter is -1.71381, but must be positive! (in &#39;/tmp/Rtmpyit6q5/model-a72b64d5af84.stan&#39;, line 25, column 1 to column 34)</code></pre>
+<pre><code>## Chain 1 Iteration:    1 / 2000 [  0%]  (Warmup) 
+## Chain 1 Iteration:  100 / 2000 [  5%]  (Warmup) 
+## Chain 1 Iteration:  200 / 2000 [ 10%]  (Warmup)</code></pre>
+<pre><code>## Chain 2 Rejecting initial value:</code></pre>
+<pre><code>## Chain 2   Error evaluating the log probability at the initial value.</code></pre>
+<pre><code>## Chain 2 Exception: normal_lpdf: Scale parameter is -0.602845, but must be positive! (in &#39;/tmp/Rtmpyit6q5/model-a72b64d5af84.stan&#39;, line 25, column 1 to column 34)
+## Chain 2 Exception: normal_lpdf: Scale parameter is -0.602845, but must be positive! (in &#39;/tmp/Rtmpyit6q5/model-a72b64d5af84.stan&#39;, line 25, column 1 to column 34)</code></pre>
+<pre><code>## Chain 2 Rejecting initial value:</code></pre>
+<pre><code>## Chain 2   Error evaluating the log probability at the initial value.</code></pre>
+<pre><code>## Chain 2 Exception: normal_lpdf: Scale parameter is -1.07431, but must be positive! (in &#39;/tmp/Rtmpyit6q5/model-a72b64d5af84.stan&#39;, line 25, column 1 to column 34)
+## Chain 2 Exception: normal_lpdf: Scale parameter is -1.07431, but must be positive! (in &#39;/tmp/Rtmpyit6q5/model-a72b64d5af84.stan&#39;, line 25, column 1 to column 34)</code></pre>
+<pre><code>## Chain 2 Iteration:    1 / 2000 [  0%]  (Warmup) 
+## Chain 2 Iteration:  100 / 2000 [  5%]  (Warmup) 
+## Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup) 
+## Chain 3 Iteration:  100 / 2000 [  5%]  (Warmup) 
+## Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup) 
+## Chain 4 Iteration:  100 / 2000 [  5%]  (Warmup) 
+## Chain 1 Iteration:  300 / 2000 [ 15%]  (Warmup) 
+## Chain 1 Iteration:  400 / 2000 [ 20%]  (Warmup) 
+## Chain 1 Iteration:  500 / 2000 [ 25%]  (Warmup) 
+## Chain 2 Iteration:  200 / 2000 [ 10%]  (Warmup) 
+## Chain 2 Iteration:  300 / 2000 [ 15%]  (Warmup) 
+## Chain 2 Iteration:  400 / 2000 [ 20%]  (Warmup) 
+## Chain 3 Iteration:  200 / 2000 [ 10%]  (Warmup) 
+## Chain 4 Iteration:  200 / 2000 [ 10%]  (Warmup) 
+## Chain 4 Iteration:  300 / 2000 [ 15%]  (Warmup) 
+## Chain 1 Iteration:  600 / 2000 [ 30%]  (Warmup) 
+## Chain 1 Iteration:  700 / 2000 [ 35%]  (Warmup) 
+## Chain 1 Iteration:  800 / 2000 [ 40%]  (Warmup) 
+## Chain 2 Iteration:  500 / 2000 [ 25%]  (Warmup) 
+## Chain 2 Iteration:  600 / 2000 [ 30%]  (Warmup) 
+## Chain 2 Iteration:  700 / 2000 [ 35%]  (Warmup) 
+## Chain 3 Iteration:  300 / 2000 [ 15%]  (Warmup) 
+## Chain 3 Iteration:  400 / 2000 [ 20%]  (Warmup) 
+## Chain 4 Iteration:  400 / 2000 [ 20%]  (Warmup) 
+## Chain 4 Iteration:  500 / 2000 [ 25%]  (Warmup) 
+## Chain 1 Iteration:  900 / 2000 [ 45%]  (Warmup) 
+## Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+## Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+## Chain 1 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
+## Chain 2 Iteration:  800 / 2000 [ 40%]  (Warmup) 
+## Chain 2 Iteration:  900 / 2000 [ 45%]  (Warmup) 
+## Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+## Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+## Chain 3 Iteration:  500 / 2000 [ 25%]  (Warmup) 
+## Chain 3 Iteration:  600 / 2000 [ 30%]  (Warmup) 
+## Chain 3 Iteration:  700 / 2000 [ 35%]  (Warmup) 
+## Chain 3 Iteration:  800 / 2000 [ 40%]  (Warmup) 
+## Chain 4 Iteration:  600 / 2000 [ 30%]  (Warmup) 
+## Chain 4 Iteration:  700 / 2000 [ 35%]  (Warmup) 
+## Chain 4 Iteration:  800 / 2000 [ 40%]  (Warmup) 
+## Chain 4 Iteration:  900 / 2000 [ 45%]  (Warmup) 
+## Chain 1 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
+## Chain 1 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
+## Chain 2 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
+## Chain 2 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
+## Chain 2 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
+## Chain 3 Iteration:  900 / 2000 [ 45%]  (Warmup) 
+## Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+## Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+## Chain 3 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
+## Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+## Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+## Chain 4 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
+## Chain 1 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
+## Chain 1 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
+## Chain 1 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
+## Chain 2 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
+## Chain 2 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
+## Chain 3 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
+## Chain 3 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
+## Chain 3 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
+## Chain 4 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
+## Chain 4 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
+## Chain 1 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
+## Chain 1 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
+## Chain 1 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
+## Chain 2 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
+## Chain 2 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
+## Chain 2 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
+## Chain 3 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
+## Chain 3 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
+## Chain 4 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
+## Chain 4 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
+## Chain 4 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
+## Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
+## Chain 2 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
+## Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
+## Chain 3 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
+## Chain 3 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
+## Chain 3 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
+## Chain 4 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
+## Chain 4 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
+## Chain 1 finished in 0.8 seconds.
+## Chain 2 finished in 0.9 seconds.
+## Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
+## Chain 4 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
+## Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
+## Chain 3 finished in 0.9 seconds.
+## Chain 4 finished in 0.9 seconds.
+## 
+## All 4 chains finished successfully.
+## Mean chain execution time: 0.9 seconds.
+## Total execution time: 1.0 seconds.</code></pre>
+<div class="sourceCode" id="cb1256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1256-1"><a href="homework-week-8.html#cb1256-1" aria-hidden="true" tabindex="-1"></a>model_frogs_4_draws <span class="ot">&lt;-</span> <span class="fu">cmd_draws</span>(model_frogs_4_sample)</span>
+<span id="cb1256-2"><a href="homework-week-8.html#cb1256-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(model_frogs_4_draws, <span class="at">regex_pars =</span> <span class="st">&#39;beta&#39;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-92-1.png" width="672" /></p>
+<p>Negative influence of predation is somewhat balanced by size of tank.</p>
+</div>
+</div>
+<div id="question-2-6" class="section level2" number="9.2">
+<h2><span class="header-section-number">9.2</span> Question 2</h2>
+<blockquote>
+<p>In 1980, a typical Bengali woman could have 5 or more children in her
+lifetime. By the year 2000, a typical Bengali woman had only 2 or 3. You’re
+going to look at a historical set of data, when contraception was widely
+available but many families chose not to use it. These data reside in
+<code>data(bangladesh)</code> and come from the 1988 Bangladesh Fertility Survey. Each row
+is one of 1934 women. There are six variables, but you can focus on two of them
+for this practice problem: (1) district: ID number of administrative district
+each woman resided in (2) use.contraception: An indicator (0/1) of whether the
+woman was using contraception.</p>
+</blockquote>
+<div class="sourceCode" id="cb1257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1257-1"><a href="homework-week-8.html#cb1257-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(bangladesh)</span>
+<span id="cb1257-2"><a href="homework-week-8.html#cb1257-2" aria-hidden="true" tabindex="-1"></a>DT <span class="ot">&lt;-</span> <span class="fu">data.table</span>(bangladesh)</span>
+<span id="cb1257-3"><a href="homework-week-8.html#cb1257-3" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(DT)</span></code></pre></div>
+<pre><code>##                       mean     sd 5.5% 94.5%     histogram
+## woman             967.5000 558.44  107  1828    ▇▇▇▇▇▇▇▇▇▅
+## district           29.3537  17.96    1    58 ▇▅▇▅▅▇▅▃▅▅▃▅▁
+## use.contraception   0.3925   0.49    0     1    ▇▁▁▁▁▁▁▁▁▅
+## living.children     2.6520   1.24    1     4        ▅▃▁▃▁▇
+## age.centered        0.0022   9.01  -13    16       ▅▇▇▅▃▃▂
+## urban               0.2906   0.45    0     1    ▇▁▁▁▁▁▁▁▁▃</code></pre>
+<div class="sourceCode" id="cb1259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1259-1"><a href="homework-week-8.html#cb1259-1" aria-hidden="true" tabindex="-1"></a>DT[, id <span class="sc">:</span><span class="er">=</span> <span class="fu">as.integer</span>(woman)]</span>
+<span id="cb1259-2"><a href="homework-week-8.html#cb1259-2" aria-hidden="true" tabindex="-1"></a>DT[, district <span class="sc">:</span><span class="er">=</span> <span class="fu">as.integer</span>(<span class="fu">as.factor</span>(district))]</span>
+<span id="cb1259-3"><a href="homework-week-8.html#cb1259-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1259-4"><a href="homework-week-8.html#cb1259-4" aria-hidden="true" tabindex="-1"></a>model_data <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">as.list</span>(DT), <span class="at">N =</span> DT[, .N])</span></code></pre></div>
+<p>Now, focus on predicting <code>use.contraception</code>, clustered by <code>district_id</code>. Fit
+both (1) a traditional fixed-effects model that uses an index variable for
+district and (2) a multilevel model with varying intercepts for district. Plot
+the predicted proportions of women in each district using contraception, for
+both the fixed-effects model and the varying-effects model. That is, make a plot
+in which district ID is on the horizontal axis and expected proportion using
+contraception is on the vertical.Make one plot for each model, or layer them on
+the same plot, as you prefer. How do the models disagree? Can you explain the
+pattern of disagreement? In particular, can you explain the most extreme cases
+of disagreement, both why they happen where they do and why the models reach
+different inferences?</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="homework-week-7.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="lecture-01.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "lunr",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
