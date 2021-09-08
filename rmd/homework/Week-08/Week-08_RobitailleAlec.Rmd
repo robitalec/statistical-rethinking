@@ -47,3 +47,24 @@ cmd_draws <- function(model) {
 	as_draws_df(model$draws())
 }
 ```
+
+
+## Question 1
+
+
+### Data
+```{r}
+data(reedfrogs)
+DT <- data.table(reedfrogs)
+precis(DT)
+```
+
+
+```{r}
+register_knitr_engine(override = FALSE)
+```
+
+```{cmdstan, output.var = 'model_frogs_1', cache = TRUE}
+
+
+```
