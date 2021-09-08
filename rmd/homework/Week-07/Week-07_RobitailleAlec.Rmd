@@ -316,3 +316,88 @@ dag_plot(dag)
 Which statistical model or models do you need to evaluate the causal influence of
 education on responses? Fit these models to the trolley data. What do you
 conclude about the causal relationships among these three variables?
+
+
+```{cmdstan, output.var = 'model2_age'}
+data {
+  int N;
+  int K;
+  int N_edu;
+  int response[N];
+  int action[N];
+  int intention[N];
+  int contact[N];
+  int education[N];
+  int age[N];
+  vector[N_edu - 1] alpha;
+}
+parameters {
+	// Cut points are the positions of responses along cumulative odds
+  ordered[K] cutpoints;
+  real beta_action;
+  real beta_intention;
+  real beta_contact;
+  real beta_education;
+  real beta_age;
+
+  // Vector N reals that sum to 1
+  simplex[7] delta;
+}
+model {
+  vector[N] phi;
+  vector[N_edu] delta_j;
+
+  delta ~ dirichlet(alpha);
+  delta_j = append_row(0, delta);
+
+	for (i in 1:N) {
+    // add beta education  * sum delta j, up to current i's education
+    phi[i] = beta_education * sum(delta_j[1:education[i]]) +
+      beta_action * action[i] +
+      beta_contact * contact[i] +
+      beta_age * age[i] +
+      beta_intention * intention[i];
+    response[i] ~ ordered_logistic(phi[i], cutpoints);
+	}
+
+  cutpoints ~ normal(0, 1.5);
+  beta_action ~ normal(0, 1);
+  beta_contact ~ normal(0, 1);
+  beta_intention ~ normal(0, 1);
+  beta_education ~ normal(0, 1);
+  beta_age ~ normal(0, 1);
+}
+
+```
+
+
+```{r}
+# model2_age_stan <- 'model2_age.stan'
+# writeLines(readLines(model2_age_stan))
+# model2_age <- cmdstan_model(model2_age_stan, cpp_options = list(stan_threads = TRUE))
+
+edu_levels <- c(6, 1, 8, 4, 7, 2, 5, 3)
+DT[, education := as.integer(edu_levels[edu])]
+
+model_data <- c(
+	as.list(DT[, .(response, action, intention, contact, education, age)]), 
+	N = DT[, .N],
+	K = DT[, uniqueN(response) - 1],
+	N_edu = DT[, uniqueN(education)],
+	alpha = list(rep(2, 7))
+)
+
+
+model2_sample <-model2_age$sample(
+	data = model_data,
+	chains = 4,
+	parallel_chains = 4,
+	threads_per_chain = 4
+)
+
+model2_draws <- cmd_draws(model2_sample)
+
+mcmc_areas(model2_draws, regex_pars = 'beta')
+mcmc_areas(model2_draws, regex_pars = 'delta')
+mcmc_areas(model2_draws, regex_pars = 'cut', transformations = inv.logit) + xlim(0, 1)
+```
