@@ -216,6 +216,10 @@ Make sure to reorder education levels
 
 
 ```{r}
+model2_stan <- 'model2.stan'
+writeLines(readLines(model2_stan))
+model2 <- cmdstan_model(model2_stan, cpp_options = list(stan_threads = TRUE))
+
 DT[, education := as.integer(edu_levels[edu])]
 
 model_data <- c(
