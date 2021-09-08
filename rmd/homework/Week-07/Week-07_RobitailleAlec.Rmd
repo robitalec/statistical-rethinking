@@ -310,6 +310,7 @@ dag <- dagify(
 )
 
 dag_plot(dag)
+adjustmentSets(dag, exposure = 'education', outcome = 'response', effect = 'total' )
 ```
 
 
