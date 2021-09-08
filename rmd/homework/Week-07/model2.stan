@@ -24,10 +24,11 @@ model {
   vector[N] phi;
   vector[N_edu] delta_j;
 
-  delta ~ dirichlet( alpha );
+  delta ~ dirichlet(alpha);
   delta_j = append_row(0, delta);
 
 	for (i in 1:N) {
+    // add beta education  * sum delta j, up to current i's education
     phi[i] = beta_education * sum(delta_j[1:education[i]]) +
       beta_action * action[i] +
       beta_contact * contact[i] +
