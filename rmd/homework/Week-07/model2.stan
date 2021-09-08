@@ -22,6 +22,10 @@ parameters {
 }
 model {
   vector[N] phi;
+  vector[N_edu] delta_j;
+
+  delta ~ dirichlet( alpha );
+  delta_j = append_row(0, delta);
 
 	for (i in 1:N) {
 		phi[i] = beta_action * action[i] + beta_contact * contact[i] + beta_intention * intention[i];
