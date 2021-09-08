@@ -65,17 +65,21 @@ register_knitr_engine(override = FALSE)
 ```
 
 ```{cmdstan, output.var = 'model_frogs_1', cache = TRUE}
-
-
 ```
 
 ```{r, cache = TRUE}
-# model_frogs_1_stan <- 'model_frogs_1.stan'
-# writeLines(readLines(model_frogs_1_stan))
-# model_frogs_1 <- cmdstan_model(model_frogs_1_stan, cpp_options = list(stan_threads = TRUE))
+model_frogs_1_stan <- 'model_frogs_1.stan'
+writeLines(readLines(model_frogs_1_stan))
+model_frogs_1 <- cmdstan_model(model_frogs_1_stan, cpp_options = list(stan_threads = TRUE))
 
 model_data <- c(
-	as.list(DT[, .(survival = surv, density, tank = seq.int(.N))]), 
+	as.list(DT[, .(
+		survival = surv,
+		density,
+		predation = as.integer(pred),
+		size = as.integer(size),
+		tank = seq.int(.N)
+	)]), 
 	N = DT[, .N]
 )
 
@@ -92,3 +96,59 @@ model_frogs_1_draws <- cmd_draws(model_frogs_1_sample)
 mcmc_areas(model_frogs_1_draws, regex_pars = 'alpha')
 mcmc_areas(model_frogs_1_draws, regex_pars = 'p\\[')
 ```
+
+
+```{cmdstan, output.var = 'model_frogs_2', cache = TRUE}
+```
+
+```{r, cache = TRUE}
+model_frogs_2_stan <- 'model_frogs_2.stan'
+writeLines(readLines(model_frogs_2_stan))
+model_frogs_2 <- cmdstan_model(model_frogs_2_stan, cpp_options = list(stan_threads = TRUE))
+model_frogs_2_sample <-
+	model_frogs_2$sample(
+		data = model_data,
+		chains = 4,
+		parallel_chains = 4,
+		threads_per_chain = 4
+	)
+model_frogs_2_draws <- cmd_draws(model_frogs_2_sample)
+mcmc_areas(model_frogs_2_draws, regex_pars = 'predation')
+```
+
+```{cmdstan, output.var = 'model_frogs_3', cache = TRUE}
+```
+
+```{r, cache = TRUE}
+model_frogs_3_stan <- 'model_frogs_3.stan'
+writeLines(readLines(model_frogs_3_stan))
+model_frogs_3 <- cmdstan_model(model_frogs_3_stan, cpp_options = list(stan_threads = TRUE))
+model_frogs_3_sample <-
+	model_frogs_3$sample(
+		data = model_data,
+		chains = 4,
+		parallel_chains = 4,
+		threads_per_chain = 4
+	)
+model_frogs_3_draws <- cmd_draws(model_frogs_3_sample)
+mcmc_areas(model_frogs_3_draws, regex_pars = 'size')
+```
+
+```{cmdstan, output.var = 'model_frogs_4', cache = TRUE}
+```
+
+```{r, cache = TRUE}
+model_frogs_4_stan <- 'model_frogs_4.stan'
+writeLines(readLines(model_frogs_4_stan))
+model_frogs_4 <- cmdstan_model(model_frogs_4_stan, cpp_options = list(stan_threads = TRUE))
+model_frogs_4_sample <-
+	model_frogs_4$sample(
+		data = model_data,
+		chains = 4,
+		parallel_chains = 4,
+		threads_per_chain = 4
+	)
+model_frogs_4_draws <- cmd_draws(model_frogs_4_sample)
+mcmc_areas(model_frogs_4_draws, regex_pars = 'beta')
+```
+
