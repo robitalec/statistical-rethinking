@@ -33,7 +33,8 @@ model {
 	}
 
   cutpoints ~ normal(0, 1.5);
-  beta_action ~ normal(0, 0.5);
-  beta_contact ~ normal(0, 0.5);
-  beta_intention ~ normal(0, 0.5);
+  beta_action ~ normal(0, 1);
+  beta_contact ~ normal(0, 1);
+  beta_intention ~ normal(0, 1);
+  beta_education ~ normal(0, 1);
 }
