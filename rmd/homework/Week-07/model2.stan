@@ -5,6 +5,7 @@ data {
   int action[N];
   int intention[N];
   int contact[N];
+  int education[N];
 }
 parameters {
 	// Cut points are the positions of responses along cumulative odds
@@ -12,6 +13,7 @@ parameters {
   real beta_action;
   real beta_intention;
   real beta_contact;
+  real beta_education;
 }
 model {
   vector[N] phi;
