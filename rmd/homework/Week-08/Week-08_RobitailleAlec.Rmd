@@ -86,4 +86,9 @@ model_frogs_1_sample <-
 		parallel_chains = 4,
 		threads_per_chain = 4
 	)
+
+model_frogs_1_draws <- cmd_draws(model_frogs_1_sample)
+
+mcmc_areas(model_frogs_1_draws, regex_pars = 'alpha')
+mcmc_areas(model_frogs_1_draws, regex_pars = 'p\\[')
 ```
