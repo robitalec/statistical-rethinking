@@ -16,6 +16,9 @@ parameters {
   real beta_intention;
   real beta_contact;
   real beta_education;
+
+  // Vector N reals that sum to 1
+  simplex[7] delta;
 }
 model {
   vector[N] phi;
