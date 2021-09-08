@@ -122,6 +122,10 @@ model1_sample <-
 		parallel_chains = 4,
 		threads_per_chain = 4
 	)
+
+model1_draws <- cmd_draws(model1_sample)
+
+mcmc_areas(model1_draws, regex_pars = 'beta')
 ```
 
 ## Question 1
