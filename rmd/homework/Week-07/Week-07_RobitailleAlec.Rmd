@@ -380,7 +380,7 @@ edu_levels <- c(6, 1, 8, 4, 7, 2, 5, 3)
 DT[, education := as.integer(edu_levels[edu])]
 
 model_data <- c(
-	as.list(DT[, .(response, action, intention, contact, education, as.numeric(scale(age)))]), 
+	as.list(DT[, .(response, action, intention, contact, education, age = as.numeric(scale(age)))]), 
 	N = DT[, .N],
 	K = DT[, uniqueN(response) - 1],
 	N_edu = DT[, uniqueN(education)],
@@ -388,7 +388,7 @@ model_data <- c(
 )
 
 
-model2_sample <-model2_age$sample(
+model2_sample <- model2_age$sample(
 	data = model_data,
 	chains = 4,
 	parallel_chains = 4,
