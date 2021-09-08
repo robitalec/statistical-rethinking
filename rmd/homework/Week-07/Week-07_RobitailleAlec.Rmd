@@ -430,7 +430,7 @@ adjustmentSets(dag, exposure = 'education', outcome = 'response', effect = 'tota
 
 
 
-```{cmdstan, output.var = 'model2_gender', cache = TRUE}
+```{cmdstan model2gender, output.var = 'model2_gender', cache = TRUE}
 data {
   int N;
   int K;
@@ -491,8 +491,10 @@ model {
 # writeLines(readLines(model2_gender_stan))
 # model2_gender <- cmdstan_model(model2_gender_stan, cpp_options = list(stan_threads = TRUE))
 
+edu_levels <- c(6, 1, 8, 4, 7, 2, 5, 3)
+DT[, education := as.integer(edu_levels[edu])]
 model_data <- c(
-	as.list(DT[, .(response, action, intention, contact, education, age = as.numeric(scale(age)), female = ifelse(male == 1, 0, 1))]), 
+	as.list(DT[, .(response, action, intention, contact, education, age = as.numeric(scale(age)), gender = ifelse(male == 1, 0, 1))]), 
 	N = DT[, .N],
 	K = DT[, uniqueN(response) - 1],
 	N_edu = DT[, uniqueN(education)],

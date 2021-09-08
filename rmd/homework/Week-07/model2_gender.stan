@@ -1,0 +1,52 @@
+data {
+  int N;
+  int K;
+  int N_edu;
+  int response[N];
+  int action[N];
+  int intention[N];
+  int contact[N];
+  int education[N];
+  real age[N];
+  int gender[N];
+  vector[N_edu - 1] alpha;
+}
+parameters {
+	// Cut points are the positions of responses along cumulative odds
+  ordered[K] cutpoints;
+  real beta_action;
+  real beta_intention;
+  real beta_contact;
+  real beta_education;
+  real beta_age;
+  real beta_gender;
+
+  // Vector N reals that sum to 1
+  simplex[7] delta;
+}
+model {
+  vector[N] phi;
+  vector[N_edu] delta_j;
+
+  delta ~ dirichlet(alpha);
+  delta_j = append_row(0, delta);
+
+	for (i in 1:N) {
+    // add beta education  * sum delta j, up to current i's education
+    phi[i] = beta_education * sum(delta_j[1:education[i]]) +
+      beta_action * action[i] +
+      beta_contact * contact[i] +
+      beta_age * age[i] +
+      beta_gender * gender[i] +
+      beta_intention * intention[i];
+    response[i] ~ ordered_logistic(phi[i], cutpoints);
+	}
+
+  cutpoints ~ normal(0, 1.5);
+  beta_action ~ normal(0, 1);
+  beta_contact ~ normal(0, 1);
+  beta_intention ~ normal(0, 1);
+  beta_education ~ normal(0, 1);
+  beta_age ~ normal(0, 1);
+  beta_gender ~ normal(0, 1);
+}
