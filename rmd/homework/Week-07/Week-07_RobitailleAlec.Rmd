@@ -64,7 +64,7 @@ Log-cumulative-odds for response 7 will be infinity since log(1/(1-1)) = infinit
 Given this, we only need K-1 = 6 intercepts. 
 
 
-### Model
+### Model: ordered categorical outcome
 
 Probability of data: $R_{i} \sim \text{Ordered-logit}(\phi_{i}, K)$
 
@@ -106,13 +106,12 @@ model {
   beta_contact ~ normal(0, 0.5);
   beta_intention ~ normal(0, 0.5);
 }
-
 ```
 
 ```{r}
-model1_stan <- 'model1.stan'
-writeLines(readLines(model1_stan))
-model1 <- cmdstan_model(model1_stan, cpp_options = list(stan_threads = TRUE))
+# model1_stan <- 'model1.stan'
+# writeLines(readLines(model1_stan))
+# model1 <- cmdstan_model(model1_stan, cpp_options = list(stan_threads = TRUE))
 
 model_data <- c(
 	as.list(DT[, .(response, action, intention, contact)]), 
@@ -133,10 +132,45 @@ model1_draws <- cmd_draws(model1_sample)
 mcmc_areas(model1_draws, regex_pars = 'beta')
 ```
 
+
+```{cmdstanr, output.var = 'model1_interactions'}
+data {
+  int N;
+  int K;
+  int response[N];
+  int action[N];
+  int intention[N];
+  int contact[N];
+}
+parameters {
+	// Cut points are the positions of responses along cumulative odds
+  ordered[K] cutpoints;
+  real beta_action;
+  real beta_intention;
+  real beta_contact;
+  real beta_intention_contact;
+  real beta_intention_action;
+}
+model {
+  vector[N] phi;
+
+	for (i in 1:N) {
+		phi[i] = beta_action * action[i] + beta_contact * contact[i] + beta_intention * intention[i] + beta_intention_contact * intention[i] * contact[i]  + beta_intention_action * intention[i] * action[i]
+		;
+		response[i] ~ ordered_logistic(phi[i], cutpoints);
+	}
+
+  cutpoints ~ normal(0, 1.5);
+  beta_action ~ normal(0, 0.5);
+  beta_contact ~ normal(0, 0.5);
+  beta_intention ~ normal(0, 0.5);
+}
+```
+
 ```{r}
-model1_interactions_stan <- 'model1_interactions.stan'
-writeLines(readLines(model1_interactions_stan))
-model1_interactions <- cmdstan_model(model1_interactions_stan, cpp_options = list(stan_threads = TRUE))
+# model1_interactions_stan <- 'model1_interactions.stan'
+# writeLines(readLines(model1_interactions_stan))
+# model1_interactions <- cmdstan_model(model1_interactions_stan, cpp_options = list(stan_threads = TRUE))
 
 model_data <- c(
 	as.list(DT[, .(response, action, intention, contact)]), 
@@ -155,8 +189,8 @@ model1_interactions_sample <-
 model1_interactions_draws <- cmd_draws(model1_interactions_sample)
 
 mcmc_areas(model1_interactions_draws, regex_pars = 'beta')
-mcmc_areas(model1_interactions_draws, regex_pars = 'cut', transformations = inv.logit)
+mcmc_areas(model1_interactions_draws, regex_pars = 'cut', transformations = inv.logit) + xlim(0, 1)
 ```
 
 
-## Question 1
+### Model: ordered categorical predictors
