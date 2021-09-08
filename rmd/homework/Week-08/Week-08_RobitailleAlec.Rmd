@@ -68,3 +68,22 @@ register_knitr_engine(override = FALSE)
 
 
 ```
+
+```{r, cache = TRUE}
+# model_frogs_1_stan <- 'model_frogs_1.stan'
+# writeLines(readLines(model_frogs_1_stan))
+# model_frogs_1 <- cmdstan_model(model_frogs_1_stan, cpp_options = list(stan_threads = TRUE))
+
+model_data <- c(
+	as.list(DT[, .(survival = surv, density, tank = seq.int(.N))]), 
+	N = DT[, .N]
+)
+
+model_frogs_1_sample <-
+	model_frogs_1$sample(
+		data = model_data,
+		chains = 4,
+		parallel_chains = 4,
+		threads_per_chain = 4
+	)
+```
