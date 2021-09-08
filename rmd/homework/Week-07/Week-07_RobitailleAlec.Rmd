@@ -133,4 +133,30 @@ model1_draws <- cmd_draws(model1_sample)
 mcmc_areas(model1_draws, regex_pars = 'beta')
 ```
 
+```{r}
+model1_interactions_stan <- 'model1_interactions.stan'
+writeLines(readLines(model1_interactions_stan))
+model1_interactions <- cmdstan_model(model1_interactions_stan, cpp_options = list(stan_threads = TRUE))
+
+model_data <- c(
+	as.list(DT[, .(response, action, intention, contact)]), 
+	N = DT[, .N],
+	K = DT[, uniqueN(response) - 1]
+)
+
+model1_interactions_sample <-
+	model1_interactions$sample(
+		data = model_data,
+		chains = 4,
+		parallel_chains = 4,
+		threads_per_chain = 4
+	)
+
+model1_interactions_draws <- cmd_draws(model1_interactions_sample)
+
+mcmc_areas(model1_interactions_draws, regex_pars = 'beta')
+mcmc_areas(model1_interactions_draws, regex_pars = 'cut', transformations = inv.logit)
+```
+
+
 ## Question 1
