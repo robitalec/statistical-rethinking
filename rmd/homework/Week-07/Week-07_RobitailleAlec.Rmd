@@ -194,3 +194,16 @@ mcmc_areas(model1_interactions_draws, regex_pars = 'cut', transformations = inv.
 
 
 ### Model: ordered categorical predictors
+
+Probability of data: $R_{i} \sim \text{Ordered-logit}(\phi_{i}, K)$
+
+Linear model: $\phi_{i} = \beta_{E} \sum_{j=0}^{E_{i}-1}\delta_{j} + \beta{A_{i}}A_{i} + \beta{I_{i}}I_{i} + \beta{C_{i}}C_{i}$
+
+Prior for each intercept: $K_{k} \sim \text{Normal}(0, 1.5)$
+Prior for each $\beta$: $\beta_{A}, \beta_{I}, \beta_{C}, \beta_{E}K_{k} \sim \text{Normal}(0, 1)$
+Prior for the $\delta$ vector: $\delta \sim \text{Dirichlet}(\alpha)$
+
+Dirichlet distribution = multivariate extension of the beta distribution. Probabilities between zero and one, that all sum to one. It is parameterized by
+pseudo-counts of observations. 
+
+Make sure to reorder education levels 
