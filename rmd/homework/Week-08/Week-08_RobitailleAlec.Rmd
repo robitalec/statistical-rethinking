@@ -65,12 +65,38 @@ register_knitr_engine(override = FALSE)
 ```
 
 ```{cmdstan, output.var = 'model_frogs_1', cache = TRUE}
+data {
+	int N;
+	int survival[N];
+	int density[N];
+	int tank[N];
+}
+parameters {
+	real sigma;
+	real alpha[N];
+	real alpha_bar;
+}
+transformed parameters {
+	vector[N] p;
+
+	for (i in 1:N) {
+		p[i] = inv_logit(alpha[i]);
+	}
+}
+model {
+	alpha ~ normal(alpha_bar, sigma);
+	sigma ~ exponential(1);
+	for (i in 1:N) {
+		survival[i] ~ binomial(density[i], p[i]);
+	}
+}
+
 ```
 
 ```{r, cache = TRUE}
-model_frogs_1_stan <- 'model_frogs_1.stan'
-writeLines(readLines(model_frogs_1_stan))
-model_frogs_1 <- cmdstan_model(model_frogs_1_stan, cpp_options = list(stan_threads = TRUE))
+# model_frogs_1_stan <- 'model_frogs_1.stan'
+# writeLines(readLines(model_frogs_1_stan))
+# model_frogs_1 <- cmdstan_model(model_frogs_1_stan, cpp_options = list(stan_threads = TRUE))
 
 model_data <- c(
 	as.list(DT[, .(
@@ -99,12 +125,41 @@ mcmc_areas(model_frogs_1_draws, regex_pars = 'p\\[')
 
 
 ```{cmdstan, output.var = 'model_frogs_2', cache = TRUE}
+data {
+	int N;
+	int survival[N];
+	int density[N];
+	int tank[N];
+	int predation[N];
+}
+parameters {
+	real sigma;
+	real alpha[N];
+	real alpha_bar;
+	real beta_predation;
+}
+transformed parameters {
+	vector[N] p;
+
+	for (i in 1:N) {
+		p[i] = inv_logit(alpha[i] + beta_predation * predation[i]);
+	}
+}
+model {
+	alpha ~ normal(alpha_bar, sigma);
+	beta_predation ~ normal(0, 0.5);
+	sigma ~ exponential(1);
+	for (i in 1:N) {
+		survival[i] ~ binomial(density[i], p[i]);
+	}
+}
 ```
 
 ```{r, cache = TRUE}
-model_frogs_2_stan <- 'model_frogs_2.stan'
-writeLines(readLines(model_frogs_2_stan))
-model_frogs_2 <- cmdstan_model(model_frogs_2_stan, cpp_options = list(stan_threads = TRUE))
+# model_frogs_2_stan <- 'model_frogs_2.stan'
+# writeLines(readLines(model_frogs_2_stan))
+# model_frogs_2 <- cmdstan_model(model_frogs_2_stan, cpp_options = list(stan_threads = TRUE))
+
 model_frogs_2_sample <-
 	model_frogs_2$sample(
 		data = model_data,
@@ -117,12 +172,41 @@ mcmc_areas(model_frogs_2_draws, regex_pars = 'predation')
 ```
 
 ```{cmdstan, output.var = 'model_frogs_3', cache = TRUE}
+data {
+	int N;
+	int survival[N];
+	int density[N];
+	int tank[N];
+	int size[N];
+}
+parameters {
+	real sigma;
+	real alpha[N];
+	real alpha_bar;
+	real beta_size;
+}
+transformed parameters {
+	vector[N] p;
+
+	for (i in 1:N) {
+		p[i] = inv_logit(alpha[i] + beta_size * size[i]);
+	}
+}
+model {
+	alpha ~ normal(alpha_bar, sigma);
+	beta_size ~ normal(0, 0.5);
+	sigma ~ exponential(1);
+	for (i in 1:N) {
+		survival[i] ~ binomial(density[i], p[i]);
+	}
+}
 ```
 
 ```{r, cache = TRUE}
-model_frogs_3_stan <- 'model_frogs_3.stan'
-writeLines(readLines(model_frogs_3_stan))
-model_frogs_3 <- cmdstan_model(model_frogs_3_stan, cpp_options = list(stan_threads = TRUE))
+# model_frogs_3_stan <- 'model_frogs_3.stan'
+# writeLines(readLines(model_frogs_3_stan))
+# model_frogs_3 <- cmdstan_model(model_frogs_3_stan, cpp_options = list(stan_threads = TRUE))
+
 model_frogs_3_sample <-
 	model_frogs_3$sample(
 		data = model_data,
@@ -135,12 +219,46 @@ mcmc_areas(model_frogs_3_draws, regex_pars = 'size')
 ```
 
 ```{cmdstan, output.var = 'model_frogs_4', cache = TRUE}
+data {
+	int N;
+	int survival[N];
+	int density[N];
+	int tank[N];
+	int size[N];
+	int predation[N];
+}
+parameters {
+	real sigma;
+	real alpha[N];
+	real alpha_bar;
+	real beta_size;
+	real beta_predation;
+	real beta_interaction;
+}
+transformed parameters {
+	vector[N] p;
+
+	for (i in 1:N) {
+		p[i] = inv_logit(alpha[i] + beta_size * size[i] + beta_predation * predation[i] + beta_interaction * (size[i] * predation[i]));
+	}
+}
+model {
+	alpha ~ normal(alpha_bar, sigma);
+	beta_size ~ normal(0, 0.5);
+	beta_predation ~ normal(0, 0.5);
+	beta_interaction ~ normal(0, 0.25);
+	sigma ~ exponential(1);
+	for (i in 1:N) {
+		survival[i] ~ binomial(density[i], p[i]);
+	}
+}
 ```
 
 ```{r, cache = TRUE}
-model_frogs_4_stan <- 'model_frogs_4.stan'
-writeLines(readLines(model_frogs_4_stan))
-model_frogs_4 <- cmdstan_model(model_frogs_4_stan, cpp_options = list(stan_threads = TRUE))
+# model_frogs_4_stan <- 'model_frogs_4.stan'
+# writeLines(readLines(model_frogs_4_stan))
+# model_frogs_4 <- cmdstan_model(model_frogs_4_stan, cpp_options = list(stan_threads = TRUE))
+
 model_frogs_4_sample <-
 	model_frogs_4$sample(
 		data = model_data,
@@ -153,3 +271,8 @@ mcmc_areas(model_frogs_4_draws, regex_pars = 'beta')
 ```
 
 Negative influence of predation is somewhat balanced by size of tank. 
+
+
+## Question 2
+
+> In 1980, a typical Bengali woman could have 5 or more children in her lifetime.By the year 2000, a typical Bengali woman had only 2 or 3. You’re going to look ata historical set of data, when contraception was widely available but many familieschose not to use it. These data reside indata(bangladesh)and come from the1988 Bangladesh Fertility Survey. Each row is one of 1934 women. There are sixvariables, but you can focus on two of them for this practice problem:(1)district: ID number of administrative district each woman resided in(2)use.contraception: An indicator (0/1) of whether the woman was usingcontraceptionThe first thing to do is ensure that the cluster variable,district, is a contiguous setof integers. Recall that these values will be index values inside the model. If thereare gaps, you’ll have parameters for which there is no data to inform them. Worse,the model probably won’t run. Look at the unique values of thedistrictvariable:
