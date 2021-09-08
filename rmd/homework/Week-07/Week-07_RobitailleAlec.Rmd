@@ -206,4 +206,23 @@ Prior for the $\delta$ vector: $\delta \sim \text{Dirichlet}(\alpha)$
 Dirichlet distribution = multivariate extension of the beta distribution. Probabilities between zero and one, that all sum to one. It is parameterized by
 pseudo-counts of observations. 
 
+The intercept takes the first category, so we add 0 to the sequence of
+
 Make sure to reorder education levels 
+
+```{cmdstan}
+
+```
+
+
+```{r}
+DT[, education := as.integer(edu_levels[edu])]
+
+model_data <- c(
+	as.list(DT[, .(response, action, intention, contact, education)]), 
+	N = DT[, .N],
+	K = DT[, uniqueN(response) - 1],
+	N_edu = DT[, uniqueN(education)]
+)
+
+```
