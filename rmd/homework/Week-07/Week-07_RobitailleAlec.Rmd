@@ -402,3 +402,22 @@ mcmc_areas(model2_draws, regex_pars = 'beta')
 mcmc_areas(model2_draws, regex_pars = 'delta')
 mcmc_areas(model2_draws, regex_pars = 'cut', transformations = inv.logit) + xlim(0, 1)
 ```
+
+
+
+## Question 2
+
+
+```{r}
+dag <- dagify(
+  response ~ education + age + gender + action + intention + contact,
+  education ~ age,
+  education ~ gender,
+  contact ~ action,
+  exposure = 'education',
+  outcome = 'response'
+)
+
+dag_plot(dag)
+adjustmentSets(dag, exposure = 'education', outcome = 'response', effect = 'total' )
+```
