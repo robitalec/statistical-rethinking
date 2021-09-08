@@ -228,7 +228,20 @@ model_data <- c(
 	N = DT[, .N],
 	K = DT[, uniqueN(response) - 1],
 	N_edu = DT[, uniqueN(education)],
-	alpha = rep(2, 7)
+	alpha = list(rep(2, 7))
 )
 
+
+model2_sample <-model2$sample(
+	data = model_data,
+	chains = 4,
+	parallel_chains = 4,
+	threads_per_chain = 4
+)
+
+model2_draws <- cmd_draws(model2_sample)
+
+mcmc_areas(model2_draws, regex_pars = 'beta')
+mcmc_areas(model2_draws, regex_pars = 'delta')
+mcmc_areas(model2_draws, regex_pars = 'cut', transformations = inv.logit) + xlim(0, 1)
 ```
