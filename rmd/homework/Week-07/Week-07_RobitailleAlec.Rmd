@@ -210,7 +210,7 @@ The intercept takes the first category, so we add 0 to the sequence of
 
 Make sure to reorder education levels 
 
-```{cmdstan, output.var = 'model2'}
+```{cmdstan, output.var = 'model2', cache = TRUE}
 data {
   int N;
   int K;
@@ -258,7 +258,7 @@ model {
 ```
 
 
-```{r}
+```{r, cache = TRUE}
 # model2_stan <- 'model2.stan'
 # writeLines(readLines(model2_stan))
 # model2 <- cmdstan_model(model2_stan, cpp_options = list(stan_threads = TRUE))
@@ -319,7 +319,7 @@ education on responses? Fit these models to the trolley data. What do you
 conclude about the causal relationships among these three variables?
 
 
-```{cmdstan, output.var = 'model2_age'}
+```{cmdstan, output.var = 'model2_age', cache = TRUE}
 data {
   int N;
   int K;
@@ -372,7 +372,7 @@ model {
 ```
 
 
-```{r}
+```{r, cache = TRUE}
 # model2_age_stan <- 'model2_age.stan'
 # writeLines(readLines(model2_age_stan))
 # model2_age <- cmdstan_model(model2_age_stan, cpp_options = list(stan_threads = TRUE))
@@ -430,7 +430,7 @@ adjustmentSets(dag, exposure = 'education', outcome = 'response', effect = 'tota
 
 
 
-```{cmdstan, output.var = 'model2_gender'}
+```{cmdstan, output.var = 'model2_gender', cache = TRUE}
 data {
   int N;
   int K;
@@ -486,13 +486,13 @@ model {
 ```
 
 
-```{r}
+```{r, cache = TRUE}
 # model2_gender_stan <- 'model2_gender.stan'
 # writeLines(readLines(model2_gender_stan))
 # model2_gender <- cmdstan_model(model2_gender_stan, cpp_options = list(stan_threads = TRUE))
 
 model_data <- c(
-	as.list(DT[, .(response, action, intention, contact, education, age = as.numeric(scale(age))), female = ifelse(gender == 'male', 0, 1)]), 
+	as.list(DT[, .(response, action, intention, contact, education, age = as.numeric(scale(age)), female = ifelse(male == 1, 0, 1))]), 
 	N = DT[, .N],
 	K = DT[, uniqueN(response) - 1],
 	N_edu = DT[, uniqueN(education)],
