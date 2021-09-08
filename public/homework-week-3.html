@@ -678,10 +678,10 @@ on Groupsize and the path is closed.</p>
 ## bFood       0.47624205 0.180  0.189  0.763
 ## sigma       0.94590281 0.062  0.846  1.046</code></pre>
 <div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="homework-week-3.html#cb42-1" aria-hidden="true" tabindex="-1"></a>DT <span class="ot">&lt;-</span> <span class="fu">melt</span>(<span class="fu">data.table</span>(<span class="fu">extract.samples</span>(m3))[, .(bGroupsize, bFood)])</span></code></pre></div>
-<pre><code>## Warning in melt.data.table(data.table(extract.samples(m3))[, .(bGroupsize, : id.vars and
-## measure.vars are internally guessed when both are &#39;NULL&#39;. All non-numeric/integer/logical type
-## columns are considered id.vars, which in this case are columns []. Consider providing at least
-## one of &#39;id&#39; or &#39;measure&#39; vars in future.</code></pre>
+<pre><code>## Warning in melt.data.table(data.table(extract.samples(m3))[, .(bGroupsize, :
+## id.vars and measure.vars are internally guessed when both are &#39;NULL&#39;. All
+## non-numeric/integer/logical type columns are considered id.vars, which in this case are
+## columns []. Consider providing at least one of &#39;id&#39; or &#39;measure&#39; vars in future.</code></pre>
 <div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="homework-week-3.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(DT) <span class="sc">+</span> </span>
 <span id="cb44-2"><a href="homework-week-3.html#cb44-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_density</span>(<span class="fu">aes</span>(value, <span class="at">fill =</span> variable), <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span> </span>
 <span id="cb44-3"><a href="homework-week-3.html#cb44-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">scale_fill_viridis_d</span>(<span class="at">begin =</span> <span class="fl">0.3</span>, <span class="at">end =</span> <span class="fl">0.8</span>)</span></code></pre></div>

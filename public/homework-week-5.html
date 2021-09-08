@@ -633,7 +633,7 @@ model{
 ## 
 ## All 4 chains finished successfully.
 ## Mean chain execution time: 0.1 seconds.
-## Total execution time: 0.6 seconds.</code></pre>
+## Total execution time: 0.7 seconds.</code></pre>
 <div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="homework-week-5.html#cb77-1" aria-hidden="true" tabindex="-1"></a>q1_prior_draws <span class="ot">&lt;-</span> <span class="fu">cmd_draws</span>(q1_prior_sample)</span>
 <span id="cb77-2"><a href="homework-week-5.html#cb77-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb77-3"><a href="homework-week-5.html#cb77-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(q1_prior_draws, <span class="at">regex_pars =</span> <span class="st">&#39;judge&#39;</span>)</span></code></pre></div>
@@ -789,7 +789,7 @@ model{
 ## 
 ## All 4 chains finished successfully.
 ## Mean chain execution time: 0.1 seconds.
-## Total execution time: 1.0 seconds.</code></pre>
+## Total execution time: 1.1 seconds.</code></pre>
 <div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="homework-week-5.html#cb82-1" aria-hidden="true" tabindex="-1"></a>q1_draws <span class="ot">&lt;-</span> <span class="fu">cmd_draws</span>(q1_sample)</span>
 <span id="cb82-2"><a href="homework-week-5.html#cb82-2" aria-hidden="true" tabindex="-1"></a><span class="fu">setDT</span>(q1_draws)</span></code></pre></div>
 <blockquote>
@@ -1036,7 +1036,7 @@ model{
 ## 
 ## All 4 chains finished successfully.
 ## Mean chain execution time: 0.0 seconds.
-## Total execution time: 0.6 seconds.</code></pre>
+## Total execution time: 0.7 seconds.</code></pre>
 <div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="homework-week-5.html#cb97-1" aria-hidden="true" tabindex="-1"></a>q2_prior_draws <span class="ot">&lt;-</span> <span class="fu">cmd_draws</span>(q2_prior_sample)</span>
 <span id="cb97-2"><a href="homework-week-5.html#cb97-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb97-3"><a href="homework-week-5.html#cb97-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(q2_prior_draws, <span class="at">regex_pars =</span> <span class="st">&#39;flights&#39;</span>)</span></code></pre></div>
@@ -1185,17 +1185,17 @@ model{
 <span id="cb103-2"><a href="homework-week-5.html#cb103-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb103-3"><a href="homework-week-5.html#cb103-3" aria-hidden="true" tabindex="-1"></a>q2_sample<span class="sc">$</span><span class="fu">summary</span>()</span></code></pre></div>
 <pre><code>## # A tibble: 9 × 10
-##   variable                 mean   median     sd    mad      q5     q95  rhat ess_bulk ess_tail
-##   &lt;chr&gt;                   &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
-## 1 lp__                -92.4     -9.20e+1 1.99   1.85   -96.1   -89.7    1.00    1558.    1997.
-## 2 alpha                -0.00597 -2.88e-3 0.196  0.195   -0.326   0.314  1.00    3024.    2617.
-## 3 beta_flights[1]      -0.00618 -5.47e-3 0.300  0.291   -0.499   0.477  1.00    1768.    2132.
-## 4 beta_flights[2]      -0.00904 -4.49e-3 0.297  0.300   -0.495   0.466  1.00    1844.    1913.
-## 5 beta_wine_american…  -0.0955  -9.18e-2 0.300  0.295   -0.578   0.396  1.00    2029.    2045.
-## 6 beta_wine_american…   0.0890   8.89e-2 0.301  0.296   -0.397   0.586  1.00    1958.    2115.
-## 7 beta_judge_america…  -0.102   -1.03e-1 0.299  0.297   -0.597   0.386  1.00    1804.    2021.
-## 8 beta_judge_america…   0.135    1.33e-1 0.296  0.295   -0.355   0.622  1.00    1808.    1855.
-## 9 sigma                 1.00     9.98e-1 0.0526 0.0527   0.917   1.09   1.00    3433.    2663.</code></pre>
+##   variable           mean   median     sd    mad      q5     q95  rhat ess_bulk ess_tail
+##   &lt;chr&gt;             &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+## 1 lp__           -9.24e+1 -9.20e+1 1.99   1.85   -96.1   -89.7    1.00    1558.    1997.
+## 2 alpha          -5.97e-3 -2.88e-3 0.196  0.195   -0.326   0.314  1.00    3024.    2617.
+## 3 beta_flights[… -6.18e-3 -5.47e-3 0.300  0.291   -0.499   0.477  1.00    1768.    2132.
+## 4 beta_flights[… -9.04e-3 -4.49e-3 0.297  0.300   -0.495   0.466  1.00    1844.    1913.
+## 5 beta_wine_ame… -9.55e-2 -9.18e-2 0.300  0.295   -0.578   0.396  1.00    2029.    2045.
+## 6 beta_wine_ame…  8.90e-2  8.89e-2 0.301  0.296   -0.397   0.586  1.00    1958.    2115.
+## 7 beta_judge_am… -1.02e-1 -1.03e-1 0.299  0.297   -0.597   0.386  1.00    1804.    2021.
+## 8 beta_judge_am…  1.35e-1  1.33e-1 0.296  0.295   -0.355   0.622  1.00    1808.    1855.
+## 9 sigma           1.00e+0  9.98e-1 0.0526 0.0527   0.917   1.09   1.00    3433.    2663.</code></pre>
 <div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="homework-week-5.html#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_trace</span>(q2_draws)</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-48-1.png" width="672" /></p>
 <div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="homework-week-5.html#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Recall: </span></span>
@@ -1223,16 +1223,16 @@ model{
 <span id="cb112-7"><a href="homework-week-5.html#cb112-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;beta_judge_american[2]&#39;</span> <span class="ot">=</span> <span class="st">&#39;French Judge&#39;</span></span>
 <span id="cb112-8"><a href="homework-week-5.html#cb112-8" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb112-9"><a href="homework-week-5.html#cb112-9" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(q2_draws, <span class="at">regex_pars =</span> <span class="st">&#39;flight&#39;</span>) <span class="sc">+</span> <span class="fu">scale_y_discrete</span>(<span class="at">labels =</span> labs)</span></code></pre></div>
-<pre><code>## Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will replace the
-## existing scale.</code></pre>
+<pre><code>## Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will replace
+## the existing scale.</code></pre>
 <p><img src="_main_files/figure-html/unnamed-chunk-49-1.png" width="672" /></p>
 <div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="homework-week-5.html#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(q2_draws, <span class="at">regex_pars =</span> <span class="st">&#39;judge&#39;</span>) <span class="sc">+</span> <span class="fu">scale_y_discrete</span>(<span class="at">labels =</span> labs)</span></code></pre></div>
-<pre><code>## Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will replace the
-## existing scale.</code></pre>
+<pre><code>## Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will replace
+## the existing scale.</code></pre>
 <p><img src="_main_files/figure-html/unnamed-chunk-49-2.png" width="672" /></p>
 <div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="homework-week-5.html#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(q2_draws, <span class="at">regex_pars =</span> <span class="st">&#39;wine&#39;</span>) <span class="sc">+</span> <span class="fu">scale_y_discrete</span>(<span class="at">labels =</span> labs)</span></code></pre></div>
-<pre><code>## Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will replace the
-## existing scale.</code></pre>
+<pre><code>## Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will replace
+## the existing scale.</code></pre>
 <p><img src="_main_files/figure-html/unnamed-chunk-49-3.png" width="672" /></p>
 <!-- > What do you conclude about the differences among the wines and judges? Try to -->
 <!-- relate the results to the inferences in Problem 1 -->
@@ -1318,7 +1318,7 @@ model{
 ## Chain 1 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
 ## Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling)</code></pre>
 <pre><code>## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-<pre><code>## Chain 1 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/tmp/RtmpPmFSHM/model-58125452c1b.stan&#39;, line 22, column 2 to column 34)</code></pre>
+<pre><code>## Chain 1 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/tmp/Rtmp3UnwGR/model-386a7a2ca522.stan&#39;, line 22, column 2 to column 34)</code></pre>
 <pre><code>## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
 <pre><code>## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
 <pre><code>## Chain 1</code></pre>
@@ -1346,7 +1346,7 @@ model{
 ## Chain 2 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
 ## Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling)</code></pre>
 <pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-<pre><code>## Chain 2 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/tmp/RtmpPmFSHM/model-58125452c1b.stan&#39;, line 22, column 2 to column 34)</code></pre>
+<pre><code>## Chain 2 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/tmp/Rtmp3UnwGR/model-386a7a2ca522.stan&#39;, line 22, column 2 to column 34)</code></pre>
 <pre><code>## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
 <pre><code>## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
 <pre><code>## Chain 2</code></pre>
@@ -1400,24 +1400,24 @@ model{
 ## 
 ## All 4 chains finished successfully.
 ## Mean chain execution time: 0.1 seconds.
-## Total execution time: 0.6 seconds.</code></pre>
+## Total execution time: 0.7 seconds.</code></pre>
 <div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="homework-week-5.html#cb134-1" aria-hidden="true" tabindex="-1"></a>q3_draws <span class="ot">&lt;-</span> <span class="fu">cmd_draws</span>(q3_sample)</span>
 <span id="cb134-2"><a href="homework-week-5.html#cb134-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb134-3"><a href="homework-week-5.html#cb134-3" aria-hidden="true" tabindex="-1"></a>q3_sample<span class="sc">$</span><span class="fu">summary</span>()</span></code></pre></div>
 <pre><code>## # A tibble: 11 × 10
-##    variable               mean   median     sd    mad      q5      q95  rhat ess_bulk ess_tail
-##    &lt;chr&gt;                 &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
-##  1 lp__              -92.5     -9.21e+1 2.23   2.13   -96.6   -89.5     1.00    1753.    2484.
-##  2 alpha               0.00535  4.70e-3 0.101  0.102   -0.156   0.173   1.00    3148.    3408.
-##  3 beta_interaction…   0.0215   2.25e-2 0.167  0.168   -0.256   0.297   1.00    5505.    3195.
-##  4 beta_interaction…  -0.194   -1.92e-1 0.184  0.183   -0.494   0.104   1.00    5870.    2981.
-##  5 beta_interaction…   0.0249   2.77e-2 0.162  0.164   -0.240   0.293   1.00    4652.    3556.
-##  6 beta_interaction…   0.105    1.07e-1 0.172  0.171   -0.186   0.384   1.00    6236.    2984.
-##  7 beta_interaction…   0.128    1.27e-1 0.182  0.180   -0.177   0.424   1.00    6864.    2986.
-##  8 beta_interaction…  -0.257   -2.59e-1 0.171  0.164   -0.538   0.0258  1.00    5519.    2781.
-##  9 beta_interaction…   0.176    1.73e-1 0.177  0.174   -0.111   0.471   1.00    6247.    2960.
-## 10 beta_interaction…  -0.0167  -1.93e-2 0.161  0.164   -0.285   0.244   1.00    5557.    3334.
-## 11 sigma               0.992    9.90e-1 0.0516 0.0529   0.912   1.08    1.00    7597.    3479.</code></pre>
+##    variable         mean   median     sd    mad      q5      q95  rhat ess_bulk ess_tail
+##    &lt;chr&gt;           &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+##  1 lp__         -9.25e+1 -9.21e+1 2.23   2.13   -96.6   -89.5     1.00    1753.    2484.
+##  2 alpha         5.35e-3  4.70e-3 0.101  0.102   -0.156   0.173   1.00    3148.    3408.
+##  3 beta_intera…  2.15e-2  2.25e-2 0.167  0.168   -0.256   0.297   1.00    5505.    3195.
+##  4 beta_intera… -1.94e-1 -1.92e-1 0.184  0.183   -0.494   0.104   1.00    5870.    2981.
+##  5 beta_intera…  2.49e-2  2.77e-2 0.162  0.164   -0.240   0.293   1.00    4652.    3556.
+##  6 beta_intera…  1.05e-1  1.07e-1 0.172  0.171   -0.186   0.384   1.00    6236.    2984.
+##  7 beta_intera…  1.28e-1  1.27e-1 0.182  0.180   -0.177   0.424   1.00    6864.    2986.
+##  8 beta_intera… -2.57e-1 -2.59e-1 0.171  0.164   -0.538   0.0258  1.00    5519.    2781.
+##  9 beta_intera…  1.76e-1  1.73e-1 0.177  0.174   -0.111   0.471   1.00    6247.    2960.
+## 10 beta_intera… -1.67e-2 -1.93e-2 0.161  0.164   -0.285   0.244   1.00    5557.    3334.
+## 11 sigma         9.92e-1  9.90e-1 0.0516 0.0529   0.912   1.08    1.00    7597.    3479.</code></pre>
 <div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="homework-week-5.html#cb136-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_trace</span>(q3_draws)</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-52-1.png" width="672" /></p>
 <div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="homework-week-5.html#cb137-1" aria-hidden="true" tabindex="-1"></a>DT[, judge_char <span class="sc">:</span><span class="er">=</span> <span class="fu">ifelse</span>(judge.amer <span class="sc">==</span> <span class="dv">0</span>, <span class="st">&#39;French Judge&#39;</span>, <span class="st">&#39;American Judge&#39;</span>)]</span>
@@ -1426,8 +1426,8 @@ model{
 <span id="cb137-4"><a href="homework-week-5.html#cb137-4" aria-hidden="true" tabindex="-1"></a>labs <span class="ot">&lt;-</span> DT[, .(.GRP, <span class="fu">paste</span>(.BY, <span class="at">collapse =</span> <span class="st">&#39;, &#39;</span>)), by <span class="ot">=</span> .(wine_char, judge_char, <span class="fu">as.character</span>(flight))][, .(GRP, V2)]</span>
 <span id="cb137-5"><a href="homework-week-5.html#cb137-5" aria-hidden="true" tabindex="-1"></a>labs <span class="ot">&lt;-</span> <span class="fu">setNames</span>(labs<span class="sc">$</span>V2, <span class="fu">paste0</span>(<span class="st">&#39;beta_interactions[&#39;</span>, labs<span class="sc">$</span>GRP, <span class="st">&#39;]&#39;</span>))</span>
 <span id="cb137-6"><a href="homework-week-5.html#cb137-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(q3_draws, <span class="at">regex_pars =</span> <span class="st">&#39;interaction&#39;</span>) <span class="sc">+</span> <span class="fu">scale_y_discrete</span>(<span class="at">labels =</span> labs)</span></code></pre></div>
-<pre><code>## Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will replace the
-## existing scale.</code></pre>
+<pre><code>## Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will replace
+## the existing scale.</code></pre>
 <p><img src="_main_files/figure-html/unnamed-chunk-53-1.png" width="672" /></p>
 
 </div>

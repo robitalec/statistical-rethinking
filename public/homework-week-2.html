@@ -543,10 +543,10 @@ predictions against the raw data</p>
 <span id="cb20-24"><a href="homework-week-2.html#cb20-24" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-25"><a href="homework-week-2.html#cb20-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Tidy</span></span>
 <span id="cb20-26"><a href="homework-week-2.html#cb20-26" aria-hidden="true" tabindex="-1"></a>DT <span class="ot">&lt;-</span> <span class="fu">melt</span>(<span class="fu">as.data.table</span>(simmed), <span class="at">value.name =</span> <span class="st">&#39;height&#39;</span>, <span class="at">variable.name =</span> <span class="st">&#39;x&#39;</span>)</span></code></pre></div>
-<pre><code>## Warning in melt.data.table(as.data.table(simmed), value.name = &quot;height&quot;, : id.vars and
-## measure.vars are internally guessed when both are &#39;NULL&#39;. All non-numeric/integer/logical type
-## columns are considered id.vars, which in this case are columns []. Consider providing at least
-## one of &#39;id&#39; or &#39;measure&#39; vars in future.</code></pre>
+<pre><code>## Warning in melt.data.table(as.data.table(simmed), value.name = &quot;height&quot;, :
+## id.vars and measure.vars are internally guessed when both are &#39;NULL&#39;. All
+## non-numeric/integer/logical type columns are considered id.vars, which in this case are
+## columns []. Consider providing at least one of &#39;id&#39; or &#39;measure&#39; vars in future.</code></pre>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="homework-week-2.html#cb22-1" aria-hidden="true" tabindex="-1"></a>DT[<span class="fu">data.table</span>(sim_x, <span class="at">x =</span> <span class="fu">paste0</span>(<span class="st">&#39;V&#39;</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">60</span>)),</span>
 <span id="cb22-2"><a href="homework-week-2.html#cb22-2" aria-hidden="true" tabindex="-1"></a>     logweight <span class="sc">:</span><span class="er">=</span> sim_x,</span>
 <span id="cb22-3"><a href="homework-week-2.html#cb22-3" aria-hidden="true" tabindex="-1"></a>     on <span class="ot">=</span> <span class="st">&#39;x&#39;</span>]</span>
@@ -576,10 +576,10 @@ predictions against the raw data</p>
 <span id="cb23-13"><a href="homework-week-2.html#cb23-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-14"><a href="homework-week-2.html#cb23-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Tidy</span></span>
 <span id="cb23-15"><a href="homework-week-2.html#cb23-15" aria-hidden="true" tabindex="-1"></a>DT <span class="ot">&lt;-</span> <span class="fu">melt</span>(<span class="fu">as.data.table</span>(simmed), <span class="at">value.name =</span> <span class="st">&#39;height&#39;</span>, <span class="at">variable.name =</span> <span class="st">&#39;x&#39;</span>)</span></code></pre></div>
-<pre><code>## Warning in melt.data.table(as.data.table(simmed), value.name = &quot;height&quot;, : id.vars and
-## measure.vars are internally guessed when both are &#39;NULL&#39;. All non-numeric/integer/logical type
-## columns are considered id.vars, which in this case are columns []. Consider providing at least
-## one of &#39;id&#39; or &#39;measure&#39; vars in future.</code></pre>
+<pre><code>## Warning in melt.data.table(as.data.table(simmed), value.name = &quot;height&quot;, :
+## id.vars and measure.vars are internally guessed when both are &#39;NULL&#39;. All
+## non-numeric/integer/logical type columns are considered id.vars, which in this case are
+## columns []. Consider providing at least one of &#39;id&#39; or &#39;measure&#39; vars in future.</code></pre>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="homework-week-2.html#cb25-1" aria-hidden="true" tabindex="-1"></a>DT[<span class="fu">data.table</span>(sim_x, <span class="at">x =</span> <span class="fu">paste0</span>(<span class="st">&#39;V&#39;</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">60</span>)),</span>
 <span id="cb25-2"><a href="homework-week-2.html#cb25-2" aria-hidden="true" tabindex="-1"></a>     logweight <span class="sc">:</span><span class="er">=</span> sim_x,</span>
 <span id="cb25-3"><a href="homework-week-2.html#cb25-3" aria-hidden="true" tabindex="-1"></a>     on <span class="ot">=</span> <span class="st">&#39;x&#39;</span>]</span>
