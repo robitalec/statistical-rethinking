@@ -7,7 +7,7 @@ data {
   int intention[N];
   int contact[N];
   int education[N];
-  int age[N];
+  real age[N];
   vector[N_edu - 1] alpha;
 }
 parameters {

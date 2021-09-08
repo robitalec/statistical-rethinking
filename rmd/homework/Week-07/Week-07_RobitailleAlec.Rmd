@@ -328,7 +328,7 @@ data {
   int intention[N];
   int contact[N];
   int education[N];
-  int age[N];
+  real age[N];
   vector[N_edu - 1] alpha;
 }
 parameters {
@@ -380,7 +380,7 @@ edu_levels <- c(6, 1, 8, 4, 7, 2, 5, 3)
 DT[, education := as.integer(edu_levels[edu])]
 
 model_data <- c(
-	as.list(DT[, .(response, action, intention, contact, education, age)]), 
+	as.list(DT[, .(response, action, intention, contact, education, as.numeric(scale(age)))]), 
 	N = DT[, .N],
 	K = DT[, uniqueN(response) - 1],
 	N_edu = DT[, uniqueN(education)],
