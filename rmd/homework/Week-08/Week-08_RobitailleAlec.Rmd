@@ -275,4 +275,36 @@ Negative influence of predation is somewhat balanced by size of tank.
 
 ## Question 2
 
-> In 1980, a typical Bengali woman could have 5 or more children in her lifetime.By the year 2000, a typical Bengali woman had only 2 or 3. You’re going to look ata historical set of data, when contraception was widely available but many familieschose not to use it. These data reside indata(bangladesh)and come from the1988 Bangladesh Fertility Survey. Each row is one of 1934 women. There are sixvariables, but you can focus on two of them for this practice problem:(1)district: ID number of administrative district each woman resided in(2)use.contraception: An indicator (0/1) of whether the woman was usingcontraceptionThe first thing to do is ensure that the cluster variable,district, is a contiguous setof integers. Recall that these values will be index values inside the model. If thereare gaps, you’ll have parameters for which there is no data to inform them. Worse,the model probably won’t run. Look at the unique values of thedistrictvariable:
+> In 1980, a typical Bengali woman could have 5 or more children in her
+lifetime. By the year 2000, a typical Bengali woman had only 2 or 3. You’re
+going to look at a historical set of data, when contraception was widely
+available but many families chose not to use it. These data reside in
+`data(bangladesh)` and come from the 1988 Bangladesh Fertility Survey. Each row
+is one of 1934 women. There are six variables, but you can focus on two of them
+for this practice problem: (1) district: ID number of administrative district
+each woman resided in (2) use.contraception: An indicator (0/1) of whether the
+woman was using contraception. 
+
+```{r}
+data(bangladesh)
+DT <- data.table(bangladesh)
+precis(DT)
+
+DT[, id := as.integer(woman)]
+DT[, district := as.integer(as.factor(district))]
+
+model_data <- c(as.list(DT), N = DT[, .N])
+```
+
+Now, focus on predicting `use.contraception`, clustered by `district_id`. Fit
+both (1) a traditional fixed-effects model that uses an index variable for
+district and (2) a multilevel model with varying intercepts for district. Plot
+the predicted proportions of women in each district using contraception, for
+both the fixed-effects model and the varying-effects model. That is, make a plot
+in which district ID is on the horizontal axis and expected proportion using
+contraception is on the vertical.Make one plot for each model, or layer them on
+the same plot, as you prefer. How do the models disagree? Can you explain the
+pattern of disagreement? In particular, can you explain the most extreme cases
+of disagreement, both why they happen where they do and why the models reach
+different inferences?
+
