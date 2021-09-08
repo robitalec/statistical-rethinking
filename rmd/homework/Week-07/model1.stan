@@ -15,8 +15,6 @@ parameters {
 }
 model {
   vector[N] phi;
-  // phi = beta_action * action + beta_contact * contact + beta_intention * intention;
-  // response ~ ordered_logistic(phi, cutpoints);
 
 	for (i in 1:N) {
 		phi[i] = beta_action * action[i] + beta_contact * contact[i] + beta_intention * intention[i];
