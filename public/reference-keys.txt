@@ -55,6 +55,18 @@ model-3
 question-3-3
 data-4
 model-4
+homework-week-6
+setup-3
+question-1-5
+data-5
+dag-2
+priors-1
+model-5
+homework-week-7
+setup-4
+data-6
+model-ordered-categorical-outcome
+model-ordered-categorical-predictors
 lecture-01
 popper
 approach
@@ -90,7 +102,7 @@ lecture-05
 multiple-regression-models
 directed-acyclic-graphs-dag
 example-age-marriage-divorce
-priors-1
+priors-2
 prior-predictive-simulation-2
 interpretation-5
 plotting-multivariate-posteriors
@@ -159,6 +171,7 @@ link
 lecture-12
 relative-and-absolute-effects
 logistic-regression
+simpsons-paradox
 lecture-13
 binomial
 poisson

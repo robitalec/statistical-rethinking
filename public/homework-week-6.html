@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>9 Lecture 01 | Learning bayesian data analysis with Statistical Rethinking</title>
-  <meta name="description" content="9 Lecture 01 | Learning bayesian data analysis with Statistical Rethinking" />
+  <title>7 Homework: Week 6 | Learning bayesian data analysis with Statistical Rethinking</title>
+  <meta name="description" content="7 Homework: Week 6 | Learning bayesian data analysis with Statistical Rethinking" />
   <meta name="generator" content="bookdown 0.22.15 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="9 Lecture 01 | Learning bayesian data analysis with Statistical Rethinking" />
+  <meta property="og:title" content="7 Homework: Week 6 | Learning bayesian data analysis with Statistical Rethinking" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="9 Lecture 01 | Learning bayesian data analysis with Statistical Rethinking" />
+  <meta name="twitter:title" content="7 Homework: Week 6 | Learning bayesian data analysis with Statistical Rethinking" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="homework-week-7.html"/>
-<link rel="next" href="lecture-02.html"/>
+<link rel="prev" href="homework-week-5.html"/>
+<link rel="next" href="homework-week-7.html"/>
 <script src="libs/header-attrs-2.9.5/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -444,94 +444,516 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="lecture-01" class="section level1" number="9">
-<h1><span class="header-section-number">9</span> Lecture 01</h1>
-<div id="popper" class="section level3" number="9.0.1">
-<h3><span class="header-section-number">9.0.1</span> Popper</h3>
+<div id="homework-week-6" class="section level1" number="7">
+<h1><span class="header-section-number">7</span> Homework: Week 6</h1>
+<p>2021-09-06 [updated: 2021-09-08]</p>
+<div id="setup-3" class="section level3" number="7.0.1">
+<h3><span class="header-section-number">7.0.1</span> Setup</h3>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="homework-week-6.html#cb139-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Packages</span></span>
+<span id="cb139-2"><a href="homework-week-6.html#cb139-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggdag)</span>
+<span id="cb139-3"><a href="homework-week-6.html#cb139-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dagitty)</span>
+<span id="cb139-4"><a href="homework-week-6.html#cb139-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
+<span id="cb139-5"><a href="homework-week-6.html#cb139-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb139-6"><a href="homework-week-6.html#cb139-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
+<span id="cb139-7"><a href="homework-week-6.html#cb139-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cmdstanr)</span>
+<span id="cb139-8"><a href="homework-week-6.html#cb139-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(posterior)</span>
+<span id="cb139-9"><a href="homework-week-6.html#cb139-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(bayesplot)</span>
+<span id="cb139-10"><a href="homework-week-6.html#cb139-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(boot)</span>
+<span id="cb139-11"><a href="homework-week-6.html#cb139-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb139-12"><a href="homework-week-6.html#cb139-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Functions</span></span>
+<span id="cb139-13"><a href="homework-week-6.html#cb139-13" aria-hidden="true" tabindex="-1"></a>dag_plot <span class="ot">&lt;-</span> <span class="cf">function</span>(dag) {</span>
+<span id="cb139-14"><a href="homework-week-6.html#cb139-14" aria-hidden="true" tabindex="-1"></a>    stat <span class="ot">&lt;-</span> <span class="fu">node_status</span>(dag, <span class="cn">FALSE</span>)</span>
+<span id="cb139-15"><a href="homework-week-6.html#cb139-15" aria-hidden="true" tabindex="-1"></a>    stat<span class="sc">$</span>data<span class="sc">$</span>status[<span class="fu">is.na</span>(stat<span class="sc">$</span>data<span class="sc">$</span>status)] <span class="ot">&lt;-</span> <span class="st">&#39;intermediate&#39;</span></span>
+<span id="cb139-16"><a href="homework-week-6.html#cb139-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(stat, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">xend =</span> xend, <span class="at">yend =</span> yend)) <span class="sc">+</span></span>
+<span id="cb139-17"><a href="homework-week-6.html#cb139-17" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_dag_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> status), <span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">15</span>) <span class="sc">+</span></span>
+<span id="cb139-18"><a href="homework-week-6.html#cb139-18" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_dag_edges</span>() <span class="sc">+</span></span>
+<span id="cb139-19"><a href="homework-week-6.html#cb139-19" aria-hidden="true" tabindex="-1"></a>        <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">&#39;&#39;</span>) <span class="sc">+</span> </span>
+<span id="cb139-20"><a href="homework-week-6.html#cb139-20" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_dag_text</span>(<span class="at">color =</span> <span class="st">&#39;black&#39;</span>) <span class="sc">+</span></span>
+<span id="cb139-21"><a href="homework-week-6.html#cb139-21" aria-hidden="true" tabindex="-1"></a>        <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">list</span>(<span class="st">&#39;exposure&#39;</span> <span class="ot">=</span> <span class="st">&#39;#35608DFF&#39;</span>,</span>
+<span id="cb139-22"><a href="homework-week-6.html#cb139-22" aria-hidden="true" tabindex="-1"></a>                                                                         <span class="st">&#39;outcome&#39;</span> <span class="ot">=</span> <span class="st">&#39;#22A884FF&#39;</span>,</span>
+<span id="cb139-23"><a href="homework-week-6.html#cb139-23" aria-hidden="true" tabindex="-1"></a>                                                                         <span class="st">&#39;intermediate&#39;</span> <span class="ot">=</span> <span class="st">&#39;grey50&#39;</span>)) <span class="sc">+</span> </span>
+<span id="cb139-24"><a href="homework-week-6.html#cb139-24" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme_void</span>()</span>
+<span id="cb139-25"><a href="homework-week-6.html#cb139-25" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb139-26"><a href="homework-week-6.html#cb139-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb139-27"><a href="homework-week-6.html#cb139-27" aria-hidden="true" tabindex="-1"></a>cmd_draws <span class="ot">&lt;-</span> <span class="cf">function</span>(model) {</span>
+<span id="cb139-28"><a href="homework-week-6.html#cb139-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as_draws_df</span>(model<span class="sc">$</span><span class="fu">draws</span>())</span>
+<span id="cb139-29"><a href="homework-week-6.html#cb139-29" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<div id="question-1-5" class="section level2" number="7.1">
+<h2><span class="header-section-number">7.1</span> Question 1</h2>
+<blockquote>
+<p>The data in <code>data(NWOGrants)</code> are outcomes for scientific funding applications
+for the Netherlands Organization for Scientific Research (NWO) from 2010–2012
+(see van der Lee and Ellemers <a href="doi:10.1073/pnas.1510159112" class="uri">doi:10.1073/pnas.1510159112</a>). These data have a
+very similar structure to the UCBAdmit data discussed in Chapter 11. I want you
+to consider a similar question: What are the total and indirect causal effects
+of gender on grant awards? Consider a mediation path (a pipe) through dis-
+cipline. Draw the corresponding DAG and then use one or more binomial GLMs to
+answer the question.</p>
+</blockquote>
+<div id="data-5" class="section level3" number="7.1.1">
+<h3><span class="header-section-number">7.1.1</span> Data</h3>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="homework-week-6.html#cb140-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(NWOGrants)</span>
+<span id="cb140-2"><a href="homework-week-6.html#cb140-2" aria-hidden="true" tabindex="-1"></a><span class="fu">setDT</span>(NWOGrants)</span>
+<span id="cb140-3"><a href="homework-week-6.html#cb140-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb140-4"><a href="homework-week-6.html#cb140-4" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(NWOGrants)</span></code></pre></div>
+<pre><code>##              mean  sd 5.5% 94.5%     histogram
+## discipline    NaN  NA   NA    NA              
+## gender        NaN  NA   NA    NA              
+## applications  157 120 37.0   410     ▅▇▅▅▃▂▁▁▃
+## awards         26  16  8.5    48 ▂▅▅▇▂▇▅▂▁▅▁▁▂</code></pre>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="homework-week-6.html#cb142-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(NWOGrants)</span></code></pre></div>
+<pre><code>##                discipline gender  applications     awards  
+##  Chemical sciences  :2    f:9    Min.   :  9   Min.   : 2  
+##  Earth/life sciences:2    m:9    1st Qu.: 70   1st Qu.:14  
+##  Humanities         :2           Median :130   Median :24  
+##  Interdisciplinary  :2           Mean   :157   Mean   :26  
+##  Medical sciences   :2           3rd Qu.:220   3rd Qu.:33  
+##  Physical sciences  :2           Max.   :425   Max.   :65  
+##  (Other)            :6</code></pre>
 <ul>
-<li>generate meaningful (not null) hypotheses and predictions and falsify those</li>
+<li>Discipline: factor with 9 levels</li>
+<li>Gender: factor with 2 levels in this data (…)</li>
+<li>Applications: count</li>
+<li>Awards: count</li>
 </ul>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="homework-week-6.html#cb144-1" aria-hidden="true" tabindex="-1"></a>NWOGrants[, index_gender <span class="sc">:</span><span class="er">=</span> .GRP, gender]</span>
+<span id="cb144-2"><a href="homework-week-6.html#cb144-2" aria-hidden="true" tabindex="-1"></a>NWOGrants[, index_discipline <span class="sc">:</span><span class="er">=</span> .GRP, discipline]</span>
+<span id="cb144-3"><a href="homework-week-6.html#cb144-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb144-4"><a href="homework-week-6.html#cb144-4" aria-hidden="true" tabindex="-1"></a>q1_data <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb144-5"><a href="homework-week-6.html#cb144-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.list</span>(NWOGrants[, .(awards, applications, index_gender, index_discipline)]),</span>
+<span id="cb144-6"><a href="homework-week-6.html#cb144-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">N =</span> NWOGrants[, .N],</span>
+<span id="cb144-7"><a href="homework-week-6.html#cb144-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">N_gender =</span> NWOGrants[, <span class="fu">uniqueN</span>(index_gender)],</span>
+<span id="cb144-8"><a href="homework-week-6.html#cb144-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">N_discipline =</span> NWOGrants[, <span class="fu">uniqueN</span>(index_discipline)]</span>
+<span id="cb144-9"><a href="homework-week-6.html#cb144-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 </div>
-<div id="approach" class="section level3" number="9.0.2">
-<h3><span class="header-section-number">9.0.2</span> Approach</h3>
-<p>A framework for developing + using statistical golems</p>
-<ol style="list-style-type: decimal">
-<li>Bayesian data analysis
-<ul>
-<li>uses probability to describe uncertainty</li>
-<li>“count all the ways data can happen, according to assumptions and the assumptions with more ways consistent with the data are more plausible”</li>
-</ul></li>
-<li>Multilevel models
-<ul>
-<li>Models within models</li>
-<li>Avoids averaging</li>
-<li>…</li>
-</ul></li>
-<li>Model comparison
-<ul>
-<li>Compare meaningful (not null) models</li>
-<li>Caution: over fitting</li>
-</ul></li>
-</ol>
+<div id="dag-2" class="section level3" number="7.1.2">
+<h3><span class="header-section-number">7.1.2</span> DAG</h3>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="homework-week-6.html#cb145-1" aria-hidden="true" tabindex="-1"></a>dag <span class="ot">&lt;-</span> <span class="fu">dagify</span>(</span>
+<span id="cb145-2"><a href="homework-week-6.html#cb145-2" aria-hidden="true" tabindex="-1"></a>    awards <span class="sc">~</span> index_gender <span class="sc">+</span> index_discipline,</span>
+<span id="cb145-3"><a href="homework-week-6.html#cb145-3" aria-hidden="true" tabindex="-1"></a>    index_discipline <span class="sc">~</span> index_gender,</span>
+<span id="cb145-4"><a href="homework-week-6.html#cb145-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">exposure =</span> <span class="st">&#39;index_gender&#39;</span>,</span>
+<span id="cb145-5"><a href="homework-week-6.html#cb145-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">outcome =</span> <span class="st">&#39;awards&#39;</span></span>
+<span id="cb145-6"><a href="homework-week-6.html#cb145-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb145-7"><a href="homework-week-6.html#cb145-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb145-8"><a href="homework-week-6.html#cb145-8" aria-hidden="true" tabindex="-1"></a><span class="fu">dag_plot</span>(dag)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-58-1.png" width="672" /></p>
 </div>
-<div id="hypotheses---process-models---statistical-models" class="section level2" number="9.1">
-<h2><span class="header-section-number">9.1</span> Hypotheses - Process Models - Statistical Models</h2>
-<p>Any statistical model M can correspond to multiple process models</p>
-<p>Any hypothesis H may correspond to multiple process models</p>
-<p>Any statistical model may correspond to multiple hypothesis</p>
-<div class="figure">
-<img src="Statistical%20Rethinking%209648278528c64765bc03ca8a8a8e1f74/Untitled.png" alt="" />
-<p class="caption">Untitled</p>
+<div id="priors-1" class="section level3" number="7.1.3">
+<h3><span class="header-section-number">7.1.3</span> Priors</h3>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="homework-week-6.html#cb146-1" aria-hidden="true" tabindex="-1"></a><span class="fu">register_knitr_engine</span>(<span class="at">override =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<pre class="stan"><code>data {
+  int&lt;lower=0&gt; N;
+  int&lt;lower=0&gt; N_gender;
+  int&lt;lower=0&gt; N_discipline;
+}
+parameters{
+  real alpha;
+  vector[N_gender] beta_gender;
+  vector[N_discipline] beta_discipline;
+  real&lt;lower=0&gt; sigma;
+  real&lt;lower=0,upper=1&gt; theta;
+}
+model{
+  alpha ~ normal(0, 0.2);
+  beta_gender ~ normal(0, 0.25);
+  beta_discipline ~ normal(0, 0.25);
+  sigma ~ exponential(1);
+  theta ~ beta(1, 1);
+}</code></pre>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="homework-week-6.html#cb148-1" aria-hidden="true" tabindex="-1"></a><span class="co"># q1_stan &lt;- &#39;q1_prior.stan&#39;</span></span>
+<span id="cb148-2"><a href="homework-week-6.html#cb148-2" aria-hidden="true" tabindex="-1"></a><span class="co"># writeLines(readLines(q1_stan))</span></span>
+<span id="cb148-3"><a href="homework-week-6.html#cb148-3" aria-hidden="true" tabindex="-1"></a><span class="co"># q1_prior &lt;- cmdstan_model(q1_stan)</span></span>
+<span id="cb148-4"><a href="homework-week-6.html#cb148-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb148-5"><a href="homework-week-6.html#cb148-5" aria-hidden="true" tabindex="-1"></a>q1_prior_sample <span class="ot">&lt;-</span> q1_prior<span class="sc">$</span><span class="fu">sample</span>(<span class="at">data =</span> q1_data[<span class="fu">c</span>(<span class="st">&#39;N&#39;</span>,</span>
+<span id="cb148-6"><a href="homework-week-6.html#cb148-6" aria-hidden="true" tabindex="-1"></a>                                                                                                        <span class="st">&#39;N_gender&#39;</span>,</span>
+<span id="cb148-7"><a href="homework-week-6.html#cb148-7" aria-hidden="true" tabindex="-1"></a>                                                                                                        <span class="st">&#39;N_discipline&#39;</span>)])</span></code></pre></div>
+<pre><code>## Running MCMC with 4 sequential chains...
+## 
+## Chain 1 Iteration:    1 / 2000 [  0%]  (Warmup) 
+## Chain 1 Iteration:  100 / 2000 [  5%]  (Warmup) 
+## Chain 1 Iteration:  200 / 2000 [ 10%]  (Warmup) 
+## Chain 1 Iteration:  300 / 2000 [ 15%]  (Warmup) 
+## Chain 1 Iteration:  400 / 2000 [ 20%]  (Warmup) 
+## Chain 1 Iteration:  500 / 2000 [ 25%]  (Warmup) 
+## Chain 1 Iteration:  600 / 2000 [ 30%]  (Warmup) 
+## Chain 1 Iteration:  700 / 2000 [ 35%]  (Warmup) 
+## Chain 1 Iteration:  800 / 2000 [ 40%]  (Warmup) 
+## Chain 1 Iteration:  900 / 2000 [ 45%]  (Warmup) 
+## Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+## Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+## Chain 1 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
+## Chain 1 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
+## Chain 1 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
+## Chain 1 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
+## Chain 1 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
+## Chain 1 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
+## Chain 1 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
+## Chain 1 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
+## Chain 1 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
+## Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
+## Chain 1 finished in 0.0 seconds.
+## Chain 2 Iteration:    1 / 2000 [  0%]  (Warmup) 
+## Chain 2 Iteration:  100 / 2000 [  5%]  (Warmup) 
+## Chain 2 Iteration:  200 / 2000 [ 10%]  (Warmup) 
+## Chain 2 Iteration:  300 / 2000 [ 15%]  (Warmup) 
+## Chain 2 Iteration:  400 / 2000 [ 20%]  (Warmup) 
+## Chain 2 Iteration:  500 / 2000 [ 25%]  (Warmup) 
+## Chain 2 Iteration:  600 / 2000 [ 30%]  (Warmup) 
+## Chain 2 Iteration:  700 / 2000 [ 35%]  (Warmup) 
+## Chain 2 Iteration:  800 / 2000 [ 40%]  (Warmup) 
+## Chain 2 Iteration:  900 / 2000 [ 45%]  (Warmup) 
+## Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+## Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+## Chain 2 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
+## Chain 2 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
+## Chain 2 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
+## Chain 2 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
+## Chain 2 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
+## Chain 2 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
+## Chain 2 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
+## Chain 2 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
+## Chain 2 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
+## Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
+## Chain 2 finished in 0.0 seconds.
+## Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup) 
+## Chain 3 Iteration:  100 / 2000 [  5%]  (Warmup) 
+## Chain 3 Iteration:  200 / 2000 [ 10%]  (Warmup) 
+## Chain 3 Iteration:  300 / 2000 [ 15%]  (Warmup) 
+## Chain 3 Iteration:  400 / 2000 [ 20%]  (Warmup) 
+## Chain 3 Iteration:  500 / 2000 [ 25%]  (Warmup) 
+## Chain 3 Iteration:  600 / 2000 [ 30%]  (Warmup) 
+## Chain 3 Iteration:  700 / 2000 [ 35%]  (Warmup) 
+## Chain 3 Iteration:  800 / 2000 [ 40%]  (Warmup) 
+## Chain 3 Iteration:  900 / 2000 [ 45%]  (Warmup) 
+## Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+## Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+## Chain 3 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
+## Chain 3 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
+## Chain 3 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
+## Chain 3 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
+## Chain 3 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
+## Chain 3 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
+## Chain 3 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
+## Chain 3 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
+## Chain 3 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
+## Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
+## Chain 3 finished in 0.0 seconds.
+## Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup) 
+## Chain 4 Iteration:  100 / 2000 [  5%]  (Warmup) 
+## Chain 4 Iteration:  200 / 2000 [ 10%]  (Warmup) 
+## Chain 4 Iteration:  300 / 2000 [ 15%]  (Warmup) 
+## Chain 4 Iteration:  400 / 2000 [ 20%]  (Warmup) 
+## Chain 4 Iteration:  500 / 2000 [ 25%]  (Warmup) 
+## Chain 4 Iteration:  600 / 2000 [ 30%]  (Warmup) 
+## Chain 4 Iteration:  700 / 2000 [ 35%]  (Warmup) 
+## Chain 4 Iteration:  800 / 2000 [ 40%]  (Warmup) 
+## Chain 4 Iteration:  900 / 2000 [ 45%]  (Warmup) 
+## Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+## Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+## Chain 4 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
+## Chain 4 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
+## Chain 4 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
+## Chain 4 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
+## Chain 4 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
+## Chain 4 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
+## Chain 4 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
+## Chain 4 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
+## Chain 4 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
+## Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
+## Chain 4 finished in 0.0 seconds.
+## 
+## All 4 chains finished successfully.
+## Mean chain execution time: 0.0 seconds.
+## Total execution time: 0.6 seconds.</code></pre>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="homework-week-6.html#cb150-1" aria-hidden="true" tabindex="-1"></a>q1_prior_draws <span class="ot">&lt;-</span> <span class="fu">cmd_draws</span>(q1_prior_sample)</span>
+<span id="cb150-2"><a href="homework-week-6.html#cb150-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb150-3"><a href="homework-week-6.html#cb150-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(q1_prior_draws, <span class="at">regex_pars =</span> <span class="st">&#39;theta&#39;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-61-1.png" width="672" /></p>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="homework-week-6.html#cb151-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(q1_prior_draws, <span class="at">regex_pars =</span> <span class="st">&#39;sigma&#39;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-61-2.png" width="672" /></p>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="homework-week-6.html#cb152-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(q1_prior_draws, <span class="at">regex_pars =</span> <span class="st">&#39;beta_gender&#39;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-61-3.png" width="672" /></p>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="homework-week-6.html#cb153-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(q1_prior_draws, <span class="at">regex_pars =</span> <span class="st">&#39;beta_discipline&#39;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-61-4.png" width="672" /></p>
 </div>
+<div id="model-5" class="section level3" number="7.1.4">
+<h3><span class="header-section-number">7.1.4</span> Model</h3>
+<pre class="stan"><code>data {
+  int&lt;lower=0&gt; N;
+  int&lt;lower=0&gt; N_gender;
+  int awards[N];
+  int applications [N];
+  int index_gender[N];
+}
+parameters{
+  vector[N_gender] alpha;
+}
+model{
+  vector[N] p;
+  alpha ~ normal(-1, 1);
+
+  p = inv_logit(alpha[index_gender]);
+  awards ~ binomial(applications, p);
+}</code></pre>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="homework-week-6.html#cb155-1" aria-hidden="true" tabindex="-1"></a><span class="co"># q1_stan &lt;- &#39;q1.stan&#39;</span></span>
+<span id="cb155-2"><a href="homework-week-6.html#cb155-2" aria-hidden="true" tabindex="-1"></a><span class="co"># writeLines(readLines(q1_stan))</span></span>
+<span id="cb155-3"><a href="homework-week-6.html#cb155-3" aria-hidden="true" tabindex="-1"></a><span class="co"># q1_model &lt;- cmdstan_model(q1_stan)</span></span>
+<span id="cb155-4"><a href="homework-week-6.html#cb155-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb155-5"><a href="homework-week-6.html#cb155-5" aria-hidden="true" tabindex="-1"></a>q1_sample <span class="ot">&lt;-</span> q1_model<span class="sc">$</span><span class="fu">sample</span>(<span class="at">data =</span> q1_data)</span></code></pre></div>
+<pre><code>## Running MCMC with 4 sequential chains...
+## 
+## Chain 1 Iteration:    1 / 2000 [  0%]  (Warmup) 
+## Chain 1 Iteration:  100 / 2000 [  5%]  (Warmup) 
+## Chain 1 Iteration:  200 / 2000 [ 10%]  (Warmup) 
+## Chain 1 Iteration:  300 / 2000 [ 15%]  (Warmup) 
+## Chain 1 Iteration:  400 / 2000 [ 20%]  (Warmup) 
+## Chain 1 Iteration:  500 / 2000 [ 25%]  (Warmup) 
+## Chain 1 Iteration:  600 / 2000 [ 30%]  (Warmup) 
+## Chain 1 Iteration:  700 / 2000 [ 35%]  (Warmup) 
+## Chain 1 Iteration:  800 / 2000 [ 40%]  (Warmup) 
+## Chain 1 Iteration:  900 / 2000 [ 45%]  (Warmup) 
+## Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+## Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+## Chain 1 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
+## Chain 1 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
+## Chain 1 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
+## Chain 1 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
+## Chain 1 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
+## Chain 1 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
+## Chain 1 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
+## Chain 1 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
+## Chain 1 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
+## Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
+## Chain 1 finished in 0.0 seconds.
+## Chain 2 Iteration:    1 / 2000 [  0%]  (Warmup) 
+## Chain 2 Iteration:  100 / 2000 [  5%]  (Warmup) 
+## Chain 2 Iteration:  200 / 2000 [ 10%]  (Warmup) 
+## Chain 2 Iteration:  300 / 2000 [ 15%]  (Warmup) 
+## Chain 2 Iteration:  400 / 2000 [ 20%]  (Warmup) 
+## Chain 2 Iteration:  500 / 2000 [ 25%]  (Warmup) 
+## Chain 2 Iteration:  600 / 2000 [ 30%]  (Warmup) 
+## Chain 2 Iteration:  700 / 2000 [ 35%]  (Warmup) 
+## Chain 2 Iteration:  800 / 2000 [ 40%]  (Warmup) 
+## Chain 2 Iteration:  900 / 2000 [ 45%]  (Warmup) 
+## Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+## Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+## Chain 2 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
+## Chain 2 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
+## Chain 2 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
+## Chain 2 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
+## Chain 2 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
+## Chain 2 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
+## Chain 2 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
+## Chain 2 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
+## Chain 2 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
+## Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
+## Chain 2 finished in 0.0 seconds.
+## Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup) 
+## Chain 3 Iteration:  100 / 2000 [  5%]  (Warmup) 
+## Chain 3 Iteration:  200 / 2000 [ 10%]  (Warmup) 
+## Chain 3 Iteration:  300 / 2000 [ 15%]  (Warmup) 
+## Chain 3 Iteration:  400 / 2000 [ 20%]  (Warmup) 
+## Chain 3 Iteration:  500 / 2000 [ 25%]  (Warmup) 
+## Chain 3 Iteration:  600 / 2000 [ 30%]  (Warmup) 
+## Chain 3 Iteration:  700 / 2000 [ 35%]  (Warmup) 
+## Chain 3 Iteration:  800 / 2000 [ 40%]  (Warmup) 
+## Chain 3 Iteration:  900 / 2000 [ 45%]  (Warmup) 
+## Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+## Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+## Chain 3 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
+## Chain 3 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
+## Chain 3 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
+## Chain 3 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
+## Chain 3 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
+## Chain 3 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
+## Chain 3 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
+## Chain 3 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
+## Chain 3 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
+## Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
+## Chain 3 finished in 0.0 seconds.
+## Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup) 
+## Chain 4 Iteration:  100 / 2000 [  5%]  (Warmup) 
+## Chain 4 Iteration:  200 / 2000 [ 10%]  (Warmup) 
+## Chain 4 Iteration:  300 / 2000 [ 15%]  (Warmup) 
+## Chain 4 Iteration:  400 / 2000 [ 20%]  (Warmup) 
+## Chain 4 Iteration:  500 / 2000 [ 25%]  (Warmup) 
+## Chain 4 Iteration:  600 / 2000 [ 30%]  (Warmup) 
+## Chain 4 Iteration:  700 / 2000 [ 35%]  (Warmup) 
+## Chain 4 Iteration:  800 / 2000 [ 40%]  (Warmup) 
+## Chain 4 Iteration:  900 / 2000 [ 45%]  (Warmup) 
+## Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+## Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+## Chain 4 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
+## Chain 4 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
+## Chain 4 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
+## Chain 4 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
+## Chain 4 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
+## Chain 4 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
+## Chain 4 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
+## Chain 4 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
+## Chain 4 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
+## Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
+## Chain 4 finished in 0.0 seconds.
+## 
+## All 4 chains finished successfully.
+## Mean chain execution time: 0.0 seconds.
+## Total execution time: 0.6 seconds.</code></pre>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="homework-week-6.html#cb157-1" aria-hidden="true" tabindex="-1"></a>q1_draws <span class="ot">&lt;-</span> <span class="fu">cmd_draws</span>(q1_sample)</span>
+<span id="cb157-2"><a href="homework-week-6.html#cb157-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb157-3"><a href="homework-week-6.html#cb157-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(q1_draws, <span class="at">regex_pars =</span> <span class="st">&#39;alpha&#39;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-63-1.png" width="672" /></p>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="homework-week-6.html#cb158-1" aria-hidden="true" tabindex="-1"></a>q1_draws<span class="sc">$</span>dif_alpha <span class="ot">&lt;-</span> (<span class="fu">inv.logit</span>(q1_draws<span class="sc">$</span><span class="st">`</span><span class="at">alpha[1]</span><span class="st">`</span>) <span class="sc">-</span></span>
+<span id="cb158-2"><a href="homework-week-6.html#cb158-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">inv.logit</span>(q1_draws<span class="sc">$</span><span class="st">`</span><span class="at">alpha[2]</span><span class="st">`</span>)) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb158-3"><a href="homework-week-6.html#cb158-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(q1_draws, <span class="at">regex_pars =</span> <span class="st">&#39;dif_alpha&#39;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-63-2.png" width="672" /></p>
+<p>With discipline</p>
+<pre class="stan"><code>data {
+  int&lt;lower=0&gt; N;
+  int&lt;lower=0&gt; N_gender;
+  int&lt;lower=0&gt; N_discipline;
+  int awards[N];
+  int applications [N];
+  int index_gender[N];
+  int index_discipline[N];
+}
+parameters{
+  vector[N_gender] alpha;
+  vector[N_discipline] beta;
+}
+model{
+  vector[N] p;
+  alpha ~ normal(-1, 1);
+  beta ~ normal(0, 0.25);
+
+  p = inv_logit(alpha[index_gender] + beta[index_discipline]);
+  awards ~ binomial(applications, p);
+}</code></pre>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="homework-week-6.html#cb160-1" aria-hidden="true" tabindex="-1"></a><span class="co"># q1_stan &lt;- &#39;q1_discipline.stan&#39;</span></span>
+<span id="cb160-2"><a href="homework-week-6.html#cb160-2" aria-hidden="true" tabindex="-1"></a><span class="co"># writeLines(readLines(q1_stan))</span></span>
+<span id="cb160-3"><a href="homework-week-6.html#cb160-3" aria-hidden="true" tabindex="-1"></a><span class="co"># q1_model_discipline &lt;- cmdstan_model(q1_stan)</span></span>
+<span id="cb160-4"><a href="homework-week-6.html#cb160-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb160-5"><a href="homework-week-6.html#cb160-5" aria-hidden="true" tabindex="-1"></a>q1_sample <span class="ot">&lt;-</span> q1_model_discipline<span class="sc">$</span><span class="fu">sample</span>(<span class="at">data =</span> q1_data)</span></code></pre></div>
+<pre><code>## Running MCMC with 4 sequential chains...
+## 
+## Chain 1 Iteration:    1 / 2000 [  0%]  (Warmup) 
+## Chain 1 Iteration:  100 / 2000 [  5%]  (Warmup) 
+## Chain 1 Iteration:  200 / 2000 [ 10%]  (Warmup) 
+## Chain 1 Iteration:  300 / 2000 [ 15%]  (Warmup) 
+## Chain 1 Iteration:  400 / 2000 [ 20%]  (Warmup) 
+## Chain 1 Iteration:  500 / 2000 [ 25%]  (Warmup) 
+## Chain 1 Iteration:  600 / 2000 [ 30%]  (Warmup) 
+## Chain 1 Iteration:  700 / 2000 [ 35%]  (Warmup) 
+## Chain 1 Iteration:  800 / 2000 [ 40%]  (Warmup) 
+## Chain 1 Iteration:  900 / 2000 [ 45%]  (Warmup) 
+## Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+## Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+## Chain 1 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
+## Chain 1 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
+## Chain 1 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
+## Chain 1 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
+## Chain 1 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
+## Chain 1 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
+## Chain 1 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
+## Chain 1 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
+## Chain 1 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
+## Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
+## Chain 1 finished in 0.1 seconds.
+## Chain 2 Iteration:    1 / 2000 [  0%]  (Warmup) 
+## Chain 2 Iteration:  100 / 2000 [  5%]  (Warmup) 
+## Chain 2 Iteration:  200 / 2000 [ 10%]  (Warmup) 
+## Chain 2 Iteration:  300 / 2000 [ 15%]  (Warmup) 
+## Chain 2 Iteration:  400 / 2000 [ 20%]  (Warmup) 
+## Chain 2 Iteration:  500 / 2000 [ 25%]  (Warmup) 
+## Chain 2 Iteration:  600 / 2000 [ 30%]  (Warmup) 
+## Chain 2 Iteration:  700 / 2000 [ 35%]  (Warmup) 
+## Chain 2 Iteration:  800 / 2000 [ 40%]  (Warmup) 
+## Chain 2 Iteration:  900 / 2000 [ 45%]  (Warmup) 
+## Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+## Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+## Chain 2 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
+## Chain 2 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
+## Chain 2 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
+## Chain 2 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
+## Chain 2 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
+## Chain 2 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
+## Chain 2 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
+## Chain 2 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
+## Chain 2 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
+## Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
+## Chain 2 finished in 0.1 seconds.
+## Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup) 
+## Chain 3 Iteration:  100 / 2000 [  5%]  (Warmup) 
+## Chain 3 Iteration:  200 / 2000 [ 10%]  (Warmup) 
+## Chain 3 Iteration:  300 / 2000 [ 15%]  (Warmup) 
+## Chain 3 Iteration:  400 / 2000 [ 20%]  (Warmup) 
+## Chain 3 Iteration:  500 / 2000 [ 25%]  (Warmup) 
+## Chain 3 Iteration:  600 / 2000 [ 30%]  (Warmup) 
+## Chain 3 Iteration:  700 / 2000 [ 35%]  (Warmup) 
+## Chain 3 Iteration:  800 / 2000 [ 40%]  (Warmup) 
+## Chain 3 Iteration:  900 / 2000 [ 45%]  (Warmup) 
+## Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+## Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+## Chain 3 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
+## Chain 3 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
+## Chain 3 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
+## Chain 3 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
+## Chain 3 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
+## Chain 3 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
+## Chain 3 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
+## Chain 3 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
+## Chain 3 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
+## Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
+## Chain 3 finished in 0.1 seconds.
+## Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup) 
+## Chain 4 Iteration:  100 / 2000 [  5%]  (Warmup) 
+## Chain 4 Iteration:  200 / 2000 [ 10%]  (Warmup) 
+## Chain 4 Iteration:  300 / 2000 [ 15%]  (Warmup) 
+## Chain 4 Iteration:  400 / 2000 [ 20%]  (Warmup) 
+## Chain 4 Iteration:  500 / 2000 [ 25%]  (Warmup) 
+## Chain 4 Iteration:  600 / 2000 [ 30%]  (Warmup) 
+## Chain 4 Iteration:  700 / 2000 [ 35%]  (Warmup) 
+## Chain 4 Iteration:  800 / 2000 [ 40%]  (Warmup) 
+## Chain 4 Iteration:  900 / 2000 [ 45%]  (Warmup) 
+## Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+## Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+## Chain 4 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
+## Chain 4 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
+## Chain 4 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
+## Chain 4 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
+## Chain 4 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
+## Chain 4 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
+## Chain 4 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
+## Chain 4 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
+## Chain 4 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
+## Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
+## Chain 4 finished in 0.1 seconds.
+## 
+## All 4 chains finished successfully.
+## Mean chain execution time: 0.1 seconds.
+## Total execution time: 0.6 seconds.</code></pre>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="homework-week-6.html#cb162-1" aria-hidden="true" tabindex="-1"></a>q1_draws <span class="ot">&lt;-</span> <span class="fu">cmd_draws</span>(q1_sample)</span>
+<span id="cb162-2"><a href="homework-week-6.html#cb162-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb162-3"><a href="homework-week-6.html#cb162-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(q1_draws, <span class="at">regex_pars =</span> <span class="st">&#39;alpha&#39;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-65-1.png" width="672" /></p>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="homework-week-6.html#cb163-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(q1_draws, <span class="at">regex_pars =</span> <span class="st">&#39;beta&#39;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-65-2.png" width="672" /></p>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="homework-week-6.html#cb164-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Need to account for base rates to look at absolute rate</span></span>
+<span id="cb164-2"><a href="homework-week-6.html#cb164-2" aria-hidden="true" tabindex="-1"></a><span class="co"># q1_draws$dif_alpha &lt;- (inv.logit(q1_draws$`alpha[1]`) -</span></span>
+<span id="cb164-3"><a href="homework-week-6.html#cb164-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   inv.logit(q1_draws$`alpha[2]`)) * 100</span></span>
+<span id="cb164-4"><a href="homework-week-6.html#cb164-4" aria-hidden="true" tabindex="-1"></a><span class="co"># mcmc_areas(q1_draws, regex_pars = &#39;dif_alpha&#39;)</span></span>
+<span id="cb164-5"><a href="homework-week-6.html#cb164-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb164-6"><a href="homework-week-6.html#cb164-6" aria-hidden="true" tabindex="-1"></a><span class="co"># We can look at relative rates though</span></span>
+<span id="cb164-7"><a href="homework-week-6.html#cb164-7" aria-hidden="true" tabindex="-1"></a>q1_draws<span class="sc">$</span>dif_alpha_rel <span class="ot">&lt;-</span> q1_draws<span class="sc">$</span><span class="st">`</span><span class="at">alpha[1]</span><span class="st">`</span> <span class="sc">-</span> q1_draws<span class="sc">$</span><span class="st">`</span><span class="at">alpha[2]</span><span class="st">`</span></span>
+<span id="cb164-8"><a href="homework-week-6.html#cb164-8" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(q1_draws, <span class="at">regex_pars =</span> <span class="st">&#39;dif_alpha_rel&#39;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-65-3.png" width="672" /></p>
+<blockquote>
+<p>What is your causal interpretation? If NWO’s goal is to equalize rates of
+funding between the genders, what type of intervention would be most effective?</p>
+</blockquote>
+<p>Investigate departmental levels, since once this is included the relative differences are small.</p>
+
 </div>
-<div id="small-world-large-world" class="section level2" number="9.2">
-<h2><span class="header-section-number">9.2</span> Small world / large world</h2>
-<p>Small world: models have assumptions, Bayesian models fit optimally</p>
-<p>Large world: real world, no guarantee of optimality</p>
-</div>
-<div id="example-four-marbles" class="section level2" number="9.3">
-<h2><span class="header-section-number">9.3</span> Example: four marbles</h2>
-<p><strong>Setup</strong></p>
-<p>4 marbles, either black or white, with replacement</p>
-<p>Possibilities (5) therefore: WWWW, BWWW, BBWW, BBBW, BBBB</p>
-<p>Observation: BWB</p>
-<p><strong>Calculate</strong></p>
-<p>Given 3 observations, there are 4 choices, for a total of 64 possibilities</p>
-<p>Given we observed both a white and a black marble, possibilities WWWW and BBBB are not valid</p>
-<p>At each branch, there are 3 possibilities it can be white and 1 possibility it can be black</p>
-<p>Bayesian is additive, at each branch just sum the possibility</p>
-<p>BWWW: 3 = 1 * 3 * 1</p>
-<p>BBWW: 8 = 2 * 2 * 2</p>
-<p>BBBW: 9 = 3 * 1 * 3</p>
-<p><strong>Using new information</strong></p>
-<p>New information is directly integrated into the old information, therefore just multiply it through</p>
-<p>So if we take another measure of B, multiply the property through</p>
-<p>BWWW: 3 * 1 = 3</p>
-<p>BBWW: 8 * 2 = 16</p>
-<p>BBBW: 9 * 3 = 27</p>
-<p><strong>Using other information</strong></p>
-<p>Factory says B measures are rare, but minimum of 1 per bag</p>
-<pre><code>           Factory info</code></pre>
-<p>WWWW 0 since we observed a B</p>
-<p>BWWW: 3</p>
-<p>BBWW: 2</p>
-<p>BBBW: 1</p>
-<p>BBBB 0 since we observed a W</p>
-<p>Multiply it through</p>
-<p>BWWW: 3 * 3 = 9</p>
-<p>BBWW: 16 * 2 = 32</p>
-<p>BBBW: 1 * 27 = 27</p>
-<p><em>Counts get huge - therefore we <strong>normalize them giving us probabilities (0-1)</strong></em></p>
-<p>Probability theory is just normalized counting</p>
-</div>
-<div id="building-a-model" class="section level2" number="9.4">
-<h2><span class="header-section-number">9.4</span> Building a model</h2>
-<ol style="list-style-type: decimal">
-<li>Design the model</li>
-<li>Condition on the data</li>
-<li>Evaluate, critique the model</li>
-<li>(Restart)</li>
-</ol>
 </div>
 </div>
             </section>
@@ -539,8 +961,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="homework-week-7.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="lecture-02.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="homework-week-5.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="homework-week-7.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
