@@ -171,7 +171,7 @@ ggplot(DT) +
 
 
 
-## Homework: Question 3
+## Question 3
 
 Set up:
 
