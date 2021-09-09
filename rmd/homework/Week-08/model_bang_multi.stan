@@ -1,29 +1,28 @@
 data {
+	// Integers for number of rows, and number of districts
   int<lower=0> N;
   int<lower=0> N_district;
+
+  // District and contraception, expecting integers of length N
 	int district[N];
 	int contraception[N];
 }
 parameters {
-	real sigma;
-	real alpha_bar;
+	// Alpha vector matching length of number of districts
 	vector[N_district] alpha;
-	// vector[N_district] beta_district;
-}
-transformed parameters {
-	vector[N] p;
-
-	for (i in 1:N) {
-		p[i] = inv_logit(alpha[i]);
-	}
 }
 model {
-	alpha_bar ~ normal(0, 0.25);
-	alpha ~ normal(alpha_bar, sigma);
-	sigma ~ exponential(1);
-	// beta_district ~ normal(0, 0.5);
+	// p vector matching length of number of districts
+  vector[N] p;
 
-  vector[N] mu;
-  mu = alpha[district];
-  contraception ~ normal(mu, sigma);
+  // Alpha is distributed normally
+	alpha ~ normal(0, 1.5);
+
+	// For each for in data, alpha for that row's district
+  for (i in 1:N) {
+  	p[i] = inv_logit(alpha[district[i]]);
+  }
+
+  // Contraception if distributed with bernoulli, p
+  contraception ~ bernoulli(p);
 }
