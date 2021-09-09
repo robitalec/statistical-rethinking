@@ -17,6 +17,7 @@ transformed parameters {
 	}
 }
 model {
+	alpha_bar ~ normal(0, 0.25);
 	alpha ~ normal(alpha_bar, sigma);
 	sigma ~ exponential(1);
 	for (i in 1:N) {

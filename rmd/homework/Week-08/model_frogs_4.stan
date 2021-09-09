@@ -22,6 +22,7 @@ transformed parameters {
 	}
 }
 model {
+	alpha_bar ~ normal(0, 0.25);
 	alpha ~ normal(alpha_bar, sigma);
 	beta_size ~ normal(0, 0.5);
 	beta_predation ~ normal(0, 0.5);

@@ -273,6 +273,9 @@ mcmc_areas(model_frogs_4_draws, regex_pars = 'beta')
 Negative influence of predation is somewhat balanced by size of tank. 
 
 
+<!-- TODO use AIC -->
+
+
 ## Question 2
 
 > In 1980, a typical Bengali woman could have 5 or more children in her
@@ -314,26 +317,6 @@ different inferences?
 Fixed effects model
 
 ```{cmdstan, output.var = 'model_bang_fixed', cache = TRUE}
-data {
-  int<lower=0> N;
-  int<lower=0> N_district;
-	int district[N];
-	vector[N] contraception;
-}
-parameters {
-	real sigma;
-	real alpha;
-	vector[N_district] beta_district;
-}
-model {
-	alpha ~ normal(0, 0.5);
-	sigma ~ exponential(1);
-	beta_district ~ normal(0, 0.5);
-
-  vector[N] mu;
-  mu = beta_district[district];
-  contraception ~ normal(mu, sigma);
-}
 
 ```
 
@@ -350,4 +333,27 @@ model_bang_fixed_sample <-
 		threads_per_chain = 4
 	)
 model_bang_fixed_draws <- cmd_draws(model_bang_fixed_sample)
-mcmc_areas(model_bang_fixed_draws, regex_pars = 'size')
+mcmc_areas(model_bang_fixed_draws, regex_pars = 'beta')
+```
+
+Multilevel  model
+
+```{cmdstan, output.var = 'model_bang_multi', cache = TRUE}
+
+```
+
+```{r, cache = TRUE}
+model_bang_multi_stan <- 'model_bang_multi.stan'
+writeLines(readLines(model_bang_multi_stan))
+model_bang_multi <- cmdstan_model(model_bang_multi_stan, cpp_options = list(stan_threads = TRUE))
+
+model_bang_multi_sample <-
+	model_bang_multi$sample(
+		data = model_data,
+		chains = 4,
+		parallel_chains = 4,
+		threads_per_chain = 4
+	)
+model_bang_multi_draws <- cmd_draws(model_bang_multi_sample)
+mcmc_areas(model_bang_multi_draws, regex_pars = 'alpha')
+```

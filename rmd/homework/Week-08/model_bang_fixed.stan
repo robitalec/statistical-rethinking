@@ -16,5 +16,5 @@ model {
 
   vector[N] mu;
   mu = beta_district[district];
-  contraception ~ normal(mu, sigma);
+  contraception ~ bernoulli(mu, sigma);
 }
