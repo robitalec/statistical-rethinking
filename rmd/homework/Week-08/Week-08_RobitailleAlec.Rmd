@@ -333,7 +333,7 @@ model_bang_fixed_sample <-
 		threads_per_chain = 4
 	)
 model_bang_fixed_draws <- cmd_draws(model_bang_fixed_sample)
-mcmc_areas(model_bang_fixed_draws, regex_pars = 'beta')
+mcmc_areas(model_bang_fixed_draws, regex_pars = 'alpha')
 ```
 
 Multilevel  model
