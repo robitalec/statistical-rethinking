@@ -504,6 +504,15 @@ model {
   beta_contact ~ normal(0, 0.5);
   beta_intention ~ normal(0, 0.5);
 }
+generated quantities {
+  vector[N] phi;
+	vector[N] log_lik;
+  for (i in 1:N) {
+		phi[i] = beta_action * action[i] + beta_contact * contact[i] + beta_intention * intention[i];
+    log_lik[i] = ordered_logistic_lpmf(response[i] | phi[i], cutpoints);
+  }
+}
+
 ```
 
 
