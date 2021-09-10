@@ -597,8 +597,6 @@ generated quantities {
     log_lik[i] = ordered_logistic_lpmf(response[i] | phi[i], cutpoints);
   }
 }
-
-
 ```
 
 ```{r, cache = TRUE}
@@ -623,5 +621,6 @@ model_trolley_multi_loo <- model_trolley_multi_sample$loo()
 ```
 
 ```{r}
-loo_compare(c(model_trolley_loo, model_trolley_loo))
+compared <- loo_compare(model_trolley_loo, model_trolley_multi_loo)
+print(compared, simplify = FALSE)
 ```
