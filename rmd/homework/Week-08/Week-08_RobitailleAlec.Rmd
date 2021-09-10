@@ -597,6 +597,7 @@ generated quantities {
     log_lik[i] = ordered_logistic_lpmf(response[i] | phi[i], cutpoints);
   }
 }
+
 ```
 
 ```{r, cache = TRUE}
@@ -621,6 +622,11 @@ model_trolley_multi_loo <- model_trolley_multi_sample$loo()
 ```
 
 ```{r}
+col_patterns <- '^beta|^alpha|^sigma|^cutpoints'
+precis(model_trolley_draws[, .SD, .SDcols = patterns(col_patterns)])
+precis(model_trolley_multi_draws[, .SD, .SDcols = patterns(col_patterns)])
+
 compared <- loo_compare(model_trolley_loo, model_trolley_multi_loo)
 print(compared, simplify = FALSE)
+plot(compared)
 ```
