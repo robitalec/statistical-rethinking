@@ -469,3 +469,15 @@ sigma ~ exponential( 1 )
 ) , data=dat_list , chains=4 , cores=4 , log_lik=TRUE )
 
 ```
+
+
+## Question 3
+
+> Return to the Trolley data, `data(Trolley)`, from Chapter 12. Define and fit a
+varying intercepts model for these data. By this I mean to add an intercept
+parameter for the individual to the linear model. Cluster the varying intercepts
+on individual participants, as indicated by the unique values in the id
+variable. Include action, intention, and contact as before. Compare the varying
+intercepts model and a model that ignores individuals, using both WAIC/LOO and
+posterior predictions. What is the impact of individual variation in these data?
+
