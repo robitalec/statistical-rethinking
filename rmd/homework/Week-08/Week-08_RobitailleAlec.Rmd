@@ -561,9 +561,9 @@ model_data <- c(
 model_trolley_multi_sample <-
 	model_trolley_multi$sample(
 		data = model_data,
-		chains = 4,
+		chains = 1,
 		save_warmup = FALSE,
-		parallel_chains = 4,
+		# parallel_chains = 4,
 		threads_per_chain = 4
 	)
 model_trolley_multi_draws <- cmd_draws(model_trolley_multi_sample)
@@ -572,4 +572,8 @@ mcmc_areas(model_trolley_multi_draws, regex_pars = 'cutpoints')
 mcmc_areas(model_trolley_multi_draws, regex_pars = 'beta')
 
 model_trolley_multi_loo <- model_trolley_multi_sample$loo()
+```
+
+```{r}
+loo_compare(c(model_trolley_loo, model_trolley_loo))
 ```
