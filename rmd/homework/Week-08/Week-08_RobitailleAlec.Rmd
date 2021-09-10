@@ -623,6 +623,9 @@ model_trolley_multi_loo <- model_trolley_multi_sample$loo()
 
 ```{r}
 col_patterns <- '^beta|^alpha|^sigma|^cutpoints'
+setDT(model_trolley_draws)
+setDT(model_trolley_multi_draws)
+
 precis(model_trolley_draws[, .SD, .SDcols = patterns(col_patterns)])
 precis(model_trolley_multi_draws[, .SD, .SDcols = patterns(col_patterns)])
 
