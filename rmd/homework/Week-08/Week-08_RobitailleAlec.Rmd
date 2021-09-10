@@ -462,3 +462,60 @@ variable. Include action, intention, and contact as before. Compare the varying
 intercepts model and a model that ignores individuals, using both WAIC/LOO and
 posterior predictions. What is the impact of individual variation in these data?
 
+```{r}
+data(Trolley)
+DT <- data.table(Trolley)
+precis(DT)
+```
+
+
+```{cmdstan, output.var = 'model_trolley', cache = TRUE}
+data {
+  int N;
+  int K;
+  int response[N];
+  int action[N];
+  int intention[N];
+  int contact[N];
+}
+parameters {
+	// Cut points are the positions of responses along cumulative odds
+  ordered[K] cutpoints;
+  real beta_action;
+  real beta_intention;
+  real beta_contact;
+}
+model {
+  vector[N] phi;
+
+	for (i in 1:N) {
+		phi[i] = beta_action * action[i] + beta_contact * contact[i] + beta_intention * intention[i];
+		response[i] ~ ordered_logistic(phi[i], cutpoints);
+	}
+
+  cutpoints ~ normal(0, 1.5);
+  beta_action ~ normal(0, 0.5);
+  beta_contact ~ normal(0, 0.5);
+  beta_intention ~ normal(0, 0.5);
+}
+```
+
+
+```{r, cache = TRUE}
+# model_trolley_stan <- 'model_trolley.stan'
+# writeLines(readLines(model_trolley_stan))
+# model_trolley <- cmdstan_model(model_trolley_stan, cpp_options = list(stan_threads = TRUE))
+
+model_trolley_sample <-
+	model_trolley$sample(
+		data = model_data,
+		chains = 4,
+		parallel_chains = 4,
+		threads_per_chain = 4
+	)
+model_trolley_draws <- cmd_draws(model_trolley_sample)
+
+mcmc_trace(model_trolley_draws)
+mcmc_areas(model_trolley_draws, regex_pars = 'alpha', transformations = inv.logit)
+mcmc_areas(model_trolley_draws, pars = c('alpha_bar', 'sigma'))
+```
