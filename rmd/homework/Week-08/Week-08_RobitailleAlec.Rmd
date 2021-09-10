@@ -429,8 +429,43 @@ mcmc_areas(model_bang_multi_draws, pars = c('alpha_bar', 'sigma'))
 Comparison
 
 ```{r}
-library(patchwork)
 (mcmc_areas(model_bang_fixed_draws, regex_pars = 'alpha', transformations = inv.logit) + labs(title = 'fixed')) + 
-	(mcmc_areas(model_bang_multi_draws, regex_pars = 'alpha', transformations = inv.logit) + labs(title = 'multilevel'))
+	(mcmc_areas(model_bang_multi_draws, regex_pars = 'alpha\\[', transformations = inv.logit) + labs(title = 'multilevel'))
+
+setDT(model_bang_fixed_draws)
+setDT(model_bang_multi_draws)
+
+compare <- rbindlist(list(
+	melt(model_bang_fixed_draws, measure.vars = patterns('alpha'))[, model_type := 'fixed'],
+	melt(model_bang_multi_draws, measure.vars = patterns('alpha'))[, model_type := 'multilevel']
+), fill = TRUE)
+
+compare[, variable := as.integer(gsub('alpha\\[|\\]', '', variable))]
+ggplot(compare[, .(value = mean(value)), .(variable, model_type)]) + 
+	geom_hline(yintercept = 0, alpha = 0.5) + 
+	geom_point(aes(variable, value, color = model_type)) +
+	geom_line(aes(variable, value, group = model_type), alpha = 0.2) +
+	scale_color_viridis_d(begin = 0.3, end = 0.8) + 
+	labs(x = 'district', y = 'alpha')
+```
+
+
+```{r}
+library(rethinking)
+data(bangladesh)
+d <- bangladesh
+d$district_id <- as.integer(as.factor(d$district))
+dat_list <- list(
+C = d$use.contraception,
+did = d$district_id
+)
+m2.2 <- ulam(
+alist(
+C ~ bernoulli( p ),
+logit(p) <- a[did],
+a[did] ~ normal( a_bar , sigma ),
+a_bar ~ normal( 0 , 1.5 ),
+sigma ~ exponential( 1 )
+) , data=dat_list , chains=4 , cores=4 , log_lik=TRUE )
 
 ```
