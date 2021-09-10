@@ -27,6 +27,7 @@ library(cmdstanr)
 library(posterior)
 library(bayesplot)
 library(boot)
+library(loo)
 
 # Functions
 dag_plot <- function(dag) {
@@ -523,13 +524,14 @@ generated quantities {
 model_trolley_sample <-
 	model_trolley$sample(
 		data = model_data,
-		chains = 4,
-		parallel_chains = 4,
+		chains = 1,
+		# parallel_chains = 4,
 		threads_per_chain = 4
 	)
 model_trolley_draws <- cmd_draws(model_trolley_sample)
 
-mcmc_trace(model_trolley_draws)
 mcmc_areas(model_trolley_draws, regex_pars = 'cutpoints')
 mcmc_areas(model_trolley_draws, regex_pars = 'beta')
+
+model_trolley_loo <- model_trolley_sample$loo()
 ```
