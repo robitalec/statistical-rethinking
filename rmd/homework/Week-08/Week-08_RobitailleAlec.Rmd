@@ -429,6 +429,7 @@ mcmc_areas(model_bang_multi_draws, pars = c('alpha_bar', 'sigma'))
 Comparison
 
 ```{r}
+library(patchwork)
 (mcmc_areas(model_bang_fixed_draws, regex_pars = 'alpha', transformations = inv.logit) + labs(title = 'fixed')) + 
 	(mcmc_areas(model_bang_multi_draws, regex_pars = 'alpha\\[', transformations = inv.logit) + labs(title = 'multilevel'))
 
@@ -449,26 +450,6 @@ ggplot(compare[, .(value = mean(value)), .(variable, model_type)]) +
 	labs(x = 'district', y = 'alpha')
 ```
 
-
-```{r}
-library(rethinking)
-data(bangladesh)
-d <- bangladesh
-d$district_id <- as.integer(as.factor(d$district))
-dat_list <- list(
-C = d$use.contraception,
-did = d$district_id
-)
-m2.2 <- ulam(
-alist(
-C ~ bernoulli( p ),
-logit(p) <- a[did],
-a[did] ~ normal( a_bar , sigma ),
-a_bar ~ normal( 0 , 1.5 ),
-sigma ~ exponential( 1 )
-) , data=dat_list , chains=4 , cores=4 , log_lik=TRUE )
-
-```
 
 
 ## Question 3
