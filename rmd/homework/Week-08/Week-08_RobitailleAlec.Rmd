@@ -424,3 +424,13 @@ mcmc_trace(model_bang_multi_draws)
 mcmc_areas(model_bang_multi_draws, regex_pars = 'alpha', transformations = inv.logit)
 mcmc_areas(model_bang_multi_draws, pars = c('alpha_bar', 'sigma'))
 ```
+
+
+Comparison
+
+```{r}
+library(patchwork)
+(mcmc_areas(model_bang_fixed_draws, regex_pars = 'alpha', transformations = inv.logit) + labs(title = 'fixed')) + 
+	(mcmc_areas(model_bang_multi_draws, regex_pars = 'alpha', transformations = inv.logit) + labs(title = 'multilevel'))
+
+```
