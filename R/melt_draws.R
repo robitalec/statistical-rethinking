@@ -16,7 +16,7 @@ melt_vars <- 'alpha'
 #' @export
 #'
 #' @examples
-melt_draws <- function(samples, chains, regex_vars, melt_vars) {
+melt_draws <- function(samples, chains, regex_vars, melt_vars = NULL) {
 	draws <- samples$draws(format = 'draws_list')
 	draws_selected <- lapply(chains, function(chain) {
 		draws_chain <- draws[[chain]]
@@ -28,17 +28,20 @@ melt_draws <- function(samples, chains, regex_vars, melt_vars) {
 
 	DT <- rbindlist(draws_selected, idcol = 'chain')
 
-	draws_melt <- melt(DT, measure.vars = patterns(melt_vars), variable.factor = FALSE)
-	draws_melt[, variable := tstrsplit(variable, '\\[|\\]', keep = 2, type.convert = TRUE)]
-	setnames(draws_melt, 'variable', melt_vars)
+	if (!is.null(melt_var)) {
+		draws_melt <- melt(DT, measure.vars = patterns(melt_vars), variable.factor = FALSE)
+		draws_melt[, variable := tstrsplit(variable, '\\[|\\]', keep = 2, type.convert = TRUE)]
+		setnames(draws_melt, 'variable', melt_vars)
 
-	draws_melt
+		return(draws_melt)
+	} else {
+		return(DT)
+	}
+
 }
 
-chains <- c(1, 2)
+draws <- melt_draws(model_frogs_1_sample, 1, '\\[alpha', 'alpha')
 
-# TODO: flex
-draws <- samples$draws(format = 'draws_list')[[chains]]
 draws_names <- names(draws)
 select_names <- grep(regex_vars, nm, value = TRUE)
 
