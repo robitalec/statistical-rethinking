@@ -16,10 +16,10 @@ parameters {
   real beta_contact;
 	real alpha_bar;
 	real sigma;
+  vector[N_individual] alpha;
 }
 transformed parameters {
   vector[N] phi;
-  vector[N_individual] alpha;
 
 	for (i in 1:N) {
 		phi[i] = alpha[individual[i]] + beta_action * action[i] + beta_contact * contact[i] + beta_intention * intention[i];
