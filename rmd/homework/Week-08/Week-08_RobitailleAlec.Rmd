@@ -631,5 +631,4 @@ precis(model_trolley_multi_draws[, .SD, .SDcols = patterns(col_patterns)])
 
 compared <- loo_compare(model_trolley_loo, model_trolley_multi_loo)
 print(compared, simplify = FALSE)
-plot(compared)
 ```

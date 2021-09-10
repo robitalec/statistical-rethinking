@@ -458,7 +458,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="homework-week-8" class="section level1" number="9">
 <h1><span class="header-section-number">9</span> Homework: Week 8</h1>
-<p>2021-09-08 [updated: 2021-09-09]</p>
+<p>2021-09-08 [updated: 2021-09-10]</p>
 <div id="setup-5" class="section level3" number="9.0.1">
 <h3><span class="header-section-number">9.0.1</span> Setup</h3>
 <div class="sourceCode" id="cb1077"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1077-1"><a href="homework-week-8.html#cb1077-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Packages</span></span>
@@ -471,40 +471,51 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1077-8"><a href="homework-week-8.html#cb1077-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(posterior)</span>
 <span id="cb1077-9"><a href="homework-week-8.html#cb1077-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(bayesplot)</span>
 <span id="cb1077-10"><a href="homework-week-8.html#cb1077-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(boot)</span>
-<span id="cb1077-11"><a href="homework-week-8.html#cb1077-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1077-12"><a href="homework-week-8.html#cb1077-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Functions</span></span>
-<span id="cb1077-13"><a href="homework-week-8.html#cb1077-13" aria-hidden="true" tabindex="-1"></a>dag_plot <span class="ot">&lt;-</span> <span class="cf">function</span>(dag) {</span>
-<span id="cb1077-14"><a href="homework-week-8.html#cb1077-14" aria-hidden="true" tabindex="-1"></a>    stat <span class="ot">&lt;-</span> <span class="fu">node_status</span>(dag, <span class="cn">FALSE</span>)</span>
-<span id="cb1077-15"><a href="homework-week-8.html#cb1077-15" aria-hidden="true" tabindex="-1"></a>    stat<span class="sc">$</span>data<span class="sc">$</span>status[<span class="fu">is.na</span>(stat<span class="sc">$</span>data<span class="sc">$</span>status)] <span class="ot">&lt;-</span> <span class="st">&#39;intermediate&#39;</span></span>
-<span id="cb1077-16"><a href="homework-week-8.html#cb1077-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(stat, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">xend =</span> xend, <span class="at">yend =</span> yend)) <span class="sc">+</span></span>
-<span id="cb1077-17"><a href="homework-week-8.html#cb1077-17" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_dag_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> status), <span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">15</span>) <span class="sc">+</span></span>
-<span id="cb1077-18"><a href="homework-week-8.html#cb1077-18" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_dag_edges</span>() <span class="sc">+</span></span>
-<span id="cb1077-19"><a href="homework-week-8.html#cb1077-19" aria-hidden="true" tabindex="-1"></a>        <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">&#39;&#39;</span>) <span class="sc">+</span> </span>
-<span id="cb1077-20"><a href="homework-week-8.html#cb1077-20" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_dag_text</span>(<span class="at">color =</span> <span class="st">&#39;black&#39;</span>) <span class="sc">+</span></span>
-<span id="cb1077-21"><a href="homework-week-8.html#cb1077-21" aria-hidden="true" tabindex="-1"></a>        <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">list</span>(<span class="st">&#39;exposure&#39;</span> <span class="ot">=</span> <span class="st">&#39;#35608DFF&#39;</span>,</span>
-<span id="cb1077-22"><a href="homework-week-8.html#cb1077-22" aria-hidden="true" tabindex="-1"></a>                                                                         <span class="st">&#39;outcome&#39;</span> <span class="ot">=</span> <span class="st">&#39;#22A884FF&#39;</span>,</span>
-<span id="cb1077-23"><a href="homework-week-8.html#cb1077-23" aria-hidden="true" tabindex="-1"></a>                                                                         <span class="st">&#39;intermediate&#39;</span> <span class="ot">=</span> <span class="st">&#39;grey50&#39;</span>)) <span class="sc">+</span> </span>
-<span id="cb1077-24"><a href="homework-week-8.html#cb1077-24" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme_void</span>()</span>
-<span id="cb1077-25"><a href="homework-week-8.html#cb1077-25" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1077-26"><a href="homework-week-8.html#cb1077-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1077-27"><a href="homework-week-8.html#cb1077-27" aria-hidden="true" tabindex="-1"></a>cmd_draws <span class="ot">&lt;-</span> <span class="cf">function</span>(model) {</span>
-<span id="cb1077-28"><a href="homework-week-8.html#cb1077-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as_draws_df</span>(model<span class="sc">$</span><span class="fu">draws</span>())</span>
-<span id="cb1077-29"><a href="homework-week-8.html#cb1077-29" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<span id="cb1077-11"><a href="homework-week-8.html#cb1077-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(loo)</span></code></pre></div>
+<pre><code>## This is loo version 2.4.1</code></pre>
+<pre><code>## - Online documentation and vignettes at mc-stan.org/loo</code></pre>
+<pre><code>## - As of v2.0.0 loo defaults to 1 core but we recommend using as many as possible. Use the &#39;cores&#39; argument or set options(mc.cores = NUM_CORES) for an entire session.</code></pre>
+<pre><code>## 
+## Attaching package: &#39;loo&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:rethinking&#39;:
+## 
+##     compare</code></pre>
+<pre><code>## The following object is masked from &#39;package:rstan&#39;:
+## 
+##     loo</code></pre>
+<div class="sourceCode" id="cb1084"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1084-1"><a href="homework-week-8.html#cb1084-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Functions</span></span>
+<span id="cb1084-2"><a href="homework-week-8.html#cb1084-2" aria-hidden="true" tabindex="-1"></a>dag_plot <span class="ot">&lt;-</span> <span class="cf">function</span>(dag) {</span>
+<span id="cb1084-3"><a href="homework-week-8.html#cb1084-3" aria-hidden="true" tabindex="-1"></a>    stat <span class="ot">&lt;-</span> <span class="fu">node_status</span>(dag, <span class="cn">FALSE</span>)</span>
+<span id="cb1084-4"><a href="homework-week-8.html#cb1084-4" aria-hidden="true" tabindex="-1"></a>    stat<span class="sc">$</span>data<span class="sc">$</span>status[<span class="fu">is.na</span>(stat<span class="sc">$</span>data<span class="sc">$</span>status)] <span class="ot">&lt;-</span> <span class="st">&#39;intermediate&#39;</span></span>
+<span id="cb1084-5"><a href="homework-week-8.html#cb1084-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(stat, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">xend =</span> xend, <span class="at">yend =</span> yend)) <span class="sc">+</span></span>
+<span id="cb1084-6"><a href="homework-week-8.html#cb1084-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_dag_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> status), <span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">15</span>) <span class="sc">+</span></span>
+<span id="cb1084-7"><a href="homework-week-8.html#cb1084-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_dag_edges</span>() <span class="sc">+</span></span>
+<span id="cb1084-8"><a href="homework-week-8.html#cb1084-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">&#39;&#39;</span>) <span class="sc">+</span> </span>
+<span id="cb1084-9"><a href="homework-week-8.html#cb1084-9" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_dag_text</span>(<span class="at">color =</span> <span class="st">&#39;black&#39;</span>) <span class="sc">+</span></span>
+<span id="cb1084-10"><a href="homework-week-8.html#cb1084-10" aria-hidden="true" tabindex="-1"></a>        <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">list</span>(<span class="st">&#39;exposure&#39;</span> <span class="ot">=</span> <span class="st">&#39;#35608DFF&#39;</span>,</span>
+<span id="cb1084-11"><a href="homework-week-8.html#cb1084-11" aria-hidden="true" tabindex="-1"></a>                                                                         <span class="st">&#39;outcome&#39;</span> <span class="ot">=</span> <span class="st">&#39;#22A884FF&#39;</span>,</span>
+<span id="cb1084-12"><a href="homework-week-8.html#cb1084-12" aria-hidden="true" tabindex="-1"></a>                                                                         <span class="st">&#39;intermediate&#39;</span> <span class="ot">=</span> <span class="st">&#39;grey50&#39;</span>)) <span class="sc">+</span> </span>
+<span id="cb1084-13"><a href="homework-week-8.html#cb1084-13" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme_void</span>()</span>
+<span id="cb1084-14"><a href="homework-week-8.html#cb1084-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1084-15"><a href="homework-week-8.html#cb1084-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1084-16"><a href="homework-week-8.html#cb1084-16" aria-hidden="true" tabindex="-1"></a>cmd_draws <span class="ot">&lt;-</span> <span class="cf">function</span>(model) {</span>
+<span id="cb1084-17"><a href="homework-week-8.html#cb1084-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as_draws_df</span>(model<span class="sc">$</span><span class="fu">draws</span>())</span>
+<span id="cb1084-18"><a href="homework-week-8.html#cb1084-18" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 <div id="question-1-7" class="section level2" number="9.1">
 <h2><span class="header-section-number">9.1</span> Question 1</h2>
 <div id="data-7" class="section level3" number="9.1.1">
 <h3><span class="header-section-number">9.1.1</span> Data</h3>
-<div class="sourceCode" id="cb1078"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1078-1"><a href="homework-week-8.html#cb1078-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(reedfrogs)</span>
-<span id="cb1078-2"><a href="homework-week-8.html#cb1078-2" aria-hidden="true" tabindex="-1"></a>DT <span class="ot">&lt;-</span> <span class="fu">data.table</span>(reedfrogs)</span>
-<span id="cb1078-3"><a href="homework-week-8.html#cb1078-3" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(DT)</span></code></pre></div>
+<div class="sourceCode" id="cb1085"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1085-1"><a href="homework-week-8.html#cb1085-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(reedfrogs)</span>
+<span id="cb1085-2"><a href="homework-week-8.html#cb1085-2" aria-hidden="true" tabindex="-1"></a>DT <span class="ot">&lt;-</span> <span class="fu">data.table</span>(reedfrogs)</span>
+<span id="cb1085-3"><a href="homework-week-8.html#cb1085-3" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(DT)</span></code></pre></div>
 <pre><code>##           mean    sd  5.5% 94.5%     histogram
 ## density  23.33 10.38 10.00    35 ▇▁▁▁▁▁▁▇▁▁▁▁▇
 ## pred       NaN    NA    NA    NA              
 ## size       NaN    NA    NA    NA              
 ## surv     16.31  9.88  4.58    33       ▂▇▂▁▃▁▃
 ## propsurv  0.72  0.27  0.29     1     ▁▁▃▁▁▂▁▅▇</code></pre>
-<div class="sourceCode" id="cb1080"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1080-1"><a href="homework-week-8.html#cb1080-1" aria-hidden="true" tabindex="-1"></a><span class="fu">register_knitr_engine</span>(<span class="at">override =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1087"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1087-1"><a href="homework-week-8.html#cb1087-1" aria-hidden="true" tabindex="-1"></a><span class="fu">register_knitr_engine</span>(<span class="at">override =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre class="stan"><code>data {
     int N;
     int survival[N];
@@ -531,28 +542,28 @@ model {
     }
 }
 </code></pre>
-<div class="sourceCode" id="cb1082"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1082-1"><a href="homework-week-8.html#cb1082-1" aria-hidden="true" tabindex="-1"></a><span class="co"># model_frogs_1_stan &lt;- &#39;model_frogs_1.stan&#39;</span></span>
-<span id="cb1082-2"><a href="homework-week-8.html#cb1082-2" aria-hidden="true" tabindex="-1"></a><span class="co"># writeLines(readLines(model_frogs_1_stan))</span></span>
-<span id="cb1082-3"><a href="homework-week-8.html#cb1082-3" aria-hidden="true" tabindex="-1"></a><span class="co"># model_frogs_1 &lt;- cmdstan_model(model_frogs_1_stan, cpp_options = list(stan_threads = TRUE))</span></span>
-<span id="cb1082-4"><a href="homework-week-8.html#cb1082-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1082-5"><a href="homework-week-8.html#cb1082-5" aria-hidden="true" tabindex="-1"></a>model_data <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb1082-6"><a href="homework-week-8.html#cb1082-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.list</span>(DT[, .(</span>
-<span id="cb1082-7"><a href="homework-week-8.html#cb1082-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">survival =</span> surv,</span>
-<span id="cb1082-8"><a href="homework-week-8.html#cb1082-8" aria-hidden="true" tabindex="-1"></a>        density,</span>
-<span id="cb1082-9"><a href="homework-week-8.html#cb1082-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">predation =</span> <span class="fu">as.integer</span>(pred),</span>
-<span id="cb1082-10"><a href="homework-week-8.html#cb1082-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">size =</span> <span class="fu">as.integer</span>(size),</span>
-<span id="cb1082-11"><a href="homework-week-8.html#cb1082-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">tank =</span> <span class="fu">seq.int</span>(.N)</span>
-<span id="cb1082-12"><a href="homework-week-8.html#cb1082-12" aria-hidden="true" tabindex="-1"></a>    )]), </span>
-<span id="cb1082-13"><a href="homework-week-8.html#cb1082-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">N =</span> DT[, .N]</span>
-<span id="cb1082-14"><a href="homework-week-8.html#cb1082-14" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb1082-15"><a href="homework-week-8.html#cb1082-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1082-16"><a href="homework-week-8.html#cb1082-16" aria-hidden="true" tabindex="-1"></a>model_frogs_1_sample <span class="ot">&lt;-</span></span>
-<span id="cb1082-17"><a href="homework-week-8.html#cb1082-17" aria-hidden="true" tabindex="-1"></a>    model_frogs_1<span class="sc">$</span><span class="fu">sample</span>(</span>
-<span id="cb1082-18"><a href="homework-week-8.html#cb1082-18" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> model_data,</span>
-<span id="cb1082-19"><a href="homework-week-8.html#cb1082-19" aria-hidden="true" tabindex="-1"></a>        <span class="at">chains =</span> <span class="dv">4</span>,</span>
-<span id="cb1082-20"><a href="homework-week-8.html#cb1082-20" aria-hidden="true" tabindex="-1"></a>        <span class="at">parallel_chains =</span> <span class="dv">4</span>,</span>
-<span id="cb1082-21"><a href="homework-week-8.html#cb1082-21" aria-hidden="true" tabindex="-1"></a>        <span class="at">threads_per_chain =</span> <span class="dv">4</span></span>
-<span id="cb1082-22"><a href="homework-week-8.html#cb1082-22" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
+<div class="sourceCode" id="cb1089"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1089-1"><a href="homework-week-8.html#cb1089-1" aria-hidden="true" tabindex="-1"></a><span class="co"># model_frogs_1_stan &lt;- &#39;model_frogs_1.stan&#39;</span></span>
+<span id="cb1089-2"><a href="homework-week-8.html#cb1089-2" aria-hidden="true" tabindex="-1"></a><span class="co"># writeLines(readLines(model_frogs_1_stan))</span></span>
+<span id="cb1089-3"><a href="homework-week-8.html#cb1089-3" aria-hidden="true" tabindex="-1"></a><span class="co"># model_frogs_1 &lt;- cmdstan_model(model_frogs_1_stan, cpp_options = list(stan_threads = TRUE))</span></span>
+<span id="cb1089-4"><a href="homework-week-8.html#cb1089-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1089-5"><a href="homework-week-8.html#cb1089-5" aria-hidden="true" tabindex="-1"></a>model_data <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb1089-6"><a href="homework-week-8.html#cb1089-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.list</span>(DT[, .(</span>
+<span id="cb1089-7"><a href="homework-week-8.html#cb1089-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">survival =</span> surv,</span>
+<span id="cb1089-8"><a href="homework-week-8.html#cb1089-8" aria-hidden="true" tabindex="-1"></a>        density,</span>
+<span id="cb1089-9"><a href="homework-week-8.html#cb1089-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">predation =</span> <span class="fu">as.integer</span>(pred),</span>
+<span id="cb1089-10"><a href="homework-week-8.html#cb1089-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">size =</span> <span class="fu">as.integer</span>(size),</span>
+<span id="cb1089-11"><a href="homework-week-8.html#cb1089-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">tank =</span> <span class="fu">seq.int</span>(.N)</span>
+<span id="cb1089-12"><a href="homework-week-8.html#cb1089-12" aria-hidden="true" tabindex="-1"></a>    )]), </span>
+<span id="cb1089-13"><a href="homework-week-8.html#cb1089-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">N =</span> DT[, .N]</span>
+<span id="cb1089-14"><a href="homework-week-8.html#cb1089-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1089-15"><a href="homework-week-8.html#cb1089-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1089-16"><a href="homework-week-8.html#cb1089-16" aria-hidden="true" tabindex="-1"></a>model_frogs_1_sample <span class="ot">&lt;-</span></span>
+<span id="cb1089-17"><a href="homework-week-8.html#cb1089-17" aria-hidden="true" tabindex="-1"></a>    model_frogs_1<span class="sc">$</span><span class="fu">sample</span>(</span>
+<span id="cb1089-18"><a href="homework-week-8.html#cb1089-18" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> model_data,</span>
+<span id="cb1089-19"><a href="homework-week-8.html#cb1089-19" aria-hidden="true" tabindex="-1"></a>        <span class="at">chains =</span> <span class="dv">4</span>,</span>
+<span id="cb1089-20"><a href="homework-week-8.html#cb1089-20" aria-hidden="true" tabindex="-1"></a>        <span class="at">parallel_chains =</span> <span class="dv">4</span>,</span>
+<span id="cb1089-21"><a href="homework-week-8.html#cb1089-21" aria-hidden="true" tabindex="-1"></a>        <span class="at">threads_per_chain =</span> <span class="dv">4</span></span>
+<span id="cb1089-22"><a href="homework-week-8.html#cb1089-22" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
 <pre><code>## Warning: &#39;threads_per_chain&#39; is set but the model was not compiled with
 ## &#39;cpp_options = list(stan_threads = TRUE)&#39; so &#39;threads_per_chain&#39; will have no
 ## effect!</code></pre>
@@ -705,11 +716,11 @@ model {
 ## All 4 chains finished successfully.
 ## Mean chain execution time: 0.2 seconds.
 ## Total execution time: 0.4 seconds.</code></pre>
-<div class="sourceCode" id="cb1139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1139-1"><a href="homework-week-8.html#cb1139-1" aria-hidden="true" tabindex="-1"></a>model_frogs_1_draws <span class="ot">&lt;-</span> <span class="fu">cmd_draws</span>(model_frogs_1_sample)</span>
-<span id="cb1139-2"><a href="homework-week-8.html#cb1139-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1139-3"><a href="homework-week-8.html#cb1139-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(model_frogs_1_draws, <span class="at">regex_pars =</span> <span class="st">&#39;alpha&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1146-1"><a href="homework-week-8.html#cb1146-1" aria-hidden="true" tabindex="-1"></a>model_frogs_1_draws <span class="ot">&lt;-</span> <span class="fu">cmd_draws</span>(model_frogs_1_sample)</span>
+<span id="cb1146-2"><a href="homework-week-8.html#cb1146-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1146-3"><a href="homework-week-8.html#cb1146-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(model_frogs_1_draws, <span class="at">regex_pars =</span> <span class="st">&#39;alpha&#39;</span>)</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-86-1.png" width="672" /></p>
-<div class="sourceCode" id="cb1140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1140-1"><a href="homework-week-8.html#cb1140-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(model_frogs_1_draws, <span class="at">regex_pars =</span> <span class="st">&#39;p</span><span class="sc">\\</span><span class="st">[&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1147-1"><a href="homework-week-8.html#cb1147-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(model_frogs_1_draws, <span class="at">regex_pars =</span> <span class="st">&#39;p</span><span class="sc">\\</span><span class="st">[&#39;</span>)</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-86-2.png" width="672" /></p>
 <pre class="stan"><code>data {
     int N;
@@ -739,17 +750,17 @@ model {
         survival[i] ~ binomial(density[i], p[i]);
     }
 }</code></pre>
-<div class="sourceCode" id="cb1142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1142-1"><a href="homework-week-8.html#cb1142-1" aria-hidden="true" tabindex="-1"></a><span class="co"># model_frogs_2_stan &lt;- &#39;model_frogs_2.stan&#39;</span></span>
-<span id="cb1142-2"><a href="homework-week-8.html#cb1142-2" aria-hidden="true" tabindex="-1"></a><span class="co"># writeLines(readLines(model_frogs_2_stan))</span></span>
-<span id="cb1142-3"><a href="homework-week-8.html#cb1142-3" aria-hidden="true" tabindex="-1"></a><span class="co"># model_frogs_2 &lt;- cmdstan_model(model_frogs_2_stan, cpp_options = list(stan_threads = TRUE))</span></span>
-<span id="cb1142-4"><a href="homework-week-8.html#cb1142-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1142-5"><a href="homework-week-8.html#cb1142-5" aria-hidden="true" tabindex="-1"></a>model_frogs_2_sample <span class="ot">&lt;-</span></span>
-<span id="cb1142-6"><a href="homework-week-8.html#cb1142-6" aria-hidden="true" tabindex="-1"></a>    model_frogs_2<span class="sc">$</span><span class="fu">sample</span>(</span>
-<span id="cb1142-7"><a href="homework-week-8.html#cb1142-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> model_data,</span>
-<span id="cb1142-8"><a href="homework-week-8.html#cb1142-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">chains =</span> <span class="dv">4</span>,</span>
-<span id="cb1142-9"><a href="homework-week-8.html#cb1142-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">parallel_chains =</span> <span class="dv">4</span>,</span>
-<span id="cb1142-10"><a href="homework-week-8.html#cb1142-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">threads_per_chain =</span> <span class="dv">4</span></span>
-<span id="cb1142-11"><a href="homework-week-8.html#cb1142-11" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
+<div class="sourceCode" id="cb1149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1149-1"><a href="homework-week-8.html#cb1149-1" aria-hidden="true" tabindex="-1"></a><span class="co"># model_frogs_2_stan &lt;- &#39;model_frogs_2.stan&#39;</span></span>
+<span id="cb1149-2"><a href="homework-week-8.html#cb1149-2" aria-hidden="true" tabindex="-1"></a><span class="co"># writeLines(readLines(model_frogs_2_stan))</span></span>
+<span id="cb1149-3"><a href="homework-week-8.html#cb1149-3" aria-hidden="true" tabindex="-1"></a><span class="co"># model_frogs_2 &lt;- cmdstan_model(model_frogs_2_stan, cpp_options = list(stan_threads = TRUE))</span></span>
+<span id="cb1149-4"><a href="homework-week-8.html#cb1149-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1149-5"><a href="homework-week-8.html#cb1149-5" aria-hidden="true" tabindex="-1"></a>model_frogs_2_sample <span class="ot">&lt;-</span></span>
+<span id="cb1149-6"><a href="homework-week-8.html#cb1149-6" aria-hidden="true" tabindex="-1"></a>    model_frogs_2<span class="sc">$</span><span class="fu">sample</span>(</span>
+<span id="cb1149-7"><a href="homework-week-8.html#cb1149-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> model_data,</span>
+<span id="cb1149-8"><a href="homework-week-8.html#cb1149-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">chains =</span> <span class="dv">4</span>,</span>
+<span id="cb1149-9"><a href="homework-week-8.html#cb1149-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">parallel_chains =</span> <span class="dv">4</span>,</span>
+<span id="cb1149-10"><a href="homework-week-8.html#cb1149-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">threads_per_chain =</span> <span class="dv">4</span></span>
+<span id="cb1149-11"><a href="homework-week-8.html#cb1149-11" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
 <pre><code>## Warning: &#39;threads_per_chain&#39; is set but the model was not compiled with
 ## &#39;cpp_options = list(stan_threads = TRUE)&#39; so &#39;threads_per_chain&#39; will have no
 ## effect!</code></pre>
@@ -887,8 +898,8 @@ model {
 ## All 4 chains finished successfully.
 ## Mean chain execution time: 0.5 seconds.
 ## Total execution time: 0.6 seconds.</code></pre>
-<div class="sourceCode" id="cb1180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1180-1"><a href="homework-week-8.html#cb1180-1" aria-hidden="true" tabindex="-1"></a>model_frogs_2_draws <span class="ot">&lt;-</span> <span class="fu">cmd_draws</span>(model_frogs_2_sample)</span>
-<span id="cb1180-2"><a href="homework-week-8.html#cb1180-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(model_frogs_2_draws, <span class="at">regex_pars =</span> <span class="st">&#39;predation&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1187-1"><a href="homework-week-8.html#cb1187-1" aria-hidden="true" tabindex="-1"></a>model_frogs_2_draws <span class="ot">&lt;-</span> <span class="fu">cmd_draws</span>(model_frogs_2_sample)</span>
+<span id="cb1187-2"><a href="homework-week-8.html#cb1187-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(model_frogs_2_draws, <span class="at">regex_pars =</span> <span class="st">&#39;predation&#39;</span>)</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-88-1.png" width="672" /></p>
 <pre class="stan"><code>data {
     int N;
@@ -918,17 +929,17 @@ model {
         survival[i] ~ binomial(density[i], p[i]);
     }
 }</code></pre>
-<div class="sourceCode" id="cb1182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1182-1"><a href="homework-week-8.html#cb1182-1" aria-hidden="true" tabindex="-1"></a><span class="co"># model_frogs_3_stan &lt;- &#39;model_frogs_3.stan&#39;</span></span>
-<span id="cb1182-2"><a href="homework-week-8.html#cb1182-2" aria-hidden="true" tabindex="-1"></a><span class="co"># writeLines(readLines(model_frogs_3_stan))</span></span>
-<span id="cb1182-3"><a href="homework-week-8.html#cb1182-3" aria-hidden="true" tabindex="-1"></a><span class="co"># model_frogs_3 &lt;- cmdstan_model(model_frogs_3_stan, cpp_options = list(stan_threads = TRUE))</span></span>
-<span id="cb1182-4"><a href="homework-week-8.html#cb1182-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1182-5"><a href="homework-week-8.html#cb1182-5" aria-hidden="true" tabindex="-1"></a>model_frogs_3_sample <span class="ot">&lt;-</span></span>
-<span id="cb1182-6"><a href="homework-week-8.html#cb1182-6" aria-hidden="true" tabindex="-1"></a>    model_frogs_3<span class="sc">$</span><span class="fu">sample</span>(</span>
-<span id="cb1182-7"><a href="homework-week-8.html#cb1182-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> model_data,</span>
-<span id="cb1182-8"><a href="homework-week-8.html#cb1182-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">chains =</span> <span class="dv">4</span>,</span>
-<span id="cb1182-9"><a href="homework-week-8.html#cb1182-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">parallel_chains =</span> <span class="dv">4</span>,</span>
-<span id="cb1182-10"><a href="homework-week-8.html#cb1182-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">threads_per_chain =</span> <span class="dv">4</span></span>
-<span id="cb1182-11"><a href="homework-week-8.html#cb1182-11" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
+<div class="sourceCode" id="cb1189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1189-1"><a href="homework-week-8.html#cb1189-1" aria-hidden="true" tabindex="-1"></a><span class="co"># model_frogs_3_stan &lt;- &#39;model_frogs_3.stan&#39;</span></span>
+<span id="cb1189-2"><a href="homework-week-8.html#cb1189-2" aria-hidden="true" tabindex="-1"></a><span class="co"># writeLines(readLines(model_frogs_3_stan))</span></span>
+<span id="cb1189-3"><a href="homework-week-8.html#cb1189-3" aria-hidden="true" tabindex="-1"></a><span class="co"># model_frogs_3 &lt;- cmdstan_model(model_frogs_3_stan, cpp_options = list(stan_threads = TRUE))</span></span>
+<span id="cb1189-4"><a href="homework-week-8.html#cb1189-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1189-5"><a href="homework-week-8.html#cb1189-5" aria-hidden="true" tabindex="-1"></a>model_frogs_3_sample <span class="ot">&lt;-</span></span>
+<span id="cb1189-6"><a href="homework-week-8.html#cb1189-6" aria-hidden="true" tabindex="-1"></a>    model_frogs_3<span class="sc">$</span><span class="fu">sample</span>(</span>
+<span id="cb1189-7"><a href="homework-week-8.html#cb1189-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> model_data,</span>
+<span id="cb1189-8"><a href="homework-week-8.html#cb1189-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">chains =</span> <span class="dv">4</span>,</span>
+<span id="cb1189-9"><a href="homework-week-8.html#cb1189-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">parallel_chains =</span> <span class="dv">4</span>,</span>
+<span id="cb1189-10"><a href="homework-week-8.html#cb1189-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">threads_per_chain =</span> <span class="dv">4</span></span>
+<span id="cb1189-11"><a href="homework-week-8.html#cb1189-11" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
 <pre><code>## Warning: &#39;threads_per_chain&#39; is set but the model was not compiled with
 ## &#39;cpp_options = list(stan_threads = TRUE)&#39; so &#39;threads_per_chain&#39; will have no
 ## effect!</code></pre>
@@ -1091,8 +1102,8 @@ model {
 ## All 4 chains finished successfully.
 ## Mean chain execution time: 0.5 seconds.
 ## Total execution time: 0.7 seconds.</code></pre>
-<div class="sourceCode" id="cb1240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1240-1"><a href="homework-week-8.html#cb1240-1" aria-hidden="true" tabindex="-1"></a>model_frogs_3_draws <span class="ot">&lt;-</span> <span class="fu">cmd_draws</span>(model_frogs_3_sample)</span>
-<span id="cb1240-2"><a href="homework-week-8.html#cb1240-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(model_frogs_3_draws, <span class="at">regex_pars =</span> <span class="st">&#39;size&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1247-1"><a href="homework-week-8.html#cb1247-1" aria-hidden="true" tabindex="-1"></a>model_frogs_3_draws <span class="ot">&lt;-</span> <span class="fu">cmd_draws</span>(model_frogs_3_sample)</span>
+<span id="cb1247-2"><a href="homework-week-8.html#cb1247-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(model_frogs_3_draws, <span class="at">regex_pars =</span> <span class="st">&#39;size&#39;</span>)</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-90-1.png" width="672" /></p>
 <pre class="stan"><code>data {
     int N;
@@ -1127,17 +1138,17 @@ model {
         survival[i] ~ binomial(density[i], p[i]);
     }
 }</code></pre>
-<div class="sourceCode" id="cb1242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1242-1"><a href="homework-week-8.html#cb1242-1" aria-hidden="true" tabindex="-1"></a><span class="co"># model_frogs_4_stan &lt;- &#39;model_frogs_4.stan&#39;</span></span>
-<span id="cb1242-2"><a href="homework-week-8.html#cb1242-2" aria-hidden="true" tabindex="-1"></a><span class="co"># writeLines(readLines(model_frogs_4_stan))</span></span>
-<span id="cb1242-3"><a href="homework-week-8.html#cb1242-3" aria-hidden="true" tabindex="-1"></a><span class="co"># model_frogs_4 &lt;- cmdstan_model(model_frogs_4_stan, cpp_options = list(stan_threads = TRUE))</span></span>
-<span id="cb1242-4"><a href="homework-week-8.html#cb1242-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1242-5"><a href="homework-week-8.html#cb1242-5" aria-hidden="true" tabindex="-1"></a>model_frogs_4_sample <span class="ot">&lt;-</span></span>
-<span id="cb1242-6"><a href="homework-week-8.html#cb1242-6" aria-hidden="true" tabindex="-1"></a>    model_frogs_4<span class="sc">$</span><span class="fu">sample</span>(</span>
-<span id="cb1242-7"><a href="homework-week-8.html#cb1242-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> model_data,</span>
-<span id="cb1242-8"><a href="homework-week-8.html#cb1242-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">chains =</span> <span class="dv">4</span>,</span>
-<span id="cb1242-9"><a href="homework-week-8.html#cb1242-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">parallel_chains =</span> <span class="dv">4</span>,</span>
-<span id="cb1242-10"><a href="homework-week-8.html#cb1242-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">threads_per_chain =</span> <span class="dv">4</span></span>
-<span id="cb1242-11"><a href="homework-week-8.html#cb1242-11" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
+<div class="sourceCode" id="cb1249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1249-1"><a href="homework-week-8.html#cb1249-1" aria-hidden="true" tabindex="-1"></a><span class="co"># model_frogs_4_stan &lt;- &#39;model_frogs_4.stan&#39;</span></span>
+<span id="cb1249-2"><a href="homework-week-8.html#cb1249-2" aria-hidden="true" tabindex="-1"></a><span class="co"># writeLines(readLines(model_frogs_4_stan))</span></span>
+<span id="cb1249-3"><a href="homework-week-8.html#cb1249-3" aria-hidden="true" tabindex="-1"></a><span class="co"># model_frogs_4 &lt;- cmdstan_model(model_frogs_4_stan, cpp_options = list(stan_threads = TRUE))</span></span>
+<span id="cb1249-4"><a href="homework-week-8.html#cb1249-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1249-5"><a href="homework-week-8.html#cb1249-5" aria-hidden="true" tabindex="-1"></a>model_frogs_4_sample <span class="ot">&lt;-</span></span>
+<span id="cb1249-6"><a href="homework-week-8.html#cb1249-6" aria-hidden="true" tabindex="-1"></a>    model_frogs_4<span class="sc">$</span><span class="fu">sample</span>(</span>
+<span id="cb1249-7"><a href="homework-week-8.html#cb1249-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> model_data,</span>
+<span id="cb1249-8"><a href="homework-week-8.html#cb1249-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">chains =</span> <span class="dv">4</span>,</span>
+<span id="cb1249-9"><a href="homework-week-8.html#cb1249-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">parallel_chains =</span> <span class="dv">4</span>,</span>
+<span id="cb1249-10"><a href="homework-week-8.html#cb1249-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">threads_per_chain =</span> <span class="dv">4</span></span>
+<span id="cb1249-11"><a href="homework-week-8.html#cb1249-11" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
 <pre><code>## Warning: &#39;threads_per_chain&#39; is set but the model was not compiled with
 ## &#39;cpp_options = list(stan_threads = TRUE)&#39; so &#39;threads_per_chain&#39; will have no
 ## effect!</code></pre>
@@ -1250,8 +1261,8 @@ model {
 ## All 4 chains finished successfully.
 ## Mean chain execution time: 0.9 seconds.
 ## Total execution time: 1.0 seconds.</code></pre>
-<div class="sourceCode" id="cb1256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1256-1"><a href="homework-week-8.html#cb1256-1" aria-hidden="true" tabindex="-1"></a>model_frogs_4_draws <span class="ot">&lt;-</span> <span class="fu">cmd_draws</span>(model_frogs_4_sample)</span>
-<span id="cb1256-2"><a href="homework-week-8.html#cb1256-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(model_frogs_4_draws, <span class="at">regex_pars =</span> <span class="st">&#39;beta&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1263-1"><a href="homework-week-8.html#cb1263-1" aria-hidden="true" tabindex="-1"></a>model_frogs_4_draws <span class="ot">&lt;-</span> <span class="fu">cmd_draws</span>(model_frogs_4_sample)</span>
+<span id="cb1263-2"><a href="homework-week-8.html#cb1263-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(model_frogs_4_draws, <span class="at">regex_pars =</span> <span class="st">&#39;beta&#39;</span>)</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-92-1.png" width="672" /></p>
 <p>Negative influence of predation is somewhat balanced by size of tank.</p>
 <!-- TODO use AIC -->
@@ -1270,9 +1281,9 @@ for this practice problem: (1) district: ID number of administrative district
 each woman resided in (2) use.contraception: An indicator (0/1) of whether the
 woman was using contraception.</p>
 </blockquote>
-<div class="sourceCode" id="cb1257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1257-1"><a href="homework-week-8.html#cb1257-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(bangladesh)</span>
-<span id="cb1257-2"><a href="homework-week-8.html#cb1257-2" aria-hidden="true" tabindex="-1"></a>DT <span class="ot">&lt;-</span> <span class="fu">data.table</span>(bangladesh)</span>
-<span id="cb1257-3"><a href="homework-week-8.html#cb1257-3" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(DT)</span></code></pre></div>
+<div class="sourceCode" id="cb1264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1264-1"><a href="homework-week-8.html#cb1264-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(bangladesh)</span>
+<span id="cb1264-2"><a href="homework-week-8.html#cb1264-2" aria-hidden="true" tabindex="-1"></a>DT <span class="ot">&lt;-</span> <span class="fu">data.table</span>(bangladesh)</span>
+<span id="cb1264-3"><a href="homework-week-8.html#cb1264-3" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(DT)</span></code></pre></div>
 <pre><code>##                       mean     sd 5.5% 94.5%     histogram
 ## woman             967.5000 558.44  107  1828    ▇▇▇▇▇▇▇▇▇▅
 ## district           29.3537  17.96    1    58 ▇▅▇▅▅▇▅▃▅▅▃▅▁
@@ -1280,12 +1291,12 @@ woman was using contraception.</p>
 ## living.children     2.6520   1.24    1     4        ▅▃▁▃▁▇
 ## age.centered        0.0022   9.01  -13    16       ▅▇▇▅▃▃▂
 ## urban               0.2906   0.45    0     1    ▇▁▁▁▁▁▁▁▁▃</code></pre>
-<div class="sourceCode" id="cb1259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1259-1"><a href="homework-week-8.html#cb1259-1" aria-hidden="true" tabindex="-1"></a>DT[, id <span class="sc">:</span><span class="er">=</span> <span class="fu">as.integer</span>(woman)]</span>
-<span id="cb1259-2"><a href="homework-week-8.html#cb1259-2" aria-hidden="true" tabindex="-1"></a>DT[, district <span class="sc">:</span><span class="er">=</span> <span class="fu">as.integer</span>(<span class="fu">as.factor</span>(district))]</span>
-<span id="cb1259-3"><a href="homework-week-8.html#cb1259-3" aria-hidden="true" tabindex="-1"></a>DT[, contraception <span class="sc">:</span><span class="er">=</span> use.contraception]</span>
-<span id="cb1259-4"><a href="homework-week-8.html#cb1259-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1259-5"><a href="homework-week-8.html#cb1259-5" aria-hidden="true" tabindex="-1"></a>model_data <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">as.list</span>(DT[, .(contraception, district)]), </span>
-<span id="cb1259-6"><a href="homework-week-8.html#cb1259-6" aria-hidden="true" tabindex="-1"></a>                                <span class="at">N =</span> DT[, .N], <span class="at">N_district =</span> DT[, <span class="fu">uniqueN</span>(district)])</span></code></pre></div>
+<div class="sourceCode" id="cb1266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1266-1"><a href="homework-week-8.html#cb1266-1" aria-hidden="true" tabindex="-1"></a>DT[, id <span class="sc">:</span><span class="er">=</span> <span class="fu">as.integer</span>(woman)]</span>
+<span id="cb1266-2"><a href="homework-week-8.html#cb1266-2" aria-hidden="true" tabindex="-1"></a>DT[, district <span class="sc">:</span><span class="er">=</span> <span class="fu">as.integer</span>(<span class="fu">as.factor</span>(district))]</span>
+<span id="cb1266-3"><a href="homework-week-8.html#cb1266-3" aria-hidden="true" tabindex="-1"></a>DT[, contraception <span class="sc">:</span><span class="er">=</span> use.contraception]</span>
+<span id="cb1266-4"><a href="homework-week-8.html#cb1266-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1266-5"><a href="homework-week-8.html#cb1266-5" aria-hidden="true" tabindex="-1"></a>model_data <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">as.list</span>(DT[, .(contraception, district)]), </span>
+<span id="cb1266-6"><a href="homework-week-8.html#cb1266-6" aria-hidden="true" tabindex="-1"></a>                                <span class="at">N =</span> DT[, .N], <span class="at">N_district =</span> DT[, <span class="fu">uniqueN</span>(district)])</span></code></pre></div>
 <p>Now, focus on predicting <code>use.contraception</code>, clustered by <code>district_id</code>. Fit
 both (1) a traditional fixed-effects model that uses an index variable for
 district and (2) a multilevel model with varying intercepts for district. Plot
@@ -1326,17 +1337,17 @@ model {
   // Contraception if distributed with bernoulli, p
   contraception ~ bernoulli(p);
 }</code></pre>
-<div class="sourceCode" id="cb1261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1261-1"><a href="homework-week-8.html#cb1261-1" aria-hidden="true" tabindex="-1"></a><span class="co"># model_bang_fixed_stan &lt;- &#39;model_bang_fixed.stan&#39;</span></span>
-<span id="cb1261-2"><a href="homework-week-8.html#cb1261-2" aria-hidden="true" tabindex="-1"></a><span class="co"># writeLines(readLines(model_bang_fixed_stan))</span></span>
-<span id="cb1261-3"><a href="homework-week-8.html#cb1261-3" aria-hidden="true" tabindex="-1"></a><span class="co"># model_bang_fixed &lt;- cmdstan_model(model_bang_fixed_stan, cpp_options = list(stan_threads = TRUE))</span></span>
-<span id="cb1261-4"><a href="homework-week-8.html#cb1261-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1261-5"><a href="homework-week-8.html#cb1261-5" aria-hidden="true" tabindex="-1"></a>model_bang_fixed_sample <span class="ot">&lt;-</span></span>
-<span id="cb1261-6"><a href="homework-week-8.html#cb1261-6" aria-hidden="true" tabindex="-1"></a>    model_bang_fixed<span class="sc">$</span><span class="fu">sample</span>(</span>
-<span id="cb1261-7"><a href="homework-week-8.html#cb1261-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> model_data,</span>
-<span id="cb1261-8"><a href="homework-week-8.html#cb1261-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">chains =</span> <span class="dv">4</span>,</span>
-<span id="cb1261-9"><a href="homework-week-8.html#cb1261-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">parallel_chains =</span> <span class="dv">4</span>,</span>
-<span id="cb1261-10"><a href="homework-week-8.html#cb1261-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">threads_per_chain =</span> <span class="dv">4</span></span>
-<span id="cb1261-11"><a href="homework-week-8.html#cb1261-11" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
+<div class="sourceCode" id="cb1268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1268-1"><a href="homework-week-8.html#cb1268-1" aria-hidden="true" tabindex="-1"></a><span class="co"># model_bang_fixed_stan &lt;- &#39;model_bang_fixed.stan&#39;</span></span>
+<span id="cb1268-2"><a href="homework-week-8.html#cb1268-2" aria-hidden="true" tabindex="-1"></a><span class="co"># writeLines(readLines(model_bang_fixed_stan))</span></span>
+<span id="cb1268-3"><a href="homework-week-8.html#cb1268-3" aria-hidden="true" tabindex="-1"></a><span class="co"># model_bang_fixed &lt;- cmdstan_model(model_bang_fixed_stan, cpp_options = list(stan_threads = TRUE))</span></span>
+<span id="cb1268-4"><a href="homework-week-8.html#cb1268-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1268-5"><a href="homework-week-8.html#cb1268-5" aria-hidden="true" tabindex="-1"></a>model_bang_fixed_sample <span class="ot">&lt;-</span></span>
+<span id="cb1268-6"><a href="homework-week-8.html#cb1268-6" aria-hidden="true" tabindex="-1"></a>    model_bang_fixed<span class="sc">$</span><span class="fu">sample</span>(</span>
+<span id="cb1268-7"><a href="homework-week-8.html#cb1268-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> model_data,</span>
+<span id="cb1268-8"><a href="homework-week-8.html#cb1268-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">chains =</span> <span class="dv">4</span>,</span>
+<span id="cb1268-9"><a href="homework-week-8.html#cb1268-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">parallel_chains =</span> <span class="dv">4</span>,</span>
+<span id="cb1268-10"><a href="homework-week-8.html#cb1268-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">threads_per_chain =</span> <span class="dv">4</span></span>
+<span id="cb1268-11"><a href="homework-week-8.html#cb1268-11" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
 <pre><code>## Warning: &#39;threads_per_chain&#39; is set but the model was not compiled with
 ## &#39;cpp_options = list(stan_threads = TRUE)&#39; so &#39;threads_per_chain&#39; will have no
 ## effect!</code></pre>
@@ -1438,8 +1449,8 @@ model {
 ## All 4 chains finished successfully.
 ## Mean chain execution time: 1.8 seconds.
 ## Total execution time: 2.0 seconds.</code></pre>
-<div class="sourceCode" id="cb1264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1264-1"><a href="homework-week-8.html#cb1264-1" aria-hidden="true" tabindex="-1"></a>model_bang_fixed_draws <span class="ot">&lt;-</span> <span class="fu">cmd_draws</span>(model_bang_fixed_sample)</span>
-<span id="cb1264-2"><a href="homework-week-8.html#cb1264-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(model_bang_fixed_draws, <span class="at">regex_pars =</span> <span class="st">&#39;alpha&#39;</span>, <span class="at">transformations =</span> inv.logit)</span></code></pre></div>
+<div class="sourceCode" id="cb1271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1271-1"><a href="homework-week-8.html#cb1271-1" aria-hidden="true" tabindex="-1"></a>model_bang_fixed_draws <span class="ot">&lt;-</span> <span class="fu">cmd_draws</span>(model_bang_fixed_sample)</span>
+<span id="cb1271-2"><a href="homework-week-8.html#cb1271-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(model_bang_fixed_draws, <span class="at">regex_pars =</span> <span class="st">&#39;alpha&#39;</span>, <span class="at">transformations =</span> inv.logit)</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-95-1.png" width="672" /></p>
 <p>Multilevel model</p>
 <pre class="stan"><code>data {
@@ -1480,17 +1491,17 @@ model {
   // Contraception if distributed with bernoulli, p
   contraception ~ bernoulli(p);
 }</code></pre>
-<div class="sourceCode" id="cb1266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1266-1"><a href="homework-week-8.html#cb1266-1" aria-hidden="true" tabindex="-1"></a><span class="co"># model_bang_multi_stan &lt;- &#39;model_bang_multi.stan&#39;</span></span>
-<span id="cb1266-2"><a href="homework-week-8.html#cb1266-2" aria-hidden="true" tabindex="-1"></a><span class="co"># writeLines(readLines(model_bang_multi_stan))</span></span>
-<span id="cb1266-3"><a href="homework-week-8.html#cb1266-3" aria-hidden="true" tabindex="-1"></a><span class="co"># model_bang_multi &lt;- cmdstan_model(model_bang_multi_stan, cpp_options = list(stan_threads = TRUE))</span></span>
-<span id="cb1266-4"><a href="homework-week-8.html#cb1266-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1266-5"><a href="homework-week-8.html#cb1266-5" aria-hidden="true" tabindex="-1"></a>model_bang_multi_sample <span class="ot">&lt;-</span></span>
-<span id="cb1266-6"><a href="homework-week-8.html#cb1266-6" aria-hidden="true" tabindex="-1"></a>    model_bang_multi<span class="sc">$</span><span class="fu">sample</span>(</span>
-<span id="cb1266-7"><a href="homework-week-8.html#cb1266-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> model_data,</span>
-<span id="cb1266-8"><a href="homework-week-8.html#cb1266-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">chains =</span> <span class="dv">4</span>,</span>
-<span id="cb1266-9"><a href="homework-week-8.html#cb1266-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">parallel_chains =</span> <span class="dv">4</span>,</span>
-<span id="cb1266-10"><a href="homework-week-8.html#cb1266-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">threads_per_chain =</span> <span class="dv">4</span></span>
-<span id="cb1266-11"><a href="homework-week-8.html#cb1266-11" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
+<div class="sourceCode" id="cb1273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1273-1"><a href="homework-week-8.html#cb1273-1" aria-hidden="true" tabindex="-1"></a><span class="co"># model_bang_multi_stan &lt;- &#39;model_bang_multi.stan&#39;</span></span>
+<span id="cb1273-2"><a href="homework-week-8.html#cb1273-2" aria-hidden="true" tabindex="-1"></a><span class="co"># writeLines(readLines(model_bang_multi_stan))</span></span>
+<span id="cb1273-3"><a href="homework-week-8.html#cb1273-3" aria-hidden="true" tabindex="-1"></a><span class="co"># model_bang_multi &lt;- cmdstan_model(model_bang_multi_stan, cpp_options = list(stan_threads = TRUE))</span></span>
+<span id="cb1273-4"><a href="homework-week-8.html#cb1273-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1273-5"><a href="homework-week-8.html#cb1273-5" aria-hidden="true" tabindex="-1"></a>model_bang_multi_sample <span class="ot">&lt;-</span></span>
+<span id="cb1273-6"><a href="homework-week-8.html#cb1273-6" aria-hidden="true" tabindex="-1"></a>    model_bang_multi<span class="sc">$</span><span class="fu">sample</span>(</span>
+<span id="cb1273-7"><a href="homework-week-8.html#cb1273-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> model_data,</span>
+<span id="cb1273-8"><a href="homework-week-8.html#cb1273-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">chains =</span> <span class="dv">4</span>,</span>
+<span id="cb1273-9"><a href="homework-week-8.html#cb1273-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">parallel_chains =</span> <span class="dv">4</span>,</span>
+<span id="cb1273-10"><a href="homework-week-8.html#cb1273-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">threads_per_chain =</span> <span class="dv">4</span></span>
+<span id="cb1273-11"><a href="homework-week-8.html#cb1273-11" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
 <pre><code>## Warning: &#39;threads_per_chain&#39; is set but the model was not compiled with
 ## &#39;cpp_options = list(stan_threads = TRUE)&#39; so &#39;threads_per_chain&#39; will have no
 ## effect!</code></pre>
@@ -1597,35 +1608,35 @@ model {
 ## All 4 chains finished successfully.
 ## Mean chain execution time: 3.6 seconds.
 ## Total execution time: 3.8 seconds.</code></pre>
-<div class="sourceCode" id="cb1275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1275-1"><a href="homework-week-8.html#cb1275-1" aria-hidden="true" tabindex="-1"></a>model_bang_multi_draws <span class="ot">&lt;-</span> <span class="fu">cmd_draws</span>(model_bang_multi_sample)</span>
-<span id="cb1275-2"><a href="homework-week-8.html#cb1275-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1275-3"><a href="homework-week-8.html#cb1275-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_trace</span>(model_bang_multi_draws)</span></code></pre></div>
+<div class="sourceCode" id="cb1282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1282-1"><a href="homework-week-8.html#cb1282-1" aria-hidden="true" tabindex="-1"></a>model_bang_multi_draws <span class="ot">&lt;-</span> <span class="fu">cmd_draws</span>(model_bang_multi_sample)</span>
+<span id="cb1282-2"><a href="homework-week-8.html#cb1282-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1282-3"><a href="homework-week-8.html#cb1282-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_trace</span>(model_bang_multi_draws)</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-97-1.png" width="672" /></p>
-<div class="sourceCode" id="cb1276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1276-1"><a href="homework-week-8.html#cb1276-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(model_bang_multi_draws, <span class="at">regex_pars =</span> <span class="st">&#39;alpha&#39;</span>, <span class="at">transformations =</span> inv.logit)</span></code></pre></div>
+<div class="sourceCode" id="cb1283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1283-1"><a href="homework-week-8.html#cb1283-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(model_bang_multi_draws, <span class="at">regex_pars =</span> <span class="st">&#39;alpha&#39;</span>, <span class="at">transformations =</span> inv.logit)</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-97-2.png" width="672" /></p>
-<div class="sourceCode" id="cb1277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1277-1"><a href="homework-week-8.html#cb1277-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(model_bang_multi_draws, <span class="at">pars =</span> <span class="fu">c</span>(<span class="st">&#39;alpha_bar&#39;</span>, <span class="st">&#39;sigma&#39;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb1284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1284-1"><a href="homework-week-8.html#cb1284-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(model_bang_multi_draws, <span class="at">pars =</span> <span class="fu">c</span>(<span class="st">&#39;alpha_bar&#39;</span>, <span class="st">&#39;sigma&#39;</span>))</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-97-3.png" width="672" /></p>
 <p>Comparison</p>
-<div class="sourceCode" id="cb1278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1278-1"><a href="homework-week-8.html#cb1278-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
-<span id="cb1278-2"><a href="homework-week-8.html#cb1278-2" aria-hidden="true" tabindex="-1"></a>(<span class="fu">mcmc_areas</span>(model_bang_fixed_draws, <span class="at">regex_pars =</span> <span class="st">&#39;alpha&#39;</span>, <span class="at">transformations =</span> inv.logit) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&#39;fixed&#39;</span>)) <span class="sc">+</span> </span>
-<span id="cb1278-3"><a href="homework-week-8.html#cb1278-3" aria-hidden="true" tabindex="-1"></a>    (<span class="fu">mcmc_areas</span>(model_bang_multi_draws, <span class="at">regex_pars =</span> <span class="st">&#39;alpha</span><span class="sc">\\</span><span class="st">[&#39;</span>, <span class="at">transformations =</span> inv.logit) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&#39;multilevel&#39;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb1285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1285-1"><a href="homework-week-8.html#cb1285-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb1285-2"><a href="homework-week-8.html#cb1285-2" aria-hidden="true" tabindex="-1"></a>(<span class="fu">mcmc_areas</span>(model_bang_fixed_draws, <span class="at">regex_pars =</span> <span class="st">&#39;alpha&#39;</span>, <span class="at">transformations =</span> inv.logit) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&#39;fixed&#39;</span>)) <span class="sc">+</span> </span>
+<span id="cb1285-3"><a href="homework-week-8.html#cb1285-3" aria-hidden="true" tabindex="-1"></a>    (<span class="fu">mcmc_areas</span>(model_bang_multi_draws, <span class="at">regex_pars =</span> <span class="st">&#39;alpha</span><span class="sc">\\</span><span class="st">[&#39;</span>, <span class="at">transformations =</span> inv.logit) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&#39;multilevel&#39;</span>))</span></code></pre></div>
 <p><img src="_main_files/figure-html/unnamed-chunk-98-1.png" width="672" /></p>
-<div class="sourceCode" id="cb1279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1279-1"><a href="homework-week-8.html#cb1279-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setDT</span>(model_bang_fixed_draws)</span>
-<span id="cb1279-2"><a href="homework-week-8.html#cb1279-2" aria-hidden="true" tabindex="-1"></a><span class="fu">setDT</span>(model_bang_multi_draws)</span>
-<span id="cb1279-3"><a href="homework-week-8.html#cb1279-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1279-4"><a href="homework-week-8.html#cb1279-4" aria-hidden="true" tabindex="-1"></a>compare <span class="ot">&lt;-</span> <span class="fu">rbindlist</span>(<span class="fu">list</span>(</span>
-<span id="cb1279-5"><a href="homework-week-8.html#cb1279-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">melt</span>(model_bang_fixed_draws, <span class="at">measure.vars =</span> <span class="fu">patterns</span>(<span class="st">&#39;alpha&#39;</span>))[, <span class="at">model_type :=</span> <span class="st">&#39;fixed&#39;</span>],</span>
-<span id="cb1279-6"><a href="homework-week-8.html#cb1279-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">melt</span>(model_bang_multi_draws, <span class="at">measure.vars =</span> <span class="fu">patterns</span>(<span class="st">&#39;alpha&#39;</span>))[, <span class="at">model_type :=</span> <span class="st">&#39;multilevel&#39;</span>]</span>
-<span id="cb1279-7"><a href="homework-week-8.html#cb1279-7" aria-hidden="true" tabindex="-1"></a>), <span class="at">fill =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb1279-8"><a href="homework-week-8.html#cb1279-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1279-9"><a href="homework-week-8.html#cb1279-9" aria-hidden="true" tabindex="-1"></a>compare[, variable <span class="sc">:</span><span class="er">=</span> <span class="fu">as.integer</span>(<span class="fu">gsub</span>(<span class="st">&#39;alpha</span><span class="sc">\\</span><span class="st">[|</span><span class="sc">\\</span><span class="st">]&#39;</span>, <span class="st">&#39;&#39;</span>, variable))]</span></code></pre></div>
+<div class="sourceCode" id="cb1286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1286-1"><a href="homework-week-8.html#cb1286-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setDT</span>(model_bang_fixed_draws)</span>
+<span id="cb1286-2"><a href="homework-week-8.html#cb1286-2" aria-hidden="true" tabindex="-1"></a><span class="fu">setDT</span>(model_bang_multi_draws)</span>
+<span id="cb1286-3"><a href="homework-week-8.html#cb1286-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1286-4"><a href="homework-week-8.html#cb1286-4" aria-hidden="true" tabindex="-1"></a>compare <span class="ot">&lt;-</span> <span class="fu">rbindlist</span>(<span class="fu">list</span>(</span>
+<span id="cb1286-5"><a href="homework-week-8.html#cb1286-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">melt</span>(model_bang_fixed_draws, <span class="at">measure.vars =</span> <span class="fu">patterns</span>(<span class="st">&#39;alpha&#39;</span>))[, <span class="at">model_type :=</span> <span class="st">&#39;fixed&#39;</span>],</span>
+<span id="cb1286-6"><a href="homework-week-8.html#cb1286-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">melt</span>(model_bang_multi_draws, <span class="at">measure.vars =</span> <span class="fu">patterns</span>(<span class="st">&#39;alpha&#39;</span>))[, <span class="at">model_type :=</span> <span class="st">&#39;multilevel&#39;</span>]</span>
+<span id="cb1286-7"><a href="homework-week-8.html#cb1286-7" aria-hidden="true" tabindex="-1"></a>), <span class="at">fill =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1286-8"><a href="homework-week-8.html#cb1286-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1286-9"><a href="homework-week-8.html#cb1286-9" aria-hidden="true" tabindex="-1"></a>compare[, variable <span class="sc">:</span><span class="er">=</span> <span class="fu">as.integer</span>(<span class="fu">gsub</span>(<span class="st">&#39;alpha</span><span class="sc">\\</span><span class="st">[|</span><span class="sc">\\</span><span class="st">]&#39;</span>, <span class="st">&#39;&#39;</span>, variable))]</span></code></pre></div>
 <pre><code>## Warning in eval(jsub, SDenv, parent.frame()): NAs introduced by coercion</code></pre>
-<div class="sourceCode" id="cb1281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1281-1"><a href="homework-week-8.html#cb1281-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(compare[, .(<span class="at">value =</span> <span class="fu">mean</span>(value)), .(variable, model_type)]) <span class="sc">+</span> </span>
-<span id="cb1281-2"><a href="homework-week-8.html#cb1281-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
-<span id="cb1281-3"><a href="homework-week-8.html#cb1281-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(variable, value, <span class="at">color =</span> model_type)) <span class="sc">+</span></span>
-<span id="cb1281-4"><a href="homework-week-8.html#cb1281-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(variable, value, <span class="at">group =</span> model_type), <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
-<span id="cb1281-5"><a href="homework-week-8.html#cb1281-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_viridis_d</span>(<span class="at">begin =</span> <span class="fl">0.3</span>, <span class="at">end =</span> <span class="fl">0.8</span>) <span class="sc">+</span> </span>
-<span id="cb1281-6"><a href="homework-week-8.html#cb1281-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&#39;district&#39;</span>, <span class="at">y =</span> <span class="st">&#39;alpha&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1288-1"><a href="homework-week-8.html#cb1288-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(compare[, .(<span class="at">value =</span> <span class="fu">mean</span>(value)), .(variable, model_type)]) <span class="sc">+</span> </span>
+<span id="cb1288-2"><a href="homework-week-8.html#cb1288-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
+<span id="cb1288-3"><a href="homework-week-8.html#cb1288-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(variable, value, <span class="at">color =</span> model_type)) <span class="sc">+</span></span>
+<span id="cb1288-4"><a href="homework-week-8.html#cb1288-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>(variable, value, <span class="at">group =</span> model_type), <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb1288-5"><a href="homework-week-8.html#cb1288-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_viridis_d</span>(<span class="at">begin =</span> <span class="fl">0.3</span>, <span class="at">end =</span> <span class="fl">0.8</span>) <span class="sc">+</span> </span>
+<span id="cb1288-6"><a href="homework-week-8.html#cb1288-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&#39;district&#39;</span>, <span class="at">y =</span> <span class="st">&#39;alpha&#39;</span>)</span></code></pre></div>
 <pre><code>## Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
 <pre><code>## Warning: Removed 1 row(s) containing missing values (geom_path).</code></pre>
 <p><img src="_main_files/figure-html/unnamed-chunk-98-2.png" width="672" /></p>
@@ -1641,6 +1652,758 @@ variable. Include action, intention, and contact as before. Compare the varying
 intercepts model and a model that ignores individuals, using both WAIC/LOO and
 posterior predictions. What is the impact of individual variation in these data?</p>
 </blockquote>
+<div class="sourceCode" id="cb1291"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1291-1"><a href="homework-week-8.html#cb1291-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(Trolley)</span>
+<span id="cb1291-2"><a href="homework-week-8.html#cb1291-2" aria-hidden="true" tabindex="-1"></a>DT <span class="ot">&lt;-</span> <span class="fu">data.table</span>(Trolley)</span>
+<span id="cb1291-3"><a href="homework-week-8.html#cb1291-3" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(DT)</span></code></pre></div>
+<pre><code>##            mean    sd 5.5% 94.5%     histogram
+## case        NaN    NA   NA    NA              
+## response   4.20  1.91    1     7  ▃▂▁▃▁▇▁▅▁▅▁▅
+## order     16.50  9.29    2    31       ▇▅▇▇▅▇▂
+## id          NaN    NA   NA    NA              
+## age       37.49 14.23   18    61 ▂▇▅▇▅▇▅▅▃▅▂▁▁
+## male       0.57  0.49    0     1    ▅▁▁▁▁▁▁▁▁▇
+## edu         NaN    NA   NA    NA              
+## action     0.43  0.50    0     1    ▇▁▁▁▁▁▁▁▁▅
+## intention  0.47  0.50    0     1    ▇▁▁▁▁▁▁▁▁▇
+## contact    0.20  0.40    0     1    ▇▁▁▁▁▁▁▁▁▂
+## story       NaN    NA   NA    NA              
+## action2    0.63  0.48    0     1    ▃▁▁▁▁▁▁▁▁▇</code></pre>
+<div class="sourceCode" id="cb1293"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1293-1"><a href="homework-week-8.html#cb1293-1" aria-hidden="true" tabindex="-1"></a>model_data <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb1293-2"><a href="homework-week-8.html#cb1293-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.list</span>(DT[, .(response, action, intention, contact)]), </span>
+<span id="cb1293-3"><a href="homework-week-8.html#cb1293-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">N =</span> DT[, .N],</span>
+<span id="cb1293-4"><a href="homework-week-8.html#cb1293-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">K =</span> DT[, <span class="fu">uniqueN</span>(response) <span class="sc">-</span> <span class="dv">1</span>]</span>
+<span id="cb1293-5"><a href="homework-week-8.html#cb1293-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<pre class="stan"><code>data {
+  int N;
+  int K;
+  int response[N];
+  int action[N];
+  int intention[N];
+  int contact[N];
+}
+parameters {
+    // Cut points are the positions of responses along cumulative odds
+  ordered[K] cutpoints;
+  real beta_action;
+  real beta_intention;
+  real beta_contact;
+}
+transformed parameters {
+  vector[N] phi;
+
+    for (i in 1:N) {
+        phi[i] = beta_action * action[i] + beta_contact * contact[i] + beta_intention * intention[i];
+    }
+}
+model {
+    response ~ ordered_logistic(phi, cutpoints);
+  cutpoints ~ normal(0, 1.5);
+  beta_action ~ normal(0, 0.5);
+  beta_contact ~ normal(0, 0.5);
+  beta_intention ~ normal(0, 0.5);
+}
+generated quantities {
+    vector[N] log_lik;
+  for (i in 1:N) {
+    log_lik[i] = ordered_logistic_lpmf(response[i] | phi[i], cutpoints);
+  }
+}
+</code></pre>
+<div class="sourceCode" id="cb1295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1295-1"><a href="homework-week-8.html#cb1295-1" aria-hidden="true" tabindex="-1"></a><span class="co"># model_trolley_stan &lt;- &#39;model_trolley.stan&#39;</span></span>
+<span id="cb1295-2"><a href="homework-week-8.html#cb1295-2" aria-hidden="true" tabindex="-1"></a><span class="co"># writeLines(readLines(model_trolley_stan))</span></span>
+<span id="cb1295-3"><a href="homework-week-8.html#cb1295-3" aria-hidden="true" tabindex="-1"></a><span class="co"># model_trolley &lt;- cmdstan_model(model_trolley_stan, cpp_options = list(stan_threads = TRUE))</span></span>
+<span id="cb1295-4"><a href="homework-week-8.html#cb1295-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1295-5"><a href="homework-week-8.html#cb1295-5" aria-hidden="true" tabindex="-1"></a>model_trolley_sample <span class="ot">&lt;-</span></span>
+<span id="cb1295-6"><a href="homework-week-8.html#cb1295-6" aria-hidden="true" tabindex="-1"></a>    model_trolley<span class="sc">$</span><span class="fu">sample</span>(</span>
+<span id="cb1295-7"><a href="homework-week-8.html#cb1295-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> model_data,</span>
+<span id="cb1295-8"><a href="homework-week-8.html#cb1295-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">chains =</span> <span class="dv">4</span>,</span>
+<span id="cb1295-9"><a href="homework-week-8.html#cb1295-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">save_warmup =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb1295-10"><a href="homework-week-8.html#cb1295-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">parallel_chains =</span> <span class="dv">4</span>,</span>
+<span id="cb1295-11"><a href="homework-week-8.html#cb1295-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">threads_per_chain =</span> <span class="dv">4</span></span>
+<span id="cb1295-12"><a href="homework-week-8.html#cb1295-12" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
+<pre><code>## Warning: &#39;threads_per_chain&#39; is set but the model was not compiled with
+## &#39;cpp_options = list(stan_threads = TRUE)&#39; so &#39;threads_per_chain&#39; will have no
+## effect!</code></pre>
+<pre><code>## Running MCMC with 4 parallel chains...
+## 
+## Chain 1 Iteration:    1 / 2000 [  0%]  (Warmup)</code></pre>
+<pre><code>## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 1 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 2 is -3917.46, but should be greater than the previous element, -3917.46 (in &#39;/tmp/RtmpZBDJdF/model-c924d8ee1c.stan&#39;, line 24, column 1 to column 45)</code></pre>
+<pre><code>## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 1</code></pre>
+<pre><code>## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 1 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 2 is -3914.85, but should be greater than the previous element, -3914.85 (in &#39;/tmp/RtmpZBDJdF/model-c924d8ee1c.stan&#39;, line 24, column 1 to column 45)</code></pre>
+<pre><code>## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 1</code></pre>
+<pre><code>## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 1 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 2 is -979.451, but should be greater than the previous element, -979.451 (in &#39;/tmp/RtmpZBDJdF/model-c924d8ee1c.stan&#39;, line 24, column 1 to column 45)</code></pre>
+<pre><code>## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 1</code></pre>
+<pre><code>## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 1 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 2 is -244.324, but should be greater than the previous element, -244.324 (in &#39;/tmp/RtmpZBDJdF/model-c924d8ee1c.stan&#39;, line 24, column 1 to column 45)</code></pre>
+<pre><code>## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 1</code></pre>
+<pre><code>## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 1 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 2 is -61.0028, but should be greater than the previous element, -61.0028 (in &#39;/tmp/RtmpZBDJdF/model-c924d8ee1c.stan&#39;, line 24, column 1 to column 45)</code></pre>
+<pre><code>## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 1</code></pre>
+<pre><code>## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 1 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 2 is -392287, but should be greater than the previous element, -392287 (in &#39;/tmp/RtmpZBDJdF/model-c924d8ee1c.stan&#39;, line 24, column 1 to column 45)</code></pre>
+<pre><code>## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 1</code></pre>
+<pre><code>## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 1 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 2 is -11201, but should be greater than the previous element, -11201 (in &#39;/tmp/RtmpZBDJdF/model-c924d8ee1c.stan&#39;, line 24, column 1 to column 45)</code></pre>
+<pre><code>## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 1</code></pre>
+<pre><code>## Chain 2 Iteration:    1 / 2000 [  0%]  (Warmup)</code></pre>
+<pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 2 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 2 is -3884.57, but should be greater than the previous element, -3884.57 (in &#39;/tmp/RtmpZBDJdF/model-c924d8ee1c.stan&#39;, line 24, column 1 to column 45)</code></pre>
+<pre><code>## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 2</code></pre>
+<pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 2 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 2 is -3884.07, but should be greater than the previous element, -3884.07 (in &#39;/tmp/RtmpZBDJdF/model-c924d8ee1c.stan&#39;, line 24, column 1 to column 45)</code></pre>
+<pre><code>## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 2</code></pre>
+<pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 2 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 2 is -970.241, but should be greater than the previous element, -970.241 (in &#39;/tmp/RtmpZBDJdF/model-c924d8ee1c.stan&#39;, line 24, column 1 to column 45)</code></pre>
+<pre><code>## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 2</code></pre>
+<pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 2 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 2 is -241.657, but should be greater than the previous element, -241.657 (in &#39;/tmp/RtmpZBDJdF/model-c924d8ee1c.stan&#39;, line 24, column 1 to column 45)</code></pre>
+<pre><code>## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 2</code></pre>
+<pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 2 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 3 is -59.4452, but should be greater than the previous element, -59.4452 (in &#39;/tmp/RtmpZBDJdF/model-c924d8ee1c.stan&#39;, line 24, column 1 to column 45)</code></pre>
+<pre><code>## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 2</code></pre>
+<pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 2 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 2 is -543602, but should be greater than the previous element, -543602 (in &#39;/tmp/RtmpZBDJdF/model-c924d8ee1c.stan&#39;, line 24, column 1 to column 45)</code></pre>
+<pre><code>## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 2</code></pre>
+<pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 2 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 2 is -15520.3, but should be greater than the previous element, -15520.3 (in &#39;/tmp/RtmpZBDJdF/model-c924d8ee1c.stan&#39;, line 24, column 1 to column 45)</code></pre>
+<pre><code>## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 2</code></pre>
+<pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 2 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 3 is -150.571, but should be greater than the previous element, -150.571 (in &#39;/tmp/RtmpZBDJdF/model-c924d8ee1c.stan&#39;, line 24, column 1 to column 45)</code></pre>
+<pre><code>## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 2</code></pre>
+<pre><code>## Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup)</code></pre>
+<pre><code>## Chain 3 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 3 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 2 is -2488.33, but should be greater than the previous element, -2488.33 (in &#39;/tmp/RtmpZBDJdF/model-c924d8ee1c.stan&#39;, line 24, column 1 to column 45)</code></pre>
+<pre><code>## Chain 3 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 3 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 3</code></pre>
+<pre><code>## Chain 3 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 3 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 2 is -2486.79, but should be greater than the previous element, -2486.79 (in &#39;/tmp/RtmpZBDJdF/model-c924d8ee1c.stan&#39;, line 24, column 1 to column 45)</code></pre>
+<pre><code>## Chain 3 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 3 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 3</code></pre>
+<pre><code>## Chain 3 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 3 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 2 is -622.741, but should be greater than the previous element, -622.741 (in &#39;/tmp/RtmpZBDJdF/model-c924d8ee1c.stan&#39;, line 24, column 1 to column 45)</code></pre>
+<pre><code>## Chain 3 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 3 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 3</code></pre>
+<pre><code>## Chain 3 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 3 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 4 is -156.648, but should be greater than the previous element, -156.648 (in &#39;/tmp/RtmpZBDJdF/model-c924d8ee1c.stan&#39;, line 24, column 1 to column 45)</code></pre>
+<pre><code>## Chain 3 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 3 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 3</code></pre>
+<pre><code>## Chain 3 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 3 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 4 is -39.8333, but should be greater than the previous element, -39.8333 (in &#39;/tmp/RtmpZBDJdF/model-c924d8ee1c.stan&#39;, line 24, column 1 to column 45)</code></pre>
+<pre><code>## Chain 3 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 3 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 3</code></pre>
+<pre><code>## Chain 3 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 3 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 4 is -10.8282, but should be greater than the previous element, -10.8282 (in &#39;/tmp/RtmpZBDJdF/model-c924d8ee1c.stan&#39;, line 24, column 1 to column 45)</code></pre>
+<pre><code>## Chain 3 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 3 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 3</code></pre>
+<pre><code>## Chain 3 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 3 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 2 is -429970, but should be greater than the previous element, -429970 (in &#39;/tmp/RtmpZBDJdF/model-c924d8ee1c.stan&#39;, line 24, column 1 to column 45)</code></pre>
+<pre><code>## Chain 3 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 3 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 3</code></pre>
+<pre><code>## Chain 3 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 3 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 2 is -12283.4, but should be greater than the previous element, -12283.4 (in &#39;/tmp/RtmpZBDJdF/model-c924d8ee1c.stan&#39;, line 24, column 1 to column 45)</code></pre>
+<pre><code>## Chain 3 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 3 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 3</code></pre>
+<pre><code>## Chain 3 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 3 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 4 is -120.805, but should be greater than the previous element, -120.805 (in &#39;/tmp/RtmpZBDJdF/model-c924d8ee1c.stan&#39;, line 24, column 1 to column 45)</code></pre>
+<pre><code>## Chain 3 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 3 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 3</code></pre>
+<pre><code>## Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup)</code></pre>
+<pre><code>## Chain 4 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 4 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 2 is -3526.48, but should be greater than the previous element, -3526.48 (in &#39;/tmp/RtmpZBDJdF/model-c924d8ee1c.stan&#39;, line 24, column 1 to column 45)</code></pre>
+<pre><code>## Chain 4 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 4 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 4</code></pre>
+<pre><code>## Chain 4 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 4 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 2 is -3527.44, but should be greater than the previous element, -3527.44 (in &#39;/tmp/RtmpZBDJdF/model-c924d8ee1c.stan&#39;, line 24, column 1 to column 45)</code></pre>
+<pre><code>## Chain 4 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 4 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 4</code></pre>
+<pre><code>## Chain 4 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 4 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 2 is -882.793, but should be greater than the previous element, -882.793 (in &#39;/tmp/RtmpZBDJdF/model-c924d8ee1c.stan&#39;, line 24, column 1 to column 45)</code></pre>
+<pre><code>## Chain 4 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 4 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 4</code></pre>
+<pre><code>## Chain 4 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 4 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 2 is -221.526, but should be greater than the previous element, -221.526 (in &#39;/tmp/RtmpZBDJdF/model-c924d8ee1c.stan&#39;, line 24, column 1 to column 45)</code></pre>
+<pre><code>## Chain 4 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 4 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 4</code></pre>
+<pre><code>## Chain 4 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 4 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 3 is -56.2353, but should be greater than the previous element, -56.2353 (in &#39;/tmp/RtmpZBDJdF/model-c924d8ee1c.stan&#39;, line 24, column 1 to column 45)</code></pre>
+<pre><code>## Chain 4 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 4 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 4</code></pre>
+<pre><code>## Chain 4 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 4 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 3 is -14.9091, but should be greater than the previous element, -14.9091 (in &#39;/tmp/RtmpZBDJdF/model-c924d8ee1c.stan&#39;, line 24, column 1 to column 45)</code></pre>
+<pre><code>## Chain 4 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 4 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 4</code></pre>
+<pre><code>## Chain 4 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 4 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 3 is inf, but should be greater than the previous element, inf (in &#39;/tmp/RtmpZBDJdF/model-c924d8ee1c.stan&#39;, line 24, column 1 to column 45)</code></pre>
+<pre><code>## Chain 4 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 4 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 4</code></pre>
+<pre><code>## Chain 4 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 4 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 3 is inf, but should be greater than the previous element, inf (in &#39;/tmp/RtmpZBDJdF/model-c924d8ee1c.stan&#39;, line 24, column 1 to column 45)</code></pre>
+<pre><code>## Chain 4 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 4 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 4</code></pre>
+<pre><code>## Chain 4 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 4 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 5 is 9.28262e+18, but should be greater than the previous element, 9.28262e+18 (in &#39;/tmp/RtmpZBDJdF/model-c924d8ee1c.stan&#39;, line 24, column 1 to column 45)</code></pre>
+<pre><code>## Chain 4 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 4 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 4</code></pre>
+<pre><code>## Chain 1 Iteration:  100 / 2000 [  5%]  (Warmup) 
+## Chain 3 Iteration:  100 / 2000 [  5%]  (Warmup) 
+## Chain 2 Iteration:  100 / 2000 [  5%]  (Warmup) 
+## Chain 4 Iteration:  100 / 2000 [  5%]  (Warmup) 
+## Chain 1 Iteration:  200 / 2000 [ 10%]  (Warmup) 
+## Chain 3 Iteration:  200 / 2000 [ 10%]  (Warmup) 
+## Chain 4 Iteration:  200 / 2000 [ 10%]  (Warmup) 
+## Chain 2 Iteration:  200 / 2000 [ 10%]  (Warmup) 
+## Chain 1 Iteration:  300 / 2000 [ 15%]  (Warmup) 
+## Chain 4 Iteration:  300 / 2000 [ 15%]  (Warmup) 
+## Chain 3 Iteration:  300 / 2000 [ 15%]  (Warmup) 
+## Chain 2 Iteration:  300 / 2000 [ 15%]  (Warmup) 
+## Chain 1 Iteration:  400 / 2000 [ 20%]  (Warmup) 
+## Chain 4 Iteration:  400 / 2000 [ 20%]  (Warmup) 
+## Chain 3 Iteration:  400 / 2000 [ 20%]  (Warmup) 
+## Chain 2 Iteration:  400 / 2000 [ 20%]  (Warmup) 
+## Chain 1 Iteration:  500 / 2000 [ 25%]  (Warmup) 
+## Chain 4 Iteration:  500 / 2000 [ 25%]  (Warmup) 
+## Chain 3 Iteration:  500 / 2000 [ 25%]  (Warmup) 
+## Chain 2 Iteration:  500 / 2000 [ 25%]  (Warmup) 
+## Chain 1 Iteration:  600 / 2000 [ 30%]  (Warmup) 
+## Chain 4 Iteration:  600 / 2000 [ 30%]  (Warmup) 
+## Chain 3 Iteration:  600 / 2000 [ 30%]  (Warmup) 
+## Chain 2 Iteration:  600 / 2000 [ 30%]  (Warmup) 
+## Chain 1 Iteration:  700 / 2000 [ 35%]  (Warmup) 
+## Chain 4 Iteration:  700 / 2000 [ 35%]  (Warmup) 
+## Chain 3 Iteration:  700 / 2000 [ 35%]  (Warmup) 
+## Chain 2 Iteration:  700 / 2000 [ 35%]  (Warmup) 
+## Chain 4 Iteration:  800 / 2000 [ 40%]  (Warmup) 
+## Chain 1 Iteration:  800 / 2000 [ 40%]  (Warmup) 
+## Chain 3 Iteration:  800 / 2000 [ 40%]  (Warmup) 
+## Chain 2 Iteration:  800 / 2000 [ 40%]  (Warmup) 
+## Chain 4 Iteration:  900 / 2000 [ 45%]  (Warmup) 
+## Chain 1 Iteration:  900 / 2000 [ 45%]  (Warmup) 
+## Chain 3 Iteration:  900 / 2000 [ 45%]  (Warmup) 
+## Chain 2 Iteration:  900 / 2000 [ 45%]  (Warmup) 
+## Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+## Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+## Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+## Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+## Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+## Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+## Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+## Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+## Chain 1 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
+## Chain 3 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
+## Chain 4 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
+## Chain 2 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
+## Chain 1 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
+## Chain 3 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
+## Chain 4 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
+## Chain 2 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
+## Chain 1 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
+## Chain 3 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
+## Chain 4 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
+## Chain 2 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
+## Chain 3 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
+## Chain 1 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
+## Chain 4 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
+## Chain 2 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
+## Chain 3 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
+## Chain 1 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
+## Chain 4 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
+## Chain 2 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
+## Chain 3 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
+## Chain 1 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
+## Chain 4 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
+## Chain 2 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
+## Chain 1 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
+## Chain 3 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
+## Chain 4 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
+## Chain 2 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
+## Chain 1 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
+## Chain 3 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
+## Chain 4 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
+## Chain 2 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
+## Chain 1 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
+## Chain 3 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
+## Chain 4 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
+## Chain 2 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
+## Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
+## Chain 1 finished in 79.7 seconds.
+## Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
+## Chain 3 finished in 79.4 seconds.
+## Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
+## Chain 4 finished in 79.5 seconds.
+## Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
+## Chain 2 finished in 80.6 seconds.
+## 
+## All 4 chains finished successfully.
+## Mean chain execution time: 79.8 seconds.
+## Total execution time: 81.1 seconds.</code></pre>
+<div class="sourceCode" id="cb1467"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1467-1"><a href="homework-week-8.html#cb1467-1" aria-hidden="true" tabindex="-1"></a>model_trolley_draws <span class="ot">&lt;-</span> <span class="fu">cmd_draws</span>(model_trolley_sample)</span>
+<span id="cb1467-2"><a href="homework-week-8.html#cb1467-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1467-3"><a href="homework-week-8.html#cb1467-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(model_trolley_draws, <span class="at">regex_pars =</span> <span class="st">&#39;cutpoints&#39;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-101-1.png" width="672" /></p>
+<div class="sourceCode" id="cb1468"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1468-1"><a href="homework-week-8.html#cb1468-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(model_trolley_draws, <span class="at">regex_pars =</span> <span class="st">&#39;beta&#39;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-101-2.png" width="672" /></p>
+<div class="sourceCode" id="cb1469"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1469-1"><a href="homework-week-8.html#cb1469-1" aria-hidden="true" tabindex="-1"></a>model_trolley_loo <span class="ot">&lt;-</span> model_trolley_sample<span class="sc">$</span><span class="fu">loo</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb1470"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1470-1"><a href="homework-week-8.html#cb1470-1" aria-hidden="true" tabindex="-1"></a>DT[, individual <span class="sc">:</span><span class="er">=</span> <span class="fu">as.integer</span>(<span class="fu">factor</span>(id))]</span>
+<span id="cb1470-2"><a href="homework-week-8.html#cb1470-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1470-3"><a href="homework-week-8.html#cb1470-3" aria-hidden="true" tabindex="-1"></a>model_data <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb1470-4"><a href="homework-week-8.html#cb1470-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.list</span>(DT[, .(response, action, intention, contact, individual)]), </span>
+<span id="cb1470-5"><a href="homework-week-8.html#cb1470-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">N =</span> DT[, .N],</span>
+<span id="cb1470-6"><a href="homework-week-8.html#cb1470-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">N_individual =</span> DT[, <span class="fu">uniqueN</span>(individual)],</span>
+<span id="cb1470-7"><a href="homework-week-8.html#cb1470-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">K =</span> DT[, <span class="fu">uniqueN</span>(response) <span class="sc">-</span> <span class="dv">1</span>]</span>
+<span id="cb1470-8"><a href="homework-week-8.html#cb1470-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<pre class="stan"><code>data {
+  int N;
+  int K;
+  int response[N];
+  int action[N];
+  int intention[N];
+  int contact[N];
+  int individual[N];
+  int N_individual;
+}
+parameters {
+    // Cut points are the positions of responses along cumulative odds
+  ordered[K] cutpoints;
+  real beta_action;
+  real beta_intention;
+  real beta_contact;
+    real alpha_bar;
+    real sigma;
+  vector[N_individual] alpha;
+}
+transformed parameters {
+  vector[N] phi;
+
+    for (i in 1:N) {
+        phi[i] = alpha[individual[i]] + beta_action * action[i] + beta_contact * contact[i] + beta_intention * intention[i];
+    }
+}
+model {
+    // Hyper parameter priors
+    alpha_bar ~ normal(0, 1.5);
+    sigma ~ exponential(1);
+
+    // Priors
+    alpha ~ normal(alpha_bar, sigma);
+
+    response ~ ordered_logistic(phi, cutpoints);
+  cutpoints ~ normal(0, 1.5);
+  beta_action ~ normal(0, 0.5);
+  beta_contact ~ normal(0, 0.5);
+  beta_intention ~ normal(0, 0.5);
+}
+generated quantities {
+    vector[N] log_lik;
+  for (i in 1:N) {
+    log_lik[i] = ordered_logistic_lpmf(response[i] | phi[i], cutpoints);
+  }
+}
+</code></pre>
+<div class="sourceCode" id="cb1472"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1472-1"><a href="homework-week-8.html#cb1472-1" aria-hidden="true" tabindex="-1"></a><span class="co"># model_trolley_multi_stan &lt;- &#39;model_trolley_multi.stan&#39;</span></span>
+<span id="cb1472-2"><a href="homework-week-8.html#cb1472-2" aria-hidden="true" tabindex="-1"></a><span class="co"># writeLines(readLines(model_trolley_multi_stan))</span></span>
+<span id="cb1472-3"><a href="homework-week-8.html#cb1472-3" aria-hidden="true" tabindex="-1"></a><span class="co"># model_trolley_multi &lt;- cmdstan_model(model_trolley_multi_stan, cpp_options = list(stan_threads = TRUE))</span></span>
+<span id="cb1472-4"><a href="homework-week-8.html#cb1472-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1472-5"><a href="homework-week-8.html#cb1472-5" aria-hidden="true" tabindex="-1"></a>model_trolley_multi_sample <span class="ot">&lt;-</span></span>
+<span id="cb1472-6"><a href="homework-week-8.html#cb1472-6" aria-hidden="true" tabindex="-1"></a>    model_trolley_multi<span class="sc">$</span><span class="fu">sample</span>(</span>
+<span id="cb1472-7"><a href="homework-week-8.html#cb1472-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> model_data,</span>
+<span id="cb1472-8"><a href="homework-week-8.html#cb1472-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">chains =</span> <span class="dv">4</span>,</span>
+<span id="cb1472-9"><a href="homework-week-8.html#cb1472-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">save_warmup =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb1472-10"><a href="homework-week-8.html#cb1472-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">parallel_chains =</span> <span class="dv">4</span>,</span>
+<span id="cb1472-11"><a href="homework-week-8.html#cb1472-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">threads_per_chain =</span> <span class="dv">4</span></span>
+<span id="cb1472-12"><a href="homework-week-8.html#cb1472-12" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
+<pre><code>## Warning: &#39;threads_per_chain&#39; is set but the model was not compiled with
+## &#39;cpp_options = list(stan_threads = TRUE)&#39; so &#39;threads_per_chain&#39; will have no
+## effect!</code></pre>
+<pre><code>## Running MCMC with 4 parallel chains...</code></pre>
+<pre><code>## Chain 1 Rejecting initial value:</code></pre>
+<pre><code>## Chain 1   Error evaluating the log probability at the initial value.</code></pre>
+<pre><code>## Chain 1 Exception: exponential_lpdf: Random variable is -0.931528, but must be nonnegative! (in &#39;/tmp/RtmpuDLLWM/model-cfd27efd9d66.stan&#39;, line 31, column 1 to column 24)
+## Chain 1 Exception: exponential_lpdf: Random variable is -0.931528, but must be nonnegative! (in &#39;/tmp/RtmpuDLLWM/model-cfd27efd9d66.stan&#39;, line 31, column 1 to column 24)</code></pre>
+<pre><code>## Chain 1 Iteration:    1 / 2000 [  0%]  (Warmup)</code></pre>
+<pre><code>## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 1 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 2 is -4084.64, but should be greater than the previous element, -4084.64 (in &#39;/tmp/RtmpuDLLWM/model-cfd27efd9d66.stan&#39;, line 36, column 1 to column 45)</code></pre>
+<pre><code>## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 1</code></pre>
+<pre><code>## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 1 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 2 is -4086.23, but should be greater than the previous element, -4086.23 (in &#39;/tmp/RtmpuDLLWM/model-cfd27efd9d66.stan&#39;, line 36, column 1 to column 45)</code></pre>
+<pre><code>## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 1</code></pre>
+<pre><code>## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 1 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 2 is -1019.96, but should be greater than the previous element, -1019.96 (in &#39;/tmp/RtmpuDLLWM/model-cfd27efd9d66.stan&#39;, line 36, column 1 to column 45)</code></pre>
+<pre><code>## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 1</code></pre>
+<pre><code>## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 1 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 2 is -253.18, but should be greater than the previous element, -253.18 (in &#39;/tmp/RtmpuDLLWM/model-cfd27efd9d66.stan&#39;, line 36, column 1 to column 45)</code></pre>
+<pre><code>## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 1</code></pre>
+<pre><code>## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 1 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 2 is -62.1786, but should be greater than the previous element, -62.1786 (in &#39;/tmp/RtmpuDLLWM/model-cfd27efd9d66.stan&#39;, line 36, column 1 to column 45)</code></pre>
+<pre><code>## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 1</code></pre>
+<pre><code>## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 1 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 2 is -14.1561, but should be greater than the previous element, -14.1561 (in &#39;/tmp/RtmpuDLLWM/model-cfd27efd9d66.stan&#39;, line 36, column 1 to column 45)</code></pre>
+<pre><code>## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 1</code></pre>
+<pre><code>## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 1 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 2 is -844111, but should be greater than the previous element, -844111 (in &#39;/tmp/RtmpuDLLWM/model-cfd27efd9d66.stan&#39;, line 36, column 1 to column 45)</code></pre>
+<pre><code>## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 1</code></pre>
+<pre><code>## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 1 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 2 is -24110.7, but should be greater than the previous element, -24110.7 (in &#39;/tmp/RtmpuDLLWM/model-cfd27efd9d66.stan&#39;, line 36, column 1 to column 45)</code></pre>
+<pre><code>## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 1</code></pre>
+<pre><code>## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 1 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 2 is -232.771, but should be greater than the previous element, -232.771 (in &#39;/tmp/RtmpuDLLWM/model-cfd27efd9d66.stan&#39;, line 36, column 1 to column 45)</code></pre>
+<pre><code>## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 1</code></pre>
+<pre><code>## Chain 2 Rejecting initial value:</code></pre>
+<pre><code>## Chain 2   Error evaluating the log probability at the initial value.</code></pre>
+<pre><code>## Chain 2 Exception: exponential_lpdf: Random variable is -1.46064, but must be nonnegative! (in &#39;/tmp/RtmpuDLLWM/model-cfd27efd9d66.stan&#39;, line 31, column 1 to column 24)
+## Chain 2 Exception: exponential_lpdf: Random variable is -1.46064, but must be nonnegative! (in &#39;/tmp/RtmpuDLLWM/model-cfd27efd9d66.stan&#39;, line 31, column 1 to column 24)</code></pre>
+<pre><code>## Chain 2 Rejecting initial value:</code></pre>
+<pre><code>## Chain 2   Error evaluating the log probability at the initial value.</code></pre>
+<pre><code>## Chain 2 Exception: exponential_lpdf: Random variable is -1.36606, but must be nonnegative! (in &#39;/tmp/RtmpuDLLWM/model-cfd27efd9d66.stan&#39;, line 31, column 1 to column 24)
+## Chain 2 Exception: exponential_lpdf: Random variable is -1.36606, but must be nonnegative! (in &#39;/tmp/RtmpuDLLWM/model-cfd27efd9d66.stan&#39;, line 31, column 1 to column 24)</code></pre>
+<pre><code>## Chain 2 Rejecting initial value:</code></pre>
+<pre><code>## Chain 2   Error evaluating the log probability at the initial value.</code></pre>
+<pre><code>## Chain 2 Exception: exponential_lpdf: Random variable is -0.740729, but must be nonnegative! (in &#39;/tmp/RtmpuDLLWM/model-cfd27efd9d66.stan&#39;, line 31, column 1 to column 24)
+## Chain 2 Exception: exponential_lpdf: Random variable is -0.740729, but must be nonnegative! (in &#39;/tmp/RtmpuDLLWM/model-cfd27efd9d66.stan&#39;, line 31, column 1 to column 24)</code></pre>
+<pre><code>## Chain 2 Rejecting initial value:</code></pre>
+<pre><code>## Chain 2   Error evaluating the log probability at the initial value.</code></pre>
+<pre><code>## Chain 2 Exception: exponential_lpdf: Random variable is -1.99721, but must be nonnegative! (in &#39;/tmp/RtmpuDLLWM/model-cfd27efd9d66.stan&#39;, line 31, column 1 to column 24)
+## Chain 2 Exception: exponential_lpdf: Random variable is -1.99721, but must be nonnegative! (in &#39;/tmp/RtmpuDLLWM/model-cfd27efd9d66.stan&#39;, line 31, column 1 to column 24)</code></pre>
+<pre><code>## Chain 2 Rejecting initial value:</code></pre>
+<pre><code>## Chain 2   Error evaluating the log probability at the initial value.</code></pre>
+<pre><code>## Chain 2 Exception: exponential_lpdf: Random variable is -0.92612, but must be nonnegative! (in &#39;/tmp/RtmpuDLLWM/model-cfd27efd9d66.stan&#39;, line 31, column 1 to column 24)
+## Chain 2 Exception: exponential_lpdf: Random variable is -0.92612, but must be nonnegative! (in &#39;/tmp/RtmpuDLLWM/model-cfd27efd9d66.stan&#39;, line 31, column 1 to column 24)</code></pre>
+<pre><code>## Chain 2 Iteration:    1 / 2000 [  0%]  (Warmup)</code></pre>
+<pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 2 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 2 is -3056.27, but should be greater than the previous element, -3056.27 (in &#39;/tmp/RtmpuDLLWM/model-cfd27efd9d66.stan&#39;, line 36, column 1 to column 45)</code></pre>
+<pre><code>## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 2</code></pre>
+<pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 2 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 2 is -3058.21, but should be greater than the previous element, -3058.21 (in &#39;/tmp/RtmpuDLLWM/model-cfd27efd9d66.stan&#39;, line 36, column 1 to column 45)</code></pre>
+<pre><code>## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 2</code></pre>
+<pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 2 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 2 is -765.569, but should be greater than the previous element, -765.569 (in &#39;/tmp/RtmpuDLLWM/model-cfd27efd9d66.stan&#39;, line 36, column 1 to column 45)</code></pre>
+<pre><code>## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 2</code></pre>
+<pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 2 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 2 is -191.455, but should be greater than the previous element, -191.455 (in &#39;/tmp/RtmpuDLLWM/model-cfd27efd9d66.stan&#39;, line 36, column 1 to column 45)</code></pre>
+<pre><code>## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 2</code></pre>
+<pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 2 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 2 is -48.5028, but should be greater than the previous element, -48.5028 (in &#39;/tmp/RtmpuDLLWM/model-cfd27efd9d66.stan&#39;, line 36, column 1 to column 45)</code></pre>
+<pre><code>## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 2</code></pre>
+<pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 2 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 3 is -12.3966, but should be greater than the previous element, -12.3966 (in &#39;/tmp/RtmpuDLLWM/model-cfd27efd9d66.stan&#39;, line 36, column 1 to column 45)</code></pre>
+<pre><code>## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 2</code></pre>
+<pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 2 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 2 is -433361, but should be greater than the previous element, -433361 (in &#39;/tmp/RtmpuDLLWM/model-cfd27efd9d66.stan&#39;, line 36, column 1 to column 45)</code></pre>
+<pre><code>## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 2</code></pre>
+<pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 2 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 2 is -12375.2, but should be greater than the previous element, -12375.2 (in &#39;/tmp/RtmpuDLLWM/model-cfd27efd9d66.stan&#39;, line 36, column 1 to column 45)</code></pre>
+<pre><code>## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 2</code></pre>
+<pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 2 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 2 is -121.385, but should be greater than the previous element, -121.385 (in &#39;/tmp/RtmpuDLLWM/model-cfd27efd9d66.stan&#39;, line 36, column 1 to column 45)</code></pre>
+<pre><code>## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 2</code></pre>
+<pre><code>## Chain 3 Rejecting initial value:</code></pre>
+<pre><code>## Chain 3   Error evaluating the log probability at the initial value.</code></pre>
+<pre><code>## Chain 3 Exception: exponential_lpdf: Random variable is -1.30731, but must be nonnegative! (in &#39;/tmp/RtmpuDLLWM/model-cfd27efd9d66.stan&#39;, line 31, column 1 to column 24)
+## Chain 3 Exception: exponential_lpdf: Random variable is -1.30731, but must be nonnegative! (in &#39;/tmp/RtmpuDLLWM/model-cfd27efd9d66.stan&#39;, line 31, column 1 to column 24)</code></pre>
+<pre><code>## Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup)</code></pre>
+<pre><code>## Chain 3 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 3 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 2 is -3921.37, but should be greater than the previous element, -3921.37 (in &#39;/tmp/RtmpuDLLWM/model-cfd27efd9d66.stan&#39;, line 36, column 1 to column 45)</code></pre>
+<pre><code>## Chain 3 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 3 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 3</code></pre>
+<pre><code>## Chain 3 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 3 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 2 is -3920.59, but should be greater than the previous element, -3920.59 (in &#39;/tmp/RtmpuDLLWM/model-cfd27efd9d66.stan&#39;, line 36, column 1 to column 45)</code></pre>
+<pre><code>## Chain 3 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 3 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 3</code></pre>
+<pre><code>## Chain 3 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 3 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 2 is -979.726, but should be greater than the previous element, -979.726 (in &#39;/tmp/RtmpuDLLWM/model-cfd27efd9d66.stan&#39;, line 36, column 1 to column 45)</code></pre>
+<pre><code>## Chain 3 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 3 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 3</code></pre>
+<pre><code>## Chain 3 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 3 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 2 is -243.399, but should be greater than the previous element, -243.399 (in &#39;/tmp/RtmpuDLLWM/model-cfd27efd9d66.stan&#39;, line 36, column 1 to column 45)</code></pre>
+<pre><code>## Chain 3 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 3 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 3</code></pre>
+<pre><code>## Chain 3 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 3 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 2 is -59.1449, but should be greater than the previous element, -59.1449 (in &#39;/tmp/RtmpuDLLWM/model-cfd27efd9d66.stan&#39;, line 36, column 1 to column 45)</code></pre>
+<pre><code>## Chain 3 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 3 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 3</code></pre>
+<pre><code>## Chain 3 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 3 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 2 is -13.4311, but should be greater than the previous element, -13.4311 (in &#39;/tmp/RtmpuDLLWM/model-cfd27efd9d66.stan&#39;, line 36, column 1 to column 45)</code></pre>
+<pre><code>## Chain 3 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 3 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 3</code></pre>
+<pre><code>## Chain 3 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 3 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 2 is -743904, but should be greater than the previous element, -743904 (in &#39;/tmp/RtmpuDLLWM/model-cfd27efd9d66.stan&#39;, line 36, column 1 to column 45)</code></pre>
+<pre><code>## Chain 3 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 3 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 3</code></pre>
+<pre><code>## Chain 3 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 3 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 2 is -21248.2, but should be greater than the previous element, -21248.2 (in &#39;/tmp/RtmpuDLLWM/model-cfd27efd9d66.stan&#39;, line 36, column 1 to column 45)</code></pre>
+<pre><code>## Chain 3 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 3 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 3</code></pre>
+<pre><code>## Chain 3 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 3 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 2 is -205.086, but should be greater than the previous element, -205.086 (in &#39;/tmp/RtmpuDLLWM/model-cfd27efd9d66.stan&#39;, line 36, column 1 to column 45)</code></pre>
+<pre><code>## Chain 3 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 3 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 3</code></pre>
+<pre><code>## Chain 4 Rejecting initial value:</code></pre>
+<pre><code>## Chain 4   Error evaluating the log probability at the initial value.</code></pre>
+<pre><code>## Chain 4 Exception: exponential_lpdf: Random variable is -0.910412, but must be nonnegative! (in &#39;/tmp/RtmpuDLLWM/model-cfd27efd9d66.stan&#39;, line 31, column 1 to column 24)
+## Chain 4 Exception: exponential_lpdf: Random variable is -0.910412, but must be nonnegative! (in &#39;/tmp/RtmpuDLLWM/model-cfd27efd9d66.stan&#39;, line 31, column 1 to column 24)</code></pre>
+<pre><code>## Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup)</code></pre>
+<pre><code>## Chain 4 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 4 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 2 is -3142.22, but should be greater than the previous element, -3142.22 (in &#39;/tmp/RtmpuDLLWM/model-cfd27efd9d66.stan&#39;, line 36, column 1 to column 45)</code></pre>
+<pre><code>## Chain 4 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 4 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 4</code></pre>
+<pre><code>## Chain 4 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 4 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 2 is -3140.76, but should be greater than the previous element, -3140.76 (in &#39;/tmp/RtmpuDLLWM/model-cfd27efd9d66.stan&#39;, line 36, column 1 to column 45)</code></pre>
+<pre><code>## Chain 4 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 4 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 4</code></pre>
+<pre><code>## Chain 4 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 4 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 2 is -785.28, but should be greater than the previous element, -785.28 (in &#39;/tmp/RtmpuDLLWM/model-cfd27efd9d66.stan&#39;, line 36, column 1 to column 45)</code></pre>
+<pre><code>## Chain 4 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 4 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 4</code></pre>
+<pre><code>## Chain 4 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 4 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 2 is -195.726, but should be greater than the previous element, -195.726 (in &#39;/tmp/RtmpuDLLWM/model-cfd27efd9d66.stan&#39;, line 36, column 1 to column 45)</code></pre>
+<pre><code>## Chain 4 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 4 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 4</code></pre>
+<pre><code>## Chain 4 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 4 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 3 is -48.4394, but should be greater than the previous element, -48.4394 (in &#39;/tmp/RtmpuDLLWM/model-cfd27efd9d66.stan&#39;, line 36, column 1 to column 45)</code></pre>
+<pre><code>## Chain 4 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 4 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 4</code></pre>
+<pre><code>## Chain 4 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 4 Exception: exponential_lpdf: Random variable is -806.211, but must be nonnegative! (in &#39;/tmp/RtmpuDLLWM/model-cfd27efd9d66.stan&#39;, line 31, column 1 to column 24)</code></pre>
+<pre><code>## Chain 4 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 4 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 4</code></pre>
+<pre><code>## Chain 4 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 4 Exception: exponential_lpdf: Random variable is -25.6228, but must be nonnegative! (in &#39;/tmp/RtmpuDLLWM/model-cfd27efd9d66.stan&#39;, line 31, column 1 to column 24)</code></pre>
+<pre><code>## Chain 4 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 4 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 4</code></pre>
+<pre><code>## Chain 4 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 4 Exception: ordered_logistic: Cut-points is not a valid ordered vector. The element at 6 is 1.37089e+11, but should be greater than the previous element, 1.37089e+11 (in &#39;/tmp/RtmpuDLLWM/model-cfd27efd9d66.stan&#39;, line 36, column 1 to column 45)</code></pre>
+<pre><code>## Chain 4 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 4 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 4</code></pre>
+<pre><code>## Chain 2 Iteration:  100 / 2000 [  5%]  (Warmup) 
+## Chain 4 Iteration:  100 / 2000 [  5%]  (Warmup) 
+## Chain 1 Iteration:  100 / 2000 [  5%]  (Warmup) 
+## Chain 3 Iteration:  100 / 2000 [  5%]  (Warmup) 
+## Chain 4 Iteration:  200 / 2000 [ 10%]  (Warmup) 
+## Chain 2 Iteration:  200 / 2000 [ 10%]  (Warmup) 
+## Chain 1 Iteration:  200 / 2000 [ 10%]  (Warmup) 
+## Chain 3 Iteration:  200 / 2000 [ 10%]  (Warmup) 
+## Chain 1 Iteration:  300 / 2000 [ 15%]  (Warmup) 
+## Chain 2 Iteration:  300 / 2000 [ 15%]  (Warmup) 
+## Chain 4 Iteration:  300 / 2000 [ 15%]  (Warmup) 
+## Chain 2 Iteration:  400 / 2000 [ 20%]  (Warmup) 
+## Chain 1 Iteration:  400 / 2000 [ 20%]  (Warmup) 
+## Chain 3 Iteration:  300 / 2000 [ 15%]  (Warmup) 
+## Chain 4 Iteration:  400 / 2000 [ 20%]  (Warmup) 
+## Chain 1 Iteration:  500 / 2000 [ 25%]  (Warmup) 
+## Chain 2 Iteration:  500 / 2000 [ 25%]  (Warmup) 
+## Chain 3 Iteration:  400 / 2000 [ 20%]  (Warmup) 
+## Chain 4 Iteration:  500 / 2000 [ 25%]  (Warmup) 
+## Chain 1 Iteration:  600 / 2000 [ 30%]  (Warmup) 
+## Chain 4 Iteration:  600 / 2000 [ 30%]  (Warmup) 
+## Chain 2 Iteration:  600 / 2000 [ 30%]  (Warmup) 
+## Chain 3 Iteration:  500 / 2000 [ 25%]  (Warmup) 
+## Chain 1 Iteration:  700 / 2000 [ 35%]  (Warmup) 
+## Chain 4 Iteration:  700 / 2000 [ 35%]  (Warmup) 
+## Chain 1 Iteration:  800 / 2000 [ 40%]  (Warmup) 
+## Chain 2 Iteration:  700 / 2000 [ 35%]  (Warmup) 
+## Chain 3 Iteration:  600 / 2000 [ 30%]  (Warmup) 
+## Chain 4 Iteration:  800 / 2000 [ 40%]  (Warmup) 
+## Chain 1 Iteration:  900 / 2000 [ 45%]  (Warmup) 
+## Chain 4 Iteration:  900 / 2000 [ 45%]  (Warmup) 
+## Chain 3 Iteration:  700 / 2000 [ 35%]  (Warmup) 
+## Chain 2 Iteration:  800 / 2000 [ 40%]  (Warmup) 
+## Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+## Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+## Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+## Chain 3 Iteration:  800 / 2000 [ 40%]  (Warmup) 
+## Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+## Chain 2 Iteration:  900 / 2000 [ 45%]  (Warmup) 
+## Chain 3 Iteration:  900 / 2000 [ 45%]  (Warmup) 
+## Chain 1 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
+## Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+## Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+## Chain 4 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
+## Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+## Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+## Chain 1 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
+## Chain 2 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
+## Chain 4 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
+## Chain 3 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
+## Chain 1 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
+## Chain 4 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
+## Chain 2 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
+## Chain 3 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
+## Chain 1 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
+## Chain 2 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
+## Chain 4 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
+## Chain 3 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
+## Chain 1 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
+## Chain 2 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
+## Chain 4 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
+## Chain 3 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
+## Chain 1 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
+## Chain 2 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
+## Chain 4 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
+## Chain 3 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
+## Chain 1 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
+## Chain 2 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
+## Chain 4 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
+## Chain 3 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
+## Chain 1 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
+## Chain 2 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
+## Chain 4 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
+## Chain 3 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
+## Chain 1 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
+## Chain 2 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
+## Chain 4 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
+## Chain 3 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
+## Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
+## Chain 1 finished in 320.4 seconds.
+## Chain 2 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
+## Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
+## Chain 4 finished in 321.7 seconds.
+## Chain 3 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
+## Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
+## Chain 2 finished in 335.0 seconds.
+## Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
+## Chain 3 finished in 339.1 seconds.
+## 
+## All 4 chains finished successfully.
+## Mean chain execution time: 329.1 seconds.
+## Total execution time: 340.1 seconds.</code></pre>
+<div class="sourceCode" id="cb1679"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1679-1"><a href="homework-week-8.html#cb1679-1" aria-hidden="true" tabindex="-1"></a>model_trolley_multi_draws <span class="ot">&lt;-</span> <span class="fu">cmd_draws</span>(model_trolley_multi_sample)</span>
+<span id="cb1679-2"><a href="homework-week-8.html#cb1679-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1679-3"><a href="homework-week-8.html#cb1679-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(model_trolley_multi_draws, <span class="at">regex_pars =</span> <span class="st">&#39;cutpoints&#39;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-104-1.png" width="672" /></p>
+<div class="sourceCode" id="cb1680"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1680-1"><a href="homework-week-8.html#cb1680-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(model_trolley_multi_draws, <span class="at">regex_pars =</span> <span class="st">&#39;beta&#39;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-104-2.png" width="672" /></p>
+<div class="sourceCode" id="cb1681"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1681-1"><a href="homework-week-8.html#cb1681-1" aria-hidden="true" tabindex="-1"></a>model_trolley_multi_loo <span class="ot">&lt;-</span> model_trolley_multi_sample<span class="sc">$</span><span class="fu">loo</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb1682"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1682-1"><a href="homework-week-8.html#cb1682-1" aria-hidden="true" tabindex="-1"></a>col_patterns <span class="ot">&lt;-</span> <span class="st">&#39;^beta|^alpha|^sigma|^cutpoints&#39;</span></span>
+<span id="cb1682-2"><a href="homework-week-8.html#cb1682-2" aria-hidden="true" tabindex="-1"></a><span class="fu">setDT</span>(model_trolley_draws)</span>
+<span id="cb1682-3"><a href="homework-week-8.html#cb1682-3" aria-hidden="true" tabindex="-1"></a><span class="fu">setDT</span>(model_trolley_multi_draws)</span>
+<span id="cb1682-4"><a href="homework-week-8.html#cb1682-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1682-5"><a href="homework-week-8.html#cb1682-5" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(model_trolley_draws[, .SD, <span class="at">.SDcols =</span> <span class="fu">patterns</span>(col_patterns)])</span></code></pre></div>
+<pre><code>## 6 vector or matrix parameters hidden. Use depth=2 to show them.</code></pre>
+<pre><code>##                 mean    sd  5.5% 94.5%       histogram
+## beta_action    -0.70 0.040 -0.76 -0.63 ▁▁▁▁▃▅▇▇▇▃▂▁▁▁▁
+## beta_intention -0.71 0.036 -0.77 -0.66  ▁▁▁▁▂▅▇▇▇▃▂▁▁▁
+## beta_contact   -0.95 0.050 -1.03 -0.87        ▁▁▂▇▇▃▁▁</code></pre>
+<div class="sourceCode" id="cb1685"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1685-1"><a href="homework-week-8.html#cb1685-1" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(model_trolley_multi_draws[, .SD, <span class="at">.SDcols =</span> <span class="fu">patterns</span>(col_patterns)])</span></code></pre></div>
+<pre><code>## 337 vector or matrix parameters hidden. Use depth=2 to show them.</code></pre>
+<pre><code>##                 mean    sd  5.5% 94.5%      histogram
+## beta_action    -0.94 0.043 -1.01 -0.88       ▁▁▂▇▇▂▁▁
+## beta_intention -0.95 0.038 -1.01 -0.89 ▁▁▁▂▃▇▇▇▃▂▁▁▁▁
+## beta_contact   -1.26 0.053 -1.34 -1.17      ▁▁▁▃▇▇▂▁▁
+## alpha_bar       1.25 0.638  0.12  2.26       ▁▁▃▃▇▇▂▁
+## sigma           1.89 0.082  1.76  2.02 ▁▁▁▁▃▇▇▅▃▂▁▁▁▁</code></pre>
+<div class="sourceCode" id="cb1688"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1688-1"><a href="homework-week-8.html#cb1688-1" aria-hidden="true" tabindex="-1"></a>compared <span class="ot">&lt;-</span> <span class="fu">loo_compare</span>(model_trolley_loo, model_trolley_multi_loo)</span>
+<span id="cb1688-2"><a href="homework-week-8.html#cb1688-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(compared, <span class="at">simplify =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>##        elpd_diff se_diff  elpd_loo se_elpd_loo p_loo    se_p_loo looic   
+## model2      0.0       0.0 -15670.4     88.7       354.7      4.6  31340.9
+## model1  -2874.6      86.1 -18545.1     37.9         9.1      0.0  37090.1
+##        se_looic
+## model2    177.4
+## model1     75.8</code></pre>
+<div class="sourceCode" id="cb1690"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1690-1"><a href="homework-week-8.html#cb1690-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(compared)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-105-1.png" width="672" /></p>
 
 </div>
 </div>
