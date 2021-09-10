@@ -15,7 +15,7 @@ parameters {
 	// Hyper parameter alpha bar
 	real alpha_bar;
 }
-transformed parameters {
+model {
 	// p vector matching length of number of districts
   vector[N] p;
 
@@ -23,8 +23,7 @@ transformed parameters {
   for (i in 1:N) {
   	p[i] = inv_logit(alpha[district[i]]);
   }
-}
-model {
+
   // Hyper priors: alpha bar and sigma
 	alpha_bar ~ normal(0, 1.5);
 	sigma ~ exponential(1);
