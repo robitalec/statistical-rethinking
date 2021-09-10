@@ -531,6 +531,38 @@ model_trolley_sample <-
 model_trolley_draws <- cmd_draws(model_trolley_sample)
 
 mcmc_trace(model_trolley_draws)
-mcmc_areas(model_trolley_draws, regex_pars = 'alpha', transformations = inv.logit)
-mcmc_areas(model_trolley_draws, pars = c('alpha_bar', 'sigma'))
+mcmc_areas(model_trolley_draws, regex_pars = 'cutpoints')
+mcmc_areas(model_trolley_draws, regex_pars = 'beta')
 ```
+
+```{r}
+d <- Trolley
+dat <- list(
+	R = d$response,
+	A = d$action,
+	I = d$intention,
+	C = d$contact
+)
+m12.5 <- ulam(
+	alist(
+		R ~ dordlogit(phi, cutpoints),
+		phi <- bA*A + bC*C + bI*I,
+		bI <- bI + bIA*A + bIC*C,
+		c(bA, bC, bI, bIA, bIC) ~ dnorm(0, 1.5),
+		cutpoints ~ dnorm(0, 1.5)
+	),
+	log_lik = TRUE,
+	data = dat,
+	chains = 1,
+	sample = FALSE
+)
+cat(m12.5$model)
+
+```
+https://mc-stan.org/loo/articles/loo2-with-rstan.html
+generated quantities {
+  vector[N] log_lik;
+  for (n in 1:N) {
+    log_lik[n] = ordered_logistic_lpmf(phi[i], cutpoints);
+  }
+}
