@@ -5,6 +5,7 @@ data {
   int action[N];
   int intention[N];
   int contact[N];
+
 }
 parameters {
 	// Cut points are the positions of responses along cumulative odds
@@ -12,12 +13,14 @@ parameters {
   real beta_action;
   real beta_intention;
   real beta_contact;
+  real beta_intention_contact;
+  real beta_intention_action;
 }
 transformed parameters {
   vector[N] phi;
 
 	for (i in 1:N) {
-		phi[i] = beta_action * action[i] + beta_contact * contact[i] + beta_intention * intention[i];
+		phi[i] = beta_action * action[i] + beta_contact * contact[i] + beta_intention * intention[i] + beta_intention_contact * intention[i] * contact[i]  + beta_intention_action * intention[i] * action[i];
 	}
 }
 model {
