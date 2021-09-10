@@ -317,13 +317,40 @@ different inferences?
 Fixed effects model
 
 ```{cmdstan, output.var = 'model_bang_fixed', cache = TRUE}
+data {
+	// Integers for number of rows, and number of districts
+  int<lower=0> N;
+  int<lower=0> N_district;
 
+  // District and contraception, expecting integers of length N
+	int district[N];
+	int contraception[N];
+}
+parameters {
+	// Alpha vector matching length of number of districts
+	vector[N_district] alpha;
+}
+model {
+	// p vector matching length of number of districts
+  vector[N] p;
+
+  // Alpha is distributed normally
+	alpha ~ normal(0, 1.5);
+
+	// For each for in data, alpha for that row's district
+  for (i in 1:N) {
+  	p[i] = inv_logit(alpha[district[i]]);
+  }
+
+  // Contraception if distributed with bernoulli, p
+  contraception ~ bernoulli(p);
+}
 ```
 
 ```{r, cache = TRUE}
-model_bang_fixed_stan <- 'model_bang_fixed.stan'
-writeLines(readLines(model_bang_fixed_stan))
-model_bang_fixed <- cmdstan_model(model_bang_fixed_stan, cpp_options = list(stan_threads = TRUE))
+# model_bang_fixed_stan <- 'model_bang_fixed.stan'
+# writeLines(readLines(model_bang_fixed_stan))
+# model_bang_fixed <- cmdstan_model(model_bang_fixed_stan, cpp_options = list(stan_threads = TRUE))
 
 model_bang_fixed_sample <-
 	model_bang_fixed$sample(
@@ -333,19 +360,56 @@ model_bang_fixed_sample <-
 		threads_per_chain = 4
 	)
 model_bang_fixed_draws <- cmd_draws(model_bang_fixed_sample)
-mcmc_areas(model_bang_fixed_draws, regex_pars = 'alpha')
+mcmc_areas(model_bang_fixed_draws, regex_pars = 'alpha', transformations = inv.logit)
 ```
 
 Multilevel  model
 
 ```{cmdstan, output.var = 'model_bang_multi', cache = TRUE}
+data {
+	// Integers for number of rows, and number of districts
+  int<lower=0> N;
+  int<lower=0> N_district;
 
+  // District and contraception, expecting integers of length N
+	int district[N];
+	int contraception[N];
+}
+parameters {
+	// Alpha vector matching length of number of districts
+	vector[N_district] alpha;
+	real<lower=0> sigma;
+
+	// Hyper parameter alpha bar
+	real alpha_bar;
+}
+transformed parameters {
+	// p vector matching length of number of districts
+  vector[N] p;
+
+	// For each for in data, alpha for that row's district
+  for (i in 1:N) {
+  	p[i] = inv_logit(alpha[district[i]]);
+  }
+}
+model {
+  // Hyper priors: alpha bar and sigma
+	alpha_bar ~ normal(0, 1.5);
+	sigma ~ exponential(1);
+
+	// Priors
+  // Alpha is distributed normally
+  alpha ~ normal(alpha_bar, sigma);
+
+  // Contraception if distributed with bernoulli, p
+  contraception ~ bernoulli(p);
+}
 ```
 
 ```{r, cache = TRUE}
-model_bang_multi_stan <- 'model_bang_multi.stan'
-writeLines(readLines(model_bang_multi_stan))
-model_bang_multi <- cmdstan_model(model_bang_multi_stan, cpp_options = list(stan_threads = TRUE))
+# model_bang_multi_stan <- 'model_bang_multi.stan'
+# writeLines(readLines(model_bang_multi_stan))
+# model_bang_multi <- cmdstan_model(model_bang_multi_stan, cpp_options = list(stan_threads = TRUE))
 
 model_bang_multi_sample <-
 	model_bang_multi$sample(
@@ -355,5 +419,8 @@ model_bang_multi_sample <-
 		threads_per_chain = 4
 	)
 model_bang_multi_draws <- cmd_draws(model_bang_multi_sample)
-mcmc_areas(model_bang_multi_draws, regex_pars = 'alpha')
+
+mcmc_trace(model_bang_multi_draws)
+mcmc_areas(model_bang_multi_draws, regex_pars = 'alpha', transformations = inv.logit)
+mcmc_areas(model_bang_multi_draws, pars = c('alpha_bar', 'sigma'))
 ```
