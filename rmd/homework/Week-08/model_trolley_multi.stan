@@ -5,6 +5,8 @@ data {
   int action[N];
   int intention[N];
   int contact[N];
+  int individual[N];
+  int N_individual;
 }
 parameters {
 	// Cut points are the positions of responses along cumulative odds

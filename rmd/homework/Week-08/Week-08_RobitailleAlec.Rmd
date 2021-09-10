@@ -544,9 +544,9 @@ DT[, individual := as.integer(factor(id))]
 model_data <- c(
 	as.list(DT[, .(response, action, intention, contact, individual)]), 
 	N = DT[, .N],
+	N_indiviual = DT[, uniqueN(individual)],
 	K = DT[, uniqueN(response) - 1]
 )
-
 ```
 
 ```{cmdstan, output.var = 'model_trolley', cache = TRUE}
