@@ -524,8 +524,9 @@ generated quantities {
 model_trolley_sample <-
 	model_trolley$sample(
 		data = model_data,
-		chains = 1,
-		# parallel_chains = 4,
+		chains = 4,
+		save_warmup = FALSE,
+		parallel_chains = 4,
 		threads_per_chain = 4
 	)
 model_trolley_draws <- cmd_draws(model_trolley_sample)
