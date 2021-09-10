@@ -15,6 +15,15 @@ parameters {
 	// Hyper parameter alpha bar
 	real alpha_bar;
 }
+transformed parameters {
+	// p vector matching length of number of districts
+  vector[N] p;
+
+	// For each for in data, alpha for that row's district
+  for (i in 1:N) {
+  	p[i] = inv_logit(alpha[district[i]]);
+  }
+}
 model {
   // Hyper priors: alpha bar and sigma
 	alpha_bar ~ normal(0, 1.5);
@@ -23,12 +32,6 @@ model {
 	// Priors
   // Alpha is distributed normally
   alpha ~ normal(alpha_bar, sigma);
-
-	// p vector matching length of number of districts
-  vector[N_district] p;
-
-	// For each district, alpha for district
-  p = inv_logit(alpha[district]);
 
   // Contraception if distributed with bernoulli, p
   contraception ~ bernoulli(p);
