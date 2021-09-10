@@ -466,6 +466,12 @@ posterior predictions. What is the impact of individual variation in these data?
 data(Trolley)
 DT <- data.table(Trolley)
 precis(DT)
+
+model_data <- c(
+	as.list(DT[, .(response, action, intention, contact)]), 
+	N = DT[, .N],
+	K = DT[, uniqueN(response) - 1]
+)
 ```
 
 
