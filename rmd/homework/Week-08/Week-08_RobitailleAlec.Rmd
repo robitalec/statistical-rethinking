@@ -535,3 +535,40 @@ mcmc_areas(model_trolley_draws, regex_pars = 'beta')
 
 model_trolley_loo <- model_trolley_sample$loo()
 ```
+
+
+```{r}
+DT[, individual := as.integer(factor(id))]
+
+model_data <- c(
+	as.list(DT[, .(response, action, intention, contact, individual)]), 
+	N = DT[, .N],
+	K = DT[, uniqueN(response) - 1]
+)
+
+```
+
+```{cmdstan, output.var = 'model_trolley', cache = TRUE}
+
+```
+
+```{r, cache = TRUE}
+# model_trolley_multi_stan <- 'model_trolley_multi.stan'
+# writeLines(readLines(model_trolley_multi_stan))
+# model_trolley_multi <- cmdstan_model(model_trolley_multi_stan, cpp_options = list(stan_threads = TRUE))
+
+model_trolley_multi_sample <-
+	model_trolley_multi$sample(
+		data = model_data,
+		chains = 4,
+		save_warmup = FALSE,
+		parallel_chains = 4,
+		threads_per_chain = 4
+	)
+model_trolley_multi_draws <- cmd_draws(model_trolley_multi_sample)
+
+mcmc_areas(model_trolley_multi_draws, regex_pars = 'cutpoints')
+mcmc_areas(model_trolley_multi_draws, regex_pars = 'beta')
+
+model_trolley_multi_loo <- model_trolley_multi_sample$loo()
+```
