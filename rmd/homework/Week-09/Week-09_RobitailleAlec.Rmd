@@ -76,3 +76,41 @@ DT[, contraception := use.contraception]
 model_data <- c(as.list(DT[, .(contraception, district)]), 
 								N = DT[, .N], N_district = DT[, uniqueN(district)])
 ```
+
+
+```{r}
+register_knitr_engine(override = FALSE)
+```
+
+```{cmdstan, output.var = 'model_q1', cache = TRUE}
+```
+
+```{r, cache = TRUE}
+# model_q1_stan <- 'model_q1.stan'
+# writeLines(readLines(model_q1_stan))
+# model_q1 <- cmdstan_model(model_q1_stan, cpp_options = list(stan_threads = TRUE))
+
+model_data <- c(
+	as.list(DT[, .(
+		survival = surv,
+		density,
+		predation = as.integer(pred),
+		size = as.integer(size),
+		tank = seq.int(.N)
+	)]), 
+	N = DT[, .N]
+)
+
+model_q1_sample <-
+	model_q1$sample(
+		data = model_data,
+		chains = 4,
+		parallel_chains = 4,
+		threads_per_chain = 4
+	)
+
+model_q1_draws <- cmd_draws(model_q1_sample)
+
+mcmc_areas(model_q1_draws, regex_pars = 'alpha')
+mcmc_areas(model_q1_draws, regex_pars = 'p\\[')
+```
