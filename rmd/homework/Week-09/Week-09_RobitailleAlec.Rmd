@@ -90,17 +90,6 @@ register_knitr_engine(override = FALSE)
 # writeLines(readLines(model_q1_stan))
 # model_q1 <- cmdstan_model(model_q1_stan, cpp_options = list(stan_threads = TRUE))
 
-model_data <- c(
-	as.list(DT[, .(
-		survival = surv,
-		density,
-		predation = as.integer(pred),
-		size = as.integer(size),
-		tank = seq.int(.N)
-	)]), 
-	N = DT[, .N]
-)
-
 model_q1_sample <-
 	model_q1$sample(
 		data = model_data,
