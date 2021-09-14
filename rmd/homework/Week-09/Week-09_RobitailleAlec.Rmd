@@ -1,0 +1,65 @@
+---
+author: "Alec L. Robitaille"
+output: github_document
+editor_options: 
+  chunk_output_type: console
+---
+
+# Homework: Week 9
+2021-09-14 [updated: `r Sys.Date()`]
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(rethinking)
+options(digits = 2, scipen = 999)
+```
+
+### Setup
+
+```{r}
+# Packages
+library(ggdag)
+library(dagitty)
+library(data.table)
+library(ggplot2)
+library(rethinking)
+library(cmdstanr)
+library(posterior)
+library(bayesplot)
+library(boot)
+library(loo)
+
+# Functions
+dag_plot <- function(dag) {
+	stat <- node_status(dag, FALSE)
+	stat$data$status[is.na(stat$data$status)] <- 'intermediate'
+	ggplot(stat, aes(x = x, y = y, xend = xend, yend = yend)) +
+	  geom_dag_point(aes(color = status), alpha = 0.5, size = 15) +
+	  geom_dag_edges() +
+		labs(color = '') + 
+	  geom_dag_text(color = 'black') +
+		scale_color_manual(values = list('exposure' = '#35608DFF',
+																		 'outcome' = '#22A884FF',
+																		 'intermediate' = 'grey50')) + 
+	  theme_void()
+}
+
+cmd_draws <- function(model) {
+	as_draws_df(model$draws())
+}
+```
+
+
+## Question 1
+
+> Revisit the Bangladesh fertility data, data(bangladesh). Fit a model with both
+varying intercepts by district_id and varying slopes of urban (as a 0/1
+indicator variable) by district_id. You are still predicting use.contraception.
+Inspect the correlation between the intercepts and slopes. Can you interpret
+this correlation, in terms of what it tells you about the pattern of
+contraceptive use in the sample? It might help to plot the varying effect
+estimates for both the intercepts and slopes, by district. Then you can
+visualize the correlation and maybe more easily think through what it means to
+have a particular correlation. Plotting predicted proportion of women using
+contraception, in each district, with urban women on one axis and rural on the
+other, might also help.
