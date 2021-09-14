@@ -73,7 +73,7 @@ DT[, id := as.integer(woman)]
 DT[, district := as.integer(as.factor(district))]
 DT[, contraception := use.contraception]
 
-model_data <- c(as.list(DT[, .(contraception, district)]), 
+model_data <- c(as.list(DT[, .(contraception, district, urban)]), 
 								N = DT[, .N], N_district = DT[, uniqueN(district)])
 ```
 
