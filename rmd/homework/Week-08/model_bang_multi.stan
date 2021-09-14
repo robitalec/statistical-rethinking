@@ -28,15 +28,16 @@ model {
 	// p vector matching length of number of districts
   vector[N] p;
 
+  // Hyper priors: alpha bar, beta urban bar, sigma and Rho
+	alpha_bar ~ normal(0, 1.5);
+	beta_urban_bar ~ normal(0, 1.5);
+	sigma ~ exponential(1);
+	Rho ~ lkj_corr(2);
+
 	// For each for in data, alpha and beta_urban for that row's district
   for (i in 1:N) {
   	p[i] = inv_logit(alpha[district[i]] + beta_urban[district[i]] * urban[i]);
   }
-
-  // Hyper priors: alpha bar, beta urban bar and sigma
-	alpha_bar ~ normal(0, 1.5);
-	beta_urban_bar ~ normal(0, 1.5);
-	sigma ~ exponential(1);
 
 	// Priors
   // Alpha is distributed normally
