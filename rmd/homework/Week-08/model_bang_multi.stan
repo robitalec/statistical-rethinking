@@ -12,8 +12,8 @@ parameters {
 	// Alpha vector matching length of number of districts
 	vector[N_district] alpha;
 
-	// Beta urban
-	real beta_urban;
+	// Beta urban vector matching length of number of districts
+	vector[N_district] beta_urban;
 
 	real<lower=0> sigma;
 
@@ -25,9 +25,9 @@ model {
 	// p vector matching length of number of districts
   vector[N] p;
 
-	// For each for in data, alpha for that row's district
+	// For each for in data, alpha and beta_urban for that row's district
   for (i in 1:N) {
-  	p[i] = inv_logit(alpha[district[i]] + beta_urban * urban[i]);
+  	p[i] = inv_logit(alpha[district[i]] + beta_urban[district[i]] * urban[i]);
   }
 
   // Hyper priors: alpha bar and sigma
