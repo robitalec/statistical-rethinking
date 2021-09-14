@@ -17,9 +17,12 @@ parameters {
 
 	real<lower=0> sigma;
 
-	// Hyper parameter alpha bar
+	// Hyper parameter alpha bar, beta urban bar
 	real alpha_bar;
+	real beta_urban_bar;
 
+	// Correlation matrix
+	corr_matrix[2] Rho;
 }
 model {
 	// p vector matching length of number of districts
@@ -30,8 +33,9 @@ model {
   	p[i] = inv_logit(alpha[district[i]] + beta_urban[district[i]] * urban[i]);
   }
 
-  // Hyper priors: alpha bar and sigma
+  // Hyper priors: alpha bar, beta urban bar and sigma
 	alpha_bar ~ normal(0, 1.5);
+	beta_urban_bar ~ normal(0, 1.5);
 	sigma ~ exponential(1);
 
 	// Priors
