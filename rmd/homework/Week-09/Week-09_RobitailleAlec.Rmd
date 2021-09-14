@@ -63,3 +63,16 @@ visualize the correlation and maybe more easily think through what it means to
 have a particular correlation. Plotting predicted proportion of women using
 contraception, in each district, with urban women on one axis and rural on the
 other, might also help.
+
+```{r}
+data(bangladesh)
+DT <- data.table(bangladesh)
+precis(DT)
+
+DT[, id := as.integer(woman)]
+DT[, district := as.integer(as.factor(district))]
+DT[, contraception := use.contraception]
+
+model_data <- c(as.list(DT[, .(contraception, district)]), 
+								N = DT[, .N], N_district = DT[, uniqueN(district)])
+```
