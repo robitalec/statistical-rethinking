@@ -171,3 +171,24 @@ mcmc_hex(model_q1_draws, regex_pars = '*bar')
 
 
 
+## Question 2
+
+> Now consider the predictor variables age.centered and living.children, also
+contained in data(bangladesh). Suppose that age influences contraceptive use
+(changing attitudes) and number of children (older people have had more time to
+have kids). Number of children may also directly influence contraceptive use.
+Draw a DAG that reflects these hypothetical relationships. Then build models
+needed to evaluate the DAG. You will need at least two models. Retain district
+and urban, as in Problem 1. What do you conclude about the causal influence of
+age and children?
+
+```{r}
+dag <- dagify(
+  contractive_use ~ age + number_children,
+  age ~ number_children,
+  outcome = 'contractive_use'
+)
+
+dag_plot(dag)
+```
+
