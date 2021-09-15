@@ -186,10 +186,13 @@ age and children?
 dag <- dagify(
   contraceptive_use ~ age + number_children,
   number_children ~ age,
+  exposure = 'age',
   outcome = 'contraceptive_use'
 )
 
 dag_plot(dag)
+adjustmentSets(dag, exposure = 'age', outcome = 'contraceptive_use', effect = 'total')
+adjustmentSets(dag, exposure = 'age', outcome = 'contraceptive_use', effect = 'direct')
 ```
 
 
