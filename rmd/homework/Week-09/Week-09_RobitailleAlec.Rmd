@@ -369,12 +369,25 @@ model_q2_b_sample <-
 		data = model_data,
 		chains = 4,
 		parallel_chains = 4,
-		threads_per_chain = 4
+		threads_per_chain = 4,
+		refresh = 0
 	)
 
 model_q2_b_draws <- cmd_draws(model_q2_b_sample)
-
-precis(model_q2_b_draws[, .SD, .SDcols = patterns('beta')])
-
+setDT(model_q2_b_draws)
 ```
 
+
+```{r}
+precis(model_q2_a_draws[, .SD, .SDcols = patterns('beta')])
+precis(model_q2_b_draws[, .SD, .SDcols = patterns('beta')])
+```
+
+## Question 3
+
+> Modify any models from Problem 2 that contained that children variable and
+model the variable now as a monotonic ordered category, like education from the
+week we did ordered categories. Education in that example had 8 categories.
+Children here will have fewer (no one in the sample had 8 children). So modify
+the code appropriately. What do you conclude about the causal influence of each
+additional child on use of contraception?
