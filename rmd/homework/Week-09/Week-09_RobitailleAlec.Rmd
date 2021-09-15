@@ -185,7 +185,7 @@ age and children?
 ```{r}
 dag <- dagify(
   contraceptive_use ~ age + number_children,
-  age ~ number_children,
+  number_children ~ age,
   outcome = 'contraceptive_use'
 )
 
