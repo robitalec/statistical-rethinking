@@ -405,3 +405,11 @@ model_data <- c(
 )
 
 ```
+
+```{cmdstan, output.var = 'model_q3', cache = TRUE}
+```
+```{r, cache = TRUE}
+# model_q3_stan <- 'model_q3.stan'
+# writeLines(readLines(model_q3_stan))
+# model_q3 <- cmdstan_model(model_q3_stan, cpp_options = list(stan_threads = TRUE))
+```
