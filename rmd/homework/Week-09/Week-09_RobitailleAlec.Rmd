@@ -193,3 +193,9 @@ dag_plot(dag)
 ```
 
 
+```{r}
+DT[, scale_age := as.numeric(scale(age.centered))]
+model_data <- c(as.list(DT[, .(contraception, district, urban, scale_age, 
+															 n_children = living.children)]), 
+								N = DT[, .N], N_district = DT[, uniqueN(district)])
+```
