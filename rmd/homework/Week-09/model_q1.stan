@@ -15,7 +15,6 @@ parameters {
 	// Beta urban vector matching length of number of districts
 	vector[N_district] beta_urban;
 
-
 	// Hyper parameter alpha bar, beta urban bar
 	real alpha_bar;
 	real beta_urban_bar;
@@ -23,7 +22,6 @@ parameters {
 	// Correlation matrix, sigma
 	corr_matrix[2] Rho;
 	vector<lower=0>[2] sigma;
-
 }
 model {
 	// p vector matching length of number of districts
@@ -33,20 +31,22 @@ model {
   // Alpha is distributed normally
   alpha ~ normal(alpha_bar, sigma);
 
-	// Multivariate normal
-  {
-  vector[2] YY[N_district];
-  vector[2] MU;
-  MU = [alpha_bar, beta_urban_bar]';
-  for (j in 1:N_district) YY[j] = [alpha[j], beta_urban[j]]';
-  YY ~ multi_normal(MU, quad_form_diag(Rho, sigma));
-  }
-
   // Hyper priors: alpha bar, beta urban bar, sigma and Rho
-	alpha_bar ~ normal(0, 1.5);
-	beta_urban_bar ~ normal(0, 1.5);
+	alpha_bar ~ normal(0, 1);
+	beta_urban_bar ~ normal(0, 0.5);
 	sigma ~ exponential(1);
 	Rho ~ lkj_corr(2);
+
+	// Multivariate normal
+  {
+	  vector[2] YY[N_district];
+	  vector[2] MU;
+	  MU = [alpha_bar, beta_urban_bar]';
+	  for (j in 1:N_district) {
+	  	YY[j] = [alpha[j], beta_urban[j]]';
+	  }
+	  YY ~ multi_normal(MU, quad_form_diag(Rho, sigma));
+  }
 
 	// For each for in data, alpha and beta_urban for that row's district
   for (i in 1:N) {
