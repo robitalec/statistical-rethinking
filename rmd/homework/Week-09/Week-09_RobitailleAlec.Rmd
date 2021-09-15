@@ -104,6 +104,11 @@ mcmc_areas(model_q1_draws, regex_pars = 'alpha')
 mcmc_areas(model_q1_draws, regex_pars = 'beta')
 mcmc_areas(model_q1_draws, regex_pars = 'bar')
 mcmc_areas(model_q1_draws, regex_pars = 'Rho')
+
+precis(model_q1_draws[, .SD, .SDcols = patterns('*bar')])
+precis(model_q1_draws[, .SD, .SDcols = patterns('Rho|sigma')], depth = 3)
+
+
 ```
 
 
