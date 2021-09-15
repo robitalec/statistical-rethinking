@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>22 Lecture 12 | Learning bayesian data analysis with Statistical Rethinking</title>
-  <meta name="description" content="22 Lecture 12 | Learning bayesian data analysis with Statistical Rethinking" />
+  <title>27 Lecture 17 | Learning bayesian data analysis with Statistical Rethinking</title>
+  <meta name="description" content="27 Lecture 17 | Learning bayesian data analysis with Statistical Rethinking" />
   <meta name="generator" content="bookdown 0.22.15 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="22 Lecture 12 | Learning bayesian data analysis with Statistical Rethinking" />
+  <meta property="og:title" content="27 Lecture 17 | Learning bayesian data analysis with Statistical Rethinking" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="22 Lecture 12 | Learning bayesian data analysis with Statistical Rethinking" />
+  <meta name="twitter:title" content="27 Lecture 17 | Learning bayesian data analysis with Statistical Rethinking" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="lecture-11.html"/>
-<link rel="next" href="lecture-13.html"/>
+<link rel="prev" href="lecture-16.html"/>
+
 <script src="libs/header-attrs-2.9.5/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -490,49 +490,63 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="lecture-12" class="section level1" number="22">
-<h1><span class="header-section-number">22</span> Lecture 12</h1>
-<div id="relative-and-absolute-effects" class="section level2" number="22.1">
-<h2><span class="header-section-number">22.1</span> Relative and absolute effects</h2>
-<p>Effect sizes two ways</p>
+<div id="lecture-17" class="section level1" number="27">
+<h1><span class="header-section-number">27</span> Lecture 17</h1>
+<div id="varying-slopes" class="section level2" number="27.1">
+<h2><span class="header-section-number">27.1</span> Varying slopes</h2>
+<p>Slopes are another feature of the response</p>
+<p>Making any parameter into a varying effect</p>
 <ol style="list-style-type: decimal">
-<li>Relative effect scale: parameters have relative differences in their effect</li>
-<li>Absolute effect scale: used for predictions</li>
+<li>Split into vector of parameters by cluster</li>
+<li>Define population clusters</li>
 </ol>
-<p>Proportional odds eg treatment 4 and 2</p>
-<p>post ← extract.samples</p>
-<p>mean</p>
-<p>0.9 = 90% of previous odds</p>
-<p>Therefore 2→4 expects reduction of odds by 10%</p>
-<p>But this disregards base rate</p>
-<p>Risk of relative effects like proportional odds is they don’t consider absolute likelihood</p>
-<p>Relative shark vs absolute deer - need both</p>
+<p>Any batch of parameters with exchangeable index values can (<em>“and probably should”</em>) be pooled. Exchangeable = unordered labels.</p>
+<p>You could treat slopes as a distinct varying effect, but even better than that - relate intercepts to the slopes directly. Since intercepts and slopes are related in the population/math/geometry, features of these units have a correlation structure.</p>
+<div id="example---cafes" class="section level3" number="27.1.1">
+<h3><span class="header-section-number">27.1.1</span> Example - cafes</h3>
+<p>Cafe visits in morning and afternoone, intercepts: average morning wait, slopes: avg difference between afternoon and morning.</p>
+<p>AAre the slopes and intercepts related? Yes. There is pooling across parameters.</p>
+<p>The prior is a 2 dimensional Gaussian. There is a vector of means (average intercept, average slope) and a variance-covariance matrix.</p>
 </div>
-<div id="logistic-regression" class="section level2" number="22.2">
-<h2><span class="header-section-number">22.2</span> Logistic regression</h2>
-<p>0, 1 trials (Bernoulli trials)</p>
-<p>Aggregate binomial: aggregated from each 0, 1 to counts for each category</p>
-<p>Example - UC Berkeley 1970s</p>
-<p>Gender → Department → Acceptance, Gender → Acceptance</p>
-<p>Recall: regressions are very literal to exactly the question you are asking</p>
-<p>Model 1</p>
-<p>Acceptance ~ Binomial(N, p)</p>
-<p>logit(p) = alpha [gender]</p>
-<p>Statistical question: what are the average probabilities of admission by gender across all departments?</p>
-<p>Causal question: what is the total causal influence of gender?</p>
-<p>It’s asking for the total effect, not the discrimination effect</p>
-<p>Therefore, all paths are in play (Gender → Department → Acceptance, Gender → Acceptance)</p>
-<p>Model 2</p>
-<p>Close the backdoor.</p>
-<p>Acceptance ~ Binomial(N, p)</p>
-<p>logit(p) = alpha [gender] + beta department</p>
-<p>Statistical question: what is the average difference in probability of admission for genders within department?</p>
-<p>Causal question: what is the direct influence of gender?</p>
-<p>These are equally valid, but different questions.</p>
 </div>
-<div id="simpsons-paradox" class="section level2" number="22.3">
-<h2><span class="header-section-number">22.3</span> Simpsons paradox</h2>
-<p>Flip of covariates sign when adding/removing a variable</p>
+<div id="variance-covariance-matrix" class="section level2" number="27.2">
+<h2><span class="header-section-number">27.2</span> Variance covariance matrix</h2>
+<p>[var covar</p>
+<p>covar var]</p>
+</div>
+<div id="varying-slopes-model" class="section level2" number="27.3">
+<h2><span class="header-section-number">27.3</span> Varying slopes model</h2>
+<p><span class="math inline">\(W_{i} \sim \text{Normal}(\mu_{i}, \sigma)\)</span></p>
+<p><span class="math inline">\(\mu_{i} = \alpha_{\text{cafe}[i]} + \beta_{\text{cafe}[i}*A_{i}\)</span></p>
+<p>[alpha cafe</p>
+<p>beta cafe] ~ MVNormal([alpha / beta, S])</p>
+<p>Mu i represents the varying intercepts + varying slopes. A i = afternoon/not</p>
+<p>Multivariate prior: for each cafe, there’s a pair of parameters alpha and beta, distributed with a 2 dimensional normal with averages alpha and beta, and S the covariance matrix.</p>
+<p>R ~ LKJcorr(2)</p>
+<p>You can’t assign priors independently. 1 dimensional correlations vary between -1 and 1, and with increasing n dimensions, the correlation remains restricted within these limits. Therefore, if 1 is really big, the other is necessarily smaller.</p>
+<p>The LKJcorr has one variable <code>eta</code>. <code>eta</code> defines how concentrated from the identity matrix. The density is between -1 and 1. eta = 1 represents a pretty much uniform density. eta &gt; 1 has more concentration around 0, more skeptical of extremes.</p>
+</div>
+<div id="multidimensional-shrinkage" class="section level2" number="27.4">
+<h2><span class="header-section-number">27.4</span> Multidimensional shrinkage</h2>
+<p>Joint distribution of varying effects pools information across slopes and intercepts. Correlation induces shrinkages across dimensions, increasing accuracy.</p>
+<div id="example---prosocial-chimps-many-clusters" class="section level3" number="27.4.1">
+<h3><span class="header-section-number">27.4.1</span> Example - prosocial chimps, many clusters</h3>
+<p>4 treatments: partner present/absent, side of table L/R. Can vary by actor and by block.</p>
+<p><span class="math inline">\(L_{i} \sim \text{Binomial}(1, p_{i})\)</span></p>
+<p><span class="math inline">\(\text{logit}(p_{i}) = \gamma_{\text{treatment}} + \alpha_{\text{actor, treatment}} + \beta_{\text{block, treatment}}\)</span></p>
+<p>Mean effect of treatments, each actor in each treatment, each block in each treatment.</p>
+<p>Alpha actor, treatment is a matrix of alpha deviation from mean for each actor by treatment</p>
+<p>Beta block, treatment is a matrix of beta deviation from mean for block by treatment</p>
+<p>How many parameters is this? 7 individuals * 4 treatments + 6 blocks * 4 treatments + 6 correlations + 4 sigmas = 76 parameters</p>
+<p>With shrinkage, number of effective parameters will be much lower.</p>
+</div>
+<div id="divergences" class="section level3" number="27.4.2">
+<h3><span class="header-section-number">27.4.2</span> Divergences</h3>
+<p>Because of divergences (which are more common in these models), we need to use the non-centered versions.</p>
+<p>Simpler to do for univariate models, since we need to factor all parameters out of the prior and into the linear model. How do we factor out a correlation matrix?</p>
+<p>Cholesky factor</p>
+
+</div>
 </div>
 </div>
             </section>
@@ -540,8 +554,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="lecture-11.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="lecture-13.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="lecture-16.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

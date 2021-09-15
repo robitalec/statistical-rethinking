@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>22 Lecture 12 | Learning bayesian data analysis with Statistical Rethinking</title>
-  <meta name="description" content="22 Lecture 12 | Learning bayesian data analysis with Statistical Rethinking" />
+  <title>26 Lecture 16 | Learning bayesian data analysis with Statistical Rethinking</title>
+  <meta name="description" content="26 Lecture 16 | Learning bayesian data analysis with Statistical Rethinking" />
   <meta name="generator" content="bookdown 0.22.15 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="22 Lecture 12 | Learning bayesian data analysis with Statistical Rethinking" />
+  <meta property="og:title" content="26 Lecture 16 | Learning bayesian data analysis with Statistical Rethinking" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="22 Lecture 12 | Learning bayesian data analysis with Statistical Rethinking" />
+  <meta name="twitter:title" content="26 Lecture 16 | Learning bayesian data analysis with Statistical Rethinking" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="lecture-11.html"/>
-<link rel="next" href="lecture-13.html"/>
+<link rel="prev" href="lecture-15.html"/>
+<link rel="next" href="lecture-17.html"/>
 <script src="libs/header-attrs-2.9.5/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -490,49 +490,68 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="lecture-12" class="section level1" number="22">
-<h1><span class="header-section-number">22</span> Lecture 12</h1>
-<div id="relative-and-absolute-effects" class="section level2" number="22.1">
-<h2><span class="header-section-number">22.1</span> Relative and absolute effects</h2>
-<p>Effect sizes two ways</p>
+<div id="lecture-16" class="section level1" number="26">
+<h1><span class="header-section-number">26</span> Lecture 16</h1>
+<div id="multiple-clusters" class="section level2" number="26.1">
+<h2><span class="header-section-number">26.1</span> Multiple clusters</h2>
+<p>Example: chimpanzees * block</p>
+<p>“cross classified”</p>
+<p>Add actor and block intercepts - alpha for each actor, gamma for each block, beta for each treatment</p>
+<p>Think of these as an offset</p>
+<p><span class="math inline">\(\alpha_{j} \sim \text{Normal}(\bar{\alpha}, \sigma_{alpha})\)</span></p>
+<p><span class="math inline">\(\gamma{j} \sim \text{Normal}(0, \sigma_{gamma})\)</span></p>
+<p><span class="math inline">\(\bar{\alpha} \sim \text{Normal}(0, 1.5)\)</span></p>
+<p>In this example, sigma for actors shows variation in actors, but sigma for blocks is quite small. Why include blocks then? Because while out of sample predictions are quite similar, the block parameters are aggressively regularized.</p>
+<p>Random effects have many definitions. These are statistical <em>things</em> used to regularize inference. Doesn’t necessarily have to be only things “not fixed by the experimenter”.</p>
+</div>
+<div id="divergent-transitions" class="section level2" number="26.2">
+<h2><span class="header-section-number">26.2</span> Divergent transitions</h2>
+<p>Tells you something is numerically inefficient about the model. Solution = switch between different ways of writing the same model.</p>
+<p>Each transition is a sample path. Since in real physics energy is conserved, if energy isn’t conserved in the physics simulation within the HMM - something went wrong.</p>
+<p>HMC thankfully reports warnings, whereas Gibbs, Metropolis, etc do not (since they are not a physics simulation)</p>
+<div id="solutions-for-divergent-transitions" class="section level3" number="26.2.1">
+<h3><span class="header-section-number">26.2.1</span> Solutions for divergent transitions</h3>
 <ol style="list-style-type: decimal">
-<li>Relative effect scale: parameters have relative differences in their effect</li>
-<li>Absolute effect scale: used for predictions</li>
+<li>Increase the adapt_delta argument. This results in better step size adaption and, as a consequence, slower exploration.</li>
+<li>Reparameterize the model</li>
 </ol>
-<p>Proportional odds eg treatment 4 and 2</p>
-<p>post ← extract.samples</p>
-<p>mean</p>
-<p>0.9 = 90% of previous odds</p>
-<p>Therefore 2→4 expects reduction of odds by 10%</p>
-<p>But this disregards base rate</p>
-<p>Risk of relative effects like proportional odds is they don’t consider absolute likelihood</p>
-<p>Relative shark vs absolute deer - need both</p>
+<p>Reparameterizing the model takes a “centered” model and transforms it into a “non-centered” model. Even though they are mathematically the same, it helps with sampling.
+Eg. funnel → gaussian hill</p>
+<p>Result is a z-score centered, “non-centered”, much easier to sample and yields more effective samples. Chains will also run faster.</p>
 </div>
-<div id="logistic-regression" class="section level2" number="22.2">
-<h2><span class="header-section-number">22.2</span> Logistic regression</h2>
-<p>0, 1 trials (Bernoulli trials)</p>
-<p>Aggregate binomial: aggregated from each 0, 1 to counts for each category</p>
-<p>Example - UC Berkeley 1970s</p>
-<p>Gender → Department → Acceptance, Gender → Acceptance</p>
-<p>Recall: regressions are very literal to exactly the question you are asking</p>
-<p>Model 1</p>
-<p>Acceptance ~ Binomial(N, p)</p>
-<p>logit(p) = alpha [gender]</p>
-<p>Statistical question: what are the average probabilities of admission by gender across all departments?</p>
-<p>Causal question: what is the total causal influence of gender?</p>
-<p>It’s asking for the total effect, not the discrimination effect</p>
-<p>Therefore, all paths are in play (Gender → Department → Acceptance, Gender → Acceptance)</p>
-<p>Model 2</p>
-<p>Close the backdoor.</p>
-<p>Acceptance ~ Binomial(N, p)</p>
-<p>logit(p) = alpha [gender] + beta department</p>
-<p>Statistical question: what is the average difference in probability of admission for genders within department?</p>
-<p>Causal question: what is the direct influence of gender?</p>
-<p>These are equally valid, but different questions.</p>
 </div>
-<div id="simpsons-paradox" class="section level2" number="22.3">
-<h2><span class="header-section-number">22.3</span> Simpsons paradox</h2>
-<p>Flip of covariates sign when adding/removing a variable</p>
+<div id="posterior-predictions-with-multilevel-models" class="section level2" number="26.3">
+<h2><span class="header-section-number">26.3</span> Posterior predictions with multilevel models</h2>
+<div id="same-clusters" class="section level3" number="26.3.1">
+<h3><span class="header-section-number">26.3.1</span> Same clusters</h3>
+<p>Proceed as usual</p>
+<p>Push samples back through the model (eg. <code>link</code> and <code>sim</code>)</p>
+</div>
+<div id="new-clusters" class="section level3" number="26.3.2">
+<h3><span class="header-section-number">26.3.2</span> New clusters</h3>
+<p>“New chimpanzees”</p>
+<p>For new population, individual (alpha in above example) parameters are irrelevant</p>
+<p>Three approaches:</p>
+<ol style="list-style-type: decimal">
+<li>“Average” actor - the average chimp statistically at the population mean (alpha bar).
+<ol style="list-style-type: decimal">
+<li>Alpha = alpha bar.</li>
+<li>Replace varying intercept samples with 0s so all actors have average intercept row.</li>
+<li>Use link or directly simulate.</li>
+</ol></li>
+<li>Marginal actor - sample a number of statistical actors and average over the distribution.
+<ol style="list-style-type: decimal">
+<li>Extract samples from sigma actor</li>
+<li>Simulate new varying intercepts</li>
+<li>Use simulated intercepts to simulate predictions</li>
+</ol></li>
+<li>Show samples of actors from posterior
+<ol style="list-style-type: decimal">
+<li>Sample and plot individuals simulated from posterior</li>
+</ol></li>
+</ol>
+<p>Note the effects at the limits are reduced because of ceiling and floor effects of generalized linear models. Eg near 0-1 bounds, the effects will be reduced.</p>
+</div>
 </div>
 </div>
             </section>
@@ -540,8 +559,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="lecture-11.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="lecture-13.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="lecture-15.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="lecture-17.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

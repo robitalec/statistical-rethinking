@@ -1,0 +1,1664 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>10 Homework: Week 9 | Learning bayesian data analysis with Statistical Rethinking</title>
+  <meta name="description" content="10 Homework: Week 9 | Learning bayesian data analysis with Statistical Rethinking" />
+  <meta name="generator" content="bookdown 0.22.15 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="10 Homework: Week 9 | Learning bayesian data analysis with Statistical Rethinking" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="10 Homework: Week 9 | Learning bayesian data analysis with Statistical Rethinking" />
+  
+  
+  
+
+<meta name="author" content="Alec L. Robitaille" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="homework-week-8.html"/>
+<link rel="next" href="lecture-01.html"/>
+<script src="libs/header-attrs-2.9.5/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Overview</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#links"><i class="fa fa-check"></i><b>1.1</b> Links</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="index.html"><a href="index.html#adaptations"><i class="fa fa-check"></i><b>1.1.1</b> Adaptations</a></li>
+<li class="chapter" data-level="1.1.2" data-path="index.html"><a href="index.html#etc"><i class="fa fa-check"></i><b>1.1.2</b> Etc</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#seed"><i class="fa fa-check"></i><b>1.2</b> Seed</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="homework-week-1.html"><a href="homework-week-1.html"><i class="fa fa-check"></i><b>2</b> Homework: Week 1</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="homework-week-1.html"><a href="homework-week-1.html#variables"><i class="fa fa-check"></i><b>2.1</b> Variables</a></li>
+<li class="chapter" data-level="2.2" data-path="homework-week-1.html"><a href="homework-week-1.html#joint-model"><i class="fa fa-check"></i><b>2.2</b> Joint model</a></li>
+<li class="chapter" data-level="2.3" data-path="homework-week-1.html"><a href="homework-week-1.html#question-1"><i class="fa fa-check"></i><b>2.3</b> Question 1</a></li>
+<li class="chapter" data-level="2.4" data-path="homework-week-1.html"><a href="homework-week-1.html#question-2"><i class="fa fa-check"></i><b>2.4</b> Question 2</a></li>
+<li class="chapter" data-level="2.5" data-path="homework-week-1.html"><a href="homework-week-1.html#question-3"><i class="fa fa-check"></i><b>2.5</b> Question 3</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="homework-week-2.html"><a href="homework-week-2.html"><i class="fa fa-check"></i><b>3</b> Homework: Week 2</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="homework-week-2.html"><a href="homework-week-2.html#question-1-1"><i class="fa fa-check"></i><b>3.1</b> Question 1</a></li>
+<li class="chapter" data-level="3.2" data-path="homework-week-2.html"><a href="homework-week-2.html#question-2-1"><i class="fa fa-check"></i><b>3.2</b> Question 2</a></li>
+<li class="chapter" data-level="3.3" data-path="homework-week-2.html"><a href="homework-week-2.html#question-3-1"><i class="fa fa-check"></i><b>3.3</b> Question 3</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="homework-week-3.html"><a href="homework-week-3.html"><i class="fa fa-check"></i><b>4</b> Homework: Week 3</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="homework-week-3.html"><a href="homework-week-3.html#overview-1"><i class="fa fa-check"></i><b>4.1</b> Overview</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="homework-week-3.html"><a href="homework-week-3.html#setup"><i class="fa fa-check"></i><b>4.1.1</b> Setup</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="homework-week-3.html"><a href="homework-week-3.html#question-1-2"><i class="fa fa-check"></i><b>4.2</b> Question 1</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="homework-week-3.html"><a href="homework-week-3.html#workings"><i class="fa fa-check"></i><b>4.2.1</b> Workings</a></li>
+<li class="chapter" data-level="4.2.2" data-path="homework-week-3.html"><a href="homework-week-3.html#model"><i class="fa fa-check"></i><b>4.2.2</b> Model</a></li>
+<li class="chapter" data-level="4.2.3" data-path="homework-week-3.html"><a href="homework-week-3.html#prior-predictive-simulation"><i class="fa fa-check"></i><b>4.2.3</b> Prior predictive simulation</a></li>
+<li class="chapter" data-level="4.2.4" data-path="homework-week-3.html"><a href="homework-week-3.html#paths"><i class="fa fa-check"></i><b>4.2.4</b> Paths</a></li>
+<li class="chapter" data-level="4.2.5" data-path="homework-week-3.html"><a href="homework-week-3.html#interpretation"><i class="fa fa-check"></i><b>4.2.5</b> Interpretation</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="homework-week-3.html"><a href="homework-week-3.html#question-2-2"><i class="fa fa-check"></i><b>4.3</b> Question 2</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="homework-week-3.html"><a href="homework-week-3.html#paths-1"><i class="fa fa-check"></i><b>4.3.1</b> Paths</a></li>
+<li class="chapter" data-level="4.3.2" data-path="homework-week-3.html"><a href="homework-week-3.html#model-1"><i class="fa fa-check"></i><b>4.3.2</b> Model</a></li>
+<li class="chapter" data-level="4.3.3" data-path="homework-week-3.html"><a href="homework-week-3.html#interpretation-1"><i class="fa fa-check"></i><b>4.3.3</b> Interpretation</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="homework-week-3.html"><a href="homework-week-3.html#question-3-2"><i class="fa fa-check"></i><b>4.4</b> Question 3</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="homework-week-3.html"><a href="homework-week-3.html#paths-2"><i class="fa fa-check"></i><b>4.4.1</b> Paths</a></li>
+<li class="chapter" data-level="4.4.2" data-path="homework-week-3.html"><a href="homework-week-3.html#interpretation-2"><i class="fa fa-check"></i><b>4.4.2</b> Interpretation</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="homework-week-4.html"><a href="homework-week-4.html"><i class="fa fa-check"></i><b>5</b> Homework: Week 4</a>
+<ul>
+<li class="chapter" data-level="5.0.1" data-path="homework-week-4.html"><a href="homework-week-4.html#setup-1"><i class="fa fa-check"></i><b>5.0.1</b> Setup</a></li>
+<li class="chapter" data-level="5.1" data-path="homework-week-4.html"><a href="homework-week-4.html#question-1-3"><i class="fa fa-check"></i><b>5.1</b> Question 1</a></li>
+<li class="chapter" data-level="5.2" data-path="homework-week-4.html"><a href="homework-week-4.html#question-2-3"><i class="fa fa-check"></i><b>5.2</b> Question 2</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="homework-week-4.html"><a href="homework-week-4.html#dag"><i class="fa fa-check"></i><b>5.2.1</b> DAG</a></li>
+<li class="chapter" data-level="5.2.2" data-path="homework-week-4.html"><a href="homework-week-4.html#data"><i class="fa fa-check"></i><b>5.2.2</b> Data</a></li>
+<li class="chapter" data-level="5.2.3" data-path="homework-week-4.html"><a href="homework-week-4.html#models"><i class="fa fa-check"></i><b>5.2.3</b> Models</a></li>
+<li class="chapter" data-level="5.2.4" data-path="homework-week-4.html"><a href="homework-week-4.html#interpretation-3"><i class="fa fa-check"></i><b>5.2.4</b> Interpretation</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="homework-week-4.html"><a href="homework-week-4.html#question-3-3"><i class="fa fa-check"></i><b>5.3</b> Question 3</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="homework-week-4.html"><a href="homework-week-4.html#data-1"><i class="fa fa-check"></i><b>5.3.1</b> Data</a></li>
+<li class="chapter" data-level="5.3.2" data-path="homework-week-4.html"><a href="homework-week-4.html#models-1"><i class="fa fa-check"></i><b>5.3.2</b> Models</a></li>
+<li class="chapter" data-level="5.3.3" data-path="homework-week-4.html"><a href="homework-week-4.html#dag-1"><i class="fa fa-check"></i><b>5.3.3</b> DAG</a></li>
+<li class="chapter" data-level="5.3.4" data-path="homework-week-4.html"><a href="homework-week-4.html#interpretation-4"><i class="fa fa-check"></i><b>5.3.4</b> Interpretation</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="homework-week-5.html"><a href="homework-week-5.html"><i class="fa fa-check"></i><b>6</b> Homework: Week 5</a>
+<ul>
+<li class="chapter" data-level="6.0.1" data-path="homework-week-5.html"><a href="homework-week-5.html#setup-2"><i class="fa fa-check"></i><b>6.0.1</b> Setup</a></li>
+<li class="chapter" data-level="6.1" data-path="homework-week-5.html"><a href="homework-week-5.html#question-1-4"><i class="fa fa-check"></i><b>6.1</b> Question 1</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="homework-week-5.html"><a href="homework-week-5.html#data-2"><i class="fa fa-check"></i><b>6.1.1</b> Data</a></li>
+<li class="chapter" data-level="6.1.2" data-path="homework-week-5.html"><a href="homework-week-5.html#prior-predictive-simulation-1"><i class="fa fa-check"></i><b>6.1.2</b> Prior predictive simulation</a></li>
+<li class="chapter" data-level="6.1.3" data-path="homework-week-5.html"><a href="homework-week-5.html#model-2"><i class="fa fa-check"></i><b>6.1.3</b> Model</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="homework-week-5.html"><a href="homework-week-5.html#question-2-4"><i class="fa fa-check"></i><b>6.2</b> Question 2</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="homework-week-5.html"><a href="homework-week-5.html#data-3"><i class="fa fa-check"></i><b>6.2.1</b> Data</a></li>
+<li class="chapter" data-level="6.2.2" data-path="homework-week-5.html"><a href="homework-week-5.html#priors"><i class="fa fa-check"></i><b>6.2.2</b> Priors</a></li>
+<li class="chapter" data-level="6.2.3" data-path="homework-week-5.html"><a href="homework-week-5.html#model-3"><i class="fa fa-check"></i><b>6.2.3</b> Model</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="homework-week-5.html"><a href="homework-week-5.html#question-3-4"><i class="fa fa-check"></i><b>6.3</b> Question 3</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="homework-week-5.html"><a href="homework-week-5.html#data-4"><i class="fa fa-check"></i><b>6.3.1</b> Data</a></li>
+<li class="chapter" data-level="6.3.2" data-path="homework-week-5.html"><a href="homework-week-5.html#model-4"><i class="fa fa-check"></i><b>6.3.2</b> Model</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="homework-week-6.html"><a href="homework-week-6.html"><i class="fa fa-check"></i><b>7</b> Homework: Week 6</a>
+<ul>
+<li class="chapter" data-level="7.0.1" data-path="homework-week-6.html"><a href="homework-week-6.html#setup-3"><i class="fa fa-check"></i><b>7.0.1</b> Setup</a></li>
+<li class="chapter" data-level="7.1" data-path="homework-week-6.html"><a href="homework-week-6.html#question-1-5"><i class="fa fa-check"></i><b>7.1</b> Question 1</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="homework-week-6.html"><a href="homework-week-6.html#data-5"><i class="fa fa-check"></i><b>7.1.1</b> Data</a></li>
+<li class="chapter" data-level="7.1.2" data-path="homework-week-6.html"><a href="homework-week-6.html#dag-2"><i class="fa fa-check"></i><b>7.1.2</b> DAG</a></li>
+<li class="chapter" data-level="7.1.3" data-path="homework-week-6.html"><a href="homework-week-6.html#priors-1"><i class="fa fa-check"></i><b>7.1.3</b> Priors</a></li>
+<li class="chapter" data-level="7.1.4" data-path="homework-week-6.html"><a href="homework-week-6.html#model-5"><i class="fa fa-check"></i><b>7.1.4</b> Model</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="homework-week-7.html"><a href="homework-week-7.html"><i class="fa fa-check"></i><b>8</b> Homework: Week 7</a>
+<ul>
+<li class="chapter" data-level="8.0.1" data-path="homework-week-7.html"><a href="homework-week-7.html#setup-4"><i class="fa fa-check"></i><b>8.0.1</b> Setup</a></li>
+<li class="chapter" data-level="8.0.2" data-path="homework-week-7.html"><a href="homework-week-7.html#data-6"><i class="fa fa-check"></i><b>8.0.2</b> Data</a></li>
+<li class="chapter" data-level="8.0.3" data-path="homework-week-7.html"><a href="homework-week-7.html#model-ordered-categorical-outcome"><i class="fa fa-check"></i><b>8.0.3</b> Model: ordered categorical outcome</a></li>
+<li class="chapter" data-level="8.0.4" data-path="homework-week-7.html"><a href="homework-week-7.html#model-ordered-categorical-predictors"><i class="fa fa-check"></i><b>8.0.4</b> Model: ordered categorical predictors</a></li>
+<li class="chapter" data-level="8.1" data-path="homework-week-7.html"><a href="homework-week-7.html#question-1-6"><i class="fa fa-check"></i><b>8.1</b> Question 1</a></li>
+<li class="chapter" data-level="8.2" data-path="homework-week-7.html"><a href="homework-week-7.html#question-2-5"><i class="fa fa-check"></i><b>8.2</b> Question 2</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="homework-week-8.html"><a href="homework-week-8.html"><i class="fa fa-check"></i><b>9</b> Homework: Week 8</a>
+<ul>
+<li class="chapter" data-level="9.0.1" data-path="homework-week-8.html"><a href="homework-week-8.html#setup-5"><i class="fa fa-check"></i><b>9.0.1</b> Setup</a></li>
+<li class="chapter" data-level="9.1" data-path="homework-week-8.html"><a href="homework-week-8.html#question-1-7"><i class="fa fa-check"></i><b>9.1</b> Question 1</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="homework-week-8.html"><a href="homework-week-8.html#data-7"><i class="fa fa-check"></i><b>9.1.1</b> Data</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="homework-week-8.html"><a href="homework-week-8.html#question-2-6"><i class="fa fa-check"></i><b>9.2</b> Question 2</a></li>
+<li class="chapter" data-level="9.3" data-path="homework-week-8.html"><a href="homework-week-8.html#question-3-5"><i class="fa fa-check"></i><b>9.3</b> Question 3</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="homework-week-9.html"><a href="homework-week-9.html"><i class="fa fa-check"></i><b>10</b> Homework: Week 9</a>
+<ul>
+<li class="chapter" data-level="10.0.1" data-path="homework-week-9.html"><a href="homework-week-9.html#setup-6"><i class="fa fa-check"></i><b>10.0.1</b> Setup</a></li>
+<li class="chapter" data-level="10.1" data-path="homework-week-9.html"><a href="homework-week-9.html#question-1-8"><i class="fa fa-check"></i><b>10.1</b> Question 1</a></li>
+<li class="chapter" data-level="10.2" data-path="homework-week-9.html"><a href="homework-week-9.html#question-2-7"><i class="fa fa-check"></i><b>10.2</b> Question 2</a></li>
+<li class="chapter" data-level="10.3" data-path="homework-week-9.html"><a href="homework-week-9.html#question-3-6"><i class="fa fa-check"></i><b>10.3</b> Question 3</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="lecture-01.html"><a href="lecture-01.html"><i class="fa fa-check"></i><b>11</b> Lecture 01</a>
+<ul>
+<li class="chapter" data-level="11.0.1" data-path="lecture-01.html"><a href="lecture-01.html#popper"><i class="fa fa-check"></i><b>11.0.1</b> Popper</a></li>
+<li class="chapter" data-level="11.0.2" data-path="lecture-01.html"><a href="lecture-01.html#approach"><i class="fa fa-check"></i><b>11.0.2</b> Approach</a></li>
+<li class="chapter" data-level="11.1" data-path="lecture-01.html"><a href="lecture-01.html#hypotheses---process-models---statistical-models"><i class="fa fa-check"></i><b>11.1</b> Hypotheses - Process Models - Statistical Models</a></li>
+<li class="chapter" data-level="11.2" data-path="lecture-01.html"><a href="lecture-01.html#small-world-large-world"><i class="fa fa-check"></i><b>11.2</b> Small world / large world</a></li>
+<li class="chapter" data-level="11.3" data-path="lecture-01.html"><a href="lecture-01.html#example-four-marbles"><i class="fa fa-check"></i><b>11.3</b> Example: four marbles</a></li>
+<li class="chapter" data-level="11.4" data-path="lecture-01.html"><a href="lecture-01.html#building-a-model"><i class="fa fa-check"></i><b>11.4</b> Building a model</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="lecture-02.html"><a href="lecture-02.html"><i class="fa fa-check"></i><b>12</b> Lecture 02</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="lecture-02.html"><a href="lecture-02.html#joint-prior-distribution"><i class="fa fa-check"></i><b>12.1</b> Joint prior distribution</a></li>
+<li class="chapter" data-level="12.2" data-path="lecture-02.html"><a href="lecture-02.html#example-inflatable-world"><i class="fa fa-check"></i><b>12.2</b> Example: inflatable world</a>
+<ul>
+<li class="chapter" data-level="12.2.1" data-path="lecture-02.html"><a href="lecture-02.html#design-the-model"><i class="fa fa-check"></i><b>12.2.1</b> <strong>Design the model</strong></a></li>
+<li class="chapter" data-level="12.2.2" data-path="lecture-02.html"><a href="lecture-02.html#condition"><i class="fa fa-check"></i><b>12.2.2</b> <strong>Condition</strong></a></li>
+<li class="chapter" data-level="12.2.3" data-path="lecture-02.html"><a href="lecture-02.html#evaluate"><i class="fa fa-check"></i><b>12.2.3</b> <strong>Evaluate</strong></a></li>
+<li class="chapter" data-level="12.2.4" data-path="lecture-02.html"><a href="lecture-02.html#define-parameters"><i class="fa fa-check"></i><b>12.2.4</b> Define parameters</a></li>
+<li class="chapter" data-level="12.2.5" data-path="lecture-02.html"><a href="lecture-02.html#joint-model-1"><i class="fa fa-check"></i><b>12.2.5</b> Joint model</a></li>
+<li class="chapter" data-level="12.2.6" data-path="lecture-02.html"><a href="lecture-02.html#posterior"><i class="fa fa-check"></i><b>12.2.6</b> Posterior</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="lecture-02.html"><a href="lecture-02.html#grid-approximation"><i class="fa fa-check"></i><b>12.3</b> Grid approximation</a>
+<ul>
+<li class="chapter" data-level="12.3.1" data-path="lecture-02.html"><a href="lecture-02.html#sampling-from-the-posterior"><i class="fa fa-check"></i><b>12.3.1</b> Sampling from the posterior</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="lecture-03.html"><a href="lecture-03.html"><i class="fa fa-check"></i><b>13</b> Lecture 03</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="lecture-03.html"><a href="lecture-03.html#regressions"><i class="fa fa-check"></i><b>13.1</b> Regressions</a></li>
+<li class="chapter" data-level="13.2" data-path="lecture-03.html"><a href="lecture-03.html#normal-distributions"><i class="fa fa-check"></i><b>13.2</b> Normal distributions</a></li>
+<li class="chapter" data-level="13.3" data-path="lecture-03.html"><a href="lecture-03.html#prior-predictive-distributions"><i class="fa fa-check"></i><b>13.3</b> Prior predictive distributions</a></li>
+<li class="chapter" data-level="13.4" data-path="lecture-03.html"><a href="lecture-03.html#quadratic-approximate"><i class="fa fa-check"></i><b>13.4</b> Quadratic approximate</a></li>
+<li class="chapter" data-level="13.5" data-path="lecture-03.html"><a href="lecture-03.html#centering-variables"><i class="fa fa-check"></i><b>13.5</b> Centering variables</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="lecture-04.html"><a href="lecture-04.html"><i class="fa fa-check"></i><b>14</b> Lecture 04</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="lecture-04.html"><a href="lecture-04.html#standardizing-variables"><i class="fa fa-check"></i><b>14.1</b> Standardizing variables</a></li>
+<li class="chapter" data-level="14.2" data-path="lecture-04.html"><a href="lecture-04.html#plotting-uncertainty---sample-from-posterior"><i class="fa fa-check"></i><b>14.2</b> Plotting uncertainty - sample from posterior</a></li>
+<li class="chapter" data-level="14.3" data-path="lecture-04.html"><a href="lecture-04.html#polynomials"><i class="fa fa-check"></i><b>14.3</b> Polynomials</a></li>
+<li class="chapter" data-level="14.4" data-path="lecture-04.html"><a href="lecture-04.html#splines"><i class="fa fa-check"></i><b>14.4</b> Splines</a></li>
+<li class="chapter" data-level="14.5" data-path="lecture-04.html"><a href="lecture-04.html#basis-splines"><i class="fa fa-check"></i><b>14.5</b> Basis splines</a>
+<ul>
+<li class="chapter" data-level="14.5.1" data-path="lecture-04.html"><a href="lecture-04.html#recipe"><i class="fa fa-check"></i><b>14.5.1</b> Recipe</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="lecture-05.html"><a href="lecture-05.html"><i class="fa fa-check"></i><b>15</b> Lecture 05</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="lecture-05.html"><a href="lecture-05.html#multiple-regression-models"><i class="fa fa-check"></i><b>15.1</b> Multiple regression models</a></li>
+<li class="chapter" data-level="15.2" data-path="lecture-05.html"><a href="lecture-05.html#directed-acyclic-graphs-dag"><i class="fa fa-check"></i><b>15.2</b> Directed acyclic graphs (DAG)</a></li>
+<li class="chapter" data-level="15.3" data-path="lecture-05.html"><a href="lecture-05.html#example-age-marriage-divorce"><i class="fa fa-check"></i><b>15.3</b> Example: Age, marriage, divorce</a>
+<ul>
+<li class="chapter" data-level="15.3.1" data-path="lecture-05.html"><a href="lecture-05.html#priors-2"><i class="fa fa-check"></i><b>15.3.1</b> Priors</a></li>
+<li class="chapter" data-level="15.3.2" data-path="lecture-05.html"><a href="lecture-05.html#prior-predictive-simulation-2"><i class="fa fa-check"></i><b>15.3.2</b> Prior predictive simulation</a></li>
+<li class="chapter" data-level="15.3.3" data-path="lecture-05.html"><a href="lecture-05.html#interpretation-5"><i class="fa fa-check"></i><b>15.3.3</b> Interpretation</a></li>
+</ul></li>
+<li class="chapter" data-level="15.4" data-path="lecture-05.html"><a href="lecture-05.html#plotting-multivariate-posteriors"><i class="fa fa-check"></i><b>15.4</b> Plotting multivariate posteriors</a>
+<ul>
+<li class="chapter" data-level="15.4.1" data-path="lecture-05.html"><a href="lecture-05.html#posterior-predictive-checks"><i class="fa fa-check"></i><b>15.4.1</b> Posterior predictive checks</a></li>
+</ul></li>
+<li class="chapter" data-level="15.5" data-path="lecture-05.html"><a href="lecture-05.html#reveal-masked-associations"><i class="fa fa-check"></i><b>15.5</b> Reveal masked associations</a></li>
+<li class="chapter" data-level="15.6" data-path="lecture-05.html"><a href="lecture-05.html#categorical-variables"><i class="fa fa-check"></i><b>15.6</b> Categorical variables</a>
+<ul>
+<li class="chapter" data-level="15.6.1" data-path="lecture-05.html"><a href="lecture-05.html#dummy-variable"><i class="fa fa-check"></i><b>15.6.1</b> Dummy variable</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="lecture-06.html"><a href="lecture-06.html"><i class="fa fa-check"></i><b>16</b> Lecture 06</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="lecture-06.html"><a href="lecture-06.html#index-variable"><i class="fa fa-check"></i><b>16.1</b> Index variable</a></li>
+<li class="chapter" data-level="16.2" data-path="lecture-06.html"><a href="lecture-06.html#four-elemental-confounds"><i class="fa fa-check"></i><b>16.2</b> Four elemental confounds</a>
+<ul>
+<li class="chapter" data-level="16.2.1" data-path="lecture-06.html"><a href="lecture-06.html#notes"><i class="fa fa-check"></i><b>16.2.1</b> Notes</a></li>
+<li class="chapter" data-level="16.2.2" data-path="lecture-06.html"><a href="lecture-06.html#the-fork"><i class="fa fa-check"></i><b>16.2.2</b> The fork</a></li>
+<li class="chapter" data-level="16.2.3" data-path="lecture-06.html"><a href="lecture-06.html#the-path"><i class="fa fa-check"></i><b>16.2.3</b> The path</a></li>
+<li class="chapter" data-level="16.2.4" data-path="lecture-06.html"><a href="lecture-06.html#the-collider"><i class="fa fa-check"></i><b>16.2.4</b> The collider</a></li>
+<li class="chapter" data-level="16.2.5" data-path="lecture-06.html"><a href="lecture-06.html#steps"><i class="fa fa-check"></i><b>16.2.5</b> Steps</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="lecture-07.html"><a href="lecture-07.html"><i class="fa fa-check"></i><b>17</b> Lecture 07</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="lecture-07.html"><a href="lecture-07.html#four-elemental-confounds-continued"><i class="fa fa-check"></i><b>17.1</b> Four elemental confounds (continued)</a>
+<ul>
+<li class="chapter" data-level="17.1.1" data-path="lecture-07.html"><a href="lecture-07.html#unobserved-variables"><i class="fa fa-check"></i><b>17.1.1</b> Unobserved variables</a></li>
+</ul></li>
+<li class="chapter" data-level="17.2" data-path="lecture-07.html"><a href="lecture-07.html#over-fitting"><i class="fa fa-check"></i><b>17.2</b> Over fitting</a></li>
+<li class="chapter" data-level="17.3" data-path="lecture-07.html"><a href="lecture-07.html#measuring-model-fit"><i class="fa fa-check"></i><b>17.3</b> Measuring model fit</a>
+<ul>
+<li class="chapter" data-level="17.3.1" data-path="lecture-07.html"><a href="lecture-07.html#r-squared"><i class="fa fa-check"></i><b>17.3.1</b> R squared</a></li>
+</ul></li>
+<li class="chapter" data-level="17.4" data-path="lecture-07.html"><a href="lecture-07.html#obtaining-the-regular-features"><i class="fa fa-check"></i><b>17.4</b> Obtaining the regular features</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="lecture-08.html"><a href="lecture-08.html"><i class="fa fa-check"></i><b>18</b> Lecture 08</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="lecture-08.html"><a href="lecture-08.html#information-theory"><i class="fa fa-check"></i><b>18.1</b> Information theory</a></li>
+<li class="chapter" data-level="18.2" data-path="lecture-08.html"><a href="lecture-08.html#divergence"><i class="fa fa-check"></i><b>18.2</b> Divergence</a></li>
+<li class="chapter" data-level="18.3" data-path="lecture-08.html"><a href="lecture-08.html#estimating-divergence"><i class="fa fa-check"></i><b>18.3</b> Estimating divergence</a>
+<ul>
+<li class="chapter" data-level="18.3.1" data-path="lecture-08.html"><a href="lecture-08.html#log-pointwise-predictive-density"><i class="fa fa-check"></i><b>18.3.1</b> Log pointwise predictive density</a></li>
+<li class="chapter" data-level="18.3.2" data-path="lecture-08.html"><a href="lecture-08.html#deviance"><i class="fa fa-check"></i><b>18.3.2</b> Deviance</a></li>
+</ul></li>
+<li class="chapter" data-level="18.4" data-path="lecture-08.html"><a href="lecture-08.html#regularization"><i class="fa fa-check"></i><b>18.4</b> Regularization</a></li>
+<li class="chapter" data-level="18.5" data-path="lecture-08.html"><a href="lecture-08.html#cross-validation"><i class="fa fa-check"></i><b>18.5</b> Cross validation</a>
+<ul>
+<li class="chapter" data-level="18.5.1" data-path="lecture-08.html"><a href="lecture-08.html#loo"><i class="fa fa-check"></i><b>18.5.1</b> LOO</a></li>
+</ul></li>
+<li class="chapter" data-level="18.6" data-path="lecture-08.html"><a href="lecture-08.html#information-criteria"><i class="fa fa-check"></i><b>18.6</b> Information criteria</a>
+<ul>
+<li class="chapter" data-level="18.6.1" data-path="lecture-08.html"><a href="lecture-08.html#waic"><i class="fa fa-check"></i><b>18.6.1</b> WAIC</a></li>
+<li class="chapter" data-level="18.6.2" data-path="lecture-08.html"><a href="lecture-08.html#standard-error"><i class="fa fa-check"></i><b>18.6.2</b> Standard error</a></li>
+</ul></li>
+<li class="chapter" data-level="18.7" data-path="lecture-08.html"><a href="lecture-08.html#model-selection"><i class="fa fa-check"></i><b>18.7</b> Model selection</a></li>
+<li class="chapter" data-level="18.8" data-path="lecture-08.html"><a href="lecture-08.html#model-comparison"><i class="fa fa-check"></i><b>18.8</b> Model comparison</a>
+<ul>
+<li class="chapter" data-level="18.8.1" data-path="lecture-08.html"><a href="lecture-08.html#example-1-model-mis-selection-using-waic"><i class="fa fa-check"></i><b>18.8.1</b> Example 1: model mis-selection using WAIC</a></li>
+<li class="chapter" data-level="18.8.2" data-path="lecture-08.html"><a href="lecture-08.html#example-2-primate-lifetime"><i class="fa fa-check"></i><b>18.8.2</b> Example 2: primate lifetime</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="lecture-09.html"><a href="lecture-09.html"><i class="fa fa-check"></i><b>19</b> Lecture 09</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="lecture-09.html"><a href="lecture-09.html#conditioning"><i class="fa fa-check"></i><b>19.1</b> Conditioning</a>
+<ul>
+<li class="chapter" data-level="19.1.1" data-path="lecture-09.html"><a href="lecture-09.html#example-ruggedness"><i class="fa fa-check"></i><b>19.1.1</b> Example: ruggedness</a></li>
+<li class="chapter" data-level="19.1.2" data-path="lecture-09.html"><a href="lecture-09.html#example-tulips"><i class="fa fa-check"></i><b>19.1.2</b> Example: tulips</a></li>
+</ul></li>
+<li class="chapter" data-level="19.2" data-path="lecture-09.html"><a href="lecture-09.html#interpreting-interactions"><i class="fa fa-check"></i><b>19.2</b> Interpreting interactions</a></li>
+<li class="chapter" data-level="19.3" data-path="lecture-09.html"><a href="lecture-09.html#plotting-interactions"><i class="fa fa-check"></i><b>19.3</b> Plotting interactions</a>
+<ul>
+<li class="chapter" data-level="19.3.1" data-path="lecture-09.html"><a href="lecture-09.html#higher-order-interactions"><i class="fa fa-check"></i><b>19.3.1</b> Higher order interactions</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="lecture-10.html"><a href="lecture-10.html"><i class="fa fa-check"></i><b>20</b> Lecture 10</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="lecture-10.html"><a href="lecture-10.html#markov-chain-monte-carlo"><i class="fa fa-check"></i><b>20.1</b> Markov Chain Monte Carlo</a>
+<ul>
+<li class="chapter" data-level="20.1.1" data-path="lecture-10.html"><a href="lecture-10.html#metropolis-algorithm"><i class="fa fa-check"></i><b>20.1.1</b> Metropolis algorithm</a></li>
+<li class="chapter" data-level="20.1.2" data-path="lecture-10.html"><a href="lecture-10.html#metropolis-hastings"><i class="fa fa-check"></i><b>20.1.2</b> Metropolis Hastings</a></li>
+<li class="chapter" data-level="20.1.3" data-path="lecture-10.html"><a href="lecture-10.html#gibbs-sampling"><i class="fa fa-check"></i><b>20.1.3</b> Gibbs sampling</a></li>
+<li class="chapter" data-level="20.1.4" data-path="lecture-10.html"><a href="lecture-10.html#hamiltonian-monte-carlo"><i class="fa fa-check"></i><b>20.1.4</b> Hamiltonian Monte Carlo</a></li>
+<li class="chapter" data-level="20.1.5" data-path="lecture-10.html"><a href="lecture-10.html#tuning-mcmc"><i class="fa fa-check"></i><b>20.1.5</b> Tuning MCMC</a></li>
+<li class="chapter" data-level="20.1.6" data-path="lecture-10.html"><a href="lecture-10.html#stan"><i class="fa fa-check"></i><b>20.1.6</b> Stan</a></li>
+<li class="chapter" data-level="20.1.7" data-path="lecture-10.html"><a href="lecture-10.html#ulam"><i class="fa fa-check"></i><b>20.1.7</b> ulam</a></li>
+<li class="chapter" data-level="20.1.8" data-path="lecture-10.html"><a href="lecture-10.html#diagnosis"><i class="fa fa-check"></i><b>20.1.8</b> Diagnosis</a></li>
+<li class="chapter" data-level="20.1.9" data-path="lecture-10.html"><a href="lecture-10.html#checking-the-chain"><i class="fa fa-check"></i><b>20.1.9</b> Checking the chain</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="lecture-11.html"><a href="lecture-11.html"><i class="fa fa-check"></i><b>21</b> Lecture 11</a>
+<ul>
+<li class="chapter" data-level="21.1" data-path="lecture-11.html"><a href="lecture-11.html#maximum-entropy"><i class="fa fa-check"></i><b>21.1</b> Maximum entropy</a>
+<ul>
+<li class="chapter" data-level="21.1.1" data-path="lecture-11.html"><a href="lecture-11.html#distributions"><i class="fa fa-check"></i><b>21.1.1</b> Distributions</a></li>
+</ul></li>
+<li class="chapter" data-level="21.2" data-path="lecture-11.html"><a href="lecture-11.html#generalized-linear-model"><i class="fa fa-check"></i><b>21.2</b> Generalized linear model</a>
+<ul>
+<li class="chapter" data-level="21.2.1" data-path="lecture-11.html"><a href="lecture-11.html#picking-a-distribution"><i class="fa fa-check"></i><b>21.2.1</b> Picking a distribution</a></li>
+<li class="chapter" data-level="21.2.2" data-path="lecture-11.html"><a href="lecture-11.html#types-of-outcomes"><i class="fa fa-check"></i><b>21.2.2</b> Types of outcomes</a></li>
+<li class="chapter" data-level="21.2.3" data-path="lecture-11.html"><a href="lecture-11.html#model-parameters-with-a-link-function"><i class="fa fa-check"></i><b>21.2.3</b> Model parameters with a link function</a></li>
+</ul></li>
+<li class="chapter" data-level="21.3" data-path="lecture-11.html"><a href="lecture-11.html#binomial-distribution"><i class="fa fa-check"></i><b>21.3</b> Binomial distribution</a>
+<ul>
+<li class="chapter" data-level="21.3.1" data-path="lecture-11.html"><a href="lecture-11.html#link"><i class="fa fa-check"></i><b>21.3.1</b> Link</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="lecture-12.html"><a href="lecture-12.html"><i class="fa fa-check"></i><b>22</b> Lecture 12</a>
+<ul>
+<li class="chapter" data-level="22.1" data-path="lecture-12.html"><a href="lecture-12.html#relative-and-absolute-effects"><i class="fa fa-check"></i><b>22.1</b> Relative and absolute effects</a></li>
+<li class="chapter" data-level="22.2" data-path="lecture-12.html"><a href="lecture-12.html#logistic-regression"><i class="fa fa-check"></i><b>22.2</b> Logistic regression</a></li>
+<li class="chapter" data-level="22.3" data-path="lecture-12.html"><a href="lecture-12.html#simpsons-paradox"><i class="fa fa-check"></i><b>22.3</b> Simpsons paradox</a></li>
+</ul></li>
+<li class="chapter" data-level="23" data-path="lecture-13.html"><a href="lecture-13.html"><i class="fa fa-check"></i><b>23</b> Lecture 13</a>
+<ul>
+<li class="chapter" data-level="23.1" data-path="lecture-13.html"><a href="lecture-13.html#binomial"><i class="fa fa-check"></i><b>23.1</b> Binomial</a></li>
+<li class="chapter" data-level="23.2" data-path="lecture-13.html"><a href="lecture-13.html#poisson"><i class="fa fa-check"></i><b>23.2</b> Poisson</a></li>
+<li class="chapter" data-level="23.3" data-path="lecture-13.html"><a href="lecture-13.html#generalized-linear-madness"><i class="fa fa-check"></i><b>23.3</b> Generalized linear madness</a></li>
+<li class="chapter" data-level="23.4" data-path="lecture-13.html"><a href="lecture-13.html#scientific-model"><i class="fa fa-check"></i><b>23.4</b> Scientific model</a></li>
+<li class="chapter" data-level="23.5" data-path="lecture-13.html"><a href="lecture-13.html#survival-analysis"><i class="fa fa-check"></i><b>23.5</b> Survival analysis</a></li>
+<li class="chapter" data-level="23.6" data-path="lecture-13.html"><a href="lecture-13.html#monsters"><i class="fa fa-check"></i><b>23.6</b> Monsters</a></li>
+<li class="chapter" data-level="23.7" data-path="lecture-13.html"><a href="lecture-13.html#mixtures"><i class="fa fa-check"></i><b>23.7</b> Mixtures</a></li>
+</ul></li>
+<li class="chapter" data-level="24" data-path="lecture-14.html"><a href="lecture-14.html"><i class="fa fa-check"></i><b>24</b> Lecture 14</a>
+<ul>
+<li class="chapter" data-level="24.1" data-path="lecture-14.html"><a href="lecture-14.html#ordered-categories"><i class="fa fa-check"></i><b>24.1</b> Ordered categories</a></li>
+</ul></li>
+<li class="chapter" data-level="25" data-path="lecture-15.html"><a href="lecture-15.html"><i class="fa fa-check"></i><b>25</b> Lecture 15</a>
+<ul>
+<li class="chapter" data-level="25.1" data-path="lecture-15.html"><a href="lecture-15.html#multilevel-models"><i class="fa fa-check"></i><b>25.1</b> Multilevel models</a></li>
+<li class="chapter" data-level="25.2" data-path="lecture-15.html"><a href="lecture-15.html#varying-intercepts"><i class="fa fa-check"></i><b>25.2</b> Varying intercepts</a></li>
+<li class="chapter" data-level="25.3" data-path="lecture-15.html"><a href="lecture-15.html#shrinkage"><i class="fa fa-check"></i><b>25.3</b> Shrinkage</a></li>
+<li class="chapter" data-level="25.4" data-path="lecture-15.html"><a href="lecture-15.html#pooling"><i class="fa fa-check"></i><b>25.4</b> Pooling</a></li>
+</ul></li>
+<li class="chapter" data-level="26" data-path="lecture-16.html"><a href="lecture-16.html"><i class="fa fa-check"></i><b>26</b> Lecture 16</a>
+<ul>
+<li class="chapter" data-level="26.1" data-path="lecture-16.html"><a href="lecture-16.html#multiple-clusters"><i class="fa fa-check"></i><b>26.1</b> Multiple clusters</a></li>
+<li class="chapter" data-level="26.2" data-path="lecture-16.html"><a href="lecture-16.html#divergent-transitions"><i class="fa fa-check"></i><b>26.2</b> Divergent transitions</a>
+<ul>
+<li class="chapter" data-level="26.2.1" data-path="lecture-16.html"><a href="lecture-16.html#solutions-for-divergent-transitions"><i class="fa fa-check"></i><b>26.2.1</b> Solutions for divergent transitions</a></li>
+</ul></li>
+<li class="chapter" data-level="26.3" data-path="lecture-16.html"><a href="lecture-16.html#posterior-predictions-with-multilevel-models"><i class="fa fa-check"></i><b>26.3</b> Posterior predictions with multilevel models</a>
+<ul>
+<li class="chapter" data-level="26.3.1" data-path="lecture-16.html"><a href="lecture-16.html#same-clusters"><i class="fa fa-check"></i><b>26.3.1</b> Same clusters</a></li>
+<li class="chapter" data-level="26.3.2" data-path="lecture-16.html"><a href="lecture-16.html#new-clusters"><i class="fa fa-check"></i><b>26.3.2</b> New clusters</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="27" data-path="lecture-17.html"><a href="lecture-17.html"><i class="fa fa-check"></i><b>27</b> Lecture 17</a>
+<ul>
+<li class="chapter" data-level="27.1" data-path="lecture-17.html"><a href="lecture-17.html#varying-slopes"><i class="fa fa-check"></i><b>27.1</b> Varying slopes</a>
+<ul>
+<li class="chapter" data-level="27.1.1" data-path="lecture-17.html"><a href="lecture-17.html#example---cafes"><i class="fa fa-check"></i><b>27.1.1</b> Example - cafes</a></li>
+</ul></li>
+<li class="chapter" data-level="27.2" data-path="lecture-17.html"><a href="lecture-17.html#variance-covariance-matrix"><i class="fa fa-check"></i><b>27.2</b> Variance covariance matrix</a></li>
+<li class="chapter" data-level="27.3" data-path="lecture-17.html"><a href="lecture-17.html#varying-slopes-model"><i class="fa fa-check"></i><b>27.3</b> Varying slopes model</a></li>
+<li class="chapter" data-level="27.4" data-path="lecture-17.html"><a href="lecture-17.html#multidimensional-shrinkage"><i class="fa fa-check"></i><b>27.4</b> Multidimensional shrinkage</a>
+<ul>
+<li class="chapter" data-level="27.4.1" data-path="lecture-17.html"><a href="lecture-17.html#example---prosocial-chimps-many-clusters"><i class="fa fa-check"></i><b>27.4.1</b> Example - prosocial chimps, many clusters</a></li>
+<li class="chapter" data-level="27.4.2" data-path="lecture-17.html"><a href="lecture-17.html#divergences"><i class="fa fa-check"></i><b>27.4.2</b> Divergences</a></li>
+</ul></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Learning bayesian data analysis with Statistical Rethinking</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="homework-week-9" class="section level1" number="10">
+<h1><span class="header-section-number">10</span> Homework: Week 9</h1>
+<p>2021-09-14 [updated: 2021-09-15]</p>
+<div id="setup-6" class="section level3" number="10.0.1">
+<h3><span class="header-section-number">10.0.1</span> Setup</h3>
+<div class="sourceCode" id="cb1690"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1690-1"><a href="homework-week-9.html#cb1690-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Packages</span></span>
+<span id="cb1690-2"><a href="homework-week-9.html#cb1690-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggdag)</span>
+<span id="cb1690-3"><a href="homework-week-9.html#cb1690-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dagitty)</span>
+<span id="cb1690-4"><a href="homework-week-9.html#cb1690-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
+<span id="cb1690-5"><a href="homework-week-9.html#cb1690-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1690-6"><a href="homework-week-9.html#cb1690-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
+<span id="cb1690-7"><a href="homework-week-9.html#cb1690-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cmdstanr)</span>
+<span id="cb1690-8"><a href="homework-week-9.html#cb1690-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(posterior)</span>
+<span id="cb1690-9"><a href="homework-week-9.html#cb1690-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(bayesplot)</span>
+<span id="cb1690-10"><a href="homework-week-9.html#cb1690-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(boot)</span>
+<span id="cb1690-11"><a href="homework-week-9.html#cb1690-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(loo)</span>
+<span id="cb1690-12"><a href="homework-week-9.html#cb1690-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1690-13"><a href="homework-week-9.html#cb1690-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Functions</span></span>
+<span id="cb1690-14"><a href="homework-week-9.html#cb1690-14" aria-hidden="true" tabindex="-1"></a>dag_plot <span class="ot">&lt;-</span> <span class="cf">function</span>(dag) {</span>
+<span id="cb1690-15"><a href="homework-week-9.html#cb1690-15" aria-hidden="true" tabindex="-1"></a>    stat <span class="ot">&lt;-</span> <span class="fu">node_status</span>(dag, <span class="cn">FALSE</span>)</span>
+<span id="cb1690-16"><a href="homework-week-9.html#cb1690-16" aria-hidden="true" tabindex="-1"></a>    stat<span class="sc">$</span>data<span class="sc">$</span>status[<span class="fu">is.na</span>(stat<span class="sc">$</span>data<span class="sc">$</span>status)] <span class="ot">&lt;-</span> <span class="st">&#39;intermediate&#39;</span></span>
+<span id="cb1690-17"><a href="homework-week-9.html#cb1690-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(stat, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">xend =</span> xend, <span class="at">yend =</span> yend)) <span class="sc">+</span></span>
+<span id="cb1690-18"><a href="homework-week-9.html#cb1690-18" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_dag_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> status), <span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">15</span>) <span class="sc">+</span></span>
+<span id="cb1690-19"><a href="homework-week-9.html#cb1690-19" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_dag_edges</span>() <span class="sc">+</span></span>
+<span id="cb1690-20"><a href="homework-week-9.html#cb1690-20" aria-hidden="true" tabindex="-1"></a>        <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">&#39;&#39;</span>) <span class="sc">+</span> </span>
+<span id="cb1690-21"><a href="homework-week-9.html#cb1690-21" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_dag_text</span>(<span class="at">color =</span> <span class="st">&#39;black&#39;</span>) <span class="sc">+</span></span>
+<span id="cb1690-22"><a href="homework-week-9.html#cb1690-22" aria-hidden="true" tabindex="-1"></a>        <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">list</span>(<span class="st">&#39;exposure&#39;</span> <span class="ot">=</span> <span class="st">&#39;#35608DFF&#39;</span>,</span>
+<span id="cb1690-23"><a href="homework-week-9.html#cb1690-23" aria-hidden="true" tabindex="-1"></a>                                                                         <span class="st">&#39;outcome&#39;</span> <span class="ot">=</span> <span class="st">&#39;#22A884FF&#39;</span>,</span>
+<span id="cb1690-24"><a href="homework-week-9.html#cb1690-24" aria-hidden="true" tabindex="-1"></a>                                                                         <span class="st">&#39;intermediate&#39;</span> <span class="ot">=</span> <span class="st">&#39;grey50&#39;</span>)) <span class="sc">+</span> </span>
+<span id="cb1690-25"><a href="homework-week-9.html#cb1690-25" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme_void</span>()</span>
+<span id="cb1690-26"><a href="homework-week-9.html#cb1690-26" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1690-27"><a href="homework-week-9.html#cb1690-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1690-28"><a href="homework-week-9.html#cb1690-28" aria-hidden="true" tabindex="-1"></a>cmd_draws <span class="ot">&lt;-</span> <span class="cf">function</span>(model) {</span>
+<span id="cb1690-29"><a href="homework-week-9.html#cb1690-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as_draws_df</span>(model<span class="sc">$</span><span class="fu">draws</span>())</span>
+<span id="cb1690-30"><a href="homework-week-9.html#cb1690-30" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<div id="question-1-8" class="section level2" number="10.1">
+<h2><span class="header-section-number">10.1</span> Question 1</h2>
+<blockquote>
+<p>Revisit the Bangladesh fertility data, data(bangladesh). Fit a model with both
+varying intercepts by district_id and varying slopes of urban (as a 0/1
+indicator variable) by district_id. You are still predicting use.contraception.
+Inspect the correlation between the intercepts and slopes. Can you interpret
+this correlation, in terms of what it tells you about the pattern of
+contraceptive use in the sample? It might help to plot the varying effect
+estimates for both the intercepts and slopes, by district. Then you can
+visualize the correlation and maybe more easily think through what it means to
+have a particular correlation. Plotting predicted proportion of women using
+contraception, in each district, with urban women on one axis and rural on the
+other, might also help.</p>
+</blockquote>
+<div class="sourceCode" id="cb1691"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1691-1"><a href="homework-week-9.html#cb1691-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(bangladesh)</span>
+<span id="cb1691-2"><a href="homework-week-9.html#cb1691-2" aria-hidden="true" tabindex="-1"></a>DT <span class="ot">&lt;-</span> <span class="fu">data.table</span>(bangladesh)</span>
+<span id="cb1691-3"><a href="homework-week-9.html#cb1691-3" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(DT)</span></code></pre></div>
+<pre><code>##                       mean     sd 5.5% 94.5%     histogram
+## woman             967.5000 558.44  107  1828    ▇▇▇▇▇▇▇▇▇▅
+## district           29.3537  17.96    1    58 ▇▅▇▅▅▇▅▃▅▅▃▅▁
+## use.contraception   0.3925   0.49    0     1    ▇▁▁▁▁▁▁▁▁▅
+## living.children     2.6520   1.24    1     4        ▅▃▁▃▁▇
+## age.centered        0.0022   9.01  -13    16       ▅▇▇▅▃▃▂
+## urban               0.2906   0.45    0     1    ▇▁▁▁▁▁▁▁▁▃</code></pre>
+<div class="sourceCode" id="cb1693"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1693-1"><a href="homework-week-9.html#cb1693-1" aria-hidden="true" tabindex="-1"></a>DT[, id <span class="sc">:</span><span class="er">=</span> <span class="fu">as.integer</span>(woman)]</span>
+<span id="cb1693-2"><a href="homework-week-9.html#cb1693-2" aria-hidden="true" tabindex="-1"></a>DT[, district <span class="sc">:</span><span class="er">=</span> <span class="fu">as.integer</span>(<span class="fu">as.factor</span>(district))]</span>
+<span id="cb1693-3"><a href="homework-week-9.html#cb1693-3" aria-hidden="true" tabindex="-1"></a>DT[, contraception <span class="sc">:</span><span class="er">=</span> use.contraception]</span>
+<span id="cb1693-4"><a href="homework-week-9.html#cb1693-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1693-5"><a href="homework-week-9.html#cb1693-5" aria-hidden="true" tabindex="-1"></a>model_data <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">as.list</span>(DT[, .(contraception, district, urban)]), </span>
+<span id="cb1693-6"><a href="homework-week-9.html#cb1693-6" aria-hidden="true" tabindex="-1"></a>                                <span class="at">N =</span> DT[, .N], <span class="at">N_district =</span> DT[, <span class="fu">uniqueN</span>(district)])</span></code></pre></div>
+<div class="sourceCode" id="cb1694"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1694-1"><a href="homework-week-9.html#cb1694-1" aria-hidden="true" tabindex="-1"></a><span class="fu">register_knitr_engine</span>(<span class="at">override =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<pre class="stan"><code>data {
+    // Integers for number of rows, and number of districts
+  int&lt;lower=0&gt; N;
+  int&lt;lower=0&gt; N_district;
+
+  // District, contraception and urban, expecting integers of length N
+    int district[N];
+    int contraception[N];
+    int urban[N];
+}
+parameters {
+    // Alpha and beta urban vectors matching length of number of districts
+    vector[N_district] alpha;
+
+    // Beta urban vector matching length of number of districts
+    vector[N_district] beta;
+
+    // Hyper parameter alpha bar, beta bar
+    real alpha_bar;
+    real beta_bar;
+
+    // Correlation matrix, sigma
+    // 2 represents the number of predictors
+    corr_matrix[2] Rho;
+    vector&lt;lower=0&gt;[2] sigma;
+}
+model {
+    // p vector matching length of number of districts
+  vector[N] p;
+
+  // Hyper priors: alpha bar, beta urban bar, sigma and Rho
+    alpha_bar ~ normal(0, 1);
+    beta_bar ~ normal(0, 0.5);
+    sigma ~ exponential(1);
+    Rho ~ lkj_corr(2);
+
+    // Multivariate normal
+  {
+      vector[2] YY[N_district];
+      vector[2] MU;
+      MU = [alpha_bar, beta_bar]&#39;;
+      for (j in 1:N_district) {
+        YY[j] = [alpha[j], beta[j]]&#39;;
+      }
+      YY ~ multi_normal(MU, quad_form_diag(Rho, sigma));
+  }
+
+    // For each for in data, alpha and beta for that row&#39;s district
+  for (i in 1:N) {
+    p[i] = inv_logit(alpha[district[i]] + beta[district[i]] * urban[i]);
+  }
+
+  // Contraception if distributed with bernoulli, p
+  contraception ~ bernoulli(p);
+}</code></pre>
+<!-- https://mc-stan.org/docs/2_27/stan-users-guide/multivariate-hierarchical-priors-section.html#optimization-through-vectorization -->
+<div class="sourceCode" id="cb1696"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1696-1"><a href="homework-week-9.html#cb1696-1" aria-hidden="true" tabindex="-1"></a><span class="co"># model_q1_stan &lt;- &#39;model_q1.stan&#39;</span></span>
+<span id="cb1696-2"><a href="homework-week-9.html#cb1696-2" aria-hidden="true" tabindex="-1"></a><span class="co"># writeLines(readLines(model_q1_stan))</span></span>
+<span id="cb1696-3"><a href="homework-week-9.html#cb1696-3" aria-hidden="true" tabindex="-1"></a><span class="co"># model_q1 &lt;- cmdstan_model(model_q1_stan, cpp_options = list(stan_threads = TRUE))</span></span>
+<span id="cb1696-4"><a href="homework-week-9.html#cb1696-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1696-5"><a href="homework-week-9.html#cb1696-5" aria-hidden="true" tabindex="-1"></a>model_q1_sample <span class="ot">&lt;-</span></span>
+<span id="cb1696-6"><a href="homework-week-9.html#cb1696-6" aria-hidden="true" tabindex="-1"></a>    model_q1<span class="sc">$</span><span class="fu">sample</span>(</span>
+<span id="cb1696-7"><a href="homework-week-9.html#cb1696-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> model_data,</span>
+<span id="cb1696-8"><a href="homework-week-9.html#cb1696-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">chains =</span> <span class="dv">4</span>,</span>
+<span id="cb1696-9"><a href="homework-week-9.html#cb1696-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">parallel_chains =</span> <span class="dv">4</span>,</span>
+<span id="cb1696-10"><a href="homework-week-9.html#cb1696-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">threads_per_chain =</span> <span class="dv">4</span></span>
+<span id="cb1696-11"><a href="homework-week-9.html#cb1696-11" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
+<pre><code>## Warning: &#39;threads_per_chain&#39; is set but the model was not compiled with
+## &#39;cpp_options = list(stan_threads = TRUE)&#39; so &#39;threads_per_chain&#39; will have no
+## effect!</code></pre>
+<pre><code>## Running MCMC with 4 parallel chains...
+## 
+## Chain 1 Iteration:    1 / 2000 [  0%]  (Warmup)</code></pre>
+<pre><code>## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 1 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/Rtmp0TNYDH/model-320712009ceb.stan&#39;, line 35, column 1 to column 19)</code></pre>
+<pre><code>## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 1</code></pre>
+<pre><code>## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 1 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/Rtmp0TNYDH/model-320712009ceb.stan&#39;, line 35, column 1 to column 19)</code></pre>
+<pre><code>## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 1</code></pre>
+<pre><code>## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 1 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/Rtmp0TNYDH/model-320712009ceb.stan&#39;, line 35, column 1 to column 19)</code></pre>
+<pre><code>## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 1</code></pre>
+<pre><code>## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 1 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/Rtmp0TNYDH/model-320712009ceb.stan&#39;, line 35, column 1 to column 19)</code></pre>
+<pre><code>## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 1</code></pre>
+<pre><code>## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 1 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/Rtmp0TNYDH/model-320712009ceb.stan&#39;, line 35, column 1 to column 19)</code></pre>
+<pre><code>## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 1</code></pre>
+<pre><code>## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 1 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/Rtmp0TNYDH/model-320712009ceb.stan&#39;, line 35, column 1 to column 19)</code></pre>
+<pre><code>## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 1</code></pre>
+<pre><code>## Chain 2 Iteration:    1 / 2000 [  0%]  (Warmup)</code></pre>
+<pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 2 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/Rtmp0TNYDH/model-320712009ceb.stan&#39;, line 35, column 1 to column 19)</code></pre>
+<pre><code>## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 2</code></pre>
+<pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 2 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/Rtmp0TNYDH/model-320712009ceb.stan&#39;, line 35, column 1 to column 19)</code></pre>
+<pre><code>## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 2</code></pre>
+<pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 2 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/Rtmp0TNYDH/model-320712009ceb.stan&#39;, line 35, column 1 to column 19)</code></pre>
+<pre><code>## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 2</code></pre>
+<pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 2 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/Rtmp0TNYDH/model-320712009ceb.stan&#39;, line 35, column 1 to column 19)</code></pre>
+<pre><code>## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 2</code></pre>
+<pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 2 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/Rtmp0TNYDH/model-320712009ceb.stan&#39;, line 35, column 1 to column 19)</code></pre>
+<pre><code>## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 2</code></pre>
+<pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 2 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/Rtmp0TNYDH/model-320712009ceb.stan&#39;, line 35, column 1 to column 19)</code></pre>
+<pre><code>## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 2</code></pre>
+<pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 2 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/Rtmp0TNYDH/model-320712009ceb.stan&#39;, line 35, column 1 to column 19)</code></pre>
+<pre><code>## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 2</code></pre>
+<pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 2 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/Rtmp0TNYDH/model-320712009ceb.stan&#39;, line 35, column 1 to column 19)</code></pre>
+<pre><code>## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 2</code></pre>
+<pre><code>## Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup)</code></pre>
+<pre><code>## Chain 3 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 3 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/Rtmp0TNYDH/model-320712009ceb.stan&#39;, line 35, column 1 to column 19)</code></pre>
+<pre><code>## Chain 3 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 3 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 3</code></pre>
+<pre><code>## Chain 3 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 3 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/Rtmp0TNYDH/model-320712009ceb.stan&#39;, line 35, column 1 to column 19)</code></pre>
+<pre><code>## Chain 3 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 3 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 3</code></pre>
+<pre><code>## Chain 3 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 3 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/Rtmp0TNYDH/model-320712009ceb.stan&#39;, line 35, column 1 to column 19)</code></pre>
+<pre><code>## Chain 3 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 3 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 3</code></pre>
+<pre><code>## Chain 3 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 3 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/Rtmp0TNYDH/model-320712009ceb.stan&#39;, line 35, column 1 to column 19)</code></pre>
+<pre><code>## Chain 3 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 3 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 3</code></pre>
+<pre><code>## Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup)</code></pre>
+<pre><code>## Chain 4 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 4 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/Rtmp0TNYDH/model-320712009ceb.stan&#39;, line 35, column 1 to column 19)</code></pre>
+<pre><code>## Chain 4 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 4 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 4</code></pre>
+<pre><code>## Chain 4 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 4 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/Rtmp0TNYDH/model-320712009ceb.stan&#39;, line 35, column 1 to column 19)</code></pre>
+<pre><code>## Chain 4 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 4 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 4</code></pre>
+<pre><code>## Chain 2 Iteration:  100 / 2000 [  5%]  (Warmup) 
+## Chain 1 Iteration:  100 / 2000 [  5%]  (Warmup) 
+## Chain 3 Iteration:  100 / 2000 [  5%]  (Warmup) 
+## Chain 4 Iteration:  100 / 2000 [  5%]  (Warmup) 
+## Chain 2 Iteration:  200 / 2000 [ 10%]  (Warmup) 
+## Chain 4 Iteration:  200 / 2000 [ 10%]  (Warmup) 
+## Chain 1 Iteration:  200 / 2000 [ 10%]  (Warmup) 
+## Chain 3 Iteration:  200 / 2000 [ 10%]  (Warmup) 
+## Chain 2 Iteration:  300 / 2000 [ 15%]  (Warmup) 
+## Chain 1 Iteration:  300 / 2000 [ 15%]  (Warmup) 
+## Chain 4 Iteration:  300 / 2000 [ 15%]  (Warmup) 
+## Chain 3 Iteration:  300 / 2000 [ 15%]  (Warmup) 
+## Chain 2 Iteration:  400 / 2000 [ 20%]  (Warmup) 
+## Chain 1 Iteration:  400 / 2000 [ 20%]  (Warmup) 
+## Chain 4 Iteration:  400 / 2000 [ 20%]  (Warmup) 
+## Chain 3 Iteration:  400 / 2000 [ 20%]  (Warmup) 
+## Chain 2 Iteration:  500 / 2000 [ 25%]  (Warmup) 
+## Chain 1 Iteration:  500 / 2000 [ 25%]  (Warmup) 
+## Chain 4 Iteration:  500 / 2000 [ 25%]  (Warmup) 
+## Chain 3 Iteration:  500 / 2000 [ 25%]  (Warmup) 
+## Chain 1 Iteration:  600 / 2000 [ 30%]  (Warmup) 
+## Chain 2 Iteration:  600 / 2000 [ 30%]  (Warmup) 
+## Chain 4 Iteration:  600 / 2000 [ 30%]  (Warmup) 
+## Chain 1 Iteration:  700 / 2000 [ 35%]  (Warmup) 
+## Chain 2 Iteration:  700 / 2000 [ 35%]  (Warmup) 
+## Chain 3 Iteration:  600 / 2000 [ 30%]  (Warmup) 
+## Chain 4 Iteration:  700 / 2000 [ 35%]  (Warmup) 
+## Chain 2 Iteration:  800 / 2000 [ 40%]  (Warmup) 
+## Chain 1 Iteration:  800 / 2000 [ 40%]  (Warmup) 
+## Chain 3 Iteration:  700 / 2000 [ 35%]  (Warmup) 
+## Chain 4 Iteration:  800 / 2000 [ 40%]  (Warmup) 
+## Chain 2 Iteration:  900 / 2000 [ 45%]  (Warmup) 
+## Chain 1 Iteration:  900 / 2000 [ 45%]  (Warmup) 
+## Chain 3 Iteration:  800 / 2000 [ 40%]  (Warmup) 
+## Chain 4 Iteration:  900 / 2000 [ 45%]  (Warmup) 
+## Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+## Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+## Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+## Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+## Chain 3 Iteration:  900 / 2000 [ 45%]  (Warmup) 
+## Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+## Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+## Chain 1 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
+## Chain 2 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
+## Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+## Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+## Chain 1 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
+## Chain 4 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
+## Chain 2 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
+## Chain 3 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
+## Chain 1 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
+## Chain 2 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
+## Chain 4 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
+## Chain 1 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
+## Chain 3 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
+## Chain 2 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
+## Chain 4 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
+## Chain 3 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
+## Chain 1 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
+## Chain 2 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
+## Chain 4 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
+## Chain 1 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
+## Chain 3 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
+## Chain 2 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
+## Chain 1 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
+## Chain 4 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
+## Chain 3 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
+## Chain 2 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
+## Chain 1 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
+## Chain 4 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
+## Chain 2 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
+## Chain 3 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
+## Chain 1 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
+## Chain 4 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
+## Chain 2 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
+## Chain 3 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
+## Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
+## Chain 1 finished in 11.9 seconds.
+## Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
+## Chain 3 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
+## Chain 2 finished in 12.0 seconds.
+## Chain 4 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
+## Chain 3 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
+## Chain 4 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
+## Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
+## Chain 3 finished in 12.7 seconds.
+## Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
+## Chain 4 finished in 12.8 seconds.
+## 
+## All 4 chains finished successfully.
+## Mean chain execution time: 12.3 seconds.
+## Total execution time: 13.7 seconds.</code></pre>
+<div class="sourceCode" id="cb1803"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1803-1"><a href="homework-week-9.html#cb1803-1" aria-hidden="true" tabindex="-1"></a>model_q1_draws <span class="ot">&lt;-</span> <span class="fu">cmd_draws</span>(model_q1_sample)</span>
+<span id="cb1803-2"><a href="homework-week-9.html#cb1803-2" aria-hidden="true" tabindex="-1"></a><span class="fu">setDT</span>(model_q1_draws)</span>
+<span id="cb1803-3"><a href="homework-week-9.html#cb1803-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(model_q1_draws, <span class="at">regex_pars =</span> <span class="st">&#39;alpha&#39;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-111-1.png" width="672" /></p>
+<div class="sourceCode" id="cb1804"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1804-1"><a href="homework-week-9.html#cb1804-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(model_q1_draws, <span class="at">regex_pars =</span> <span class="st">&#39;beta&#39;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-111-2.png" width="672" /></p>
+<div class="sourceCode" id="cb1805"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1805-1"><a href="homework-week-9.html#cb1805-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(model_q1_draws, <span class="at">regex_pars =</span> <span class="st">&#39;bar&#39;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-111-3.png" width="672" /></p>
+<div class="sourceCode" id="cb1806"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1806-1"><a href="homework-week-9.html#cb1806-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(model_q1_draws, <span class="at">regex_pars =</span> <span class="st">&#39;Rho&#39;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-111-4.png" width="672" /></p>
+<div class="sourceCode" id="cb1807"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1807-1"><a href="homework-week-9.html#cb1807-1" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(model_q1_draws[, .SD, <span class="at">.SDcols =</span> <span class="fu">patterns</span>(<span class="st">&#39;*bar&#39;</span>)])</span></code></pre></div>
+<pre><code>##            mean   sd  5.5% 94.5%     histogram
+## alpha_bar -0.69 0.10 -0.85 -0.53     ▁▁▂▇▇▃▁▁▁
+## beta_bar   0.64 0.16  0.38  0.89 ▁▁▁▁▃▇▇▅▂▁▁▁▁</code></pre>
+<div class="sourceCode" id="cb1809"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1809-1"><a href="homework-week-9.html#cb1809-1" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(model_q1_draws[, .SD, <span class="at">.SDcols =</span> <span class="fu">patterns</span>(<span class="st">&#39;Rho|sigma&#39;</span>)], <span class="at">depth =</span> <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>##           mean    sd  5.5% 94.5%     histogram
+## Rho[1,1]  1.00 0.000  1.00  1.00             ▇
+## Rho[2,1] -0.65 0.161 -0.86 -0.37 ▁▃▇▇▃▂▁▁▁▁▁▁▁
+## Rho[1,2] -0.65 0.161 -0.86 -0.37 ▁▃▇▇▃▂▁▁▁▁▁▁▁
+## Rho[2,2]  1.00 0.000  1.00  1.00             ▇
+## sigma[1]  0.57 0.096  0.43  0.74      ▁▁▃▇▅▁▁▁
+## sigma[2]  0.78 0.194  0.48  1.10     ▁▁▂▇▅▂▁▁▁</code></pre>
+<div class="sourceCode" id="cb1811"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1811-1"><a href="homework-week-9.html#cb1811-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_hex</span>(model_q1_draws, <span class="at">regex_pars =</span> <span class="st">&#39;*bar&#39;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-111-5.png" width="672" /></p>
+</div>
+<div id="question-2-7" class="section level2" number="10.2">
+<h2><span class="header-section-number">10.2</span> Question 2</h2>
+<blockquote>
+<p>Now consider the predictor variables age.centered and living.children, also
+contained in data(bangladesh). Suppose that age influences contraceptive use
+(changing attitudes) and number of children (older people have had more time to
+have kids). Number of children may also directly influence contraceptive use.
+Draw a DAG that reflects these hypothetical relationships. Then build models
+needed to evaluate the DAG. You will need at least two models. Retain district
+and urban, as in Problem 1. What do you conclude about the causal influence of
+age and children?</p>
+</blockquote>
+<div class="sourceCode" id="cb1812"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1812-1"><a href="homework-week-9.html#cb1812-1" aria-hidden="true" tabindex="-1"></a>dag <span class="ot">&lt;-</span> <span class="fu">dagify</span>(</span>
+<span id="cb1812-2"><a href="homework-week-9.html#cb1812-2" aria-hidden="true" tabindex="-1"></a>  contraceptive_use <span class="sc">~</span> age <span class="sc">+</span> number_children,</span>
+<span id="cb1812-3"><a href="homework-week-9.html#cb1812-3" aria-hidden="true" tabindex="-1"></a>  number_children <span class="sc">~</span> age,</span>
+<span id="cb1812-4"><a href="homework-week-9.html#cb1812-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">exposure =</span> <span class="st">&#39;age&#39;</span>,</span>
+<span id="cb1812-5"><a href="homework-week-9.html#cb1812-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">outcome =</span> <span class="st">&#39;contraceptive_use&#39;</span></span>
+<span id="cb1812-6"><a href="homework-week-9.html#cb1812-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1812-7"><a href="homework-week-9.html#cb1812-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1812-8"><a href="homework-week-9.html#cb1812-8" aria-hidden="true" tabindex="-1"></a><span class="fu">dag_plot</span>(dag)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-112-1.png" width="672" /></p>
+<div class="sourceCode" id="cb1813"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1813-1"><a href="homework-week-9.html#cb1813-1" aria-hidden="true" tabindex="-1"></a><span class="fu">adjustmentSets</span>(dag, <span class="at">exposure =</span> <span class="st">&#39;age&#39;</span>, <span class="at">outcome =</span> <span class="st">&#39;contraceptive_use&#39;</span>, <span class="at">effect =</span> <span class="st">&#39;total&#39;</span>)</span></code></pre></div>
+<pre><code>##  {}</code></pre>
+<div class="sourceCode" id="cb1815"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1815-1"><a href="homework-week-9.html#cb1815-1" aria-hidden="true" tabindex="-1"></a><span class="fu">adjustmentSets</span>(dag, <span class="at">exposure =</span> <span class="st">&#39;age&#39;</span>, <span class="at">outcome =</span> <span class="st">&#39;contraceptive_use&#39;</span>, <span class="at">effect =</span> <span class="st">&#39;direct&#39;</span>)</span></code></pre></div>
+<pre><code>## { number_children }</code></pre>
+<div class="sourceCode" id="cb1817"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1817-1"><a href="homework-week-9.html#cb1817-1" aria-hidden="true" tabindex="-1"></a>DT[, scale_age <span class="sc">:</span><span class="er">=</span> <span class="fu">as.numeric</span>(<span class="fu">scale</span>(age.centered))]</span>
+<span id="cb1817-2"><a href="homework-week-9.html#cb1817-2" aria-hidden="true" tabindex="-1"></a>model_data <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">as.list</span>(DT[, .(contraception, district, urban, scale_age, </span>
+<span id="cb1817-3"><a href="homework-week-9.html#cb1817-3" aria-hidden="true" tabindex="-1"></a>                                                             <span class="at">n_children =</span> living.children)]), </span>
+<span id="cb1817-4"><a href="homework-week-9.html#cb1817-4" aria-hidden="true" tabindex="-1"></a>                                <span class="at">N =</span> DT[, .N], <span class="at">N_district =</span> DT[, <span class="fu">uniqueN</span>(district)])</span></code></pre></div>
+<pre class="stan"><code>data {
+    // Integers for number of rows, and number of districts
+  int&lt;lower=0&gt; N;
+  int&lt;lower=0&gt; N_district;
+
+  // District, contraception and urban, expecting integers of length N
+    int district[N];
+    int contraception[N];
+    int urban[N];
+
+    // Also scale_age
+    real scale_age[N];
+}
+parameters {
+    // Alpha and beta urban vectors matching length of number of districts
+    vector[N_district] alpha;
+
+    // Beta urban vector matching length of number of districts
+    vector[N_district] beta;
+
+    // Hyper parameter alpha bar, beta bar
+    real alpha_bar;
+    real beta_bar;
+
+    // scale_age
+    real beta_scale_age;
+
+    // Correlation matrix, sigma
+    // 2 represents the number of predictors
+    corr_matrix[2] Rho;
+    vector&lt;lower=0&gt;[2] sigma;
+}
+model {
+    // p vector matching length of number of districts
+  vector[N] p;
+
+  // Hyper priors: alpha bar, beta urban bar, sigma and Rho
+    alpha_bar ~ normal(0, 1);
+    beta_bar ~ normal(0, 0.5);
+    sigma ~ exponential(1);
+    Rho ~ lkj_corr(2);
+
+    // Multivariate normal
+  {
+      vector[2] YY[N_district];
+      vector[2] MU;
+      MU = [alpha_bar, beta_bar]&#39;;
+      for (j in 1:N_district) {
+        YY[j] = [alpha[j], beta[j]]&#39;;
+      }
+      YY ~ multi_normal(MU, quad_form_diag(Rho, sigma));
+  }
+
+  // Beta scale_age prior
+    beta_scale_age ~ normal(0, 1.5);
+
+    // For each for in data, alpha and beta for that row&#39;s district
+  for (i in 1:N) {
+    p[i] = inv_logit(alpha[district[i]] + beta[district[i]] * urban[i] + beta_scale_age * scale_age[i]);
+  }
+
+  // Contraception if distributed with bernoulli, p
+  contraception ~ bernoulli(p);
+}
+</code></pre>
+<div class="sourceCode" id="cb1819"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1819-1"><a href="homework-week-9.html#cb1819-1" aria-hidden="true" tabindex="-1"></a><span class="co"># model_q2_a_stan &lt;- &#39;model_q2_a.stan&#39;</span></span>
+<span id="cb1819-2"><a href="homework-week-9.html#cb1819-2" aria-hidden="true" tabindex="-1"></a><span class="co"># writeLines(readLines(model_q2_a_stan))</span></span>
+<span id="cb1819-3"><a href="homework-week-9.html#cb1819-3" aria-hidden="true" tabindex="-1"></a><span class="co"># model_q2_a &lt;- cmdstan_model(model_q2_a_stan, cpp_options = list(stan_threads = TRUE))</span></span>
+<span id="cb1819-4"><a href="homework-week-9.html#cb1819-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1819-5"><a href="homework-week-9.html#cb1819-5" aria-hidden="true" tabindex="-1"></a>model_q2_a_sample <span class="ot">&lt;-</span></span>
+<span id="cb1819-6"><a href="homework-week-9.html#cb1819-6" aria-hidden="true" tabindex="-1"></a>    model_q2_a<span class="sc">$</span><span class="fu">sample</span>(</span>
+<span id="cb1819-7"><a href="homework-week-9.html#cb1819-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> model_data,</span>
+<span id="cb1819-8"><a href="homework-week-9.html#cb1819-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">chains =</span> <span class="dv">4</span>,</span>
+<span id="cb1819-9"><a href="homework-week-9.html#cb1819-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">parallel_chains =</span> <span class="dv">4</span>,</span>
+<span id="cb1819-10"><a href="homework-week-9.html#cb1819-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">threads_per_chain =</span> <span class="dv">4</span></span>
+<span id="cb1819-11"><a href="homework-week-9.html#cb1819-11" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
+<pre><code>## Warning: &#39;threads_per_chain&#39; is set but the model was not compiled with
+## &#39;cpp_options = list(stan_threads = TRUE)&#39; so &#39;threads_per_chain&#39; will have no
+## effect!</code></pre>
+<pre><code>## Running MCMC with 4 parallel chains...
+## 
+## Chain 1 Iteration:    1 / 2000 [  0%]  (Warmup)</code></pre>
+<pre><code>## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 1 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/Rtmp0TNYDH/model-32077965226a.stan&#39;, line 41, column 1 to column 19)</code></pre>
+<pre><code>## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 1</code></pre>
+<pre><code>## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 1 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/Rtmp0TNYDH/model-32077965226a.stan&#39;, line 41, column 1 to column 19)</code></pre>
+<pre><code>## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 1</code></pre>
+<pre><code>## Chain 2 Iteration:    1 / 2000 [  0%]  (Warmup)</code></pre>
+<pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 2 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/Rtmp0TNYDH/model-32077965226a.stan&#39;, line 41, column 1 to column 19)</code></pre>
+<pre><code>## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 2</code></pre>
+<pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 2 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/Rtmp0TNYDH/model-32077965226a.stan&#39;, line 41, column 1 to column 19)</code></pre>
+<pre><code>## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 2</code></pre>
+<pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 2 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/Rtmp0TNYDH/model-32077965226a.stan&#39;, line 41, column 1 to column 19)</code></pre>
+<pre><code>## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 2</code></pre>
+<pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 2 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/Rtmp0TNYDH/model-32077965226a.stan&#39;, line 41, column 1 to column 19)</code></pre>
+<pre><code>## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 2</code></pre>
+<pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 2 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/Rtmp0TNYDH/model-32077965226a.stan&#39;, line 41, column 1 to column 19)</code></pre>
+<pre><code>## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 2</code></pre>
+<pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 2 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/Rtmp0TNYDH/model-32077965226a.stan&#39;, line 41, column 1 to column 19)</code></pre>
+<pre><code>## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 2</code></pre>
+<pre><code>## Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup)</code></pre>
+<pre><code>## Chain 3 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 3 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/Rtmp0TNYDH/model-32077965226a.stan&#39;, line 41, column 1 to column 19)</code></pre>
+<pre><code>## Chain 3 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 3 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 3</code></pre>
+<pre><code>## Chain 3 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 3 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/Rtmp0TNYDH/model-32077965226a.stan&#39;, line 41, column 1 to column 19)</code></pre>
+<pre><code>## Chain 3 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 3 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 3</code></pre>
+<pre><code>## Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup)</code></pre>
+<pre><code>## Chain 4 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 4 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/Rtmp0TNYDH/model-32077965226a.stan&#39;, line 41, column 1 to column 19)</code></pre>
+<pre><code>## Chain 4 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 4 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 4</code></pre>
+<pre><code>## Chain 4 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 4 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/Rtmp0TNYDH/model-32077965226a.stan&#39;, line 41, column 1 to column 19)</code></pre>
+<pre><code>## Chain 4 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 4 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 4</code></pre>
+<pre><code>## Chain 4 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 4 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/Rtmp0TNYDH/model-32077965226a.stan&#39;, line 41, column 1 to column 19)</code></pre>
+<pre><code>## Chain 4 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 4 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 4</code></pre>
+<pre><code>## Chain 4 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 4 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/Rtmp0TNYDH/model-32077965226a.stan&#39;, line 41, column 1 to column 19)</code></pre>
+<pre><code>## Chain 4 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 4 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 4</code></pre>
+<pre><code>## Chain 4 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 4 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/Rtmp0TNYDH/model-32077965226a.stan&#39;, line 41, column 1 to column 19)</code></pre>
+<pre><code>## Chain 4 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 4 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 4</code></pre>
+<pre><code>## Chain 1 Iteration:  100 / 2000 [  5%]  (Warmup) 
+## Chain 2 Iteration:  100 / 2000 [  5%]  (Warmup) 
+## Chain 3 Iteration:  100 / 2000 [  5%]  (Warmup) 
+## Chain 4 Iteration:  100 / 2000 [  5%]  (Warmup) 
+## Chain 1 Iteration:  200 / 2000 [ 10%]  (Warmup) 
+## Chain 2 Iteration:  200 / 2000 [ 10%]  (Warmup) 
+## Chain 3 Iteration:  200 / 2000 [ 10%]  (Warmup) 
+## Chain 1 Iteration:  300 / 2000 [ 15%]  (Warmup) 
+## Chain 4 Iteration:  200 / 2000 [ 10%]  (Warmup) 
+## Chain 2 Iteration:  300 / 2000 [ 15%]  (Warmup) 
+## Chain 1 Iteration:  400 / 2000 [ 20%]  (Warmup) 
+## Chain 3 Iteration:  300 / 2000 [ 15%]  (Warmup) 
+## Chain 2 Iteration:  400 / 2000 [ 20%]  (Warmup) 
+## Chain 4 Iteration:  300 / 2000 [ 15%]  (Warmup) 
+## Chain 3 Iteration:  400 / 2000 [ 20%]  (Warmup) 
+## Chain 4 Iteration:  400 / 2000 [ 20%]  (Warmup) 
+## Chain 1 Iteration:  500 / 2000 [ 25%]  (Warmup) 
+## Chain 2 Iteration:  500 / 2000 [ 25%]  (Warmup) 
+## Chain 1 Iteration:  600 / 2000 [ 30%]  (Warmup) 
+## Chain 2 Iteration:  600 / 2000 [ 30%]  (Warmup) 
+## Chain 3 Iteration:  500 / 2000 [ 25%]  (Warmup) 
+## Chain 4 Iteration:  500 / 2000 [ 25%]  (Warmup) 
+## Chain 1 Iteration:  700 / 2000 [ 35%]  (Warmup) 
+## Chain 3 Iteration:  600 / 2000 [ 30%]  (Warmup) 
+## Chain 4 Iteration:  600 / 2000 [ 30%]  (Warmup) 
+## Chain 2 Iteration:  700 / 2000 [ 35%]  (Warmup) 
+## Chain 1 Iteration:  800 / 2000 [ 40%]  (Warmup) 
+## Chain 4 Iteration:  700 / 2000 [ 35%]  (Warmup) 
+## Chain 3 Iteration:  700 / 2000 [ 35%]  (Warmup) 
+## Chain 2 Iteration:  800 / 2000 [ 40%]  (Warmup) 
+## Chain 1 Iteration:  900 / 2000 [ 45%]  (Warmup) 
+## Chain 3 Iteration:  800 / 2000 [ 40%]  (Warmup) 
+## Chain 4 Iteration:  800 / 2000 [ 40%]  (Warmup) 
+## Chain 2 Iteration:  900 / 2000 [ 45%]  (Warmup) 
+## Chain 4 Iteration:  900 / 2000 [ 45%]  (Warmup) 
+## Chain 3 Iteration:  900 / 2000 [ 45%]  (Warmup) 
+## Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+## Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+## Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+## Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+## Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+## Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+## Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
+## Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
+## Chain 1 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
+## Chain 2 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
+## Chain 3 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
+## Chain 4 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
+## Chain 1 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
+## Chain 2 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
+## Chain 3 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
+## Chain 4 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
+## Chain 1 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
+## Chain 2 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
+## Chain 3 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
+## Chain 4 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
+## Chain 1 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
+## Chain 2 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
+## Chain 3 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
+## Chain 4 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
+## Chain 1 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
+## Chain 3 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
+## Chain 2 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
+## Chain 4 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
+## Chain 1 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
+## Chain 3 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
+## Chain 2 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
+## Chain 4 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
+## Chain 1 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
+## Chain 3 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
+## Chain 2 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
+## Chain 4 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
+## Chain 3 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
+## Chain 1 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
+## Chain 2 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
+## Chain 4 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
+## Chain 3 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
+## Chain 1 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
+## Chain 2 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
+## Chain 4 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
+## Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
+## Chain 3 finished in 15.1 seconds.
+## Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
+## Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
+## Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
+## Chain 1 finished in 15.9 seconds.
+## Chain 2 finished in 15.7 seconds.
+## Chain 4 finished in 15.1 seconds.
+## 
+## All 4 chains finished successfully.
+## Mean chain execution time: 15.4 seconds.
+## Total execution time: 16.2 seconds.</code></pre>
+<div class="sourceCode" id="cb1901"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1901-1"><a href="homework-week-9.html#cb1901-1" aria-hidden="true" tabindex="-1"></a>model_q2_a_draws <span class="ot">&lt;-</span> <span class="fu">cmd_draws</span>(model_q2_a_sample)</span>
+<span id="cb1901-2"><a href="homework-week-9.html#cb1901-2" aria-hidden="true" tabindex="-1"></a><span class="fu">setDT</span>(model_q2_a_draws)</span></code></pre></div>
+<pre class="stan"><code>data {
+    // Integers for number of rows, and number of districts
+  int&lt;lower=0&gt; N;
+  int&lt;lower=0&gt; N_district;
+
+  // District, contraception and urban, expecting integers of length N
+    int district[N];
+    int contraception[N];
+    int urban[N];
+
+    // Also scale_age and n_children
+    real scale_age[N];
+    int n_children[N];
+}
+parameters {
+    // Alpha and beta urban vectors matching length of number of districts
+    vector[N_district] alpha;
+
+    // Beta urban vector matching length of number of districts
+    vector[N_district] beta;
+
+    // Hyper parameter alpha bar, beta bar
+    real alpha_bar;
+    real beta_bar;
+
+    // scale_age and n_children
+    real beta_scale_age;
+    real beta_children;
+
+    // Correlation matrix, sigma
+    // 2 represents the number of predictors
+    corr_matrix[2] Rho;
+    vector&lt;lower=0&gt;[2] sigma;
+}
+model {
+    // p vector matching length of number of districts
+  vector[N] p;
+
+  // Hyper priors: alpha bar, beta urban bar, sigma and Rho
+    alpha_bar ~ normal(0, 1);
+    beta_bar ~ normal(0, 0.5);
+    sigma ~ exponential(1);
+    Rho ~ lkj_corr(2);
+
+    // Multivariate normal
+  {
+      vector[2] YY[N_district];
+      vector[2] MU;
+      MU = [alpha_bar, beta_bar]&#39;;
+      for (j in 1:N_district) {
+        YY[j] = [alpha[j], beta[j]]&#39;;
+      }
+      YY ~ multi_normal(MU, quad_form_diag(Rho, sigma));
+  }
+
+  // Beta scale_age prior
+    beta_scale_age ~ normal(0, 1.5);
+    beta_children ~ normal(0, 1.5);
+
+    // For each for in data, alpha and beta for that row&#39;s district
+  for (i in 1:N) {
+    p[i] = inv_logit(alpha[district[i]] + beta[district[i]] * urban[i] + beta_scale_age * scale_age[i] + beta_children * n_children[i]);
+  }
+
+  // Contraception if distributed with bernoulli, p
+  contraception ~ bernoulli(p);
+}</code></pre>
+<div class="sourceCode" id="cb1903"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1903-1"><a href="homework-week-9.html#cb1903-1" aria-hidden="true" tabindex="-1"></a><span class="co"># model_q2_b_stan &lt;- &#39;model_q2_b.stan&#39;</span></span>
+<span id="cb1903-2"><a href="homework-week-9.html#cb1903-2" aria-hidden="true" tabindex="-1"></a><span class="co"># writeLines(readLines(model_q2_b_stan))</span></span>
+<span id="cb1903-3"><a href="homework-week-9.html#cb1903-3" aria-hidden="true" tabindex="-1"></a><span class="co"># model_q2_b &lt;- cmdstan_model(model_q2_b_stan, cpp_options = list(stan_threads = TRUE))</span></span>
+<span id="cb1903-4"><a href="homework-week-9.html#cb1903-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1903-5"><a href="homework-week-9.html#cb1903-5" aria-hidden="true" tabindex="-1"></a>model_q2_b_sample <span class="ot">&lt;-</span></span>
+<span id="cb1903-6"><a href="homework-week-9.html#cb1903-6" aria-hidden="true" tabindex="-1"></a>    model_q2_b<span class="sc">$</span><span class="fu">sample</span>(</span>
+<span id="cb1903-7"><a href="homework-week-9.html#cb1903-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> model_data,</span>
+<span id="cb1903-8"><a href="homework-week-9.html#cb1903-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">chains =</span> <span class="dv">4</span>,</span>
+<span id="cb1903-9"><a href="homework-week-9.html#cb1903-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">parallel_chains =</span> <span class="dv">4</span>,</span>
+<span id="cb1903-10"><a href="homework-week-9.html#cb1903-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">threads_per_chain =</span> <span class="dv">4</span>,</span>
+<span id="cb1903-11"><a href="homework-week-9.html#cb1903-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">refresh =</span> <span class="dv">0</span></span>
+<span id="cb1903-12"><a href="homework-week-9.html#cb1903-12" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
+<pre><code>## Warning: &#39;threads_per_chain&#39; is set but the model was not compiled with
+## &#39;cpp_options = list(stan_threads = TRUE)&#39; so &#39;threads_per_chain&#39; will have no
+## effect!</code></pre>
+<pre><code>## Running MCMC with 4 parallel chains...</code></pre>
+<pre><code>## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 1 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/Rtmp0TNYDH/model-32073a080fd8.stan&#39;, line 43, column 1 to column 19)</code></pre>
+<pre><code>## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 1</code></pre>
+<pre><code>## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 1 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/Rtmp0TNYDH/model-32073a080fd8.stan&#39;, line 43, column 1 to column 19)</code></pre>
+<pre><code>## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 1</code></pre>
+<pre><code>## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 1 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/Rtmp0TNYDH/model-32073a080fd8.stan&#39;, line 43, column 1 to column 19)</code></pre>
+<pre><code>## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 1</code></pre>
+<pre><code>## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 1 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/Rtmp0TNYDH/model-32073a080fd8.stan&#39;, line 43, column 1 to column 19)</code></pre>
+<pre><code>## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 1</code></pre>
+<pre><code>## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 1 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/Rtmp0TNYDH/model-32073a080fd8.stan&#39;, line 43, column 1 to column 19)</code></pre>
+<pre><code>## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 1</code></pre>
+<pre><code>## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 1 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/Rtmp0TNYDH/model-32073a080fd8.stan&#39;, line 43, column 1 to column 19)</code></pre>
+<pre><code>## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 1</code></pre>
+<pre><code>## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 1 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/Rtmp0TNYDH/model-32073a080fd8.stan&#39;, line 43, column 1 to column 19)</code></pre>
+<pre><code>## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 1</code></pre>
+<pre><code>## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 1 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/Rtmp0TNYDH/model-32073a080fd8.stan&#39;, line 43, column 1 to column 19)</code></pre>
+<pre><code>## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 1</code></pre>
+<pre><code>## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 1 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/Rtmp0TNYDH/model-32073a080fd8.stan&#39;, line 43, column 1 to column 19)</code></pre>
+<pre><code>## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 1</code></pre>
+<pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 2 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/Rtmp0TNYDH/model-32073a080fd8.stan&#39;, line 43, column 1 to column 19)</code></pre>
+<pre><code>## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 2</code></pre>
+<pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 2 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/Rtmp0TNYDH/model-32073a080fd8.stan&#39;, line 43, column 1 to column 19)</code></pre>
+<pre><code>## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 2</code></pre>
+<pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 2 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/Rtmp0TNYDH/model-32073a080fd8.stan&#39;, line 43, column 1 to column 19)</code></pre>
+<pre><code>## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 2</code></pre>
+<pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 2 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/Rtmp0TNYDH/model-32073a080fd8.stan&#39;, line 43, column 1 to column 19)</code></pre>
+<pre><code>## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 2</code></pre>
+<pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 2 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/Rtmp0TNYDH/model-32073a080fd8.stan&#39;, line 43, column 1 to column 19)</code></pre>
+<pre><code>## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 2</code></pre>
+<pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 2 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/Rtmp0TNYDH/model-32073a080fd8.stan&#39;, line 43, column 1 to column 19)</code></pre>
+<pre><code>## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 2</code></pre>
+<pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 2 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/Rtmp0TNYDH/model-32073a080fd8.stan&#39;, line 43, column 1 to column 19)</code></pre>
+<pre><code>## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 2</code></pre>
+<pre><code>## Chain 3 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 3 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/Rtmp0TNYDH/model-32073a080fd8.stan&#39;, line 43, column 1 to column 19)</code></pre>
+<pre><code>## Chain 3 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 3 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 3</code></pre>
+<pre><code>## Chain 3 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 3 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/Rtmp0TNYDH/model-32073a080fd8.stan&#39;, line 43, column 1 to column 19)</code></pre>
+<pre><code>## Chain 3 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 3 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 3</code></pre>
+<pre><code>## Chain 3 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 3 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/Rtmp0TNYDH/model-32073a080fd8.stan&#39;, line 43, column 1 to column 19)</code></pre>
+<pre><code>## Chain 3 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 3 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 3</code></pre>
+<pre><code>## Chain 3 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 3 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/Rtmp0TNYDH/model-32073a080fd8.stan&#39;, line 43, column 1 to column 19)</code></pre>
+<pre><code>## Chain 3 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 3 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 3</code></pre>
+<pre><code>## Chain 4 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 4 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/Rtmp0TNYDH/model-32073a080fd8.stan&#39;, line 43, column 1 to column 19)</code></pre>
+<pre><code>## Chain 4 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 4 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 4</code></pre>
+<pre><code>## Chain 4 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 4 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/Rtmp0TNYDH/model-32073a080fd8.stan&#39;, line 43, column 1 to column 19)</code></pre>
+<pre><code>## Chain 4 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 4 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 4</code></pre>
+<pre><code>## Chain 4 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 4 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/Rtmp0TNYDH/model-32073a080fd8.stan&#39;, line 43, column 1 to column 19)</code></pre>
+<pre><code>## Chain 4 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 4 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 4</code></pre>
+<pre><code>## Chain 4 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 4 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/Rtmp0TNYDH/model-32073a080fd8.stan&#39;, line 43, column 1 to column 19)</code></pre>
+<pre><code>## Chain 4 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 4 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 4</code></pre>
+<pre><code>## Chain 1 finished in 20.9 seconds.
+## Chain 2 finished in 22.7 seconds.
+## Chain 3 finished in 22.7 seconds.
+## Chain 4 finished in 22.8 seconds.
+## 
+## All 4 chains finished successfully.
+## Mean chain execution time: 22.3 seconds.
+## Total execution time: 23.9 seconds.</code></pre>
+<div class="sourceCode" id="cb2027"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2027-1"><a href="homework-week-9.html#cb2027-1" aria-hidden="true" tabindex="-1"></a>model_q2_b_draws <span class="ot">&lt;-</span> <span class="fu">cmd_draws</span>(model_q2_b_sample)</span>
+<span id="cb2027-2"><a href="homework-week-9.html#cb2027-2" aria-hidden="true" tabindex="-1"></a><span class="fu">setDT</span>(model_q2_b_draws)</span></code></pre></div>
+<div class="sourceCode" id="cb2028"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2028-1"><a href="homework-week-9.html#cb2028-1" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(model_q2_a_draws[, .SD, <span class="at">.SDcols =</span> <span class="fu">patterns</span>(<span class="st">&#39;beta&#39;</span>)])</span></code></pre></div>
+<pre><code>## 60 vector or matrix parameters hidden. Use depth=2 to show them.</code></pre>
+<pre><code>##                 mean    sd   5.5% 94.5%      histogram
+## beta_bar       0.633 0.164 0.3723  0.89 ▁▁▁▁▂▃▇▇▅▃▁▁▁▁
+## beta_scale_age 0.084 0.051 0.0021  0.17      ▁▁▁▃▇▅▂▁▁</code></pre>
+<div class="sourceCode" id="cb2031"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2031-1"><a href="homework-week-9.html#cb2031-1" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(model_q2_b_draws[, .SD, <span class="at">.SDcols =</span> <span class="fu">patterns</span>(<span class="st">&#39;beta&#39;</span>)])</span></code></pre></div>
+<pre><code>## 60 vector or matrix parameters hidden. Use depth=2 to show them.</code></pre>
+<pre><code>##                 mean    sd  5.5% 94.5%      histogram
+## beta_bar        0.68 0.161  0.42  0.94  ▁▁▁▁▂▅▇▇▃▂▁▁▁
+## beta_scale_age -0.26 0.070 -0.38 -0.15 ▁▁▁▁▂▅▇▇▃▁▁▁▁▁
+## beta_children   0.40 0.058  0.31  0.50      ▁▁▃▇▇▃▁▁▁</code></pre>
+</div>
+<div id="question-3-6" class="section level2" number="10.3">
+<h2><span class="header-section-number">10.3</span> Question 3</h2>
+<blockquote>
+<p>Modify any models from Problem 2 that contained that children variable and
+model the variable now as a monotonic ordered category, like education from the
+week we did ordered categories. Education in that example had 8 categories.
+Children here will have fewer (no one in the sample had 8 children). So modify
+the code appropriately. What do you conclude about the causal influence of each
+additional child on use of contraception?</p>
+</blockquote>
+<div class="sourceCode" id="cb2034"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2034-1"><a href="homework-week-9.html#cb2034-1" aria-hidden="true" tabindex="-1"></a>K <span class="ot">&lt;-</span> DT[, <span class="fu">max</span>(living.children)] <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb2034-2"><a href="homework-week-9.html#cb2034-2" aria-hidden="true" tabindex="-1"></a>model_data <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb2034-3"><a href="homework-week-9.html#cb2034-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.list</span>(DT[, .(contraception, district, urban, scale_age,</span>
+<span id="cb2034-4"><a href="homework-week-9.html#cb2034-4" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">n_children =</span> living.children)]),</span>
+<span id="cb2034-5"><a href="homework-week-9.html#cb2034-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">N =</span> DT[, .N], </span>
+<span id="cb2034-6"><a href="homework-week-9.html#cb2034-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">K =</span> K,</span>
+<span id="cb2034-7"><a href="homework-week-9.html#cb2034-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">N_district =</span> DT[, <span class="fu">uniqueN</span>(district)],</span>
+<span id="cb2034-8"><a href="homework-week-9.html#cb2034-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha_k =</span> <span class="fu">list</span>(<span class="fu">rep</span>(2L, K))</span>
+<span id="cb2034-9"><a href="homework-week-9.html#cb2034-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<pre class="stan"><code>data {
+    // Integers for number of rows, and number of districts
+  int&lt;lower=0&gt; N;
+  int&lt;lower=0&gt; N_district;
+
+  // K categories
+  int K;
+  vector[K] alpha_k;
+
+  // District, contraception and urban, expecting integers of length N
+    int district[N];
+    int contraception[N];
+    int urban[N];
+
+    // Also scale_age, n_children
+    real scale_age[N];
+    int n_children[N];
+}
+parameters {
+    // Alpha and beta urban vectors matching length of number of districts
+    vector[N_district] alpha;
+
+    // Beta urban vector matching length of number of districts
+    vector[N_district] beta;
+
+    // Hyper parameter alpha bar, beta bar
+    real alpha_bar;
+    real beta_bar;
+
+    // scale_age and n_children
+    real beta_scale_age;
+    real beta_children;
+
+    // Correlation matrix, sigma
+    // 2 represents the number of predictors
+    corr_matrix[2] Rho;
+    vector&lt;lower=0&gt;[2] sigma;
+
+    simplex[3] delta;
+}
+model {
+    // p vector matching length of number of districts
+  vector[N] p;
+
+  // Hyper priors: alpha bar, beta urban bar, sigma and Rho
+    alpha_bar ~ normal(0, 1);
+    beta_bar ~ normal(0, 0.5);
+    sigma ~ exponential(1);
+    Rho ~ lkj_corr(2);
+
+    //
+    vector[K] delta_shell;
+    delta ~ dirichlet(alpha_k);
+    delta_shell = append_row(0, delta);
+
+    // Multivariate normal
+  {
+      vector[2] YY[N_district];
+      vector[2] MU;
+      MU = [alpha_bar, beta_bar]&#39;;
+      for (j in 1:N_district) {
+        YY[j] = [alpha[j], beta[j]]&#39;;
+      }
+      YY ~ multi_normal(MU, quad_form_diag(Rho, sigma));
+  }
+
+  // Beta scale_age prior
+    beta_scale_age ~ normal(0, 1.5);
+    beta_children ~ normal(0, 1.5);
+
+    // For each for in data, alpha and beta for that row&#39;s district
+  for (i in 1:N) {
+    p[i] = inv_logit(alpha[district[i]] + beta[district[i]] * urban[i] + beta_scale_age * scale_age[i] + beta_children * sum(delta_shell[1:n_children[i]]) * n_children[i]);
+  }
+
+  // Contraception if distributed with bernoulli, p
+  contraception ~ bernoulli(p);
+}</code></pre>
+<div class="sourceCode" id="cb2036"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2036-1"><a href="homework-week-9.html#cb2036-1" aria-hidden="true" tabindex="-1"></a><span class="co"># model_q3_stan &lt;- &#39;model_q3.stan&#39;</span></span>
+<span id="cb2036-2"><a href="homework-week-9.html#cb2036-2" aria-hidden="true" tabindex="-1"></a><span class="co"># writeLines(readLines(model_q3_stan))</span></span>
+<span id="cb2036-3"><a href="homework-week-9.html#cb2036-3" aria-hidden="true" tabindex="-1"></a><span class="co"># model_q3 &lt;- cmdstan_model(model_q3_stan, cpp_options = list(stan_threads = TRUE))</span></span>
+<span id="cb2036-4"><a href="homework-week-9.html#cb2036-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2036-5"><a href="homework-week-9.html#cb2036-5" aria-hidden="true" tabindex="-1"></a>model_q3_sample <span class="ot">&lt;-</span></span>
+<span id="cb2036-6"><a href="homework-week-9.html#cb2036-6" aria-hidden="true" tabindex="-1"></a>    model_q3<span class="sc">$</span><span class="fu">sample</span>(</span>
+<span id="cb2036-7"><a href="homework-week-9.html#cb2036-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> model_data,</span>
+<span id="cb2036-8"><a href="homework-week-9.html#cb2036-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">chains =</span> <span class="dv">4</span>,</span>
+<span id="cb2036-9"><a href="homework-week-9.html#cb2036-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">parallel_chains =</span> <span class="dv">4</span>,</span>
+<span id="cb2036-10"><a href="homework-week-9.html#cb2036-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">threads_per_chain =</span> <span class="dv">4</span>,</span>
+<span id="cb2036-11"><a href="homework-week-9.html#cb2036-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">refresh =</span> <span class="dv">0</span></span>
+<span id="cb2036-12"><a href="homework-week-9.html#cb2036-12" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
+<pre><code>## Warning: &#39;threads_per_chain&#39; is set but the model was not compiled with
+## &#39;cpp_options = list(stan_threads = TRUE)&#39; so &#39;threads_per_chain&#39; will have no
+## effect!</code></pre>
+<pre><code>## Running MCMC with 4 parallel chains...</code></pre>
+<pre><code>## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 1 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/RtmpRmpGn5/model-376d4c14c45.stan&#39;, line 49, column 1 to column 19)</code></pre>
+<pre><code>## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 1</code></pre>
+<pre><code>## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 1 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/RtmpRmpGn5/model-376d4c14c45.stan&#39;, line 49, column 1 to column 19)</code></pre>
+<pre><code>## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 1</code></pre>
+<pre><code>## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 1 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/RtmpRmpGn5/model-376d4c14c45.stan&#39;, line 49, column 1 to column 19)</code></pre>
+<pre><code>## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 1</code></pre>
+<pre><code>## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 1 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/RtmpRmpGn5/model-376d4c14c45.stan&#39;, line 49, column 1 to column 19)</code></pre>
+<pre><code>## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 1</code></pre>
+<pre><code>## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 1 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/RtmpRmpGn5/model-376d4c14c45.stan&#39;, line 49, column 1 to column 19)</code></pre>
+<pre><code>## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 1</code></pre>
+<pre><code>## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 1 Exception: multi_normal_lpdf: Covariance matrix is not symmetric. Covariance matrix[1,2] = 4.73505e+10, but Covariance matrix[2,1] = 4.73505e+10 (in &#39;/tmp/RtmpRmpGn5/model-376d4c14c45.stan&#39;, line 64, column 3 to column 53)</code></pre>
+<pre><code>## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 1</code></pre>
+<pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 2 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/RtmpRmpGn5/model-376d4c14c45.stan&#39;, line 49, column 1 to column 19)</code></pre>
+<pre><code>## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 2</code></pre>
+<pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 2 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/RtmpRmpGn5/model-376d4c14c45.stan&#39;, line 49, column 1 to column 19)</code></pre>
+<pre><code>## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 2</code></pre>
+<pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 2 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/RtmpRmpGn5/model-376d4c14c45.stan&#39;, line 49, column 1 to column 19)</code></pre>
+<pre><code>## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 2</code></pre>
+<pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 2 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/RtmpRmpGn5/model-376d4c14c45.stan&#39;, line 49, column 1 to column 19)</code></pre>
+<pre><code>## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 2</code></pre>
+<pre><code>## Chain 3 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 3 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/RtmpRmpGn5/model-376d4c14c45.stan&#39;, line 49, column 1 to column 19)</code></pre>
+<pre><code>## Chain 3 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 3 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 3</code></pre>
+<pre><code>## Chain 3 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 3 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/RtmpRmpGn5/model-376d4c14c45.stan&#39;, line 49, column 1 to column 19)</code></pre>
+<pre><code>## Chain 3 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 3 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 3</code></pre>
+<pre><code>## Chain 4 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 4 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/RtmpRmpGn5/model-376d4c14c45.stan&#39;, line 49, column 1 to column 19)</code></pre>
+<pre><code>## Chain 4 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 4 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 4</code></pre>
+<pre><code>## Chain 4 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 4 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/RtmpRmpGn5/model-376d4c14c45.stan&#39;, line 49, column 1 to column 19)</code></pre>
+<pre><code>## Chain 4 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 4 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 4</code></pre>
+<pre><code>## Chain 4 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 4 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/RtmpRmpGn5/model-376d4c14c45.stan&#39;, line 49, column 1 to column 19)</code></pre>
+<pre><code>## Chain 4 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 4 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 4</code></pre>
+<pre><code>## Chain 4 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 4 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/RtmpRmpGn5/model-376d4c14c45.stan&#39;, line 49, column 1 to column 19)</code></pre>
+<pre><code>## Chain 4 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 4 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 4</code></pre>
+<pre><code>## Chain 4 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
+<pre><code>## Chain 4 Exception: lkj_corr_lpdf: y is not positive definite. (in &#39;/tmp/RtmpRmpGn5/model-376d4c14c45.stan&#39;, line 49, column 1 to column 19)</code></pre>
+<pre><code>## Chain 4 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
+<pre><code>## Chain 4 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
+<pre><code>## Chain 4</code></pre>
+<pre><code>## Chain 3 finished in 31.7 seconds.
+## Chain 2 finished in 33.2 seconds.
+## Chain 1 finished in 34.3 seconds.
+## Chain 4 finished in 33.6 seconds.
+## 
+## All 4 chains finished successfully.
+## Mean chain execution time: 33.2 seconds.
+## Total execution time: 34.7 seconds.</code></pre>
+<div class="sourceCode" id="cb2125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2125-1"><a href="homework-week-9.html#cb2125-1" aria-hidden="true" tabindex="-1"></a>model_q3_draws <span class="ot">&lt;-</span> <span class="fu">cmd_draws</span>(model_q3_sample)</span>
+<span id="cb2125-2"><a href="homework-week-9.html#cb2125-2" aria-hidden="true" tabindex="-1"></a><span class="fu">setDT</span>(model_q3_draws)</span>
+<span id="cb2125-3"><a href="homework-week-9.html#cb2125-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2125-4"><a href="homework-week-9.html#cb2125-4" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(model_q3_draws[, .SD, <span class="at">.SDcols =</span> <span class="fu">patterns</span>(<span class="st">&#39;beta&#39;</span>)])</span></code></pre></div>
+<pre><code>## 60 vector or matrix parameters hidden. Use depth=2 to show them.</code></pre>
+<pre><code>##                 mean    sd  5.5% 94.5%       histogram
+## beta_bar        0.69 0.166  0.43  0.96 ▁▁▁▁▂▅▇▇▅▂▁▁▁▁▁
+## beta_scale_age -0.29 0.073 -0.40 -0.17     ▁▁▁▃▇▇▅▂▁▁▁
+## beta_children   0.34 0.046  0.26  0.41         ▁▁▃▇▅▁▁</code></pre>
+<div class="sourceCode" id="cb2128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2128-1"><a href="homework-week-9.html#cb2128-1" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(model_q3_draws[, .SD, <span class="at">.SDcols =</span> <span class="fu">patterns</span>(<span class="st">&#39;delta&#39;</span>)], <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>##           mean    sd  5.5% 94.5%     histogram
+## delta[1] 0.841 0.077 0.704  0.94 ▁▁▁▁▁▁▁▂▃▅▇▅▁
+## delta[2] 0.103 0.067 0.021  0.23    ▅▇▅▂▁▁▁▁▁▁
+## delta[3] 0.056 0.038 0.011  0.12        ▇▅▁▁▁▁</code></pre>
+<div class="sourceCode" id="cb2130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2130-1"><a href="homework-week-9.html#cb2130-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(model_q3_draws, <span class="at">regex_pars =</span> <span class="st">&#39;delta&#39;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-121-1.png" width="672" /></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="homework-week-8.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="lecture-01.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "lunr",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
