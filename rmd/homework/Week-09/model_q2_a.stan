@@ -8,8 +8,8 @@ data {
 	int contraception[N];
 	int urban[N];
 
-	// Also age
-	real age[N];
+	// Also scale_age
+	real scale_age[N];
 }
 parameters {
 	// Alpha and beta urban vectors matching length of number of districts
@@ -22,8 +22,8 @@ parameters {
 	real alpha_bar;
 	real beta_bar;
 
-	// Age
-	real beta_age;
+	// scale_age
+	real beta_scale_age;
 
 	// Correlation matrix, sigma
 	// 2 represents the number of predictors
@@ -51,12 +51,12 @@ model {
 	  YY ~ multi_normal(MU, quad_form_diag(Rho, sigma));
   }
 
-  // Beta age prior
-	beta_age ~ normal(0, 1.5);
+  // Beta scale_age prior
+	beta_scale_age ~ normal(0, 1.5);
 
 	// For each for in data, alpha and beta for that row's district
   for (i in 1:N) {
-  	p[i] = inv_logit(alpha[district[i]] + beta[district[i]] * urban[i] + beta_age * age[i]);
+  	p[i] = inv_logit(alpha[district[i]] + beta[district[i]] * urban[i] + beta_scale_age * scale_age[i]);
   }
 
   // Contraception if distributed with bernoulli, p
