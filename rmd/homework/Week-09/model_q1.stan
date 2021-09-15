@@ -27,10 +27,6 @@ model {
 	// p vector matching length of number of districts
   vector[N] p;
 
-	// Priors
-  // Alpha is distributed normally
-  alpha ~ normal(alpha_bar, sigma);
-
   // Hyper priors: alpha bar, beta urban bar, sigma and Rho
 	alpha_bar ~ normal(0, 1);
 	beta_urban_bar ~ normal(0, 0.5);
