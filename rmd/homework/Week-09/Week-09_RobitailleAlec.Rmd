@@ -401,15 +401,34 @@ model_data <- c(
 	N = DT[, .N], 
 	K = K,
 	N_district = DT[, uniqueN(district)],
-	alpha = rep(2, K)
+	alpha_k = list(rep(2L, K))
 )
 
 ```
 
 ```{cmdstan, output.var = 'model_q3', cache = TRUE}
+
 ```
+
 ```{r, cache = TRUE}
 # model_q3_stan <- 'model_q3.stan'
 # writeLines(readLines(model_q3_stan))
 # model_q3 <- cmdstan_model(model_q3_stan, cpp_options = list(stan_threads = TRUE))
+
+model_q3_sample <-
+	model_q3$sample(
+		data = model_data,
+		chains = 4,
+		parallel_chains = 4,
+		threads_per_chain = 4,
+		refresh = 0
+	)
+
+model_q3_draws <- cmd_draws(model_q3_sample)
+setDT(model_q3_draws)
+
+precis(model_q3_draws[, .SD, .SDcols = patterns('beta')])
+precis(model_q3_draws[, .SD, .SDcols = patterns('delta')], 3)
+
+mcmc_areas(model_q3_draws, regex_pars = 'delta')
 ```

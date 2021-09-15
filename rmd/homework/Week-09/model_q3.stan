@@ -5,7 +5,7 @@ data {
 
   // K categories
   int K;
-  vector[K-1] alpha_k;
+  vector[K] alpha_k;
 
   // District, contraception and urban, expecting integers of length N
 	int district[N];
