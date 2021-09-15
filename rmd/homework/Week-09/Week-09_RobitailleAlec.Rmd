@@ -108,7 +108,7 @@ mcmc_areas(model_q1_draws, regex_pars = 'Rho')
 precis(model_q1_draws[, .SD, .SDcols = patterns('*bar')])
 precis(model_q1_draws[, .SD, .SDcols = patterns('Rho|sigma')], depth = 3)
 
-
+mcmc_hex(model_q1_draws, regex_pars = '*bar')
 ```
 
 
