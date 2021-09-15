@@ -1235,3 +1235,150 @@ Why are varying effects more accurate than fixed effects?
 - Varying effects - adaptive regularization - partial pooling
 
 
+# Lecture 16
+
+## Multiple clusters
+
+Example: chimpanzees * block 
+
+"cross classified"
+
+Add actor and block intercepts - alpha for each actor, gamma for each block, beta for each treatment
+
+Think of these as an offset
+
+$\alpha_{j} \sim \text{Normal}(\bar{\alpha}, \sigma_{alpha})$
+
+$\gamma{j} \sim \text{Normal}(0, \sigma_{gamma})$
+
+$\bar{\alpha} \sim \text{Normal}(0, 1.5)$
+
+In this example, sigma for actors shows variation in actors, but sigma for blocks is quite small. Why include blocks then? Because while out of sample predictions are quite similar, the block parameters are aggressively regularized. 
+
+Random effects have many definitions. These are statistical *things* used to regularize inference. Doesn't necessarily have to be only things "not fixed by the experimenter".
+
+## Divergent transitions
+
+Tells you something is numerically inefficient about the model. Solution = switch between different ways of writing the same model. 
+
+Each transition is a sample path. Since in real physics energy is conserved, if energy isn't conserved in the physics simulation within the HMM - something went wrong. 
+
+HMC thankfully reports warnings, whereas Gibbs, Metropolis, etc do not (since they are not a physics simulation)
+
+### Solutions for divergent transitions
+
+1. Increase the adapt_delta argument. This results in better step size adaption and, as a consequence, slower exploration. 
+2. Reparameterize the model
+
+Reparameterizing the model takes a "centered" model and transforms it into a "non-centered" model. Even though they are mathematically the same, it helps with sampling. 
+Eg. funnel → gaussian hill
+
+Result is a z-score centered, "non-centered", much easier to sample and yields more effective samples. Chains will also run faster. 
+
+## Posterior predictions with multilevel models
+
+### Same clusters
+
+Proceed as usual
+
+Push samples back through the model (eg. `link` and `sim`)
+
+### New clusters
+
+ "New chimpanzees"
+
+For new population, individual (alpha in above example) parameters are irrelevant 
+
+Three approaches:
+
+1. "Average" actor - the average chimp statistically at the population mean (alpha bar). 
+    1. Alpha = alpha bar. 
+    2. Replace varying intercept samples with 0s so all actors have average intercept row. 
+    3. Use link or directly simulate. 
+2. Marginal actor - sample a number of statistical actors and average over the distribution. 
+    1. Extract samples from sigma actor
+    2. Simulate new varying intercepts 
+    3. Use simulated intercepts to simulate predictions
+3.  Show samples of actors from posterior
+    1. Sample and plot individuals simulated from posterior
+
+Note the effects at the limits are reduced because of ceiling and floor effects of generalized linear models. Eg near 0-1 bounds, the effects will be reduced. 
+
+# Lecture 17
+
+## Varying slopes
+
+Slopes are another feature of the response
+
+Making any parameter into a varying effect
+
+1. Split into vector of parameters by cluster
+2. Define population clusters
+
+Any batch of parameters with exchangeable index values can (*"and probably should"*) be pooled. Exchangeable = unordered labels. 
+
+You could treat slopes as a distinct varying effect, but even better than that - relate intercepts to the slopes directly. Since intercepts and slopes are related in the population/math/geometry, features of these units have a correlation structure. 
+
+### Example - cafes
+
+Cafe visits in morning and afternoone, intercepts: average morning wait, slopes: avg difference between afternoon and morning. 
+
+AAre the slopes and intercepts related? Yes. There is pooling across parameters.
+
+The prior is a 2 dimensional Gaussian. There is a vector of means (average intercept, average slope) and a variance-covariance matrix. 
+
+## Variance covariance matrix
+
+[var covar
+
+covar var]
+
+## Varying slopes model
+
+$W_{i} \sim \text{Normal}(\mu_{i}, \sigma)$
+
+$\mu_{i} = \alpha_{\text{cafe}[i]} + \beta_{\text{cafe}[i}*A_{i}$
+
+[alpha cafe
+
+beta cafe] ~ MVNormal([alpha / beta, S])
+
+Mu i represents the varying intercepts + varying slopes. A i = afternoon/not
+
+Multivariate prior: for each cafe, there's a pair of parameters alpha and beta, distributed with a 2 dimensional normal with averages alpha and beta, and S the covariance matrix. 
+
+R ~ LKJcorr(2)
+
+You can't assign priors independently. 1 dimensional correlations vary between -1 and 1, and with increasing n dimensions, the correlation remains restricted within these limits. Therefore, if 1 is really big, the other is necessarily smaller. 
+
+The LKJcorr has one variable `eta`. `eta` defines how concentrated from the identity matrix. The density is between -1 and 1. eta = 1 represents a pretty much uniform density. eta > 1 has more concentration around 0, more skeptical of extremes. 
+
+## Multidimensional shrinkage
+
+Joint distribution of varying effects pools information across slopes and intercepts. Correlation induces shrinkages across dimensions, increasing accuracy. 
+
+### Example - prosocial chimps, many clusters
+
+4 treatments: partner present/absent, side of table L/R. Can vary by actor and by block. 
+
+$L_{i} \sim \text{Binomial}(1, p_{i})$
+
+$\text{logit}(p_{i}) = \gamma_{\text{treatment}} + \alpha_{\text{actor, treatment}} + \beta_{\text{block, treatment}}$
+
+Mean effect of treatments, each actor in each treatment, each block in each treatment. 
+
+Alpha actor, treatment is a matrix of alpha deviation from mean for each actor by treatment
+
+Beta block, treatment is a matrix of beta deviation from mean for block by treatment
+
+How many parameters is this? 7 individuals * 4 treatments + 6 blocks * 4 treatments + 6 correlations + 4 sigmas = 76 parameters
+
+With shrinkage, number of effective parameters will be much lower. 
+
+### Divergences
+
+Because of divergences (which are more common in these models), we need to use the non-centered versions. 
+
+Simpler to do for univariate models, since we need to factor all parameters out of the prior and into the linear model. How do we factor out a correlation matrix?
+
+Cholesky factor
