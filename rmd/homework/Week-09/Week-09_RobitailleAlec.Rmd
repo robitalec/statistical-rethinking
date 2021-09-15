@@ -103,3 +103,7 @@ model_q1_draws <- cmd_draws(model_q1_sample)
 mcmc_areas(model_q1_draws, regex_pars = 'alpha')
 mcmc_areas(model_q1_draws, regex_pars = 'p\\[')
 ```
+
+
+
+https://mc-stan.org/docs/2_27/stan-users-guide/multivariate-hierarchical-priors-section.html#optimization-through-vectorization
