@@ -13,11 +13,11 @@ parameters {
 	vector[N_district] alpha;
 
 	// Beta urban vector matching length of number of districts
-	vector[N_district] beta_urban;
+	vector[N_district] beta;
 
-	// Hyper parameter alpha bar, beta urban bar
+	// Hyper parameter alpha bar, beta bar
 	real alpha_bar;
-	real beta_urban_bar;
+	real beta_bar;
 
 	// Correlation matrix, sigma
 	// 2 represents the number of predictors
@@ -30,7 +30,7 @@ model {
 
   // Hyper priors: alpha bar, beta urban bar, sigma and Rho
 	alpha_bar ~ normal(0, 1);
-	beta_urban_bar ~ normal(0, 0.5);
+	beta_bar ~ normal(0, 0.5);
 	sigma ~ exponential(1);
 	Rho ~ lkj_corr(2);
 
@@ -38,16 +38,16 @@ model {
   {
 	  vector[2] YY[N_district];
 	  vector[2] MU;
-	  MU = [alpha_bar, beta_urban_bar]';
+	  MU = [alpha_bar, beta_bar]';
 	  for (j in 1:N_district) {
-	  	YY[j] = [alpha[j], beta_urban[j]]';
+	  	YY[j] = [alpha[j], beta[j]]';
 	  }
 	  YY ~ multi_normal(MU, quad_form_diag(Rho, sigma));
   }
 
-	// For each for in data, alpha and beta_urban for that row's district
+	// For each for in data, alpha and beta for that row's district
   for (i in 1:N) {
-  	p[i] = inv_logit(alpha[district[i]] + beta_urban[district[i]] * urban[i]);
+  	p[i] = inv_logit(alpha[district[i]] + beta[district[i]] * urban[i]);
   }
 
   // Contraception if distributed with bernoulli, p
