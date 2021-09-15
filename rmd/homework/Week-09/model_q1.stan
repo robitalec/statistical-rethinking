@@ -20,6 +20,7 @@ parameters {
 	real beta_urban_bar;
 
 	// Correlation matrix, sigma
+	// 2 represents the number of predictors
 	corr_matrix[2] Rho;
 	vector<lower=0>[2] sigma;
 }
