@@ -5,6 +5,7 @@ data {
 
   // K categories
   int K;
+  vector[K-1] alpha_k;
 
   // District, contraception and urban, expecting integers of length N
 	int district[N];
@@ -49,7 +50,7 @@ model {
 
 	//
 	vector[K] delta_shell;
-	delta ~ dirichlet(alpha);
+	delta ~ dirichlet(alpha_k);
 	delta_shell = append_row(0, delta);
 
 	// Multivariate normal
