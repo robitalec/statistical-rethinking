@@ -391,3 +391,17 @@ week we did ordered categories. Education in that example had 8 categories.
 Children here will have fewer (no one in the sample had 8 children). So modify
 the code appropriately. What do you conclude about the causal influence of each
 additional child on use of contraception?
+
+
+```{r}
+K <- DT[, max(living.children)] - 1
+model_data <- c(
+	as.list(DT[, .(contraception, district, urban, scale_age,
+								 n_children = living.children)]),
+	N = DT[, .N], 
+	K = K,
+	N_district = DT[, uniqueN(district)],
+	alpha = rep(2, K)
+)
+
+```
