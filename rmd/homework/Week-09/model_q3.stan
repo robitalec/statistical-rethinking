@@ -11,15 +11,11 @@ data {
 	int contraception[N];
 	int urban[N];
 
-	// Also scale_age, n_children, alpha
+	// Also scale_age, n_children
 	real scale_age[N];
 	int n_children[N];
-	vector[n_children - 1] alpha;
 }
 parameters {
-	// Cutpoints are positions of number of childern along cumulative odds
-	ordered[K] cutpoints;
-
 	// Alpha and beta urban vectors matching length of number of districts
 	vector[N_district] alpha;
 
@@ -38,6 +34,8 @@ parameters {
 	// 2 represents the number of predictors
 	corr_matrix[2] Rho;
 	vector<lower=0>[2] sigma;
+
+	simplex[3] delta;
 }
 model {
 	// p vector matching length of number of districts
@@ -48,6 +46,11 @@ model {
 	beta_bar ~ normal(0, 0.5);
 	sigma ~ exponential(1);
 	Rho ~ lkj_corr(2);
+
+	//
+	vector[K] delta_shell;
+	delta ~ dirichlet(alpha);
+	delta_shell = append_row(0, delta);
 
 	// Multivariate normal
   {
@@ -66,7 +69,7 @@ model {
 
 	// For each for in data, alpha and beta for that row's district
   for (i in 1:N) {
-  	p[i] = inv_logit(alpha[district[i]] + beta[district[i]] * urban[i] + beta_scale_age * scale_age[i] + beta_children * n_children[i]);
+  	p[i] = inv_logit(alpha[district[i]] + beta[district[i]] * urban[i] + beta_scale_age * scale_age[i] + beta_children * sum(delta_shell[1:n_children[i]]) * n_children[i]);
   }
 
   // Contraception if distributed with bernoulli, p
