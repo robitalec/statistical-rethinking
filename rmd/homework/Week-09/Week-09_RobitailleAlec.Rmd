@@ -184,9 +184,9 @@ age and children?
 
 ```{r}
 dag <- dagify(
-  contractive_use ~ age + number_children,
+  contraceptive_use ~ age + number_children,
   age ~ number_children,
-  outcome = 'contractive_use'
+  outcome = 'contraceptive_use'
 )
 
 dag_plot(dag)
