@@ -157,7 +157,7 @@ model_q1_sample <-
 	)
 
 model_q1_draws <- cmd_draws(model_q1_sample)
-
+setDT(model_q1_draws)
 mcmc_areas(model_q1_draws, regex_pars = 'alpha')
 mcmc_areas(model_q1_draws, regex_pars = 'beta')
 mcmc_areas(model_q1_draws, regex_pars = 'bar')
