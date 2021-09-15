@@ -201,3 +201,178 @@ model_data <- c(as.list(DT[, .(contraception, district, urban, scale_age,
 ```
 
 
+```{cmdstan, output.var = 'model_q2_a', cache = TRUE}
+data {
+	// Integers for number of rows, and number of districts
+  int<lower=0> N;
+  int<lower=0> N_district;
+
+  // District, contraception and urban, expecting integers of length N
+	int district[N];
+	int contraception[N];
+	int urban[N];
+
+	// Also age
+	real scale_age[N];
+}
+parameters {
+	// Alpha and beta urban vectors matching length of number of districts
+	vector[N_district] alpha;
+
+	// Beta urban vector matching length of number of districts
+	vector[N_district] beta;
+
+	// Hyper parameter alpha bar, beta bar
+	real alpha_bar;
+	real beta_bar;
+
+	// Age
+	real beta_age;
+
+	// Correlation matrix, sigma
+	// 2 represents the number of predictors
+	corr_matrix[2] Rho;
+	vector<lower=0>[2] sigma;
+}
+model {
+	// p vector matching length of number of districts
+  vector[N] p;
+
+  // Hyper priors: alpha bar, beta urban bar, sigma and Rho
+	alpha_bar ~ normal(0, 1);
+	beta_bar ~ normal(0, 0.5);
+	sigma ~ exponential(1);
+	Rho ~ lkj_corr(2);
+
+	// Multivariate normal
+  {
+	  vector[2] YY[N_district];
+	  vector[2] MU;
+	  MU = [alpha_bar, beta_bar]';
+	  for (j in 1:N_district) {
+	  	YY[j] = [alpha[j], beta[j]]';
+	  }
+	  YY ~ multi_normal(MU, quad_form_diag(Rho, sigma));
+  }
+
+  // Beta age prior
+	beta_age ~ normal(0, 1.5);
+
+	// For each for in data, alpha and beta for that row's district
+  for (i in 1:N) {
+  	p[i] = inv_logit(alpha[district[i]] + beta[district[i]] * urban[i] + beta_age * age[i]);
+  }
+
+  // Contraception if distributed with bernoulli, p
+  contraception ~ bernoulli(p);
+}
+
+```
+
+```{r, cache = TRUE}
+# model_q2_a_stan <- 'model_q2_a.stan'
+# writeLines(readLines(model_q2_a_stan))
+# model_q2_a <- cmdstan_model(model_q2_a_stan, cpp_options = list(stan_threads = TRUE))
+
+model_q2_a_sample <-
+	model_q2_a$sample(
+		data = model_data,
+		chains = 4,
+		parallel_chains = 4,
+		threads_per_chain = 4
+	)
+
+model_q2_a_draws <- cmd_draws(model_q2_a_sample)
+setDT(model_q2_a_draws)
+precis(model_q2_a_draws[, .SD, .SDcols = patterns('beta')])
+```
+
+```{cmdstan, output.var = 'model_q2_b', cache = TRUE}
+data {
+	// Integers for number of rows, and number of districts
+  int<lower=0> N;
+  int<lower=0> N_district;
+
+  // District, contraception and urban, expecting integers of length N
+	int district[N];
+	int contraception[N];
+	int urban[N];
+
+	// Also age and n_children
+	real age[N];
+	int n_children[N];
+}
+parameters {
+	// Alpha and beta urban vectors matching length of number of districts
+	vector[N_district] alpha;
+
+	// Beta urban vector matching length of number of districts
+	vector[N_district] beta;
+
+	// Hyper parameter alpha bar, beta bar
+	real alpha_bar;
+	real beta_bar;
+
+	// Age and n_children
+	real beta_age;
+	real beta_children;
+
+	// Correlation matrix, sigma
+	// 2 represents the number of predictors
+	corr_matrix[2] Rho;
+	vector<lower=0>[2] sigma;
+}
+model {
+	// p vector matching length of number of districts
+  vector[N] p;
+
+  // Hyper priors: alpha bar, beta urban bar, sigma and Rho
+	alpha_bar ~ normal(0, 1);
+	beta_bar ~ normal(0, 0.5);
+	sigma ~ exponential(1);
+	Rho ~ lkj_corr(2);
+
+	// Multivariate normal
+  {
+	  vector[2] YY[N_district];
+	  vector[2] MU;
+	  MU = [alpha_bar, beta_bar]';
+	  for (j in 1:N_district) {
+	  	YY[j] = [alpha[j], beta[j]]';
+	  }
+	  YY ~ multi_normal(MU, quad_form_diag(Rho, sigma));
+  }
+
+  // Beta age prior
+	beta_age ~ normal(0, 1.5);
+	beta_children ~ normal(0, 1.5);
+
+	// For each for in data, alpha and beta for that row's district
+  for (i in 1:N) {
+  	p[i] = inv_logit(alpha[district[i]] + beta[district[i]] * urban[i] + beta_age * age[i] + beta_children * n_children[i]);
+  }
+
+  // Contraception if distributed with bernoulli, p
+  contraception ~ bernoulli(p);
+}
+
+```
+```{r, cache = TRUE}
+# model_q2_b_stan <- 'model_q2_b.stan'
+# writeLines(readLines(model_q2_b_stan))
+# model_q2_b <- cmdstan_model(model_q2_b_stan, cpp_options = list(stan_threads = TRUE))
+
+model_q2_b_sample <-
+	model_q2_b$sample(
+		data = model_data,
+		chains = 4,
+		parallel_chains = 4,
+		threads_per_chain = 4
+	)
+
+model_q2_b_draws <- cmd_draws(model_q2_b_sample)
+
+precis(model_q2_b_draws[, .SD, .SDcols = patterns('beta')])
+
+```
+
