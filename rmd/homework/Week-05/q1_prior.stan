@@ -12,6 +12,6 @@ parameters{
 model{
   sigma ~ exponential(1);
   beta_wine ~ normal(0, 0.5);
-  beta_judge~normal(0, 0.5);
-  alpha~normal(0, 0.2);
+  beta_judge ~ normal(0, 0.5);
+  alpha ~ normal(0, 0.2);
 }
