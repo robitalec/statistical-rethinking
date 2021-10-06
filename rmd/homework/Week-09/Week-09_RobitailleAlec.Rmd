@@ -10,45 +10,7 @@ editor_options:
 
 ```{r, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-library(rethinking)
-options(digits = 2, scipen = 999)
 ```
-
-### Setup
-
-```{r}
-# Packages
-library(ggdag)
-library(dagitty)
-library(data.table)
-library(ggplot2)
-library(rethinking)
-library(cmdstanr)
-library(posterior)
-library(bayesplot)
-library(boot)
-library(loo)
-
-# Functions
-dag_plot <- function(dag) {
-	stat <- node_status(dag, FALSE)
-	stat$data$status[is.na(stat$data$status)] <- 'intermediate'
-	ggplot(stat, aes(x = x, y = y, xend = xend, yend = yend)) +
-	  geom_dag_point(aes(color = status), alpha = 0.5, size = 15) +
-	  geom_dag_edges() +
-		labs(color = '') + 
-	  geom_dag_text(color = 'black') +
-		scale_color_manual(values = list('exposure' = '#35608DFF',
-																		 'outcome' = '#22A884FF',
-																		 'intermediate' = 'grey50')) + 
-	  theme_void()
-}
-
-cmd_draws <- function(model) {
-	as_draws_df(model$draws())
-}
-```
-
 
 ## Question 1
 
