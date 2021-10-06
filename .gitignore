@@ -5,3 +5,4 @@
 _bookdown_files/
 _main.Rmd
 _main_cache/
+stan/compiled/
