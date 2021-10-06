@@ -1,5 +1,5 @@
-
 # (PART) Lectures {-}
+
 # Lecture 01
 
 ### Popper
@@ -1493,4 +1493,17 @@ Result is lower covariance than predicted but much slower decay.
 
 ## Phylogenetic relationship
 
+Phylogenetic relationships are sort of a proxy for unobserved confounds. 
 
+Some ways of incorporating phylogenetic information into a GLM:
+
+* Brownian motion model (PGLS)
+* Ornstein-Uhlenbeck (OU) processes
+* ...
+
+All use a covariance matrix to represent phylogeny and are in principle a
+gaussian process regression
+
+### Example: primaryes
+
+Body size -> 
