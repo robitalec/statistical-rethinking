@@ -17,8 +17,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ### Data
 ```{r}
-data(reedfrogs)
-DT <- data.table(reedfrogs)
+DT <- data_reedfrogs()
 precis(DT)
 ```
 
@@ -252,13 +251,8 @@ each woman resided in (2) use.contraception: An indicator (0/1) of whether the
 woman was using contraception. 
 
 ```{r}
-data(bangladesh)
-DT <- data.table(bangladesh)
+DT <- data_bangladesh()
 precis(DT)
-
-DT[, id := as.integer(woman)]
-DT[, district := as.integer(as.factor(district))]
-DT[, contraception := use.contraception]
 
 model_data <- c(as.list(DT[, .(contraception, district)]), 
 								N = DT[, .N], N_district = DT[, uniqueN(district)])
@@ -392,7 +386,6 @@ mcmc_areas(model_bang_multi_draws, pars = c('alpha_bar', 'sigma'))
 Comparison
 
 ```{r}
-library(patchwork)
 (mcmc_areas(model_bang_fixed_draws, regex_pars = 'alpha', transformations = inv.logit) + labs(title = 'fixed')) + 
 	(mcmc_areas(model_bang_multi_draws, regex_pars = 'alpha\\[', transformations = inv.logit) + labs(title = 'multilevel'))
 
@@ -426,8 +419,7 @@ intercepts model and a model that ignores individuals, using both WAIC/LOO and
 posterior predictions. What is the impact of individual variation in these data?
 
 ```{r}
-data(Trolley)
-DT <- data.table(Trolley)
+DT <- data_trolley()
 precis(DT)
 
 model_data <- c(
@@ -501,8 +493,6 @@ model_trolley_loo <- model_trolley_sample$loo()
 
 
 ```{r}
-DT[, individual := as.integer(factor(id))]
-
 model_data <- c(
 	as.list(DT[, .(response, action, intention, contact, individual)]), 
 	N = DT[, .N],
