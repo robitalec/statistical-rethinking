@@ -1,4 +1,5 @@
 library(targets)
+library(stantargets)
 
 library(bookdown)
 
