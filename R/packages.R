@@ -7,6 +7,11 @@ library(data.table)
 
 library(rethinking)
 library(tidybayes)
+library(cmdstanr)
+library(posterior)
+library(bayesplot)
+library(boot)
+library(loo)
 
 library(ggdag)
 library(dagitty)
