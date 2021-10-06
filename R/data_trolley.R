@@ -3,4 +3,5 @@ data_trolley <- function() {
 	DT <- data.table(Trolley)
 
 	DT[, education := as.integer(edu_levels[edu])]
+	DT[, individual := as.integer(factor(id))]
 }
