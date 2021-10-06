@@ -29,11 +29,10 @@ answer the question.
 ### Data
 
 ```{r}
-data(NWOGrants)
-setDT(NWOGrants)
+DT <- data_grants()
 
-precis(NWOGrants)
-summary(NWOGrants)
+precis(DT)
+summary(DT)
 ```
 
 * Discipline: factor with 9 levels
@@ -43,14 +42,11 @@ summary(NWOGrants)
 
 
 ```{r}
-NWOGrants[, index_gender := .GRP, gender]
-NWOGrants[, index_discipline := .GRP, discipline]
-
 q1_data <- c(
-	as.list(NWOGrants[, .(awards, applications, index_gender, index_discipline)]),
-	N = NWOGrants[, .N],
-	N_gender = NWOGrants[, uniqueN(index_gender)],
-	N_discipline = NWOGrants[, uniqueN(index_discipline)]
+	as.list(DT[, .(awards, applications, index_gender, index_discipline)]),
+	N = DT[, .N],
+	N_gender = DT[, uniqueN(index_gender)],
+	N_discipline = DT[, uniqueN(index_discipline)]
 )
 ```
 
