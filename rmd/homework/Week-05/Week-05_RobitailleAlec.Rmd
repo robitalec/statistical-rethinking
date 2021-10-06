@@ -27,13 +27,7 @@ variation among judges and wines. Construct index variables of judge and wine
 and then use these index variables to construct a linear regression model.
 
 ```{r}
-data("Wines2012")
-
-DT <- data.table(Wines2012)
-
-DT[, scale_score := scale(score)]
-DT[, index_judge := .GRP, judge]
-DT[, index_wine := .GRP, wine]
+DT <- data_wines()
 
 n_index_judge <- DT[, uniqueN(index_judge)]
 n_index_wine <- DT[, uniqueN(index_wine)]
@@ -173,10 +167,7 @@ and be sure to check the chains.
 
 ### Data
 ```{r}
-DT[, scale_score := scale(score)]
-DT[, index_flight := .GRP, flight]
-DT[, index_wine_american := .GRP, wine.amer]
-DT[, index_judge_american := .GRP, judge.amer]
+DT <- data_wines()
 
 n_index_flight <- DT[, uniqueN(flight)]
 n_index_wine_american <- DT[, uniqueN(index_wine_american)]
@@ -331,7 +322,7 @@ to the individual judge and wine inferences from Problem 1?
 ### Data
 
 ```{r}
-DT[, index_interactions := .GRP, .(judge.amer, wine.amer, flight)]
+DT <- data_wines()
 n_index_interactions <- DT[, uniqueN(index_interactions)]
 
 q3_data <- c(
