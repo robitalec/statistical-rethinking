@@ -3,7 +3,7 @@ title: "Learning bayesian data analysis with Statistical Rethinking"
 author: "Alec L. Robitaille"
 date: "2021-08-18 [updated: `r Sys.Date()`]"
 output:
-  bookdown::gitbook: default
+  bookdown::bs4_book: default
 documentclass: book
 ---
 
