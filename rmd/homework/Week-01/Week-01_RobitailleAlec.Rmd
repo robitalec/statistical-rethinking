@@ -5,10 +5,9 @@ output: github_document
 
 ```{r, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-library(rethinking)
 ```
 
-# (PART) Homeworks {-}
+# (PART) Homework {-}
 
 # Homework: Week 1
 2021-08-18 [updated: `r Sys.Date()`]
