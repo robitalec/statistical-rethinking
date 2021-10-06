@@ -4,6 +4,8 @@ library(stantargets)
 library(bookdown)
 
 library(ggplot2)
+library(patchwork)
+
 library(data.table)
 
 library(rethinking)
