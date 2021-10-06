@@ -8,6 +8,8 @@ knitr::opts_chunk$set(echo = TRUE)
 library(rethinking)
 ```
 
+# (PART) Homeworks {-}
+
 # Homework: Week 1
 2021-08-18 [updated: `r Sys.Date()`]
 
