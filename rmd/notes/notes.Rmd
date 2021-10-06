@@ -1382,3 +1382,113 @@ Because of divergences (which are more common in these models), we need to use t
 Simpler to do for univariate models, since we need to factor all parameters out of the prior and into the linear model. How do we factor out a correlation matrix?
 
 Cholesky factor
+
+
+# Lecture 18
+
+## Centering/non-centered
+
+* not always one or the other that is better in all situations
+* use the reparameterized version if modeling is inefficient
+* check if the number of effective parameters increases after
+
+## Multilevel horoscopes
+
+1. Think about causal model first
+1. Draw the DAG
+1. Begin with "empty" model with varying intercepts on relevant clusters
+1. Standardize predictors
+1. Use regularizing priors + prior predictive simulation
+1. Add in predictors and vary their slopes
+1. Possibly drop varying effects with tiny sigmas
+1. Consider two kinds of posterior prediction
+	* same units: "what happened in this data?"
+	* new units: "what might we expect in new units?"
+	
+## Other covariance structures
+
+* Instrumental variables
+* Social relations model (covariance in behaviour among nodes)
+* Factor analysis
+* Animal model, heritability of phenotype
+* Phylogenetic regressions
+* Spatial autocorrelation
+
+## Instrumental variables
+
+Recall: adding variables can introduce confounds, so we use
+the back door criterion to determine which to include and which
+may introduce confounds. 
+
+Sometimes the back door says there is no way to shut it. 
+
+For example, E->W, U->E, U->W, where U is some unobserved confound
+
+U is a confound, but U is unmeasured
+
+Solution: an instrument that influences the exposure but not the outcome
+
+Q->E->W, U->E, U->W
+
+Where Q in this case, is the quarter of the year someone is born in. E is
+education, W is wage. Quarter influences 1) when you start school and 2) when you
+are allowed to quit school, since Q is the calendar year and not biological age.
+
+In this example, the confounds are not likely related to quarter, and therefore
+quarter is a valid instrument. 
+
+* this makes E into a collider
+* U generates a correlation between E, W
+* Q tells us something about deviation in E, separate from the E, W correlation from U
+
+Instrumental variables are also called "natural experiments" in biology. 
+
+They can be limited. They depend greatly on the DAG, and it is hard to find
+a plausible instrument. Instruments with weak effects are not very useful. 
+
+## Social relationoso models
+
+Example: giving and receiving rates
+
+How to disentangle dyadic offsets, general giving, general receiving rates, etc.
+
+Use multiple covariance matrices. 2x2 giving + receiving, 2x2 dij + dji (paired
+dyad offsets). dij != dji because one may give more than the other. 
+
+# Lecture 19
+
+## Gaussian process regression: continuous categories
+
+Traditional clusters are discrete, unordered. Every category is equally different
+from all others. 
+
+But take, for example, income. There is no reason that every increase or 
+decrease in 1 dollar should be equivalently weighted. Other examples include
+age, phylogenetic distance, social network distance, etc. There are no 
+obvious cut points, but we know that similar values are more similar. 
+
+Gaussian process regression considers infite numbers of categories. (Need pooling)
+
+### Example: spatial autocorrelation of oceanic tool complexity and population size
+
+1. Construct a distance matrix of distances between the islands. We could improve 
+this by considering sailing distance for example. 
+1. Recall the model: tool complexity is distributed as poisson. Innovation rate, 
+population size, rate of diminishing returns and loss rate. 
+1. To add a Gaussian process, add a factor k in front for each population
+	* k=0, exactly as expected by model
+	* k=-0.5, 60% (exp(-0.5) = 0.6)
+	* k=-0.5, 130% (exp(0.25) = 1.3)
+4. Gaussian process prior: multivariate gaussian 10x10 covariance (distance in this case)
+5. Modelling covariance: covariance between islands i and j is the max covariance 
+multiplied by the rate of decline with distance and the squared distance, added to the
+variance within self (also called a jitter function so multiple observations of the 
+same island have a different covariance). This is the Gaussian, the bell curve.
+6. Linear (Dij) vs squared (Dij^2). Linear assumes that the rate of decline 
+if fastest at the start. Usually not true so we assume a squared term., 
+
+Result is lower covariance than predicted but much slower decay. 
+
+## Phylogenetic relationship
+
+
