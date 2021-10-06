@@ -10,14 +10,12 @@ editor_options:
 
 ```{r, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-library(rethinking)
 ```
 
 ### Data
 
 ```{r}
-data(Trolley)
-DT <- data.table(Trolley)
+DT <- data_trolley()
 precis(DT)
 ```
 
@@ -229,7 +227,6 @@ model {
 # model2 <- cmdstan_model(model2_stan, cpp_options = list(stan_threads = TRUE))
 
 edu_levels <- c(6, 1, 8, 4, 7, 2, 5, 3)
-DT[, education := as.integer(edu_levels[edu])]
 
 model_data <- c(
 	as.list(DT[, .(response, action, intention, contact, education)]), 
@@ -343,7 +340,6 @@ model {
 # model2_age <- cmdstan_model(model2_age_stan, cpp_options = list(stan_threads = TRUE))
 
 edu_levels <- c(6, 1, 8, 4, 7, 2, 5, 3)
-DT[, education := as.integer(edu_levels[edu])]
 
 model_data <- c(
 	as.list(DT[, .(response, action, intention, contact, education, age = as.numeric(scale(age)))]), 
@@ -457,7 +453,7 @@ model {
 # model2_gender <- cmdstan_model(model2_gender_stan, cpp_options = list(stan_threads = TRUE))
 
 edu_levels <- c(6, 1, 8, 4, 7, 2, 5, 3)
-DT[, education := as.integer(edu_levels[edu])]
+
 model_data <- c(
 	as.list(DT[, .(response, action, intention, contact, education, age = as.numeric(scale(age)), gender = ifelse(male == 1, 0, 1))]), 
 	N = DT[, .N],
