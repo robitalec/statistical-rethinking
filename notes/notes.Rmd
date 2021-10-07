@@ -1273,7 +1273,7 @@ HMC thankfully reports warnings, whereas Gibbs, Metropolis, etc do not (since th
 2. Reparameterize the model
 
 Reparameterizing the model takes a "centered" model and transforms it into a "non-centered" model. Even though they are mathematically the same, it helps with sampling. 
-Eg. funnel → gaussian hill
+Eg. funnel → Gaussian hill
 
 Result is a z-score centered, "non-centered", much easier to sample and yields more effective samples. Chains will also run faster. 
 
@@ -1323,9 +1323,9 @@ You could treat slopes as a distinct varying effect, but even better than that -
 
 ### Example - cafes
 
-Cafe visits in morning and afternoone, intercepts: average morning wait, slopes: avg difference between afternoon and morning. 
+Cafe visits in morning and afternoon, intercepts: average morning wait, slopes: avg difference between afternoon and morning. 
 
-AAre the slopes and intercepts related? Yes. There is pooling across parameters.
+Are the slopes and intercepts related? Yes. There is pooling across parameters.
 
 The prior is a 2 dimensional Gaussian. There is a vector of means (average intercept, average slope) and a variance-covariance matrix. 
 
@@ -1381,7 +1381,7 @@ With shrinkage, number of effective parameters will be much lower.
 
 Because of divergences (which are more common in these models), we need to use the non-centered versions. 
 
-Simpler to do for univariate models, since we need to factor all parameters out of the prior and into the linear model. How do we factor out a correlation matrix?
+Simpler to do for uni variate models, since we need to factor all parameters out of the prior and into the linear model. How do we factor out a correlation matrix?
 
 Cholesky factor
 
@@ -1469,7 +1469,7 @@ decrease in 1 dollar should be equivalently weighted. Other examples include
 age, phylogenetic distance, social network distance, etc. There are no 
 obvious cut points, but we know that similar values are more similar. 
 
-Gaussian process regression considers infite numbers of categories. (Need pooling)
+Gaussian process regression considers infinite numbers of categories. (Need pooling)
 
 ### Example: spatial autocorrelation of oceanic tool complexity and population size
 
@@ -1481,7 +1481,7 @@ population size, rate of diminishing returns and loss rate.
 	* k=0, exactly as expected by model
 	* k=-0.5, 60% (exp(-0.5) = 0.6)
 	* k=-0.5, 130% (exp(0.25) = 1.3)
-4. Gaussian process prior: multivariate gaussian 10x10 covariance (distance in this case)
+4. Gaussian process prior: multivariate Gaussian 10x10 covariance (distance in this case)
 5. Modelling covariance: covariance between islands i and j is the max covariance 
 multiplied by the rate of decline with distance and the squared distance, added to the
 variance within self (also called a jitter function so multiple observations of the 
@@ -1502,7 +1502,7 @@ Some ways of incorporating phylogenetic information into a GLM:
 * ...
 
 All use a covariance matrix to represent phylogeny and are in principle a
-gaussian process regression
+Gaussian process regression
 
 ### Example: primates
 
