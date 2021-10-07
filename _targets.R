@@ -103,8 +103,8 @@ targets_stan <- c(
 # Targets: render ---------------------------------------------------------
 targets_render <- c(
 	tar_render(
-		render_w05,
-		'rmd/homework/Week-05/Week-05_RobitailleAlec.Rmd'
+		render_w06,
+		'rmd/homework/Week-06/Week-06_RobitailleAlec.Rmd'
 	)
 )
 
