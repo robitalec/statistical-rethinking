@@ -18,6 +18,8 @@ options(mc.cores = 2,
 				digits = 2)
 
 
+compiled_dir <- file.path('stan', 'compiled')
+output_stan_dir <- file.path('output', 'stan')
 
 # Data --------------------------------------------------------------------
 # TODO: also include N, Nindex etc

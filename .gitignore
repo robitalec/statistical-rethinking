@@ -7,3 +7,4 @@ _main.Rmd
 _main_cache/
 stan/compiled/
 _targets/
+output/stan/
