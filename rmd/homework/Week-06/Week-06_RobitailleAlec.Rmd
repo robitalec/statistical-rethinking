@@ -63,42 +63,14 @@ dag_plot(dag)
 ```
 
 ### Priors
-```{r}
-register_knitr_engine(override = FALSE)
-```
-
-```{cmdstan, output.var = 'q1_prior'}
-data {
-  int<lower=0> N;
-  int<lower=0> N_gender;
-  int<lower=0> N_discipline;
-}
-parameters{
-  real alpha;
-  vector[N_gender] beta_gender;
-  vector[N_discipline] beta_discipline;
-  real<lower=0> sigma;
-  real<lower=0,upper=1> theta;
-}
-model{
-  alpha ~ normal(0, 0.2);
-  beta_gender ~ normal(0, 0.25);
-  beta_discipline ~ normal(0, 0.25);
-  sigma ~ exponential(1);
-  theta ~ beta(1, 1);
-}
-```
 
 ```{r}
-# q1_stan <- 'q1_prior.stan'
-# writeLines(readLines(q1_stan))
-# q1_prior <- cmdstan_model(q1_stan)
+writeLines(readLines(tar_read(stan_b_file_w06_q1_prior)))
+```
 
-q1_prior_sample <- q1_prior$sample(data = q1_data[c('N',
-																										'N_gender',
-																										'N_discipline')])
 
-q1_prior_draws <- cmd_draws(q1_prior_sample)
+```{r}
+q1_prior_draws <- tar_read(stan_b_mcmc_w06_q1_prior)$draws()
 
 mcmc_areas(q1_prior_draws, regex_pars = 'theta')
 mcmc_areas(q1_prior_draws, regex_pars = 'sigma')
@@ -107,34 +79,14 @@ mcmc_areas(q1_prior_draws, regex_pars = 'beta_discipline')
 ```
 
 ### Model
-```{cmdstan, output.var = 'q1_model'}
-data {
-  int<lower=0> N;
-  int<lower=0> N_gender;
-  int awards[N];
-  int applications [N];
-  int index_gender[N];
-}
-parameters{
-  vector[N_gender] alpha;
-}
-model{
-  vector[N] p;
-  alpha ~ normal(-1, 1);
-
-  p = inv_logit(alpha[index_gender]);
-  awards ~ binomial(applications, p);
-}
-```
 
 ```{r}
-# q1_stan <- 'q1.stan'
-# writeLines(readLines(q1_stan))
-# q1_model <- cmdstan_model(q1_stan)
+writeLines(readLines(tar_read(stan_b_file_w06_q1)))
+```
 
-q1_sample <- q1_model$sample(data = q1_data)
 
-q1_draws <- cmd_draws(q1_sample)
+```{r}
+q1_draws <- tar_read(stan_b_mcmc_w06_q1)$draws()
 
 mcmc_areas(q1_draws, regex_pars = 'alpha')
 
@@ -145,41 +97,17 @@ mcmc_areas(q1_draws, regex_pars = 'dif_alpha')
 
 With discipline
 
-```{cmdstan, output.var = 'q1_model_discipline'}
-data {
-  int<lower=0> N;
-  int<lower=0> N_gender;
-  int<lower=0> N_discipline;
-  int awards[N];
-  int applications [N];
-  int index_gender[N];
-  int index_discipline[N];
-}
-parameters{
-  vector[N_gender] alpha;
-  vector[N_discipline] beta;
-}
-model{
-  vector[N] p;
-  alpha ~ normal(-1, 1);
-  beta ~ normal(0, 0.25);
-
-  p = inv_logit(alpha[index_gender] + beta[index_discipline]);
-  awards ~ binomial(applications, p);
-}
-```
 
 ```{r}
-# q1_stan <- 'q1_discipline.stan'
-# writeLines(readLines(q1_stan))
-# q1_model_discipline <- cmdstan_model(q1_stan)
+writeLines(readLines(tar_read(stan_b_file_w06_q1_discipline)))
+```
 
-q1_sample <- q1_model_discipline$sample(data = q1_data)
 
-q1_draws <- cmd_draws(q1_sample)
+```{r}
+q1_discipline_draws <- tar_read(stan_b_mcmc_w06_q1_discipline)$draws()
 
-mcmc_areas(q1_draws, regex_pars = 'alpha')
-mcmc_areas(q1_draws, regex_pars = 'beta')
+mcmc_areas(q1_discipline_draws, regex_pars = 'alpha')
+mcmc_areas(q1_discipline_draws, regex_pars = 'beta')
 
 # Need to account for base rates to look at absolute rate
 # q1_draws$dif_alpha <- (inv.logit(q1_draws$`alpha[1]`) -
@@ -187,8 +115,8 @@ mcmc_areas(q1_draws, regex_pars = 'beta')
 # mcmc_areas(q1_draws, regex_pars = 'dif_alpha')
 
 # We can look at relative rates though
-q1_draws$dif_alpha_rel <- q1_draws$`alpha[1]` - q1_draws$`alpha[2]`
-mcmc_areas(q1_draws, regex_pars = 'dif_alpha_rel')
+q1_discipline_draws$dif_alpha_rel <- q1_discipline_draws$`alpha[1]` - q1_discipline_draws$`alpha[2]`
+mcmc_areas(q1_discipline_draws, regex_pars = 'dif_alpha_rel')
 ```
 
 > What is your causal interpretation? If NWO’s goal is to equalize rates of
