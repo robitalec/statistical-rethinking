@@ -5,6 +5,7 @@ date: "2021-08-18 [updated: `r Sys.Date()`]"
 output:
   # TODO: bookdown::bs4_book: default
   bookdown::gitbook: default
+bibliography: [book.bib, packages.bib]
 documentclass: book
 ---
 
