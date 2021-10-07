@@ -4,7 +4,7 @@ data_reedfrogs <- function() {
 }
 
 data_reedfrogs_list <- function() {
-	DT <- data_trolley()
+	DT <- data_reedfrogs()
 
 	c(
 		as.list(DT[, .(
