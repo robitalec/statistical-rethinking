@@ -1,713 +1,143 @@
 <!DOCTYPE html>
-<html lang="" xml:lang="">
+<html lang="en">
 <head>
-
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>6 Homework: Week 5 | Learning bayesian data analysis with Statistical Rethinking</title>
-  <meta name="description" content="6 Homework: Week 5 | Learning bayesian data analysis with Statistical Rethinking" />
-  <meta name="generator" content="bookdown 0.22.15 and GitBook 2.6.7" />
-
-  <meta property="og:title" content="6 Homework: Week 5 | Learning bayesian data analysis with Statistical Rethinking" />
-  <meta property="og:type" content="book" />
-  
-  
-  
-  
-
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="6 Homework: Week 5 | Learning bayesian data analysis with Statistical Rethinking" />
-  
-  
-  
-
-<meta name="author" content="Alec L. Robitaille" />
-
-
-
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-  
-  
-<link rel="prev" href="homework-week-4.html"/>
-<link rel="next" href="homework-week-6.html"/>
-<script src="libs/header-attrs-2.9.5/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
-<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
-
-
-
-
-
-
-
-
-
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
-
-
-<style type="text/css">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-</style>
-
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>6 Homework: Week 5 | Learning bayesian data analysis with Statistical Rethinking</title>
+<meta name="author" content="Alec L. Robitaille">
+<meta name="generator" content="bookdown 0.24.1 with bs4_book()">
+<meta property="og:title" content="6 Homework: Week 5 | Learning bayesian data analysis with Statistical Rethinking">
+<meta property="og:type" content="book">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="6 Homework: Week 5 | Learning bayesian data analysis with Statistical Rethinking">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11.3/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><meta name="description" content="2021-09-03 [updated: 2021-10-07]  6.1 Question 1  Consider the data(Wines2012) data table. These data are expert ratings of 20 different French and American wines by 9 different French and...">
+<meta property="og:description" content="2021-09-03 [updated: 2021-10-07]  6.1 Question 1  Consider the data(Wines2012) data table. These data are expert ratings of 20 different French and American wines by 9 different French and...">
+<meta name="twitter:description" content="2021-09-03 [updated: 2021-10-07]  6.1 Question 1  Consider the data(Wines2012) data table. These data are expert ratings of 20 different French and American wines by 9 different French and...">
 </head>
+<body data-spy="scroll" data-target="#toc">
 
-<body>
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
 
-
-
-  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
-
-    <div class="book-summary">
-      <nav role="navigation">
-
-<ul class="summary">
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Overview</a>
-<ul>
-<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#links"><i class="fa fa-check"></i><b>1.1</b> Links</a>
-<ul>
-<li class="chapter" data-level="1.1.1" data-path="index.html"><a href="index.html#adaptations"><i class="fa fa-check"></i><b>1.1.1</b> Adaptations</a></li>
-<li class="chapter" data-level="1.1.2" data-path="index.html"><a href="index.html#etc"><i class="fa fa-check"></i><b>1.1.2</b> Etc</a></li>
-</ul></li>
-<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#seed"><i class="fa fa-check"></i><b>1.2</b> Seed</a></li>
-</ul></li>
-<li class="chapter" data-level="2" data-path="homework-week-1.html"><a href="homework-week-1.html"><i class="fa fa-check"></i><b>2</b> Homework: Week 1</a>
-<ul>
-<li class="chapter" data-level="2.1" data-path="homework-week-1.html"><a href="homework-week-1.html#variables"><i class="fa fa-check"></i><b>2.1</b> Variables</a></li>
-<li class="chapter" data-level="2.2" data-path="homework-week-1.html"><a href="homework-week-1.html#joint-model"><i class="fa fa-check"></i><b>2.2</b> Joint model</a></li>
-<li class="chapter" data-level="2.3" data-path="homework-week-1.html"><a href="homework-week-1.html#question-1"><i class="fa fa-check"></i><b>2.3</b> Question 1</a></li>
-<li class="chapter" data-level="2.4" data-path="homework-week-1.html"><a href="homework-week-1.html#question-2"><i class="fa fa-check"></i><b>2.4</b> Question 2</a></li>
-<li class="chapter" data-level="2.5" data-path="homework-week-1.html"><a href="homework-week-1.html#question-3"><i class="fa fa-check"></i><b>2.5</b> Question 3</a></li>
-</ul></li>
-<li class="chapter" data-level="3" data-path="homework-week-2.html"><a href="homework-week-2.html"><i class="fa fa-check"></i><b>3</b> Homework: Week 2</a>
-<ul>
-<li class="chapter" data-level="3.1" data-path="homework-week-2.html"><a href="homework-week-2.html#question-1-1"><i class="fa fa-check"></i><b>3.1</b> Question 1</a></li>
-<li class="chapter" data-level="3.2" data-path="homework-week-2.html"><a href="homework-week-2.html#question-2-1"><i class="fa fa-check"></i><b>3.2</b> Question 2</a></li>
-<li class="chapter" data-level="3.3" data-path="homework-week-2.html"><a href="homework-week-2.html#question-3-1"><i class="fa fa-check"></i><b>3.3</b> Question 3</a></li>
-</ul></li>
-<li class="chapter" data-level="4" data-path="homework-week-3.html"><a href="homework-week-3.html"><i class="fa fa-check"></i><b>4</b> Homework: Week 3</a>
-<ul>
-<li class="chapter" data-level="4.1" data-path="homework-week-3.html"><a href="homework-week-3.html#overview-1"><i class="fa fa-check"></i><b>4.1</b> Overview</a>
-<ul>
-<li class="chapter" data-level="4.1.1" data-path="homework-week-3.html"><a href="homework-week-3.html#setup"><i class="fa fa-check"></i><b>4.1.1</b> Setup</a></li>
-</ul></li>
-<li class="chapter" data-level="4.2" data-path="homework-week-3.html"><a href="homework-week-3.html#question-1-2"><i class="fa fa-check"></i><b>4.2</b> Question 1</a>
-<ul>
-<li class="chapter" data-level="4.2.1" data-path="homework-week-3.html"><a href="homework-week-3.html#workings"><i class="fa fa-check"></i><b>4.2.1</b> Workings</a></li>
-<li class="chapter" data-level="4.2.2" data-path="homework-week-3.html"><a href="homework-week-3.html#model"><i class="fa fa-check"></i><b>4.2.2</b> Model</a></li>
-<li class="chapter" data-level="4.2.3" data-path="homework-week-3.html"><a href="homework-week-3.html#prior-predictive-simulation"><i class="fa fa-check"></i><b>4.2.3</b> Prior predictive simulation</a></li>
-<li class="chapter" data-level="4.2.4" data-path="homework-week-3.html"><a href="homework-week-3.html#paths"><i class="fa fa-check"></i><b>4.2.4</b> Paths</a></li>
-<li class="chapter" data-level="4.2.5" data-path="homework-week-3.html"><a href="homework-week-3.html#interpretation"><i class="fa fa-check"></i><b>4.2.5</b> Interpretation</a></li>
-</ul></li>
-<li class="chapter" data-level="4.3" data-path="homework-week-3.html"><a href="homework-week-3.html#question-2-2"><i class="fa fa-check"></i><b>4.3</b> Question 2</a>
-<ul>
-<li class="chapter" data-level="4.3.1" data-path="homework-week-3.html"><a href="homework-week-3.html#paths-1"><i class="fa fa-check"></i><b>4.3.1</b> Paths</a></li>
-<li class="chapter" data-level="4.3.2" data-path="homework-week-3.html"><a href="homework-week-3.html#model-1"><i class="fa fa-check"></i><b>4.3.2</b> Model</a></li>
-<li class="chapter" data-level="4.3.3" data-path="homework-week-3.html"><a href="homework-week-3.html#interpretation-1"><i class="fa fa-check"></i><b>4.3.3</b> Interpretation</a></li>
-</ul></li>
-<li class="chapter" data-level="4.4" data-path="homework-week-3.html"><a href="homework-week-3.html#question-3-2"><i class="fa fa-check"></i><b>4.4</b> Question 3</a>
-<ul>
-<li class="chapter" data-level="4.4.1" data-path="homework-week-3.html"><a href="homework-week-3.html#paths-2"><i class="fa fa-check"></i><b>4.4.1</b> Paths</a></li>
-<li class="chapter" data-level="4.4.2" data-path="homework-week-3.html"><a href="homework-week-3.html#interpretation-2"><i class="fa fa-check"></i><b>4.4.2</b> Interpretation</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="homework-week-4.html"><a href="homework-week-4.html"><i class="fa fa-check"></i><b>5</b> Homework: Week 4</a>
-<ul>
-<li class="chapter" data-level="5.0.1" data-path="homework-week-4.html"><a href="homework-week-4.html#setup-1"><i class="fa fa-check"></i><b>5.0.1</b> Setup</a></li>
-<li class="chapter" data-level="5.1" data-path="homework-week-4.html"><a href="homework-week-4.html#question-1-3"><i class="fa fa-check"></i><b>5.1</b> Question 1</a></li>
-<li class="chapter" data-level="5.2" data-path="homework-week-4.html"><a href="homework-week-4.html#question-2-3"><i class="fa fa-check"></i><b>5.2</b> Question 2</a>
-<ul>
-<li class="chapter" data-level="5.2.1" data-path="homework-week-4.html"><a href="homework-week-4.html#dag"><i class="fa fa-check"></i><b>5.2.1</b> DAG</a></li>
-<li class="chapter" data-level="5.2.2" data-path="homework-week-4.html"><a href="homework-week-4.html#data"><i class="fa fa-check"></i><b>5.2.2</b> Data</a></li>
-<li class="chapter" data-level="5.2.3" data-path="homework-week-4.html"><a href="homework-week-4.html#models"><i class="fa fa-check"></i><b>5.2.3</b> Models</a></li>
-<li class="chapter" data-level="5.2.4" data-path="homework-week-4.html"><a href="homework-week-4.html#interpretation-3"><i class="fa fa-check"></i><b>5.2.4</b> Interpretation</a></li>
-</ul></li>
-<li class="chapter" data-level="5.3" data-path="homework-week-4.html"><a href="homework-week-4.html#question-3-3"><i class="fa fa-check"></i><b>5.3</b> Question 3</a>
-<ul>
-<li class="chapter" data-level="5.3.1" data-path="homework-week-4.html"><a href="homework-week-4.html#data-1"><i class="fa fa-check"></i><b>5.3.1</b> Data</a></li>
-<li class="chapter" data-level="5.3.2" data-path="homework-week-4.html"><a href="homework-week-4.html#models-1"><i class="fa fa-check"></i><b>5.3.2</b> Models</a></li>
-<li class="chapter" data-level="5.3.3" data-path="homework-week-4.html"><a href="homework-week-4.html#dag-1"><i class="fa fa-check"></i><b>5.3.3</b> DAG</a></li>
-<li class="chapter" data-level="5.3.4" data-path="homework-week-4.html"><a href="homework-week-4.html#interpretation-4"><i class="fa fa-check"></i><b>5.3.4</b> Interpretation</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="homework-week-5.html"><a href="homework-week-5.html"><i class="fa fa-check"></i><b>6</b> Homework: Week 5</a>
-<ul>
-<li class="chapter" data-level="6.0.1" data-path="homework-week-5.html"><a href="homework-week-5.html#setup-2"><i class="fa fa-check"></i><b>6.0.1</b> Setup</a></li>
-<li class="chapter" data-level="6.1" data-path="homework-week-5.html"><a href="homework-week-5.html#question-1-4"><i class="fa fa-check"></i><b>6.1</b> Question 1</a>
-<ul>
-<li class="chapter" data-level="6.1.1" data-path="homework-week-5.html"><a href="homework-week-5.html#data-2"><i class="fa fa-check"></i><b>6.1.1</b> Data</a></li>
-<li class="chapter" data-level="6.1.2" data-path="homework-week-5.html"><a href="homework-week-5.html#prior-predictive-simulation-1"><i class="fa fa-check"></i><b>6.1.2</b> Prior predictive simulation</a></li>
-<li class="chapter" data-level="6.1.3" data-path="homework-week-5.html"><a href="homework-week-5.html#model-2"><i class="fa fa-check"></i><b>6.1.3</b> Model</a></li>
-</ul></li>
-<li class="chapter" data-level="6.2" data-path="homework-week-5.html"><a href="homework-week-5.html#question-2-4"><i class="fa fa-check"></i><b>6.2</b> Question 2</a>
-<ul>
-<li class="chapter" data-level="6.2.1" data-path="homework-week-5.html"><a href="homework-week-5.html#data-3"><i class="fa fa-check"></i><b>6.2.1</b> Data</a></li>
-<li class="chapter" data-level="6.2.2" data-path="homework-week-5.html"><a href="homework-week-5.html#priors"><i class="fa fa-check"></i><b>6.2.2</b> Priors</a></li>
-<li class="chapter" data-level="6.2.3" data-path="homework-week-5.html"><a href="homework-week-5.html#model-3"><i class="fa fa-check"></i><b>6.2.3</b> Model</a></li>
-</ul></li>
-<li class="chapter" data-level="6.3" data-path="homework-week-5.html"><a href="homework-week-5.html#question-3-4"><i class="fa fa-check"></i><b>6.3</b> Question 3</a>
-<ul>
-<li class="chapter" data-level="6.3.1" data-path="homework-week-5.html"><a href="homework-week-5.html#data-4"><i class="fa fa-check"></i><b>6.3.1</b> Data</a></li>
-<li class="chapter" data-level="6.3.2" data-path="homework-week-5.html"><a href="homework-week-5.html#model-4"><i class="fa fa-check"></i><b>6.3.2</b> Model</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="7" data-path="homework-week-6.html"><a href="homework-week-6.html"><i class="fa fa-check"></i><b>7</b> Homework: Week 6</a>
-<ul>
-<li class="chapter" data-level="7.0.1" data-path="homework-week-6.html"><a href="homework-week-6.html#setup-3"><i class="fa fa-check"></i><b>7.0.1</b> Setup</a></li>
-<li class="chapter" data-level="7.1" data-path="homework-week-6.html"><a href="homework-week-6.html#question-1-5"><i class="fa fa-check"></i><b>7.1</b> Question 1</a>
-<ul>
-<li class="chapter" data-level="7.1.1" data-path="homework-week-6.html"><a href="homework-week-6.html#data-5"><i class="fa fa-check"></i><b>7.1.1</b> Data</a></li>
-<li class="chapter" data-level="7.1.2" data-path="homework-week-6.html"><a href="homework-week-6.html#dag-2"><i class="fa fa-check"></i><b>7.1.2</b> DAG</a></li>
-<li class="chapter" data-level="7.1.3" data-path="homework-week-6.html"><a href="homework-week-6.html#priors-1"><i class="fa fa-check"></i><b>7.1.3</b> Priors</a></li>
-<li class="chapter" data-level="7.1.4" data-path="homework-week-6.html"><a href="homework-week-6.html#model-5"><i class="fa fa-check"></i><b>7.1.4</b> Model</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="8" data-path="homework-week-7.html"><a href="homework-week-7.html"><i class="fa fa-check"></i><b>8</b> Homework: Week 7</a>
-<ul>
-<li class="chapter" data-level="8.0.1" data-path="homework-week-7.html"><a href="homework-week-7.html#setup-4"><i class="fa fa-check"></i><b>8.0.1</b> Setup</a></li>
-<li class="chapter" data-level="8.0.2" data-path="homework-week-7.html"><a href="homework-week-7.html#data-6"><i class="fa fa-check"></i><b>8.0.2</b> Data</a></li>
-<li class="chapter" data-level="8.0.3" data-path="homework-week-7.html"><a href="homework-week-7.html#model-ordered-categorical-outcome"><i class="fa fa-check"></i><b>8.0.3</b> Model: ordered categorical outcome</a></li>
-<li class="chapter" data-level="8.0.4" data-path="homework-week-7.html"><a href="homework-week-7.html#model-ordered-categorical-predictors"><i class="fa fa-check"></i><b>8.0.4</b> Model: ordered categorical predictors</a></li>
-<li class="chapter" data-level="8.1" data-path="homework-week-7.html"><a href="homework-week-7.html#question-1-6"><i class="fa fa-check"></i><b>8.1</b> Question 1</a></li>
-<li class="chapter" data-level="8.2" data-path="homework-week-7.html"><a href="homework-week-7.html#question-2-5"><i class="fa fa-check"></i><b>8.2</b> Question 2</a></li>
-</ul></li>
-<li class="chapter" data-level="9" data-path="homework-week-8.html"><a href="homework-week-8.html"><i class="fa fa-check"></i><b>9</b> Homework: Week 8</a>
-<ul>
-<li class="chapter" data-level="9.0.1" data-path="homework-week-8.html"><a href="homework-week-8.html#setup-5"><i class="fa fa-check"></i><b>9.0.1</b> Setup</a></li>
-<li class="chapter" data-level="9.1" data-path="homework-week-8.html"><a href="homework-week-8.html#question-1-7"><i class="fa fa-check"></i><b>9.1</b> Question 1</a>
-<ul>
-<li class="chapter" data-level="9.1.1" data-path="homework-week-8.html"><a href="homework-week-8.html#data-7"><i class="fa fa-check"></i><b>9.1.1</b> Data</a></li>
-</ul></li>
-<li class="chapter" data-level="9.2" data-path="homework-week-8.html"><a href="homework-week-8.html#question-2-6"><i class="fa fa-check"></i><b>9.2</b> Question 2</a></li>
-<li class="chapter" data-level="9.3" data-path="homework-week-8.html"><a href="homework-week-8.html#question-3-5"><i class="fa fa-check"></i><b>9.3</b> Question 3</a></li>
-</ul></li>
-<li class="chapter" data-level="10" data-path="homework-week-9.html"><a href="homework-week-9.html"><i class="fa fa-check"></i><b>10</b> Homework: Week 9</a>
-<ul>
-<li class="chapter" data-level="10.0.1" data-path="homework-week-9.html"><a href="homework-week-9.html#setup-6"><i class="fa fa-check"></i><b>10.0.1</b> Setup</a></li>
-<li class="chapter" data-level="10.1" data-path="homework-week-9.html"><a href="homework-week-9.html#question-1-8"><i class="fa fa-check"></i><b>10.1</b> Question 1</a></li>
-<li class="chapter" data-level="10.2" data-path="homework-week-9.html"><a href="homework-week-9.html#question-2-7"><i class="fa fa-check"></i><b>10.2</b> Question 2</a></li>
-<li class="chapter" data-level="10.3" data-path="homework-week-9.html"><a href="homework-week-9.html#question-3-6"><i class="fa fa-check"></i><b>10.3</b> Question 3</a></li>
-</ul></li>
-<li class="chapter" data-level="11" data-path="lecture-01.html"><a href="lecture-01.html"><i class="fa fa-check"></i><b>11</b> Lecture 01</a>
-<ul>
-<li class="chapter" data-level="11.0.1" data-path="lecture-01.html"><a href="lecture-01.html#popper"><i class="fa fa-check"></i><b>11.0.1</b> Popper</a></li>
-<li class="chapter" data-level="11.0.2" data-path="lecture-01.html"><a href="lecture-01.html#approach"><i class="fa fa-check"></i><b>11.0.2</b> Approach</a></li>
-<li class="chapter" data-level="11.1" data-path="lecture-01.html"><a href="lecture-01.html#hypotheses---process-models---statistical-models"><i class="fa fa-check"></i><b>11.1</b> Hypotheses - Process Models - Statistical Models</a></li>
-<li class="chapter" data-level="11.2" data-path="lecture-01.html"><a href="lecture-01.html#small-world-large-world"><i class="fa fa-check"></i><b>11.2</b> Small world / large world</a></li>
-<li class="chapter" data-level="11.3" data-path="lecture-01.html"><a href="lecture-01.html#example-four-marbles"><i class="fa fa-check"></i><b>11.3</b> Example: four marbles</a></li>
-<li class="chapter" data-level="11.4" data-path="lecture-01.html"><a href="lecture-01.html#building-a-model"><i class="fa fa-check"></i><b>11.4</b> Building a model</a></li>
-</ul></li>
-<li class="chapter" data-level="12" data-path="lecture-02.html"><a href="lecture-02.html"><i class="fa fa-check"></i><b>12</b> Lecture 02</a>
-<ul>
-<li class="chapter" data-level="12.1" data-path="lecture-02.html"><a href="lecture-02.html#joint-prior-distribution"><i class="fa fa-check"></i><b>12.1</b> Joint prior distribution</a></li>
-<li class="chapter" data-level="12.2" data-path="lecture-02.html"><a href="lecture-02.html#example-inflatable-world"><i class="fa fa-check"></i><b>12.2</b> Example: inflatable world</a>
-<ul>
-<li class="chapter" data-level="12.2.1" data-path="lecture-02.html"><a href="lecture-02.html#design-the-model"><i class="fa fa-check"></i><b>12.2.1</b> <strong>Design the model</strong></a></li>
-<li class="chapter" data-level="12.2.2" data-path="lecture-02.html"><a href="lecture-02.html#condition"><i class="fa fa-check"></i><b>12.2.2</b> <strong>Condition</strong></a></li>
-<li class="chapter" data-level="12.2.3" data-path="lecture-02.html"><a href="lecture-02.html#evaluate"><i class="fa fa-check"></i><b>12.2.3</b> <strong>Evaluate</strong></a></li>
-<li class="chapter" data-level="12.2.4" data-path="lecture-02.html"><a href="lecture-02.html#define-parameters"><i class="fa fa-check"></i><b>12.2.4</b> Define parameters</a></li>
-<li class="chapter" data-level="12.2.5" data-path="lecture-02.html"><a href="lecture-02.html#joint-model-1"><i class="fa fa-check"></i><b>12.2.5</b> Joint model</a></li>
-<li class="chapter" data-level="12.2.6" data-path="lecture-02.html"><a href="lecture-02.html#posterior"><i class="fa fa-check"></i><b>12.2.6</b> Posterior</a></li>
-</ul></li>
-<li class="chapter" data-level="12.3" data-path="lecture-02.html"><a href="lecture-02.html#grid-approximation"><i class="fa fa-check"></i><b>12.3</b> Grid approximation</a>
-<ul>
-<li class="chapter" data-level="12.3.1" data-path="lecture-02.html"><a href="lecture-02.html#sampling-from-the-posterior"><i class="fa fa-check"></i><b>12.3.1</b> Sampling from the posterior</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="13" data-path="lecture-03.html"><a href="lecture-03.html"><i class="fa fa-check"></i><b>13</b> Lecture 03</a>
-<ul>
-<li class="chapter" data-level="13.1" data-path="lecture-03.html"><a href="lecture-03.html#regressions"><i class="fa fa-check"></i><b>13.1</b> Regressions</a></li>
-<li class="chapter" data-level="13.2" data-path="lecture-03.html"><a href="lecture-03.html#normal-distributions"><i class="fa fa-check"></i><b>13.2</b> Normal distributions</a></li>
-<li class="chapter" data-level="13.3" data-path="lecture-03.html"><a href="lecture-03.html#prior-predictive-distributions"><i class="fa fa-check"></i><b>13.3</b> Prior predictive distributions</a></li>
-<li class="chapter" data-level="13.4" data-path="lecture-03.html"><a href="lecture-03.html#quadratic-approximate"><i class="fa fa-check"></i><b>13.4</b> Quadratic approximate</a></li>
-<li class="chapter" data-level="13.5" data-path="lecture-03.html"><a href="lecture-03.html#centering-variables"><i class="fa fa-check"></i><b>13.5</b> Centering variables</a></li>
-</ul></li>
-<li class="chapter" data-level="14" data-path="lecture-04.html"><a href="lecture-04.html"><i class="fa fa-check"></i><b>14</b> Lecture 04</a>
-<ul>
-<li class="chapter" data-level="14.1" data-path="lecture-04.html"><a href="lecture-04.html#standardizing-variables"><i class="fa fa-check"></i><b>14.1</b> Standardizing variables</a></li>
-<li class="chapter" data-level="14.2" data-path="lecture-04.html"><a href="lecture-04.html#plotting-uncertainty---sample-from-posterior"><i class="fa fa-check"></i><b>14.2</b> Plotting uncertainty - sample from posterior</a></li>
-<li class="chapter" data-level="14.3" data-path="lecture-04.html"><a href="lecture-04.html#polynomials"><i class="fa fa-check"></i><b>14.3</b> Polynomials</a></li>
-<li class="chapter" data-level="14.4" data-path="lecture-04.html"><a href="lecture-04.html#splines"><i class="fa fa-check"></i><b>14.4</b> Splines</a></li>
-<li class="chapter" data-level="14.5" data-path="lecture-04.html"><a href="lecture-04.html#basis-splines"><i class="fa fa-check"></i><b>14.5</b> Basis splines</a>
-<ul>
-<li class="chapter" data-level="14.5.1" data-path="lecture-04.html"><a href="lecture-04.html#recipe"><i class="fa fa-check"></i><b>14.5.1</b> Recipe</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="15" data-path="lecture-05.html"><a href="lecture-05.html"><i class="fa fa-check"></i><b>15</b> Lecture 05</a>
-<ul>
-<li class="chapter" data-level="15.1" data-path="lecture-05.html"><a href="lecture-05.html#multiple-regression-models"><i class="fa fa-check"></i><b>15.1</b> Multiple regression models</a></li>
-<li class="chapter" data-level="15.2" data-path="lecture-05.html"><a href="lecture-05.html#directed-acyclic-graphs-dag"><i class="fa fa-check"></i><b>15.2</b> Directed acyclic graphs (DAG)</a></li>
-<li class="chapter" data-level="15.3" data-path="lecture-05.html"><a href="lecture-05.html#example-age-marriage-divorce"><i class="fa fa-check"></i><b>15.3</b> Example: Age, marriage, divorce</a>
-<ul>
-<li class="chapter" data-level="15.3.1" data-path="lecture-05.html"><a href="lecture-05.html#priors-2"><i class="fa fa-check"></i><b>15.3.1</b> Priors</a></li>
-<li class="chapter" data-level="15.3.2" data-path="lecture-05.html"><a href="lecture-05.html#prior-predictive-simulation-2"><i class="fa fa-check"></i><b>15.3.2</b> Prior predictive simulation</a></li>
-<li class="chapter" data-level="15.3.3" data-path="lecture-05.html"><a href="lecture-05.html#interpretation-5"><i class="fa fa-check"></i><b>15.3.3</b> Interpretation</a></li>
-</ul></li>
-<li class="chapter" data-level="15.4" data-path="lecture-05.html"><a href="lecture-05.html#plotting-multivariate-posteriors"><i class="fa fa-check"></i><b>15.4</b> Plotting multivariate posteriors</a>
-<ul>
-<li class="chapter" data-level="15.4.1" data-path="lecture-05.html"><a href="lecture-05.html#posterior-predictive-checks"><i class="fa fa-check"></i><b>15.4.1</b> Posterior predictive checks</a></li>
-</ul></li>
-<li class="chapter" data-level="15.5" data-path="lecture-05.html"><a href="lecture-05.html#reveal-masked-associations"><i class="fa fa-check"></i><b>15.5</b> Reveal masked associations</a></li>
-<li class="chapter" data-level="15.6" data-path="lecture-05.html"><a href="lecture-05.html#categorical-variables"><i class="fa fa-check"></i><b>15.6</b> Categorical variables</a>
-<ul>
-<li class="chapter" data-level="15.6.1" data-path="lecture-05.html"><a href="lecture-05.html#dummy-variable"><i class="fa fa-check"></i><b>15.6.1</b> Dummy variable</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="16" data-path="lecture-06.html"><a href="lecture-06.html"><i class="fa fa-check"></i><b>16</b> Lecture 06</a>
-<ul>
-<li class="chapter" data-level="16.1" data-path="lecture-06.html"><a href="lecture-06.html#index-variable"><i class="fa fa-check"></i><b>16.1</b> Index variable</a></li>
-<li class="chapter" data-level="16.2" data-path="lecture-06.html"><a href="lecture-06.html#four-elemental-confounds"><i class="fa fa-check"></i><b>16.2</b> Four elemental confounds</a>
-<ul>
-<li class="chapter" data-level="16.2.1" data-path="lecture-06.html"><a href="lecture-06.html#notes"><i class="fa fa-check"></i><b>16.2.1</b> Notes</a></li>
-<li class="chapter" data-level="16.2.2" data-path="lecture-06.html"><a href="lecture-06.html#the-fork"><i class="fa fa-check"></i><b>16.2.2</b> The fork</a></li>
-<li class="chapter" data-level="16.2.3" data-path="lecture-06.html"><a href="lecture-06.html#the-path"><i class="fa fa-check"></i><b>16.2.3</b> The path</a></li>
-<li class="chapter" data-level="16.2.4" data-path="lecture-06.html"><a href="lecture-06.html#the-collider"><i class="fa fa-check"></i><b>16.2.4</b> The collider</a></li>
-<li class="chapter" data-level="16.2.5" data-path="lecture-06.html"><a href="lecture-06.html#steps"><i class="fa fa-check"></i><b>16.2.5</b> Steps</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="17" data-path="lecture-07.html"><a href="lecture-07.html"><i class="fa fa-check"></i><b>17</b> Lecture 07</a>
-<ul>
-<li class="chapter" data-level="17.1" data-path="lecture-07.html"><a href="lecture-07.html#four-elemental-confounds-continued"><i class="fa fa-check"></i><b>17.1</b> Four elemental confounds (continued)</a>
-<ul>
-<li class="chapter" data-level="17.1.1" data-path="lecture-07.html"><a href="lecture-07.html#unobserved-variables"><i class="fa fa-check"></i><b>17.1.1</b> Unobserved variables</a></li>
-</ul></li>
-<li class="chapter" data-level="17.2" data-path="lecture-07.html"><a href="lecture-07.html#over-fitting"><i class="fa fa-check"></i><b>17.2</b> Over fitting</a></li>
-<li class="chapter" data-level="17.3" data-path="lecture-07.html"><a href="lecture-07.html#measuring-model-fit"><i class="fa fa-check"></i><b>17.3</b> Measuring model fit</a>
-<ul>
-<li class="chapter" data-level="17.3.1" data-path="lecture-07.html"><a href="lecture-07.html#r-squared"><i class="fa fa-check"></i><b>17.3.1</b> R squared</a></li>
-</ul></li>
-<li class="chapter" data-level="17.4" data-path="lecture-07.html"><a href="lecture-07.html#obtaining-the-regular-features"><i class="fa fa-check"></i><b>17.4</b> Obtaining the regular features</a></li>
-</ul></li>
-<li class="chapter" data-level="18" data-path="lecture-08.html"><a href="lecture-08.html"><i class="fa fa-check"></i><b>18</b> Lecture 08</a>
-<ul>
-<li class="chapter" data-level="18.1" data-path="lecture-08.html"><a href="lecture-08.html#information-theory"><i class="fa fa-check"></i><b>18.1</b> Information theory</a></li>
-<li class="chapter" data-level="18.2" data-path="lecture-08.html"><a href="lecture-08.html#divergence"><i class="fa fa-check"></i><b>18.2</b> Divergence</a></li>
-<li class="chapter" data-level="18.3" data-path="lecture-08.html"><a href="lecture-08.html#estimating-divergence"><i class="fa fa-check"></i><b>18.3</b> Estimating divergence</a>
-<ul>
-<li class="chapter" data-level="18.3.1" data-path="lecture-08.html"><a href="lecture-08.html#log-pointwise-predictive-density"><i class="fa fa-check"></i><b>18.3.1</b> Log pointwise predictive density</a></li>
-<li class="chapter" data-level="18.3.2" data-path="lecture-08.html"><a href="lecture-08.html#deviance"><i class="fa fa-check"></i><b>18.3.2</b> Deviance</a></li>
-</ul></li>
-<li class="chapter" data-level="18.4" data-path="lecture-08.html"><a href="lecture-08.html#regularization"><i class="fa fa-check"></i><b>18.4</b> Regularization</a></li>
-<li class="chapter" data-level="18.5" data-path="lecture-08.html"><a href="lecture-08.html#cross-validation"><i class="fa fa-check"></i><b>18.5</b> Cross validation</a>
-<ul>
-<li class="chapter" data-level="18.5.1" data-path="lecture-08.html"><a href="lecture-08.html#loo"><i class="fa fa-check"></i><b>18.5.1</b> LOO</a></li>
-</ul></li>
-<li class="chapter" data-level="18.6" data-path="lecture-08.html"><a href="lecture-08.html#information-criteria"><i class="fa fa-check"></i><b>18.6</b> Information criteria</a>
-<ul>
-<li class="chapter" data-level="18.6.1" data-path="lecture-08.html"><a href="lecture-08.html#waic"><i class="fa fa-check"></i><b>18.6.1</b> WAIC</a></li>
-<li class="chapter" data-level="18.6.2" data-path="lecture-08.html"><a href="lecture-08.html#standard-error"><i class="fa fa-check"></i><b>18.6.2</b> Standard error</a></li>
-</ul></li>
-<li class="chapter" data-level="18.7" data-path="lecture-08.html"><a href="lecture-08.html#model-selection"><i class="fa fa-check"></i><b>18.7</b> Model selection</a></li>
-<li class="chapter" data-level="18.8" data-path="lecture-08.html"><a href="lecture-08.html#model-comparison"><i class="fa fa-check"></i><b>18.8</b> Model comparison</a>
-<ul>
-<li class="chapter" data-level="18.8.1" data-path="lecture-08.html"><a href="lecture-08.html#example-1-model-mis-selection-using-waic"><i class="fa fa-check"></i><b>18.8.1</b> Example 1: model mis-selection using WAIC</a></li>
-<li class="chapter" data-level="18.8.2" data-path="lecture-08.html"><a href="lecture-08.html#example-2-primate-lifetime"><i class="fa fa-check"></i><b>18.8.2</b> Example 2: primate lifetime</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="19" data-path="lecture-09.html"><a href="lecture-09.html"><i class="fa fa-check"></i><b>19</b> Lecture 09</a>
-<ul>
-<li class="chapter" data-level="19.1" data-path="lecture-09.html"><a href="lecture-09.html#conditioning"><i class="fa fa-check"></i><b>19.1</b> Conditioning</a>
-<ul>
-<li class="chapter" data-level="19.1.1" data-path="lecture-09.html"><a href="lecture-09.html#example-ruggedness"><i class="fa fa-check"></i><b>19.1.1</b> Example: ruggedness</a></li>
-<li class="chapter" data-level="19.1.2" data-path="lecture-09.html"><a href="lecture-09.html#example-tulips"><i class="fa fa-check"></i><b>19.1.2</b> Example: tulips</a></li>
-</ul></li>
-<li class="chapter" data-level="19.2" data-path="lecture-09.html"><a href="lecture-09.html#interpreting-interactions"><i class="fa fa-check"></i><b>19.2</b> Interpreting interactions</a></li>
-<li class="chapter" data-level="19.3" data-path="lecture-09.html"><a href="lecture-09.html#plotting-interactions"><i class="fa fa-check"></i><b>19.3</b> Plotting interactions</a>
-<ul>
-<li class="chapter" data-level="19.3.1" data-path="lecture-09.html"><a href="lecture-09.html#higher-order-interactions"><i class="fa fa-check"></i><b>19.3.1</b> Higher order interactions</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="20" data-path="lecture-10.html"><a href="lecture-10.html"><i class="fa fa-check"></i><b>20</b> Lecture 10</a>
-<ul>
-<li class="chapter" data-level="20.1" data-path="lecture-10.html"><a href="lecture-10.html#markov-chain-monte-carlo"><i class="fa fa-check"></i><b>20.1</b> Markov Chain Monte Carlo</a>
-<ul>
-<li class="chapter" data-level="20.1.1" data-path="lecture-10.html"><a href="lecture-10.html#metropolis-algorithm"><i class="fa fa-check"></i><b>20.1.1</b> Metropolis algorithm</a></li>
-<li class="chapter" data-level="20.1.2" data-path="lecture-10.html"><a href="lecture-10.html#metropolis-hastings"><i class="fa fa-check"></i><b>20.1.2</b> Metropolis Hastings</a></li>
-<li class="chapter" data-level="20.1.3" data-path="lecture-10.html"><a href="lecture-10.html#gibbs-sampling"><i class="fa fa-check"></i><b>20.1.3</b> Gibbs sampling</a></li>
-<li class="chapter" data-level="20.1.4" data-path="lecture-10.html"><a href="lecture-10.html#hamiltonian-monte-carlo"><i class="fa fa-check"></i><b>20.1.4</b> Hamiltonian Monte Carlo</a></li>
-<li class="chapter" data-level="20.1.5" data-path="lecture-10.html"><a href="lecture-10.html#tuning-mcmc"><i class="fa fa-check"></i><b>20.1.5</b> Tuning MCMC</a></li>
-<li class="chapter" data-level="20.1.6" data-path="lecture-10.html"><a href="lecture-10.html#stan"><i class="fa fa-check"></i><b>20.1.6</b> Stan</a></li>
-<li class="chapter" data-level="20.1.7" data-path="lecture-10.html"><a href="lecture-10.html#ulam"><i class="fa fa-check"></i><b>20.1.7</b> ulam</a></li>
-<li class="chapter" data-level="20.1.8" data-path="lecture-10.html"><a href="lecture-10.html#diagnosis"><i class="fa fa-check"></i><b>20.1.8</b> Diagnosis</a></li>
-<li class="chapter" data-level="20.1.9" data-path="lecture-10.html"><a href="lecture-10.html#checking-the-chain"><i class="fa fa-check"></i><b>20.1.9</b> Checking the chain</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="21" data-path="lecture-11.html"><a href="lecture-11.html"><i class="fa fa-check"></i><b>21</b> Lecture 11</a>
-<ul>
-<li class="chapter" data-level="21.1" data-path="lecture-11.html"><a href="lecture-11.html#maximum-entropy"><i class="fa fa-check"></i><b>21.1</b> Maximum entropy</a>
-<ul>
-<li class="chapter" data-level="21.1.1" data-path="lecture-11.html"><a href="lecture-11.html#distributions"><i class="fa fa-check"></i><b>21.1.1</b> Distributions</a></li>
-</ul></li>
-<li class="chapter" data-level="21.2" data-path="lecture-11.html"><a href="lecture-11.html#generalized-linear-model"><i class="fa fa-check"></i><b>21.2</b> Generalized linear model</a>
-<ul>
-<li class="chapter" data-level="21.2.1" data-path="lecture-11.html"><a href="lecture-11.html#picking-a-distribution"><i class="fa fa-check"></i><b>21.2.1</b> Picking a distribution</a></li>
-<li class="chapter" data-level="21.2.2" data-path="lecture-11.html"><a href="lecture-11.html#types-of-outcomes"><i class="fa fa-check"></i><b>21.2.2</b> Types of outcomes</a></li>
-<li class="chapter" data-level="21.2.3" data-path="lecture-11.html"><a href="lecture-11.html#model-parameters-with-a-link-function"><i class="fa fa-check"></i><b>21.2.3</b> Model parameters with a link function</a></li>
-</ul></li>
-<li class="chapter" data-level="21.3" data-path="lecture-11.html"><a href="lecture-11.html#binomial-distribution"><i class="fa fa-check"></i><b>21.3</b> Binomial distribution</a>
-<ul>
-<li class="chapter" data-level="21.3.1" data-path="lecture-11.html"><a href="lecture-11.html#link"><i class="fa fa-check"></i><b>21.3.1</b> Link</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="22" data-path="lecture-12.html"><a href="lecture-12.html"><i class="fa fa-check"></i><b>22</b> Lecture 12</a>
-<ul>
-<li class="chapter" data-level="22.1" data-path="lecture-12.html"><a href="lecture-12.html#relative-and-absolute-effects"><i class="fa fa-check"></i><b>22.1</b> Relative and absolute effects</a></li>
-<li class="chapter" data-level="22.2" data-path="lecture-12.html"><a href="lecture-12.html#logistic-regression"><i class="fa fa-check"></i><b>22.2</b> Logistic regression</a></li>
-<li class="chapter" data-level="22.3" data-path="lecture-12.html"><a href="lecture-12.html#simpsons-paradox"><i class="fa fa-check"></i><b>22.3</b> Simpsons paradox</a></li>
-</ul></li>
-<li class="chapter" data-level="23" data-path="lecture-13.html"><a href="lecture-13.html"><i class="fa fa-check"></i><b>23</b> Lecture 13</a>
-<ul>
-<li class="chapter" data-level="23.1" data-path="lecture-13.html"><a href="lecture-13.html#binomial"><i class="fa fa-check"></i><b>23.1</b> Binomial</a></li>
-<li class="chapter" data-level="23.2" data-path="lecture-13.html"><a href="lecture-13.html#poisson"><i class="fa fa-check"></i><b>23.2</b> Poisson</a></li>
-<li class="chapter" data-level="23.3" data-path="lecture-13.html"><a href="lecture-13.html#generalized-linear-madness"><i class="fa fa-check"></i><b>23.3</b> Generalized linear madness</a></li>
-<li class="chapter" data-level="23.4" data-path="lecture-13.html"><a href="lecture-13.html#scientific-model"><i class="fa fa-check"></i><b>23.4</b> Scientific model</a></li>
-<li class="chapter" data-level="23.5" data-path="lecture-13.html"><a href="lecture-13.html#survival-analysis"><i class="fa fa-check"></i><b>23.5</b> Survival analysis</a></li>
-<li class="chapter" data-level="23.6" data-path="lecture-13.html"><a href="lecture-13.html#monsters"><i class="fa fa-check"></i><b>23.6</b> Monsters</a></li>
-<li class="chapter" data-level="23.7" data-path="lecture-13.html"><a href="lecture-13.html#mixtures"><i class="fa fa-check"></i><b>23.7</b> Mixtures</a></li>
-</ul></li>
-<li class="chapter" data-level="24" data-path="lecture-14.html"><a href="lecture-14.html"><i class="fa fa-check"></i><b>24</b> Lecture 14</a>
-<ul>
-<li class="chapter" data-level="24.1" data-path="lecture-14.html"><a href="lecture-14.html#ordered-categories"><i class="fa fa-check"></i><b>24.1</b> Ordered categories</a></li>
-</ul></li>
-<li class="chapter" data-level="25" data-path="lecture-15.html"><a href="lecture-15.html"><i class="fa fa-check"></i><b>25</b> Lecture 15</a>
-<ul>
-<li class="chapter" data-level="25.1" data-path="lecture-15.html"><a href="lecture-15.html#multilevel-models"><i class="fa fa-check"></i><b>25.1</b> Multilevel models</a></li>
-<li class="chapter" data-level="25.2" data-path="lecture-15.html"><a href="lecture-15.html#varying-intercepts"><i class="fa fa-check"></i><b>25.2</b> Varying intercepts</a></li>
-<li class="chapter" data-level="25.3" data-path="lecture-15.html"><a href="lecture-15.html#shrinkage"><i class="fa fa-check"></i><b>25.3</b> Shrinkage</a></li>
-<li class="chapter" data-level="25.4" data-path="lecture-15.html"><a href="lecture-15.html#pooling"><i class="fa fa-check"></i><b>25.4</b> Pooling</a></li>
-</ul></li>
-<li class="chapter" data-level="26" data-path="lecture-16.html"><a href="lecture-16.html"><i class="fa fa-check"></i><b>26</b> Lecture 16</a>
-<ul>
-<li class="chapter" data-level="26.1" data-path="lecture-16.html"><a href="lecture-16.html#multiple-clusters"><i class="fa fa-check"></i><b>26.1</b> Multiple clusters</a></li>
-<li class="chapter" data-level="26.2" data-path="lecture-16.html"><a href="lecture-16.html#divergent-transitions"><i class="fa fa-check"></i><b>26.2</b> Divergent transitions</a>
-<ul>
-<li class="chapter" data-level="26.2.1" data-path="lecture-16.html"><a href="lecture-16.html#solutions-for-divergent-transitions"><i class="fa fa-check"></i><b>26.2.1</b> Solutions for divergent transitions</a></li>
-</ul></li>
-<li class="chapter" data-level="26.3" data-path="lecture-16.html"><a href="lecture-16.html#posterior-predictions-with-multilevel-models"><i class="fa fa-check"></i><b>26.3</b> Posterior predictions with multilevel models</a>
-<ul>
-<li class="chapter" data-level="26.3.1" data-path="lecture-16.html"><a href="lecture-16.html#same-clusters"><i class="fa fa-check"></i><b>26.3.1</b> Same clusters</a></li>
-<li class="chapter" data-level="26.3.2" data-path="lecture-16.html"><a href="lecture-16.html#new-clusters"><i class="fa fa-check"></i><b>26.3.2</b> New clusters</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="27" data-path="lecture-17.html"><a href="lecture-17.html"><i class="fa fa-check"></i><b>27</b> Lecture 17</a>
-<ul>
-<li class="chapter" data-level="27.1" data-path="lecture-17.html"><a href="lecture-17.html#varying-slopes"><i class="fa fa-check"></i><b>27.1</b> Varying slopes</a>
-<ul>
-<li class="chapter" data-level="27.1.1" data-path="lecture-17.html"><a href="lecture-17.html#example---cafes"><i class="fa fa-check"></i><b>27.1.1</b> Example - cafes</a></li>
-</ul></li>
-<li class="chapter" data-level="27.2" data-path="lecture-17.html"><a href="lecture-17.html#variance-covariance-matrix"><i class="fa fa-check"></i><b>27.2</b> Variance covariance matrix</a></li>
-<li class="chapter" data-level="27.3" data-path="lecture-17.html"><a href="lecture-17.html#varying-slopes-model"><i class="fa fa-check"></i><b>27.3</b> Varying slopes model</a></li>
-<li class="chapter" data-level="27.4" data-path="lecture-17.html"><a href="lecture-17.html#multidimensional-shrinkage"><i class="fa fa-check"></i><b>27.4</b> Multidimensional shrinkage</a>
-<ul>
-<li class="chapter" data-level="27.4.1" data-path="lecture-17.html"><a href="lecture-17.html#example---prosocial-chimps-many-clusters"><i class="fa fa-check"></i><b>27.4.1</b> Example - prosocial chimps, many clusters</a></li>
-<li class="chapter" data-level="27.4.2" data-path="lecture-17.html"><a href="lecture-17.html#divergences"><i class="fa fa-check"></i><b>27.4.2</b> Divergences</a></li>
-</ul></li>
-</ul></li>
-</ul>
-
-      </nav>
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Learning bayesian data analysis with Statistical Rethinking</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
     </div>
 
-    <div class="book-body">
-      <div class="body-inner">
-        <div class="book-header" role="navigation">
-          <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Learning bayesian data analysis with Statistical Rethinking</a>
-          </h1>
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> Overview</a></li>
+<li class="book-part">Homework</li>
+<li><a class="" href="homework-week-1.html"><span class="header-section-number">2</span> Homework: Week 1</a></li>
+<li><a class="" href="homework-week-2.html"><span class="header-section-number">3</span> Homework: Week 2</a></li>
+<li><a class="" href="homework-week-3.html"><span class="header-section-number">4</span> Homework: Week 3</a></li>
+<li><a class="" href="homework-week-4.html"><span class="header-section-number">5</span> Homework: Week 4</a></li>
+<li><a class="active" href="homework-week-5.html"><span class="header-section-number">6</span> Homework: Week 5</a></li>
+<li><a class="" href="homework-week-6.html"><span class="header-section-number">7</span> Homework: Week 6</a></li>
+<li><a class="" href="homework-week-7.html"><span class="header-section-number">8</span> Homework: Week 7</a></li>
+<li><a class="" href="homework-week-8.html"><span class="header-section-number">9</span> Homework: Week 8</a></li>
+<li><a class="" href="homework-week-9.html"><span class="header-section-number">10</span> Homework: Week 9</a></li>
+<li class="book-part">Lectures</li>
+<li><a class="" href="lecture-01.html"><span class="header-section-number">11</span> Lecture 01</a></li>
+<li><a class="" href="lecture-02.html"><span class="header-section-number">12</span> Lecture 02</a></li>
+<li><a class="" href="lecture-03.html"><span class="header-section-number">13</span> Lecture 03</a></li>
+<li><a class="" href="lecture-04.html"><span class="header-section-number">14</span> Lecture 04</a></li>
+<li><a class="" href="lecture-05.html"><span class="header-section-number">15</span> Lecture 05</a></li>
+<li><a class="" href="lecture-06.html"><span class="header-section-number">16</span> Lecture 06</a></li>
+<li><a class="" href="lecture-07.html"><span class="header-section-number">17</span> Lecture 07</a></li>
+<li><a class="" href="lecture-08.html"><span class="header-section-number">18</span> Lecture 08</a></li>
+<li><a class="" href="lecture-09.html"><span class="header-section-number">19</span> Lecture 09</a></li>
+<li><a class="" href="lecture-10.html"><span class="header-section-number">20</span> Lecture 10</a></li>
+<li><a class="" href="lecture-11.html"><span class="header-section-number">21</span> Lecture 11</a></li>
+<li><a class="" href="lecture-12.html"><span class="header-section-number">22</span> Lecture 12</a></li>
+<li><a class="" href="lecture-13.html"><span class="header-section-number">23</span> Lecture 13</a></li>
+<li><a class="" href="lecture-14.html"><span class="header-section-number">24</span> Lecture 14</a></li>
+<li><a class="" href="lecture-15.html"><span class="header-section-number">25</span> Lecture 15</a></li>
+<li><a class="" href="lecture-16.html"><span class="header-section-number">26</span> Lecture 16</a></li>
+<li><a class="" href="lecture-17.html"><span class="header-section-number">27</span> Lecture 17</a></li>
+<li><a class="" href="lecture-18.html"><span class="header-section-number">28</span> Lecture 18</a></li>
+<li><a class="" href="lecture-19.html"><span class="header-section-number">29</span> Lecture 19</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          
         </div>
-
-        <div class="page-wrapper" tabindex="-1" role="main">
-          <div class="page-inner">
-
-            <section class="normal" id="section-">
-<div id="homework-week-5" class="section level1" number="6">
-<h1><span class="header-section-number">6</span> Homework: Week 5</h1>
-<p>2021-09-03 [updated: 2021-09-15]</p>
-<div id="setup-2" class="section level3" number="6.0.1">
-<h3><span class="header-section-number">6.0.1</span> Setup</h3>
-<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="homework-week-5.html#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Packages</span></span>
-<span id="cb74-2"><a href="homework-week-5.html#cb74-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggdag)</span>
-<span id="cb74-3"><a href="homework-week-5.html#cb74-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dagitty)</span>
-<span id="cb74-4"><a href="homework-week-5.html#cb74-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
-<span id="cb74-5"><a href="homework-week-5.html#cb74-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb74-6"><a href="homework-week-5.html#cb74-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidybayes)</span>
-<span id="cb74-7"><a href="homework-week-5.html#cb74-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb74-8"><a href="homework-week-5.html#cb74-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Functions</span></span>
-<span id="cb74-9"><a href="homework-week-5.html#cb74-9" aria-hidden="true" tabindex="-1"></a>dag_plot <span class="ot">&lt;-</span> <span class="cf">function</span>(dag) {</span>
-<span id="cb74-10"><a href="homework-week-5.html#cb74-10" aria-hidden="true" tabindex="-1"></a>    stat <span class="ot">&lt;-</span> <span class="fu">node_status</span>(dag, <span class="cn">FALSE</span>)</span>
-<span id="cb74-11"><a href="homework-week-5.html#cb74-11" aria-hidden="true" tabindex="-1"></a>    stat<span class="sc">$</span>data<span class="sc">$</span>status[<span class="fu">is.na</span>(stat<span class="sc">$</span>data<span class="sc">$</span>status)] <span class="ot">&lt;-</span> <span class="st">&#39;intermediate&#39;</span></span>
-<span id="cb74-12"><a href="homework-week-5.html#cb74-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(stat, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">xend =</span> xend, <span class="at">yend =</span> yend)) <span class="sc">+</span></span>
-<span id="cb74-13"><a href="homework-week-5.html#cb74-13" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_dag_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> status), <span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">15</span>) <span class="sc">+</span></span>
-<span id="cb74-14"><a href="homework-week-5.html#cb74-14" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_dag_edges</span>() <span class="sc">+</span></span>
-<span id="cb74-15"><a href="homework-week-5.html#cb74-15" aria-hidden="true" tabindex="-1"></a>        <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">&#39;&#39;</span>) <span class="sc">+</span> </span>
-<span id="cb74-16"><a href="homework-week-5.html#cb74-16" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_dag_text</span>(<span class="at">color =</span> <span class="st">&#39;black&#39;</span>) <span class="sc">+</span></span>
-<span id="cb74-17"><a href="homework-week-5.html#cb74-17" aria-hidden="true" tabindex="-1"></a>        <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">list</span>(<span class="st">&#39;exposure&#39;</span> <span class="ot">=</span> <span class="st">&#39;#35608DFF&#39;</span>,</span>
-<span id="cb74-18"><a href="homework-week-5.html#cb74-18" aria-hidden="true" tabindex="-1"></a>                                                                         <span class="st">&#39;outcome&#39;</span> <span class="ot">=</span> <span class="st">&#39;#22A884FF&#39;</span>,</span>
-<span id="cb74-19"><a href="homework-week-5.html#cb74-19" aria-hidden="true" tabindex="-1"></a>                                                                         <span class="st">&#39;intermediate&#39;</span> <span class="ot">=</span> <span class="st">&#39;grey50&#39;</span>)) <span class="sc">+</span> </span>
-<span id="cb74-20"><a href="homework-week-5.html#cb74-20" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme_void</span>()</span>
-<span id="cb74-21"><a href="homework-week-5.html#cb74-21" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb74-22"><a href="homework-week-5.html#cb74-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb74-23"><a href="homework-week-5.html#cb74-23" aria-hidden="true" tabindex="-1"></a>cmd_draws <span class="ot">&lt;-</span> <span class="cf">function</span>(model) {</span>
-<span id="cb74-24"><a href="homework-week-5.html#cb74-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as_draws_df</span>(model<span class="sc">$</span><span class="fu">draws</span>())</span>
-<span id="cb74-25"><a href="homework-week-5.html#cb74-25" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+      </nav>
 </div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="homework-week-5" class="section level1" number="6">
+<h1>
+<span class="header-section-number">6</span> Homework: Week 5<a class="anchor" aria-label="anchor" href="#homework-week-5"><i class="fas fa-link"></i></a>
+</h1>
+<p>2021-09-03 [updated: 2021-10-07]</p>
 <div id="question-1-4" class="section level2" number="6.1">
-<h2><span class="header-section-number">6.1</span> Question 1</h2>
+<h2>
+<span class="header-section-number">6.1</span> Question 1<a class="anchor" aria-label="anchor" href="#question-1-4"><i class="fas fa-link"></i></a>
+</h2>
 <blockquote>
 <p>Consider the <code>data(Wines2012)</code> data table. These data are expert ratings of 20
 different French and American wines by 9 different French and American judges.</p>
 </blockquote>
 <div id="data-2" class="section level3" number="6.1.1">
-<h3><span class="header-section-number">6.1.1</span> Data</h3>
+<h3>
+<span class="header-section-number">6.1.1</span> Data<a class="anchor" aria-label="anchor" href="#data-2"><i class="fas fa-link"></i></a>
+</h3>
 <blockquote>
 <p>Your goal is to model score, the subjective rating assigned by each judge to
 each wine. I recommend standardizing it. In this first problem, consider only
 variation among judges and wines. Construct index variables of judge and wine
 and then use these index variables to construct a linear regression model.</p>
 </blockquote>
-<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="homework-week-5.html#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rethinking)</span>
-<span id="cb75-2"><a href="homework-week-5.html#cb75-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cmdstanr)</span></code></pre></div>
-<pre><code>## This is cmdstanr version 0.4.0.9000</code></pre>
-<pre><code>## - Online documentation and vignettes at mc-stan.org/cmdstanr</code></pre>
-<pre><code>## - CmdStan path set to: /home/alecr/.cmdstan/cmdstan-2.27.0</code></pre>
-<pre><code>## - Use set_cmdstan_path() to change the path</code></pre>
-<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="homework-week-5.html#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
-<span id="cb80-2"><a href="homework-week-5.html#cb80-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(posterior)</span></code></pre></div>
-<pre><code>## This is posterior version 1.0.1</code></pre>
-<pre><code>## 
-## Attaching package: &#39;posterior&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:rstan&#39;:
-## 
-##     ess_bulk, ess_tail</code></pre>
-<pre><code>## The following objects are masked from &#39;package:stats&#39;:
-## 
-##     mad, sd, var</code></pre>
-<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="homework-week-5.html#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(bayesplot)</span></code></pre></div>
-<pre><code>## This is bayesplot version 1.8.1</code></pre>
-<pre><code>## - Online documentation and vignettes at mc-stan.org/bayesplot</code></pre>
-<pre><code>## - bayesplot theme set to bayesplot::theme_default()</code></pre>
-<pre><code>##    * Does _not_ affect other ggplot2 plots</code></pre>
-<pre><code>##    * See ?bayesplot_theme_set for details on theme setting</code></pre>
-<pre><code>## 
-## Attaching package: &#39;bayesplot&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:posterior&#39;:
-## 
-##     rhat</code></pre>
-<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="homework-week-5.html#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;Wines2012&quot;</span>)</span>
-<span id="cb93-2"><a href="homework-week-5.html#cb93-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb93-3"><a href="homework-week-5.html#cb93-3" aria-hidden="true" tabindex="-1"></a>DT <span class="ot">&lt;-</span> <span class="fu">data.table</span>(Wines2012)</span>
-<span id="cb93-4"><a href="homework-week-5.html#cb93-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb93-5"><a href="homework-week-5.html#cb93-5" aria-hidden="true" tabindex="-1"></a>DT[, scale_score <span class="sc">:</span><span class="er">=</span> <span class="fu">scale</span>(score)]</span>
-<span id="cb93-6"><a href="homework-week-5.html#cb93-6" aria-hidden="true" tabindex="-1"></a>DT[, index_judge <span class="sc">:</span><span class="er">=</span> .GRP, judge]</span>
-<span id="cb93-7"><a href="homework-week-5.html#cb93-7" aria-hidden="true" tabindex="-1"></a>DT[, index_wine <span class="sc">:</span><span class="er">=</span> .GRP, wine]</span>
-<span id="cb93-8"><a href="homework-week-5.html#cb93-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb93-9"><a href="homework-week-5.html#cb93-9" aria-hidden="true" tabindex="-1"></a>n_index_judge <span class="ot">&lt;-</span> DT[, <span class="fu">uniqueN</span>(index_judge)]</span>
-<span id="cb93-10"><a href="homework-week-5.html#cb93-10" aria-hidden="true" tabindex="-1"></a>n_index_wine <span class="ot">&lt;-</span> DT[, <span class="fu">uniqueN</span>(index_wine)]</span>
-<span id="cb93-11"><a href="homework-week-5.html#cb93-11" aria-hidden="true" tabindex="-1"></a>n_rows <span class="ot">&lt;-</span> DT[, .N]</span></code></pre></div>
+<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">DT</span> <span class="op">&lt;-</span> <span class="fu">data_wines</span><span class="op">(</span><span class="op">)</span>
+
+<span class="va">n_index_judge</span> <span class="op">&lt;-</span> <span class="va">DT</span><span class="op">[</span>, <span class="fu">uniqueN</span><span class="op">(</span><span class="va">index_judge</span><span class="op">)</span><span class="op">]</span>
+<span class="va">n_index_wine</span> <span class="op">&lt;-</span> <span class="va">DT</span><span class="op">[</span>, <span class="fu">uniqueN</span><span class="op">(</span><span class="va">index_wine</span><span class="op">)</span><span class="op">]</span>
+<span class="va">n_rows</span> <span class="op">&lt;-</span> <span class="va">DT</span><span class="op">[</span>, <span class="va">.N</span><span class="op">]</span></code></pre></div>
 </div>
 <div id="prior-predictive-simulation-1" class="section level3" number="6.1.2">
-<h3><span class="header-section-number">6.1.2</span> Prior predictive simulation</h3>
-<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="homework-week-5.html#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="fu">register_knitr_engine</span>(<span class="at">override =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
-<pre class="stan"><code>data {
-  int&lt;lower=0&gt; N;
-  int&lt;lower=0&gt; N_judges;
-  int&lt;lower=0&gt; N_wines;
-}
-parameters{
-  real alpha;
-  vector[N_judges] beta_judge;
-  vector[N_wines] beta_wine;
-  real&lt;lower=0&gt; sigma;
-}
-model{
-  sigma ~ exponential(1);
-  beta_wine ~ normal(0, 0.5);
-  beta_judge~normal(0, 0.5);
-  alpha~normal(0, 0.2);
-}</code></pre>
-<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="homework-week-5.html#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="co"># q1_stan &lt;- &#39;q1_prior.stan&#39;</span></span>
-<span id="cb96-2"><a href="homework-week-5.html#cb96-2" aria-hidden="true" tabindex="-1"></a><span class="co"># writeLines(readLines(q1_stan))</span></span>
-<span id="cb96-3"><a href="homework-week-5.html#cb96-3" aria-hidden="true" tabindex="-1"></a><span class="co"># q1_prior &lt;- cmdstan_model(q1_stan)</span></span>
-<span id="cb96-4"><a href="homework-week-5.html#cb96-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb96-5"><a href="homework-week-5.html#cb96-5" aria-hidden="true" tabindex="-1"></a>q1_prior_sample <span class="ot">&lt;-</span> q1_prior<span class="sc">$</span><span class="fu">sample</span>(</span>
-<span id="cb96-6"><a href="homework-week-5.html#cb96-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> <span class="fu">list</span>(<span class="at">N =</span> n_rows,</span>
-<span id="cb96-7"><a href="homework-week-5.html#cb96-7" aria-hidden="true" tabindex="-1"></a>                            <span class="at">N_judges =</span> n_index_judge,</span>
-<span id="cb96-8"><a href="homework-week-5.html#cb96-8" aria-hidden="true" tabindex="-1"></a>                            <span class="at">N_wines =</span> n_index_wine)</span>
-<span id="cb96-9"><a href="homework-week-5.html#cb96-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<pre><code>## Running MCMC with 4 sequential chains...
-## 
-## Chain 1 Iteration:    1 / 2000 [  0%]  (Warmup) 
-## Chain 1 Iteration:  100 / 2000 [  5%]  (Warmup) 
-## Chain 1 Iteration:  200 / 2000 [ 10%]  (Warmup) 
-## Chain 1 Iteration:  300 / 2000 [ 15%]  (Warmup) 
-## Chain 1 Iteration:  400 / 2000 [ 20%]  (Warmup) 
-## Chain 1 Iteration:  500 / 2000 [ 25%]  (Warmup) 
-## Chain 1 Iteration:  600 / 2000 [ 30%]  (Warmup) 
-## Chain 1 Iteration:  700 / 2000 [ 35%]  (Warmup) 
-## Chain 1 Iteration:  800 / 2000 [ 40%]  (Warmup) 
-## Chain 1 Iteration:  900 / 2000 [ 45%]  (Warmup) 
-## Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
-## Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
-## Chain 1 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
-## Chain 1 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
-## Chain 1 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
-## Chain 1 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
-## Chain 1 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
-## Chain 1 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
-## Chain 1 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
-## Chain 1 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
-## Chain 1 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
-## Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
-## Chain 1 finished in 0.1 seconds.
-## Chain 2 Iteration:    1 / 2000 [  0%]  (Warmup) 
-## Chain 2 Iteration:  100 / 2000 [  5%]  (Warmup) 
-## Chain 2 Iteration:  200 / 2000 [ 10%]  (Warmup) 
-## Chain 2 Iteration:  300 / 2000 [ 15%]  (Warmup) 
-## Chain 2 Iteration:  400 / 2000 [ 20%]  (Warmup) 
-## Chain 2 Iteration:  500 / 2000 [ 25%]  (Warmup) 
-## Chain 2 Iteration:  600 / 2000 [ 30%]  (Warmup) 
-## Chain 2 Iteration:  700 / 2000 [ 35%]  (Warmup) 
-## Chain 2 Iteration:  800 / 2000 [ 40%]  (Warmup) 
-## Chain 2 Iteration:  900 / 2000 [ 45%]  (Warmup) 
-## Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
-## Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
-## Chain 2 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
-## Chain 2 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
-## Chain 2 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
-## Chain 2 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
-## Chain 2 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
-## Chain 2 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
-## Chain 2 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
-## Chain 2 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
-## Chain 2 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
-## Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
-## Chain 2 finished in 0.1 seconds.
-## Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup) 
-## Chain 3 Iteration:  100 / 2000 [  5%]  (Warmup) 
-## Chain 3 Iteration:  200 / 2000 [ 10%]  (Warmup) 
-## Chain 3 Iteration:  300 / 2000 [ 15%]  (Warmup) 
-## Chain 3 Iteration:  400 / 2000 [ 20%]  (Warmup) 
-## Chain 3 Iteration:  500 / 2000 [ 25%]  (Warmup) 
-## Chain 3 Iteration:  600 / 2000 [ 30%]  (Warmup) 
-## Chain 3 Iteration:  700 / 2000 [ 35%]  (Warmup) 
-## Chain 3 Iteration:  800 / 2000 [ 40%]  (Warmup) 
-## Chain 3 Iteration:  900 / 2000 [ 45%]  (Warmup) 
-## Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
-## Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
-## Chain 3 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
-## Chain 3 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
-## Chain 3 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
-## Chain 3 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
-## Chain 3 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
-## Chain 3 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
-## Chain 3 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
-## Chain 3 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
-## Chain 3 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
-## Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
-## Chain 3 finished in 0.1 seconds.
-## Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup) 
-## Chain 4 Iteration:  100 / 2000 [  5%]  (Warmup) 
-## Chain 4 Iteration:  200 / 2000 [ 10%]  (Warmup) 
-## Chain 4 Iteration:  300 / 2000 [ 15%]  (Warmup) 
-## Chain 4 Iteration:  400 / 2000 [ 20%]  (Warmup) 
-## Chain 4 Iteration:  500 / 2000 [ 25%]  (Warmup) 
-## Chain 4 Iteration:  600 / 2000 [ 30%]  (Warmup) 
-## Chain 4 Iteration:  700 / 2000 [ 35%]  (Warmup) 
-## Chain 4 Iteration:  800 / 2000 [ 40%]  (Warmup) 
-## Chain 4 Iteration:  900 / 2000 [ 45%]  (Warmup) 
-## Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
-## Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
-## Chain 4 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
-## Chain 4 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
-## Chain 4 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
-## Chain 4 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
-## Chain 4 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
-## Chain 4 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
-## Chain 4 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
-## Chain 4 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
-## Chain 4 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
-## Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
-## Chain 4 finished in 0.1 seconds.
-## 
-## All 4 chains finished successfully.
-## Mean chain execution time: 0.1 seconds.
-## Total execution time: 0.6 seconds.</code></pre>
-<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="homework-week-5.html#cb98-1" aria-hidden="true" tabindex="-1"></a>q1_prior_draws <span class="ot">&lt;-</span> <span class="fu">cmd_draws</span>(q1_prior_sample)</span>
-<span id="cb98-2"><a href="homework-week-5.html#cb98-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb98-3"><a href="homework-week-5.html#cb98-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(q1_prior_draws, <span class="at">regex_pars =</span> <span class="st">&#39;judge&#39;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
-<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="homework-week-5.html#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(q1_prior_draws, <span class="at">regex_pars =</span> <span class="st">&#39;wine&#39;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-40-2.png" width="672" /></p>
+<h3>
+<span class="header-section-number">6.1.2</span> Prior predictive simulation<a class="anchor" aria-label="anchor" href="#prior-predictive-simulation-1"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/writeLines.html">writeLines</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="fu">tar_read</span><span class="op">(</span><span class="va">stan_file_w05_q1_prior</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>## data {
+##   int&lt;lower=0&gt; N;
+##   int&lt;lower=0&gt; N_judges;
+##   int&lt;lower=0&gt; N_wines;
+## }
+## parameters{
+##   real alpha;
+##   vector[N_judges] beta_judge;
+##   vector[N_wines] beta_wine;
+##   real&lt;lower=0&gt; sigma;
+## }
+## model{
+##   sigma ~ exponential(1);
+##   beta_wine ~ normal(0, 0.5);
+##   beta_judge ~ normal(0, 0.5);
+##   alpha ~ normal(0, 0.2);
+## }</code></pre>
+<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">q1_prior_draws</span> <span class="op">&lt;-</span> <span class="fu">tar_read</span><span class="op">(</span><span class="va">stan_mcmc_w05_q1_prior</span><span class="op">)</span><span class="op">$</span><span class="fu">draws</span><span class="op">(</span><span class="op">)</span>
+
+<span class="fu">mcmc_areas</span><span class="op">(</span><span class="va">q1_prior_draws</span>, regex_pars <span class="op">=</span> <span class="st">'judge'</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-38-1.png" width="672"></div>
+<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">mcmc_areas</span><span class="op">(</span><span class="va">q1_prior_draws</span>, regex_pars <span class="op">=</span> <span class="st">'wine'</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-38-2.png" width="672"></div>
 <blockquote>
 <p>Justify your priors. You should end up with 9 judge parameters and 20 wine
 parameters.</p>
@@ -716,231 +146,128 @@ parameters.</p>
 relatively conservative prior.</p>
 </div>
 <div id="model-2" class="section level3" number="6.1.3">
-<h3><span class="header-section-number">6.1.3</span> Model</h3>
+<h3>
+<span class="header-section-number">6.1.3</span> Model<a class="anchor" aria-label="anchor" href="#model-2"><i class="fas fa-link"></i></a>
+</h3>
 <blockquote>
 <p>Use ulam instead of quap to build this model, and be sure to check
 the chains for convergence. If you’d rather build the model directly in Stan or
 PyMC3, go ahead. I just want you to use Hamiltonian Monte Carlo instead of
 quadratic approximation.</p>
 </blockquote>
-<pre class="stan"><code>data {
-  int&lt;lower=0&gt; N;
-  int&lt;lower=0&gt; N_judges;
-  int&lt;lower=0&gt; N_wines;
-  int index_judge[N];
-  int index_wine[N];
-  vector[N] scale_score;
-}
-parameters{
-  real alpha;
-  vector[N_judges] beta_judge;
-  vector[N_wines] beta_wine;
-  real&lt;lower=0&gt; sigma;
-}
-model{
-  alpha ~ normal(0, 0.2);
-  beta_wine ~ normal(0, 0.5);
-  beta_judge ~ normal(0, 0.5);
-  sigma ~ exponential(1);
-
-  vector[N] mu;
-  mu = beta_wine[index_wine] + beta_judge[index_judge];
-  scale_score ~ normal(mu, sigma);
-}</code></pre>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="homework-week-5.html#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="co"># q1_stan &lt;- &#39;q1.stan&#39;</span></span>
-<span id="cb101-2"><a href="homework-week-5.html#cb101-2" aria-hidden="true" tabindex="-1"></a><span class="co"># writeLines(readLines(q1_stan))</span></span>
-<span id="cb101-3"><a href="homework-week-5.html#cb101-3" aria-hidden="true" tabindex="-1"></a><span class="co"># q1_model &lt;- cmdstan_model(q1_stan)</span></span>
-<span id="cb101-4"><a href="homework-week-5.html#cb101-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb101-5"><a href="homework-week-5.html#cb101-5" aria-hidden="true" tabindex="-1"></a>q1_sample <span class="ot">&lt;-</span> q1_model<span class="sc">$</span><span class="fu">sample</span>(</span>
-<span id="cb101-6"><a href="homework-week-5.html#cb101-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> <span class="fu">list</span>(<span class="at">N =</span> n_rows,</span>
-<span id="cb101-7"><a href="homework-week-5.html#cb101-7" aria-hidden="true" tabindex="-1"></a>                            <span class="at">N_judges =</span> n_index_judge,</span>
-<span id="cb101-8"><a href="homework-week-5.html#cb101-8" aria-hidden="true" tabindex="-1"></a>                            <span class="at">N_wines =</span> n_index_wine,</span>
-<span id="cb101-9"><a href="homework-week-5.html#cb101-9" aria-hidden="true" tabindex="-1"></a>                            <span class="at">scale_score =</span> DT[, <span class="fu">as.numeric</span>(scale_score)],</span>
-<span id="cb101-10"><a href="homework-week-5.html#cb101-10" aria-hidden="true" tabindex="-1"></a>                            <span class="at">index_judge =</span> DT[, index_judge],</span>
-<span id="cb101-11"><a href="homework-week-5.html#cb101-11" aria-hidden="true" tabindex="-1"></a>                            <span class="at">index_wine =</span> DT[, index_wine]</span>
-<span id="cb101-12"><a href="homework-week-5.html#cb101-12" aria-hidden="true" tabindex="-1"></a>                            )</span>
-<span id="cb101-13"><a href="homework-week-5.html#cb101-13" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<pre><code>## Running MCMC with 4 sequential chains...
+<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/writeLines.html">writeLines</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="fu">tar_read</span><span class="op">(</span><span class="va">stan_file_w05_q1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>## data {
+##   int&lt;lower=0&gt; N;
+##   int&lt;lower=0&gt; N_judges;
+##   int&lt;lower=0&gt; N_wines;
+##   int index_judge[N];
+##   int index_wine[N];
+##   vector[N] scale_score;
+## }
+## parameters{
+##   real alpha;
+##   vector[N_judges] beta_judge;
+##   vector[N_wines] beta_wine;
+##   real&lt;lower=0&gt; sigma;
+## }
+## model{
+##   alpha ~ normal(0, 0.2);
+##   beta_wine ~ normal(0, 0.5);
+##   beta_judge ~ normal(0, 0.5);
+##   sigma ~ exponential(1);
 ## 
-## Chain 1 Iteration:    1 / 2000 [  0%]  (Warmup) 
-## Chain 1 Iteration:  100 / 2000 [  5%]  (Warmup) 
-## Chain 1 Iteration:  200 / 2000 [ 10%]  (Warmup) 
-## Chain 1 Iteration:  300 / 2000 [ 15%]  (Warmup) 
-## Chain 1 Iteration:  400 / 2000 [ 20%]  (Warmup) 
-## Chain 1 Iteration:  500 / 2000 [ 25%]  (Warmup) 
-## Chain 1 Iteration:  600 / 2000 [ 30%]  (Warmup) 
-## Chain 1 Iteration:  700 / 2000 [ 35%]  (Warmup) 
-## Chain 1 Iteration:  800 / 2000 [ 40%]  (Warmup) 
-## Chain 1 Iteration:  900 / 2000 [ 45%]  (Warmup) 
-## Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
-## Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
-## Chain 1 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
-## Chain 1 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
-## Chain 1 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
-## Chain 1 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
-## Chain 1 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
-## Chain 1 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
-## Chain 1 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
-## Chain 1 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
-## Chain 1 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
-## Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
-## Chain 1 finished in 0.1 seconds.
-## Chain 2 Iteration:    1 / 2000 [  0%]  (Warmup) 
-## Chain 2 Iteration:  100 / 2000 [  5%]  (Warmup) 
-## Chain 2 Iteration:  200 / 2000 [ 10%]  (Warmup) 
-## Chain 2 Iteration:  300 / 2000 [ 15%]  (Warmup) 
-## Chain 2 Iteration:  400 / 2000 [ 20%]  (Warmup) 
-## Chain 2 Iteration:  500 / 2000 [ 25%]  (Warmup) 
-## Chain 2 Iteration:  600 / 2000 [ 30%]  (Warmup) 
-## Chain 2 Iteration:  700 / 2000 [ 35%]  (Warmup) 
-## Chain 2 Iteration:  800 / 2000 [ 40%]  (Warmup) 
-## Chain 2 Iteration:  900 / 2000 [ 45%]  (Warmup) 
-## Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
-## Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
-## Chain 2 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
-## Chain 2 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
-## Chain 2 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
-## Chain 2 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
-## Chain 2 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
-## Chain 2 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
-## Chain 2 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
-## Chain 2 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
-## Chain 2 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
-## Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
-## Chain 2 finished in 0.1 seconds.
-## Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup) 
-## Chain 3 Iteration:  100 / 2000 [  5%]  (Warmup) 
-## Chain 3 Iteration:  200 / 2000 [ 10%]  (Warmup) 
-## Chain 3 Iteration:  300 / 2000 [ 15%]  (Warmup) 
-## Chain 3 Iteration:  400 / 2000 [ 20%]  (Warmup) 
-## Chain 3 Iteration:  500 / 2000 [ 25%]  (Warmup) 
-## Chain 3 Iteration:  600 / 2000 [ 30%]  (Warmup) 
-## Chain 3 Iteration:  700 / 2000 [ 35%]  (Warmup) 
-## Chain 3 Iteration:  800 / 2000 [ 40%]  (Warmup) 
-## Chain 3 Iteration:  900 / 2000 [ 45%]  (Warmup) 
-## Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
-## Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
-## Chain 3 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
-## Chain 3 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
-## Chain 3 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
-## Chain 3 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
-## Chain 3 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
-## Chain 3 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
-## Chain 3 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
-## Chain 3 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
-## Chain 3 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
-## Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
-## Chain 3 finished in 0.1 seconds.
-## Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup) 
-## Chain 4 Iteration:  100 / 2000 [  5%]  (Warmup) 
-## Chain 4 Iteration:  200 / 2000 [ 10%]  (Warmup) 
-## Chain 4 Iteration:  300 / 2000 [ 15%]  (Warmup) 
-## Chain 4 Iteration:  400 / 2000 [ 20%]  (Warmup) 
-## Chain 4 Iteration:  500 / 2000 [ 25%]  (Warmup) 
-## Chain 4 Iteration:  600 / 2000 [ 30%]  (Warmup) 
-## Chain 4 Iteration:  700 / 2000 [ 35%]  (Warmup) 
-## Chain 4 Iteration:  800 / 2000 [ 40%]  (Warmup) 
-## Chain 4 Iteration:  900 / 2000 [ 45%]  (Warmup) 
-## Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
-## Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
-## Chain 4 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
-## Chain 4 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
-## Chain 4 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
-## Chain 4 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
-## Chain 4 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
-## Chain 4 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
-## Chain 4 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
-## Chain 4 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
-## Chain 4 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
-## Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
-## Chain 4 finished in 0.1 seconds.
-## 
-## All 4 chains finished successfully.
-## Mean chain execution time: 0.1 seconds.
-## Total execution time: 0.9 seconds.</code></pre>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="homework-week-5.html#cb103-1" aria-hidden="true" tabindex="-1"></a>q1_draws <span class="ot">&lt;-</span> <span class="fu">cmd_draws</span>(q1_sample)</span>
-<span id="cb103-2"><a href="homework-week-5.html#cb103-2" aria-hidden="true" tabindex="-1"></a><span class="fu">setDT</span>(q1_draws)</span></code></pre></div>
+##   vector[N] mu;
+##   mu = beta_wine[index_wine] + beta_judge[index_judge];
+##   scale_score ~ normal(mu, sigma);
+## }</code></pre>
+<div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">q1_draws</span> <span class="op">&lt;-</span> <span class="fu">tar_read</span><span class="op">(</span><span class="va">stan_mcmc_w05_q1</span><span class="op">)</span><span class="op">$</span><span class="fu">draws</span><span class="op">(</span><span class="op">)</span>
+<span class="fu">setDT</span><span class="op">(</span><span class="va">q1_draws</span><span class="op">)</span></code></pre></div>
 <blockquote>
 <p>How do you interpret the variation among individual judges and individual
 wines? Do you notice any patterns, just by plotting the differences? Which
 judges gave the highest/lowest ratings? Which wines were rated worst/ best on
 average?</p>
 </blockquote>
-<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="homework-week-5.html#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Judges</span></span>
-<span id="cb104-2"><a href="homework-week-5.html#cb104-2" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(q1_draws, <span class="at">depth =</span> <span class="dv">2</span>)[<span class="dv">3</span><span class="sc">:</span><span class="dv">11</span>,]</span></code></pre></div>
+<div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Judges</span>
+<span class="fu">precis</span><span class="op">(</span><span class="va">q1_draws</span>, depth <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">11</span>,<span class="op">]</span></code></pre></div>
 <pre><code>##                mean   sd   5.5%  94.5%       histogram
-## beta_judge[1] -0.54 0.19 -0.850 -0.230 ▁▁▁▁▂▃▇▇▅▅▂▁▁▁▁
-## beta_judge[2] -0.35 0.19 -0.662 -0.046       ▁▁▂▅▇▃▁▁▁
-## beta_judge[3]  0.79 0.20  0.470  1.113  ▁▁▁▂▃▅▇▇▅▃▂▁▁▁
-## beta_judge[4]  0.13 0.19 -0.176  0.442  ▁▁▁▁▂▅▇▇▇▃▂▁▁▁
-## beta_judge[5] -0.66 0.19 -0.966 -0.352        ▁▁▃▇▅▂▁▁
-## beta_judge[6]  0.47 0.20  0.169  0.785  ▁▁▁▂▃▇▇▇▅▃▁▁▁▁
-## beta_judge[7] -0.28 0.20 -0.598  0.040 ▁▁▁▂▃▅▇▇▇▃▂▁▁▁▁
-## beta_judge[8]  0.20 0.19 -0.108  0.517        ▁▁▂▇▇▂▁▁
-## beta_judge[9]  0.21 0.19 -0.087  0.522        ▁▁▂▇▇▂▁▁</code></pre>
-<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="homework-week-5.html#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="fu">melt</span>(q1_draws, <span class="at">measure.vars =</span> <span class="fu">patterns</span>(<span class="st">&#39;beta_judge&#39;</span>))[, .(<span class="at">mean_score =</span> <span class="fu">mean</span>(value)), variable][<span class="fu">order</span>(<span class="sc">-</span>mean_score)]</span></code></pre></div>
+## beta_judge[1] -0.54 0.19 -0.861 -0.233 ▁▁▁▁▂▃▇▇▇▅▂▁▁▁▁
+## beta_judge[2] -0.34 0.19 -0.644 -0.038  ▁▁▁▁▂▃▇▇▇▅▂▁▁▁
+## beta_judge[3]  0.80 0.20  0.490  1.109        ▁▁▃▇▇▂▁▁
+## beta_judge[4]  0.13 0.20 -0.179  0.452        ▁▁▁▃▇▅▂▁
+## beta_judge[5] -0.65 0.19 -0.963 -0.343  ▁▁▁▁▂▃▇▇▇▃▂▁▁▁
+## beta_judge[6]  0.48 0.20  0.162  0.792        ▁▁▁▅▇▃▁▁
+## beta_judge[7] -0.28 0.20 -0.592  0.035  ▁▁▁▁▃▅▇▇▇▃▂▁▁▁
+## beta_judge[8]  0.21 0.20 -0.106  0.527       ▁▁▂▇▇▂▁▁▁
+## beta_judge[9]  0.21 0.19 -0.089  0.519       ▁▁▂▇▇▃▁▁▁</code></pre>
+<div class="sourceCode" id="cb81"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">melt</span><span class="op">(</span><span class="va">q1_draws</span>, measure.vars <span class="op">=</span> <span class="fu">patterns</span><span class="op">(</span><span class="st">'beta_judge'</span><span class="op">)</span><span class="op">)</span><span class="op">[</span>, <span class="fu">.</span><span class="op">(</span>mean_score <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span><span class="op">)</span>, <span class="va">variable</span><span class="op">]</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html">order</a></span><span class="op">(</span><span class="op">-</span><span class="va">mean_score</span><span class="op">)</span><span class="op">]</span></code></pre></div>
 <pre><code>##         variable mean_score
-##           &lt;fctr&gt;      &lt;num&gt;
-## 1: beta_judge[3]       0.79
-## 2: beta_judge[6]       0.47
+## 1: beta_judge[3]       0.80
+## 2: beta_judge[6]       0.48
 ## 3: beta_judge[9]       0.21
-## 4: beta_judge[8]       0.20
+## 4: beta_judge[8]       0.21
 ## 5: beta_judge[4]       0.13
 ## 6: beta_judge[7]      -0.28
-## 7: beta_judge[2]      -0.35
+## 7: beta_judge[2]      -0.34
 ## 8: beta_judge[1]      -0.54
-## 9: beta_judge[5]      -0.66</code></pre>
-<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="homework-week-5.html#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(q1_draws, <span class="at">regex_pars =</span> <span class="st">&#39;judge&#39;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-43-1.png" width="672" /></p>
-<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="homework-week-5.html#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Wines</span></span>
-<span id="cb109-2"><a href="homework-week-5.html#cb109-2" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(q1_draws, <span class="at">depth =</span> <span class="dv">2</span>)[<span class="dv">12</span><span class="sc">:</span><span class="dv">31</span>,]</span></code></pre></div>
-<pre><code>##                  mean   sd   5.5% 94.5%    histogram
-## beta_wine[1]   0.1169 0.25 -0.289  0.51    ▁▁▂▅▇▅▂▁▁
-## beta_wine[2]   0.2350 0.27 -0.196  0.65 ▁▁▁▁▃▇▇▅▂▁▁▁
-## beta_wine[3]  -0.1017 0.26 -0.513  0.30  ▁▁▁▂▅▇▅▂▁▁▁
-## beta_wine[4]   0.2467 0.27 -0.181  0.67   ▁▁▁▃▇▇▅▂▁▁
-## beta_wine[5]   0.0767 0.26 -0.328  0.48   ▁▁▁▂▇▇▅▂▁▁
-## beta_wine[6]  -0.0092 0.26 -0.418  0.40   ▁▁▁▃▇▇▃▁▁▁
-## beta_wine[7]  -0.0859 0.26 -0.510  0.34   ▁▁▁▂▅▇▅▂▁▁
-## beta_wine[8]  -0.1821 0.25 -0.584  0.21   ▁▁▁▃▇▇▅▁▁▁
-## beta_wine[9]  -0.1224 0.25 -0.532  0.28   ▁▁▂▅▇▅▂▁▁▁
-## beta_wine[10] -0.1299 0.26 -0.539  0.28   ▁▁▁▂▇▇▅▂▁▁
-## beta_wine[11]  0.0924 0.26 -0.332  0.51   ▁▁▂▅▇▅▂▁▁▁
-## beta_wine[12]  0.4705 0.25  0.055  0.87    ▁▁▂▅▇▅▂▁▁
-## beta_wine[13] -0.3115 0.26 -0.723  0.11   ▁▁▂▅▇▅▂▁▁▁
-## beta_wine[14]  0.2321 0.26 -0.177  0.64    ▁▁▃▇▇▃▂▁▁
-## beta_wine[15]  0.0986 0.26 -0.308  0.51   ▁▁▂▅▇▅▂▁▁▁
-## beta_wine[16] -0.0233 0.26 -0.423  0.39  ▁▁▁▅▇▇▃▁▁▁▁
-## beta_wine[17]  0.0075 0.26 -0.399  0.42  ▁▁▁▃▇▇▃▁▁▁▁
-## beta_wine[18] -0.1644 0.26 -0.573  0.24   ▁▁▁▃▇▇▃▁▁▁
-## beta_wine[19] -0.7197 0.25 -1.122 -0.32    ▁▁▂▇▇▅▂▁▁
-## beta_wine[20]  0.3240 0.26 -0.098  0.72   ▁▁▂▅▇▇▂▁▁▁</code></pre>
-<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="homework-week-5.html#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="fu">melt</span>(q1_draws, <span class="at">measure.vars =</span> <span class="fu">patterns</span>(<span class="st">&#39;beta_wine&#39;</span>))[, .(<span class="at">mean_score =</span> <span class="fu">mean</span>(value)), variable][<span class="fu">order</span>(<span class="sc">-</span>mean_score)]</span></code></pre></div>
+## 9: beta_judge[5]      -0.65</code></pre>
+<div class="sourceCode" id="cb83"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">mcmc_areas</span><span class="op">(</span><span class="va">q1_draws</span>, regex_pars <span class="op">=</span> <span class="st">'judge'</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-41-1.png" width="672"></div>
+<div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Wines</span>
+<span class="fu">precis</span><span class="op">(</span><span class="va">q1_draws</span>, depth <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">[</span><span class="fl">12</span><span class="op">:</span><span class="fl">31</span>,<span class="op">]</span></code></pre></div>
+<pre><code>##                  mean   sd   5.5%  94.5%   histogram
+## beta_wine[1]   0.1175 0.25 -0.282  0.526  ▁▁▂▅▇▇▂▁▁▁
+## beta_wine[2]   0.2271 0.26 -0.187  0.630  ▁▁▁▃▇▇▅▂▁▁
+## beta_wine[3]  -0.1017 0.26 -0.514  0.314  ▁▁▂▅▇▅▂▁▁▁
+## beta_wine[4]   0.2406 0.26 -0.174  0.648  ▁▁▁▃▇▇▅▂▁▁
+## beta_wine[5]   0.0668 0.26 -0.351  0.477 ▁▁▁▂▇▇▅▂▁▁▁
+## beta_wine[6]  -0.0117 0.26 -0.431  0.407  ▁▁▁▃▇▇▃▁▁▁
+## beta_wine[7]  -0.0901 0.26 -0.515  0.302  ▁▁▂▅▇▇▂▁▁▁
+## beta_wine[8]  -0.1886 0.26 -0.608  0.232  ▁▁▁▃▇▇▃▁▁▁
+## beta_wine[9]  -0.1196 0.24 -0.516  0.271   ▁▁▂▅▇▅▂▁▁
+## beta_wine[10] -0.1401 0.26 -0.554  0.273 ▁▁▁▁▂▇▇▅▂▁▁
+## beta_wine[11]  0.0858 0.26 -0.329  0.509 ▁▁▁▂▅▇▅▂▁▁▁
+## beta_wine[12]  0.4641 0.26  0.035  0.869 ▁▁▁▂▅▇▅▂▁▁▁
+## beta_wine[13] -0.3145 0.26 -0.716  0.091 ▁▁▁▂▅▇▅▂▁▁▁
+## beta_wine[14]  0.2234 0.27 -0.200  0.642  ▁▁▁▃▇▇▅▂▁▁
+## beta_wine[15]  0.0963 0.26 -0.311  0.515 ▁▁▁▂▅▇▅▂▁▁▁
+## beta_wine[16] -0.0234 0.26 -0.424  0.389 ▁▁▁▁▅▇▇▃▁▁▁
+## beta_wine[17]  0.0051 0.26 -0.420  0.432  ▁▁▁▃▇▇▃▁▁▁
+## beta_wine[18] -0.1674 0.26 -0.591  0.261  ▁▁▁▃▇▇▅▂▁▁
+## beta_wine[19] -0.7246 0.26 -1.137 -0.303  ▁▁▁▂▇▇▅▂▁▁
+## beta_wine[20]  0.3215 0.25 -0.068  0.717  ▁▁▁▂▅▇▇▂▁▁</code></pre>
+<div class="sourceCode" id="cb86"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">melt</span><span class="op">(</span><span class="va">q1_draws</span>, measure.vars <span class="op">=</span> <span class="fu">patterns</span><span class="op">(</span><span class="st">'beta_wine'</span><span class="op">)</span><span class="op">)</span><span class="op">[</span>, <span class="fu">.</span><span class="op">(</span>mean_score <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span><span class="op">)</span>, <span class="va">variable</span><span class="op">]</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html">order</a></span><span class="op">(</span><span class="op">-</span><span class="va">mean_score</span><span class="op">)</span><span class="op">]</span></code></pre></div>
 <pre><code>##          variable mean_score
-##            &lt;fctr&gt;      &lt;num&gt;
-##  1: beta_wine[12]     0.4705
-##  2: beta_wine[20]     0.3240
-##  3:  beta_wine[4]     0.2467
-##  4:  beta_wine[2]     0.2350
-##  5: beta_wine[14]     0.2321
-##  6:  beta_wine[1]     0.1169
-##  7: beta_wine[15]     0.0986
-##  8: beta_wine[11]     0.0924
-##  9:  beta_wine[5]     0.0767
-## 10: beta_wine[17]     0.0075
-## 11:  beta_wine[6]    -0.0092
-## 12: beta_wine[16]    -0.0233
-## 13:  beta_wine[7]    -0.0859
+##  1: beta_wine[12]     0.4641
+##  2: beta_wine[20]     0.3215
+##  3:  beta_wine[4]     0.2406
+##  4:  beta_wine[2]     0.2271
+##  5: beta_wine[14]     0.2234
+##  6:  beta_wine[1]     0.1175
+##  7: beta_wine[15]     0.0963
+##  8: beta_wine[11]     0.0858
+##  9:  beta_wine[5]     0.0668
+## 10: beta_wine[17]     0.0051
+## 11:  beta_wine[6]    -0.0117
+## 12: beta_wine[16]    -0.0234
+## 13:  beta_wine[7]    -0.0901
 ## 14:  beta_wine[3]    -0.1017
-## 15:  beta_wine[9]    -0.1224
-## 16: beta_wine[10]    -0.1299
-## 17: beta_wine[18]    -0.1644
-## 18:  beta_wine[8]    -0.1821
-## 19: beta_wine[13]    -0.3115
-## 20: beta_wine[19]    -0.7197
-##          variable mean_score</code></pre>
-<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="homework-week-5.html#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(q1_draws, <span class="at">regex_pars =</span> <span class="st">&#39;wine&#39;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-43-2.png" width="672" /></p>
+## 15:  beta_wine[9]    -0.1196
+## 16: beta_wine[10]    -0.1401
+## 17: beta_wine[18]    -0.1674
+## 18:  beta_wine[8]    -0.1886
+## 19: beta_wine[13]    -0.3145
+## 20: beta_wine[19]    -0.7246</code></pre>
+<div class="sourceCode" id="cb88"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">mcmc_areas</span><span class="op">(</span><span class="va">q1_draws</span>, regex_pars <span class="op">=</span> <span class="st">'wine'</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-41-2.png" width="672"></div>
 <p>Accounting for judges, most wines are scored with similar distributions. Wine 19
 however was particularly poorly scored. Judges, however, have much more variable
 scoring with three individuals (judges 1, 2, 5) entirely or almost entirely
@@ -948,377 +275,179 @@ scoring lower than other judges. The worst scoring judge was judge 5.</p>
 </div>
 </div>
 <div id="question-2-4" class="section level2" number="6.2">
-<h2><span class="header-section-number">6.2</span> Question 2</h2>
+<h2>
+<span class="header-section-number">6.2</span> Question 2<a class="anchor" aria-label="anchor" href="#question-2-4"><i class="fas fa-link"></i></a>
+</h2>
 <blockquote>
 <p>Now consider three features of the wines and judges: (1) flight: Whether the wine is red or white. (2) wine.amer: Indicator variable for American wines. (3) judge.amer: Indicator variable for American judges. Use indicator or index variables to model the influence of these features on the scores. Omit the individual judge and wine index variables from Problem
 1. Do not include interaction effects yet. Again use ulam, justify your priors,
 and be sure to check the chains.</p>
 </blockquote>
 <div id="data-3" class="section level3" number="6.2.1">
-<h3><span class="header-section-number">6.2.1</span> Data</h3>
-<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="homework-week-5.html#cb114-1" aria-hidden="true" tabindex="-1"></a>DT[, scale_score <span class="sc">:</span><span class="er">=</span> <span class="fu">scale</span>(score)]</span>
-<span id="cb114-2"><a href="homework-week-5.html#cb114-2" aria-hidden="true" tabindex="-1"></a>DT[, index_flight <span class="sc">:</span><span class="er">=</span> .GRP, flight]</span>
-<span id="cb114-3"><a href="homework-week-5.html#cb114-3" aria-hidden="true" tabindex="-1"></a>DT[, index_wine_american <span class="sc">:</span><span class="er">=</span> .GRP, wine.amer]</span>
-<span id="cb114-4"><a href="homework-week-5.html#cb114-4" aria-hidden="true" tabindex="-1"></a>DT[, index_judge_american <span class="sc">:</span><span class="er">=</span> .GRP, judge.amer]</span>
-<span id="cb114-5"><a href="homework-week-5.html#cb114-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb114-6"><a href="homework-week-5.html#cb114-6" aria-hidden="true" tabindex="-1"></a>n_index_flight <span class="ot">&lt;-</span> DT[, <span class="fu">uniqueN</span>(flight)]</span>
-<span id="cb114-7"><a href="homework-week-5.html#cb114-7" aria-hidden="true" tabindex="-1"></a>n_index_wine_american <span class="ot">&lt;-</span> DT[, <span class="fu">uniqueN</span>(index_wine_american)]</span>
-<span id="cb114-8"><a href="homework-week-5.html#cb114-8" aria-hidden="true" tabindex="-1"></a>n_index_judge_american <span class="ot">&lt;-</span> DT[, <span class="fu">uniqueN</span>(index_judge_american)]</span>
-<span id="cb114-9"><a href="homework-week-5.html#cb114-9" aria-hidden="true" tabindex="-1"></a>n_rows <span class="ot">&lt;-</span> DT[, .N]</span>
-<span id="cb114-10"><a href="homework-week-5.html#cb114-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb114-11"><a href="homework-week-5.html#cb114-11" aria-hidden="true" tabindex="-1"></a>q2_data <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb114-12"><a href="homework-week-5.html#cb114-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.list</span>(DT[, .(<span class="at">scale_score =</span> <span class="fu">as.numeric</span>(scale_score),</span>
-<span id="cb114-13"><a href="homework-week-5.html#cb114-13" aria-hidden="true" tabindex="-1"></a>                                 index_flight,</span>
-<span id="cb114-14"><a href="homework-week-5.html#cb114-14" aria-hidden="true" tabindex="-1"></a>                                 index_wine_american,</span>
-<span id="cb114-15"><a href="homework-week-5.html#cb114-15" aria-hidden="true" tabindex="-1"></a>                                 index_judge_american)]),</span>
-<span id="cb114-16"><a href="homework-week-5.html#cb114-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">N_flights =</span> n_index_flight,</span>
-<span id="cb114-17"><a href="homework-week-5.html#cb114-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">N_wine_american =</span> n_index_wine_american,</span>
-<span id="cb114-18"><a href="homework-week-5.html#cb114-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">N_judge_american =</span> n_index_judge_american,</span>
-<span id="cb114-19"><a href="homework-week-5.html#cb114-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">N =</span> n_rows</span>
-<span id="cb114-20"><a href="homework-week-5.html#cb114-20" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<h3>
+<span class="header-section-number">6.2.1</span> Data<a class="anchor" aria-label="anchor" href="#data-3"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb89"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">DT</span> <span class="op">&lt;-</span> <span class="fu">data_wines</span><span class="op">(</span><span class="op">)</span>
+
+<span class="va">n_index_flight</span> <span class="op">&lt;-</span> <span class="va">DT</span><span class="op">[</span>, <span class="fu">uniqueN</span><span class="op">(</span><span class="va">flight</span><span class="op">)</span><span class="op">]</span>
+<span class="va">n_index_wine_american</span> <span class="op">&lt;-</span> <span class="va">DT</span><span class="op">[</span>, <span class="fu">uniqueN</span><span class="op">(</span><span class="va">index_wine_american</span><span class="op">)</span><span class="op">]</span>
+<span class="va">n_index_judge_american</span> <span class="op">&lt;-</span> <span class="va">DT</span><span class="op">[</span>, <span class="fu">uniqueN</span><span class="op">(</span><span class="va">index_judge_american</span><span class="op">)</span><span class="op">]</span>
+<span class="va">n_rows</span> <span class="op">&lt;-</span> <span class="va">DT</span><span class="op">[</span>, <span class="va">.N</span><span class="op">]</span>
+
+<span class="va">q2_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/list.html">as.list</a></span><span class="op">(</span><span class="va">DT</span><span class="op">[</span>, <span class="fu">.</span><span class="op">(</span>scale_score <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">scale_score</span><span class="op">)</span>,
+                                 <span class="va">index_flight</span>,
+                                 <span class="va">index_wine_american</span>,
+                                 <span class="va">index_judge_american</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>,
+    N_flights <span class="op">=</span> <span class="va">n_index_flight</span>,
+    N_wine_american <span class="op">=</span> <span class="va">n_index_wine_american</span>,
+    N_judge_american <span class="op">=</span> <span class="va">n_index_judge_american</span>,
+    N <span class="op">=</span> <span class="va">n_rows</span>
+<span class="op">)</span></code></pre></div>
 </div>
 <div id="priors" class="section level3" number="6.2.2">
-<h3><span class="header-section-number">6.2.2</span> Priors</h3>
-<pre class="stan"><code>data {
-  int&lt;lower=0&gt; N;
-  int&lt;lower=0&gt; N_flights;
-  int&lt;lower=0&gt; N_wine_american;
-  int&lt;lower=0&gt; N_judge_american;
-}
-parameters{
-  real alpha;
-  vector[N_flights] beta_flights;
-  vector[N_wine_american] beta_wine_american;
-  vector[N_judge_american] beta_judge_american;
-  real&lt;lower=0&gt; sigma;
-}
-model{
-  alpha ~ normal(0, 0.2);
-  beta_flights ~ normal(0, 0.5);
-  beta_wine_american ~ normal(0, 0.5);
-  beta_judge_american ~ normal(0, 0.5);
-  sigma ~ exponential(1);
-}</code></pre>
-<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="homework-week-5.html#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="co"># q2_stan &lt;- &#39;q2_prior.stan&#39;</span></span>
-<span id="cb116-2"><a href="homework-week-5.html#cb116-2" aria-hidden="true" tabindex="-1"></a><span class="co"># writeLines(readLines(q2_stan))</span></span>
-<span id="cb116-3"><a href="homework-week-5.html#cb116-3" aria-hidden="true" tabindex="-1"></a><span class="co"># q2_prior &lt;- cmdstan_model(q2_stan)</span></span>
-<span id="cb116-4"><a href="homework-week-5.html#cb116-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb116-5"><a href="homework-week-5.html#cb116-5" aria-hidden="true" tabindex="-1"></a>q2_prior_sample <span class="ot">&lt;-</span> q2_prior<span class="sc">$</span><span class="fu">sample</span>(<span class="at">data =</span> q2_data[<span class="fu">c</span>(<span class="st">&#39;N_flights&#39;</span>,</span>
-<span id="cb116-6"><a href="homework-week-5.html#cb116-6" aria-hidden="true" tabindex="-1"></a>                                                                                                        <span class="st">&#39;N_wine_american&#39;</span>,</span>
-<span id="cb116-7"><a href="homework-week-5.html#cb116-7" aria-hidden="true" tabindex="-1"></a>                                                                                                        <span class="st">&#39;N_judge_american&#39;</span>,</span>
-<span id="cb116-8"><a href="homework-week-5.html#cb116-8" aria-hidden="true" tabindex="-1"></a>                                                                                                        <span class="st">&#39;N&#39;</span>)])</span></code></pre></div>
-<pre><code>## Running MCMC with 4 sequential chains...
-## 
-## Chain 1 Iteration:    1 / 2000 [  0%]  (Warmup) 
-## Chain 1 Iteration:  100 / 2000 [  5%]  (Warmup) 
-## Chain 1 Iteration:  200 / 2000 [ 10%]  (Warmup) 
-## Chain 1 Iteration:  300 / 2000 [ 15%]  (Warmup) 
-## Chain 1 Iteration:  400 / 2000 [ 20%]  (Warmup) 
-## Chain 1 Iteration:  500 / 2000 [ 25%]  (Warmup) 
-## Chain 1 Iteration:  600 / 2000 [ 30%]  (Warmup) 
-## Chain 1 Iteration:  700 / 2000 [ 35%]  (Warmup) 
-## Chain 1 Iteration:  800 / 2000 [ 40%]  (Warmup) 
-## Chain 1 Iteration:  900 / 2000 [ 45%]  (Warmup) 
-## Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
-## Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
-## Chain 1 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
-## Chain 1 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
-## Chain 1 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
-## Chain 1 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
-## Chain 1 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
-## Chain 1 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
-## Chain 1 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
-## Chain 1 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
-## Chain 1 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
-## Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
-## Chain 1 finished in 0.0 seconds.
-## Chain 2 Iteration:    1 / 2000 [  0%]  (Warmup) 
-## Chain 2 Iteration:  100 / 2000 [  5%]  (Warmup) 
-## Chain 2 Iteration:  200 / 2000 [ 10%]  (Warmup) 
-## Chain 2 Iteration:  300 / 2000 [ 15%]  (Warmup) 
-## Chain 2 Iteration:  400 / 2000 [ 20%]  (Warmup) 
-## Chain 2 Iteration:  500 / 2000 [ 25%]  (Warmup) 
-## Chain 2 Iteration:  600 / 2000 [ 30%]  (Warmup) 
-## Chain 2 Iteration:  700 / 2000 [ 35%]  (Warmup) 
-## Chain 2 Iteration:  800 / 2000 [ 40%]  (Warmup) 
-## Chain 2 Iteration:  900 / 2000 [ 45%]  (Warmup) 
-## Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
-## Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
-## Chain 2 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
-## Chain 2 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
-## Chain 2 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
-## Chain 2 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
-## Chain 2 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
-## Chain 2 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
-## Chain 2 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
-## Chain 2 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
-## Chain 2 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
-## Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
-## Chain 2 finished in 0.0 seconds.
-## Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup) 
-## Chain 3 Iteration:  100 / 2000 [  5%]  (Warmup) 
-## Chain 3 Iteration:  200 / 2000 [ 10%]  (Warmup) 
-## Chain 3 Iteration:  300 / 2000 [ 15%]  (Warmup) 
-## Chain 3 Iteration:  400 / 2000 [ 20%]  (Warmup) 
-## Chain 3 Iteration:  500 / 2000 [ 25%]  (Warmup) 
-## Chain 3 Iteration:  600 / 2000 [ 30%]  (Warmup) 
-## Chain 3 Iteration:  700 / 2000 [ 35%]  (Warmup) 
-## Chain 3 Iteration:  800 / 2000 [ 40%]  (Warmup) 
-## Chain 3 Iteration:  900 / 2000 [ 45%]  (Warmup) 
-## Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
-## Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
-## Chain 3 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
-## Chain 3 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
-## Chain 3 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
-## Chain 3 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
-## Chain 3 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
-## Chain 3 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
-## Chain 3 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
-## Chain 3 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
-## Chain 3 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
-## Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
-## Chain 3 finished in 0.0 seconds.
-## Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup) 
-## Chain 4 Iteration:  100 / 2000 [  5%]  (Warmup) 
-## Chain 4 Iteration:  200 / 2000 [ 10%]  (Warmup) 
-## Chain 4 Iteration:  300 / 2000 [ 15%]  (Warmup) 
-## Chain 4 Iteration:  400 / 2000 [ 20%]  (Warmup) 
-## Chain 4 Iteration:  500 / 2000 [ 25%]  (Warmup) 
-## Chain 4 Iteration:  600 / 2000 [ 30%]  (Warmup) 
-## Chain 4 Iteration:  700 / 2000 [ 35%]  (Warmup) 
-## Chain 4 Iteration:  800 / 2000 [ 40%]  (Warmup) 
-## Chain 4 Iteration:  900 / 2000 [ 45%]  (Warmup) 
-## Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
-## Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
-## Chain 4 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
-## Chain 4 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
-## Chain 4 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
-## Chain 4 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
-## Chain 4 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
-## Chain 4 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
-## Chain 4 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
-## Chain 4 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
-## Chain 4 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
-## Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
-## Chain 4 finished in 0.0 seconds.
-## 
-## All 4 chains finished successfully.
-## Mean chain execution time: 0.0 seconds.
-## Total execution time: 0.5 seconds.</code></pre>
-<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="homework-week-5.html#cb118-1" aria-hidden="true" tabindex="-1"></a>q2_prior_draws <span class="ot">&lt;-</span> <span class="fu">cmd_draws</span>(q2_prior_sample)</span>
-<span id="cb118-2"><a href="homework-week-5.html#cb118-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-3"><a href="homework-week-5.html#cb118-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(q2_prior_draws, <span class="at">regex_pars =</span> <span class="st">&#39;flights&#39;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-46-1.png" width="672" /></p>
-<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="homework-week-5.html#cb119-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(q2_prior_draws, <span class="at">regex_pars =</span> <span class="st">&#39;judge&#39;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-46-2.png" width="672" /></p>
-<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="homework-week-5.html#cb120-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(q2_prior_draws, <span class="at">regex_pars =</span> <span class="st">&#39;wine&#39;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-46-3.png" width="672" /></p>
+<h3>
+<span class="header-section-number">6.2.2</span> Priors<a class="anchor" aria-label="anchor" href="#priors"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb90"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/writeLines.html">writeLines</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="fu">tar_read</span><span class="op">(</span><span class="va">stan_file_w05_q2_prior</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>## data {
+##   int&lt;lower=0&gt; N;
+##   int&lt;lower=0&gt; N_flights;
+##   int&lt;lower=0&gt; N_wine_american;
+##   int&lt;lower=0&gt; N_judge_american;
+## }
+## parameters{
+##   real alpha;
+##   vector[N_flights] beta_flights;
+##   vector[N_wine_american] beta_wine_american;
+##   vector[N_judge_american] beta_judge_american;
+##   real&lt;lower=0&gt; sigma;
+## }
+## model{
+##   alpha ~ normal(0, 0.2);
+##   beta_flights ~ normal(0, 0.5);
+##   beta_wine_american ~ normal(0, 0.5);
+##   beta_judge_american ~ normal(0, 0.5);
+##   sigma ~ exponential(1);
+## }</code></pre>
+<div class="sourceCode" id="cb92"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">q2_prior_draws</span> <span class="op">&lt;-</span> <span class="fu">tar_read</span><span class="op">(</span><span class="va">stan_mcmc_w05_q2_prior</span><span class="op">)</span><span class="op">$</span><span class="fu">draws</span><span class="op">(</span><span class="op">)</span>
+
+<span class="fu">mcmc_areas</span><span class="op">(</span><span class="va">q2_prior_draws</span>, regex_pars <span class="op">=</span> <span class="st">'flights'</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-44-1.png" width="672"></div>
+<div class="sourceCode" id="cb93"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">mcmc_areas</span><span class="op">(</span><span class="va">q2_prior_draws</span>, regex_pars <span class="op">=</span> <span class="st">'judge'</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-44-2.png" width="672"></div>
+<div class="sourceCode" id="cb94"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">mcmc_areas</span><span class="op">(</span><span class="va">q2_prior_draws</span>, regex_pars <span class="op">=</span> <span class="st">'wine'</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-44-3.png" width="672"></div>
 </div>
 <div id="model-3" class="section level3" number="6.2.3">
-<h3><span class="header-section-number">6.2.3</span> Model</h3>
-<pre class="stan"><code>data {
-  int&lt;lower=0&gt; N;
-  int&lt;lower=0&gt; N_flights;
-  int&lt;lower=0&gt; N_wine_american;
-  int&lt;lower=0&gt; N_judge_american;
-
-  int index_flight[N];
-  int index_wine_american[N];
-  int index_judge_american[N];
-
-  vector[N] scale_score;
-}
-parameters{
-  real alpha;
-  vector[N_flights] beta_flights;
-  vector[N_wine_american] beta_wine_american;
-  vector[N_judge_american] beta_judge_american;
-  real&lt;lower=0&gt; sigma;
-}
-model{
-  alpha ~ normal(0, 0.2);
-  beta_flights ~ normal(0, 0.5);
-  beta_wine_american ~ normal(0, 0.5);
-  beta_judge_american ~ normal(0, 0.5);
-  sigma ~ exponential(1);
-
-  vector[N] mu;
-  mu = beta_flights[index_flight] + beta_wine_american[index_wine_american] + beta_judge_american[index_judge_american];
-  scale_score ~ normal(mu, sigma);
-}</code></pre>
-<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="homework-week-5.html#cb122-1" aria-hidden="true" tabindex="-1"></a><span class="co"># q2_stan &lt;- &#39;q2.stan&#39;</span></span>
-<span id="cb122-2"><a href="homework-week-5.html#cb122-2" aria-hidden="true" tabindex="-1"></a><span class="co"># writeLines(readLines(q2_stan))</span></span>
-<span id="cb122-3"><a href="homework-week-5.html#cb122-3" aria-hidden="true" tabindex="-1"></a><span class="co"># q2_model &lt;- cmdstan_model(q2_stan)</span></span>
-<span id="cb122-4"><a href="homework-week-5.html#cb122-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb122-5"><a href="homework-week-5.html#cb122-5" aria-hidden="true" tabindex="-1"></a>q2_sample <span class="ot">&lt;-</span> q2_model<span class="sc">$</span><span class="fu">sample</span>(<span class="at">data =</span> q2_data)</span></code></pre></div>
-<pre><code>## Running MCMC with 4 sequential chains...
+<h3>
+<span class="header-section-number">6.2.3</span> Model<a class="anchor" aria-label="anchor" href="#model-3"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb95"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/writeLines.html">writeLines</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="fu">tar_read</span><span class="op">(</span><span class="va">stan_file_w05_q2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>## data {
+##   int&lt;lower=0&gt; N;
+##   int&lt;lower=0&gt; N_flights;
+##   int&lt;lower=0&gt; N_wine_american;
+##   int&lt;lower=0&gt; N_judge_american;
 ## 
-## Chain 1 Iteration:    1 / 2000 [  0%]  (Warmup) 
-## Chain 1 Iteration:  100 / 2000 [  5%]  (Warmup) 
-## Chain 1 Iteration:  200 / 2000 [ 10%]  (Warmup) 
-## Chain 1 Iteration:  300 / 2000 [ 15%]  (Warmup) 
-## Chain 1 Iteration:  400 / 2000 [ 20%]  (Warmup) 
-## Chain 1 Iteration:  500 / 2000 [ 25%]  (Warmup)</code></pre>
-<pre><code>## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-<pre><code>## Chain 1 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/tmp/RtmpRmpGn5/model-376d636c5be5.stan&#39;, line 29, column 2 to column 34)</code></pre>
-<pre><code>## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
-<pre><code>## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
-<pre><code>## Chain 1</code></pre>
-<pre><code>## Chain 1 Iteration:  600 / 2000 [ 30%]  (Warmup) 
-## Chain 1 Iteration:  700 / 2000 [ 35%]  (Warmup) 
-## Chain 1 Iteration:  800 / 2000 [ 40%]  (Warmup) 
-## Chain 1 Iteration:  900 / 2000 [ 45%]  (Warmup) 
-## Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
-## Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
-## Chain 1 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
-## Chain 1 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
-## Chain 1 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
-## Chain 1 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
-## Chain 1 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
-## Chain 1 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
-## Chain 1 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
-## Chain 1 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
-## Chain 1 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
-## Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling) 
-## Chain 1 finished in 0.4 seconds.
-## Chain 2 Iteration:    1 / 2000 [  0%]  (Warmup) 
-## Chain 2 Iteration:  100 / 2000 [  5%]  (Warmup) 
-## Chain 2 Iteration:  200 / 2000 [ 10%]  (Warmup) 
-## Chain 2 Iteration:  300 / 2000 [ 15%]  (Warmup) 
-## Chain 2 Iteration:  400 / 2000 [ 20%]  (Warmup) 
-## Chain 2 Iteration:  500 / 2000 [ 25%]  (Warmup)</code></pre>
-<pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-<pre><code>## Chain 2 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/tmp/RtmpRmpGn5/model-376d636c5be5.stan&#39;, line 29, column 2 to column 34)</code></pre>
-<pre><code>## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
-<pre><code>## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
-<pre><code>## Chain 2</code></pre>
-<pre><code>## Chain 2 Iteration:  600 / 2000 [ 30%]  (Warmup) 
-## Chain 2 Iteration:  700 / 2000 [ 35%]  (Warmup) 
-## Chain 2 Iteration:  800 / 2000 [ 40%]  (Warmup) 
-## Chain 2 Iteration:  900 / 2000 [ 45%]  (Warmup) 
-## Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
-## Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
-## Chain 2 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
-## Chain 2 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
-## Chain 2 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
-## Chain 2 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
-## Chain 2 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
-## Chain 2 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
-## Chain 2 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
-## Chain 2 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
-## Chain 2 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
-## Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
-## Chain 2 finished in 0.3 seconds.
-## Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup) 
-## Chain 3 Iteration:  100 / 2000 [  5%]  (Warmup) 
-## Chain 3 Iteration:  200 / 2000 [ 10%]  (Warmup) 
-## Chain 3 Iteration:  300 / 2000 [ 15%]  (Warmup) 
-## Chain 3 Iteration:  400 / 2000 [ 20%]  (Warmup) 
-## Chain 3 Iteration:  500 / 2000 [ 25%]  (Warmup) 
-## Chain 3 Iteration:  600 / 2000 [ 30%]  (Warmup) 
-## Chain 3 Iteration:  700 / 2000 [ 35%]  (Warmup) 
-## Chain 3 Iteration:  800 / 2000 [ 40%]  (Warmup) 
-## Chain 3 Iteration:  900 / 2000 [ 45%]  (Warmup) 
-## Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
-## Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
-## Chain 3 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
-## Chain 3 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
-## Chain 3 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
-## Chain 3 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
-## Chain 3 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
-## Chain 3 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
-## Chain 3 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
-## Chain 3 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
-## Chain 3 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
-## Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
-## Chain 3 finished in 0.4 seconds.
-## Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup) 
-## Chain 4 Iteration:  100 / 2000 [  5%]  (Warmup) 
-## Chain 4 Iteration:  200 / 2000 [ 10%]  (Warmup) 
-## Chain 4 Iteration:  300 / 2000 [ 15%]  (Warmup) 
-## Chain 4 Iteration:  400 / 2000 [ 20%]  (Warmup) 
-## Chain 4 Iteration:  500 / 2000 [ 25%]  (Warmup) 
-## Chain 4 Iteration:  600 / 2000 [ 30%]  (Warmup) 
-## Chain 4 Iteration:  700 / 2000 [ 35%]  (Warmup) 
-## Chain 4 Iteration:  800 / 2000 [ 40%]  (Warmup) 
-## Chain 4 Iteration:  900 / 2000 [ 45%]  (Warmup) 
-## Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
-## Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
-## Chain 4 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
-## Chain 4 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
-## Chain 4 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
-## Chain 4 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
-## Chain 4 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
-## Chain 4 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
-## Chain 4 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
-## Chain 4 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
-## Chain 4 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
-## Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
-## Chain 4 finished in 0.4 seconds.
+##   int index_flight[N];
+##   int index_wine_american[N];
+##   int index_judge_american[N];
 ## 
-## All 4 chains finished successfully.
-## Mean chain execution time: 0.4 seconds.
-## Total execution time: 1.7 seconds.</code></pre>
-<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="homework-week-5.html#cb136-1" aria-hidden="true" tabindex="-1"></a>q2_draws <span class="ot">&lt;-</span> <span class="fu">cmd_draws</span>(q2_sample)</span>
-<span id="cb136-2"><a href="homework-week-5.html#cb136-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb136-3"><a href="homework-week-5.html#cb136-3" aria-hidden="true" tabindex="-1"></a>q2_sample<span class="sc">$</span><span class="fu">summary</span>()</span></code></pre></div>
+##   vector[N] scale_score;
+## }
+## parameters{
+##   real alpha;
+##   vector[N_flights] beta_flights;
+##   vector[N_wine_american] beta_wine_american;
+##   vector[N_judge_american] beta_judge_american;
+##   real&lt;lower=0&gt; sigma;
+## }
+## model{
+##   alpha ~ normal(0, 0.2);
+##   beta_flights ~ normal(0, 0.5);
+##   beta_wine_american ~ normal(0, 0.5);
+##   beta_judge_american ~ normal(0, 0.5);
+##   sigma ~ exponential(1);
+## 
+##   vector[N] mu;
+##   mu = beta_flights[index_flight] + beta_wine_american[index_wine_american] + beta_judge_american[index_judge_american];
+##   scale_score ~ normal(mu, sigma);
+## }</code></pre>
+<div class="sourceCode" id="cb97"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">q2</span> <span class="op">&lt;-</span> <span class="fu">tar_read</span><span class="op">(</span><span class="va">stan_mcmc_w05_q2</span><span class="op">)</span>
+<span class="va">q2_draws</span> <span class="op">&lt;-</span> <span class="va">q2</span><span class="op">$</span><span class="fu">draws</span><span class="op">(</span><span class="op">)</span>
+
+<span class="va">q2</span><span class="op">$</span><span class="fu">summary</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>## # A tibble: 9 × 10
 ##   variable            mean   median     sd    mad      q5     q95  rhat ess_bulk
 ##   &lt;chr&gt;              &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
-## 1 lp__            -9.24e+1 -9.21e+1 1.98   1.86   -96.1   -89.8    1.00    1571.
-## 2 alpha           -4.17e-4  6.40e-4 0.195  0.189   -0.321   0.328  1.00    3239.
-## 3 beta_flights[…   3.00e-3 -1.70e-3 0.294  0.297   -0.479   0.488  1.00    1648.
-## 4 beta_flights[…   2.13e-3 -2.85e-4 0.295  0.296   -0.480   0.488  1.00    1653.
-## 5 beta_wine_ame…  -9.75e-2 -9.93e-2 0.299  0.297   -0.586   0.400  1.00    1965.
-## 6 beta_wine_ame…   8.43e-2  7.48e-2 0.304  0.299   -0.416   0.596  1.00    2007.
-## 7 beta_judge_am…  -1.12e-1 -1.06e-1 0.300  0.302   -0.610   0.375  1.00    1683.
-## 8 beta_judge_am…   1.28e-1  1.31e-1 0.296  0.300   -0.363   0.608  1.00    1615.
-## 9 sigma            1.00e+0  9.98e-1 0.0530 0.0520   0.918   1.09   1.00    3488.
+## 1 lp__            -9.24e+1 -9.20e+1 2.04   1.92   -96.2   -89.7    1.00    1746.
+## 2 alpha            8.61e-4 -1.84e-4 0.198  0.196   -0.312   0.336  1.00    3101.
+## 3 beta_flights[…  -2.04e-3 -9.90e-4 0.297  0.295   -0.501   0.484  1.00    1876.
+## 4 beta_flights[…  -5.52e-3 -1.04e-2 0.298  0.303   -0.483   0.489  1.00    1929.
+## 5 beta_wine_ame…  -8.69e-2 -8.85e-2 0.303  0.302   -0.575   0.403  1.00    1730.
+## 6 beta_wine_ame…   9.67e-2  1.02e-1 0.301  0.302   -0.406   0.589  1.00    1847.
+## 7 beta_judge_am…  -1.16e-1 -1.14e-1 0.296  0.295   -0.590   0.361  1.00    1864.
+## 8 beta_judge_am…   1.21e-1  1.20e-1 0.291  0.290   -0.347   0.602  1.00    1762.
+## 9 sigma            1.00e+0  9.99e-1 0.0534 0.0529   0.918   1.09   1.00    3052.
 ## # … with 1 more variable: ess_tail &lt;dbl&gt;</code></pre>
-<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="homework-week-5.html#cb138-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_trace</span>(q2_draws)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-48-1.png" width="672" /></p>
-<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="homework-week-5.html#cb139-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Recall: </span></span>
-<span id="cb139-2"><a href="homework-week-5.html#cb139-2" aria-hidden="true" tabindex="-1"></a>DT[, .N, .(flight, index_flight)]</span></code></pre></div>
-<pre><code>##    flight index_flight     N
-##    &lt;fctr&gt;        &lt;int&gt; &lt;int&gt;
-## 1:  white            1    90
-## 2:    red            2    90</code></pre>
-<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="homework-week-5.html#cb141-1" aria-hidden="true" tabindex="-1"></a>DT[, .N, .(judge.amer, index_judge_american)]</span></code></pre></div>
-<pre><code>##    judge.amer index_judge_american     N
-##         &lt;int&gt;                &lt;int&gt; &lt;int&gt;
-## 1:          0                    1    80
-## 2:          1                    2   100</code></pre>
-<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="homework-week-5.html#cb143-1" aria-hidden="true" tabindex="-1"></a>DT[, .N, .(wine.amer, index_wine_american)]</span></code></pre></div>
-<pre><code>##    wine.amer index_wine_american     N
-##        &lt;int&gt;               &lt;int&gt; &lt;int&gt;
-## 1:         1                   1   108
-## 2:         0                   2    72</code></pre>
-<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="homework-week-5.html#cb145-1" aria-hidden="true" tabindex="-1"></a>labs <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb145-2"><a href="homework-week-5.html#cb145-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;beta_flights[1]&#39;</span> <span class="ot">=</span> <span class="st">&#39;White Wine&#39;</span>,</span>
-<span id="cb145-3"><a href="homework-week-5.html#cb145-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;beta_flights[2]&#39;</span> <span class="ot">=</span> <span class="st">&#39;Red Wine&#39;</span>,</span>
-<span id="cb145-4"><a href="homework-week-5.html#cb145-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;beta_wine_american[1]&#39;</span> <span class="ot">=</span> <span class="st">&#39;French Wine&#39;</span>,</span>
-<span id="cb145-5"><a href="homework-week-5.html#cb145-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;beta_wine_american[2]&#39;</span> <span class="ot">=</span> <span class="st">&#39;American Wine&#39;</span>,</span>
-<span id="cb145-6"><a href="homework-week-5.html#cb145-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;beta_judge_american[1]&#39;</span> <span class="ot">=</span> <span class="st">&#39;American Judge&#39;</span>,</span>
-<span id="cb145-7"><a href="homework-week-5.html#cb145-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;beta_judge_american[2]&#39;</span> <span class="ot">=</span> <span class="st">&#39;French Judge&#39;</span></span>
-<span id="cb145-8"><a href="homework-week-5.html#cb145-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb145-9"><a href="homework-week-5.html#cb145-9" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(q2_draws, <span class="at">regex_pars =</span> <span class="st">&#39;flight&#39;</span>) <span class="sc">+</span> <span class="fu">scale_y_discrete</span>(<span class="at">labels =</span> labs)</span></code></pre></div>
-<pre><code>## Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+<div class="sourceCode" id="cb99"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">mcmc_trace</span><span class="op">(</span><span class="va">q2_draws</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-46-1.png" width="672"></div>
+<div class="sourceCode" id="cb100"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Recall: </span>
+<span class="va">DT</span><span class="op">[</span>, <span class="va">.N</span>, <span class="fu">.</span><span class="op">(</span><span class="va">flight</span>, <span class="va">index_flight</span><span class="op">)</span><span class="op">]</span></code></pre></div>
+<pre><code>##    flight index_flight  N
+## 1:  white            1 90
+## 2:    red            2 90</code></pre>
+<div class="sourceCode" id="cb102"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">DT</span><span class="op">[</span>, <span class="va">.N</span>, <span class="fu">.</span><span class="op">(</span><span class="va">judge.amer</span>, <span class="va">index_judge_american</span><span class="op">)</span><span class="op">]</span></code></pre></div>
+<pre><code>##    judge.amer index_judge_american   N
+## 1:          0                    1  80
+## 2:          1                    2 100</code></pre>
+<div class="sourceCode" id="cb104"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">DT</span><span class="op">[</span>, <span class="va">.N</span>, <span class="fu">.</span><span class="op">(</span><span class="va">wine.amer</span>, <span class="va">index_wine_american</span><span class="op">)</span><span class="op">]</span></code></pre></div>
+<pre><code>##    wine.amer index_wine_american   N
+## 1:         1                   1 108
+## 2:         0                   2  72</code></pre>
+<div class="sourceCode" id="cb106"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">labs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
+    <span class="st">'beta_flights[1]'</span> <span class="op">=</span> <span class="st">'White Wine'</span>,
+    <span class="st">'beta_flights[2]'</span> <span class="op">=</span> <span class="st">'Red Wine'</span>,
+    <span class="st">'beta_wine_american[1]'</span> <span class="op">=</span> <span class="st">'French Wine'</span>,
+    <span class="st">'beta_wine_american[2]'</span> <span class="op">=</span> <span class="st">'American Wine'</span>,
+    <span class="st">'beta_judge_american[1]'</span> <span class="op">=</span> <span class="st">'American Judge'</span>,
+    <span class="st">'beta_judge_american[2]'</span> <span class="op">=</span> <span class="st">'French Judge'</span>
+<span class="op">)</span>
+<span class="fu">mcmc_areas</span><span class="op">(</span><span class="va">q2_draws</span>, regex_pars <span class="op">=</span> <span class="st">'flight'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">scale_y_discrete</span><span class="op">(</span>labels <span class="op">=</span> <span class="va">labs</span><span class="op">)</span></code></pre></div>
+<pre><code>## Scale for 'y' is already present. Adding another scale for 'y', which will
 ## replace the existing scale.</code></pre>
-<p><img src="_main_files/figure-html/unnamed-chunk-49-1.png" width="672" /></p>
-<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="homework-week-5.html#cb147-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(q2_draws, <span class="at">regex_pars =</span> <span class="st">&#39;judge&#39;</span>) <span class="sc">+</span> <span class="fu">scale_y_discrete</span>(<span class="at">labels =</span> labs)</span></code></pre></div>
-<pre><code>## Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-47-1.png" width="672"></div>
+<div class="sourceCode" id="cb108"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">mcmc_areas</span><span class="op">(</span><span class="va">q2_draws</span>, regex_pars <span class="op">=</span> <span class="st">'judge'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">scale_y_discrete</span><span class="op">(</span>labels <span class="op">=</span> <span class="va">labs</span><span class="op">)</span></code></pre></div>
+<pre><code>## Scale for 'y' is already present. Adding another scale for 'y', which will
 ## replace the existing scale.</code></pre>
-<p><img src="_main_files/figure-html/unnamed-chunk-49-2.png" width="672" /></p>
-<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="homework-week-5.html#cb149-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(q2_draws, <span class="at">regex_pars =</span> <span class="st">&#39;wine&#39;</span>) <span class="sc">+</span> <span class="fu">scale_y_discrete</span>(<span class="at">labels =</span> labs)</span></code></pre></div>
-<pre><code>## Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-47-2.png" width="672"></div>
+<div class="sourceCode" id="cb110"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">mcmc_areas</span><span class="op">(</span><span class="va">q2_draws</span>, regex_pars <span class="op">=</span> <span class="st">'wine'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">scale_y_discrete</span><span class="op">(</span>labels <span class="op">=</span> <span class="va">labs</span><span class="op">)</span></code></pre></div>
+<pre><code>## Scale for 'y' is already present. Adding another scale for 'y', which will
 ## replace the existing scale.</code></pre>
-<p><img src="_main_files/figure-html/unnamed-chunk-49-3.png" width="672" /></p>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-47-3.png" width="672"></div>
 <!-- > What do you conclude about the differences among the wines and judges? Try to -->
 <!-- relate the results to the inferences in Problem 1 -->
 </div>
 </div>
 <div id="question-3-4" class="section level2" number="6.3">
-<h2><span class="header-section-number">6.3</span> Question 3</h2>
+<h2>
+<span class="header-section-number">6.3</span> Question 3<a class="anchor" aria-label="anchor" href="#question-3-4"><i class="fas fa-link"></i></a>
+</h2>
 <blockquote>
 <p>Now consider two-way interactions among the three features. You should end up
 with three different interaction terms in your model. These will be easier to
@@ -1331,251 +460,138 @@ about the features and the scores? Can you relate the results of your model(s)
 to the individual judge and wine inferences from Problem 1?</p>
 </blockquote>
 <div id="data-4" class="section level3" number="6.3.1">
-<h3><span class="header-section-number">6.3.1</span> Data</h3>
-<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="homework-week-5.html#cb151-1" aria-hidden="true" tabindex="-1"></a>DT[, index_interactions <span class="sc">:</span><span class="er">=</span> .GRP, .(judge.amer, wine.amer, flight)]</span>
-<span id="cb151-2"><a href="homework-week-5.html#cb151-2" aria-hidden="true" tabindex="-1"></a>n_index_interactions <span class="ot">&lt;-</span> DT[, <span class="fu">uniqueN</span>(index_interactions)]</span>
-<span id="cb151-3"><a href="homework-week-5.html#cb151-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb151-4"><a href="homework-week-5.html#cb151-4" aria-hidden="true" tabindex="-1"></a>q3_data <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb151-5"><a href="homework-week-5.html#cb151-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.list</span>(DT[, .(<span class="at">scale_score =</span> <span class="fu">as.numeric</span>(scale_score),</span>
-<span id="cb151-6"><a href="homework-week-5.html#cb151-6" aria-hidden="true" tabindex="-1"></a>                                 index_interactions)]),</span>
-<span id="cb151-7"><a href="homework-week-5.html#cb151-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">N_interactions =</span> n_index_interactions,</span>
-<span id="cb151-8"><a href="homework-week-5.html#cb151-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">N =</span> n_rows</span>
-<span id="cb151-9"><a href="homework-week-5.html#cb151-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<h3>
+<span class="header-section-number">6.3.1</span> Data<a class="anchor" aria-label="anchor" href="#data-4"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb112"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">DT</span> <span class="op">&lt;-</span> <span class="fu">data_wines</span><span class="op">(</span><span class="op">)</span>
+<span class="va">n_index_interactions</span> <span class="op">&lt;-</span> <span class="va">DT</span><span class="op">[</span>, <span class="fu">uniqueN</span><span class="op">(</span><span class="va">index_interactions</span><span class="op">)</span><span class="op">]</span>
+
+<span class="va">q3_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/list.html">as.list</a></span><span class="op">(</span><span class="va">DT</span><span class="op">[</span>, <span class="fu">.</span><span class="op">(</span>scale_score <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">scale_score</span><span class="op">)</span>,
+                                 <span class="va">index_interactions</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>,
+    N_interactions <span class="op">=</span> <span class="va">n_index_interactions</span>,
+    N <span class="op">=</span> <span class="va">n_rows</span>
+<span class="op">)</span></code></pre></div>
 </div>
 <div id="model-4" class="section level3" number="6.3.2">
-<h3><span class="header-section-number">6.3.2</span> Model</h3>
-<pre class="stan"><code>data {
-  int&lt;lower=0&gt; N;
-  int&lt;lower=0&gt; N_interactions;
-
-  int index_interactions[N];
-
-  vector[N] scale_score;
-}
-parameters{
-  real alpha;
-  vector[N_interactions] beta_interactions;
-  real&lt;lower=0&gt; sigma;
-}
-model{
-  alpha ~ normal(0, 0.2);
-  beta_interactions ~ normal(0, 0.25);
-  sigma ~ exponential(1);
-
-  vector[N] mu;
-  mu = alpha + beta_interactions[index_interactions];
-
-  scale_score ~ normal(mu, sigma);
-}</code></pre>
-<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="homework-week-5.html#cb153-1" aria-hidden="true" tabindex="-1"></a><span class="co"># q3_stan &lt;- &#39;q3.stan&#39;</span></span>
-<span id="cb153-2"><a href="homework-week-5.html#cb153-2" aria-hidden="true" tabindex="-1"></a><span class="co"># writeLines(readLines(q3_stan))</span></span>
-<span id="cb153-3"><a href="homework-week-5.html#cb153-3" aria-hidden="true" tabindex="-1"></a><span class="co"># q3_model &lt;- cmdstan_model(q3_stan)</span></span>
-<span id="cb153-4"><a href="homework-week-5.html#cb153-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb153-5"><a href="homework-week-5.html#cb153-5" aria-hidden="true" tabindex="-1"></a>q3_sample <span class="ot">&lt;-</span> q3_model<span class="sc">$</span><span class="fu">sample</span>(<span class="at">data =</span> q3_data)</span></code></pre></div>
-<pre><code>## Running MCMC with 4 sequential chains...
+<h3>
+<span class="header-section-number">6.3.2</span> Model<a class="anchor" aria-label="anchor" href="#model-4"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb113"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/writeLines.html">writeLines</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="fu">tar_read</span><span class="op">(</span><span class="va">stan_file_w05_q3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>## data {
+##   int&lt;lower=0&gt; N;
+##   int&lt;lower=0&gt; N_interactions;
 ## 
-## Chain 1 Iteration:    1 / 2000 [  0%]  (Warmup) 
-## Chain 1 Iteration:  100 / 2000 [  5%]  (Warmup) 
-## Chain 1 Iteration:  200 / 2000 [ 10%]  (Warmup) 
-## Chain 1 Iteration:  300 / 2000 [ 15%]  (Warmup) 
-## Chain 1 Iteration:  400 / 2000 [ 20%]  (Warmup) 
-## Chain 1 Iteration:  500 / 2000 [ 25%]  (Warmup) 
-## Chain 1 Iteration:  600 / 2000 [ 30%]  (Warmup) 
-## Chain 1 Iteration:  700 / 2000 [ 35%]  (Warmup) 
-## Chain 1 Iteration:  800 / 2000 [ 40%]  (Warmup) 
-## Chain 1 Iteration:  900 / 2000 [ 45%]  (Warmup) 
-## Chain 1 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
-## Chain 1 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
-## Chain 1 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
-## Chain 1 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
-## Chain 1 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
-## Chain 1 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
-## Chain 1 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
-## Chain 1 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
-## Chain 1 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
-## Chain 1 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
-## Chain 1 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
-## Chain 1 Iteration: 2000 / 2000 [100%]  (Sampling)</code></pre>
-<pre><code>## Chain 1 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-<pre><code>## Chain 1 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/tmp/RtmpRmpGn5/model-376d76941932.stan&#39;, line 22, column 2 to column 34)</code></pre>
-<pre><code>## Chain 1 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
-<pre><code>## Chain 1 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
-<pre><code>## Chain 1</code></pre>
-<pre><code>## Chain 1 finished in 0.1 seconds.
-## Chain 2 Iteration:    1 / 2000 [  0%]  (Warmup) 
-## Chain 2 Iteration:  100 / 2000 [  5%]  (Warmup) 
-## Chain 2 Iteration:  200 / 2000 [ 10%]  (Warmup) 
-## Chain 2 Iteration:  300 / 2000 [ 15%]  (Warmup) 
-## Chain 2 Iteration:  400 / 2000 [ 20%]  (Warmup) 
-## Chain 2 Iteration:  500 / 2000 [ 25%]  (Warmup) 
-## Chain 2 Iteration:  600 / 2000 [ 30%]  (Warmup) 
-## Chain 2 Iteration:  700 / 2000 [ 35%]  (Warmup) 
-## Chain 2 Iteration:  800 / 2000 [ 40%]  (Warmup) 
-## Chain 2 Iteration:  900 / 2000 [ 45%]  (Warmup) 
-## Chain 2 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
-## Chain 2 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
-## Chain 2 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
-## Chain 2 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
-## Chain 2 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
-## Chain 2 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
-## Chain 2 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
-## Chain 2 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
-## Chain 2 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
-## Chain 2 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
-## Chain 2 Iteration: 1900 / 2000 [ 95%]  (Sampling)</code></pre>
-<pre><code>## Chain 2 Informational Message: The current Metropolis proposal is about to be rejected because of the following issue:</code></pre>
-<pre><code>## Chain 2 Exception: normal_lpdf: Scale parameter is 0, but must be positive! (in &#39;/tmp/RtmpRmpGn5/model-376d76941932.stan&#39;, line 22, column 2 to column 34)</code></pre>
-<pre><code>## Chain 2 If this warning occurs sporadically, such as for highly constrained variable types like covariance matrices, then the sampler is fine,</code></pre>
-<pre><code>## Chain 2 but if this warning occurs often then your model may be either severely ill-conditioned or misspecified.</code></pre>
-<pre><code>## Chain 2</code></pre>
-<pre><code>## Chain 2 Iteration: 2000 / 2000 [100%]  (Sampling) 
-## Chain 2 finished in 0.1 seconds.
-## Chain 3 Iteration:    1 / 2000 [  0%]  (Warmup) 
-## Chain 3 Iteration:  100 / 2000 [  5%]  (Warmup) 
-## Chain 3 Iteration:  200 / 2000 [ 10%]  (Warmup) 
-## Chain 3 Iteration:  300 / 2000 [ 15%]  (Warmup) 
-## Chain 3 Iteration:  400 / 2000 [ 20%]  (Warmup) 
-## Chain 3 Iteration:  500 / 2000 [ 25%]  (Warmup) 
-## Chain 3 Iteration:  600 / 2000 [ 30%]  (Warmup) 
-## Chain 3 Iteration:  700 / 2000 [ 35%]  (Warmup) 
-## Chain 3 Iteration:  800 / 2000 [ 40%]  (Warmup) 
-## Chain 3 Iteration:  900 / 2000 [ 45%]  (Warmup) 
-## Chain 3 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
-## Chain 3 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
-## Chain 3 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
-## Chain 3 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
-## Chain 3 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
-## Chain 3 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
-## Chain 3 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
-## Chain 3 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
-## Chain 3 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
-## Chain 3 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
-## Chain 3 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
-## Chain 3 Iteration: 2000 / 2000 [100%]  (Sampling) 
-## Chain 3 finished in 0.1 seconds.
-## Chain 4 Iteration:    1 / 2000 [  0%]  (Warmup) 
-## Chain 4 Iteration:  100 / 2000 [  5%]  (Warmup) 
-## Chain 4 Iteration:  200 / 2000 [ 10%]  (Warmup) 
-## Chain 4 Iteration:  300 / 2000 [ 15%]  (Warmup) 
-## Chain 4 Iteration:  400 / 2000 [ 20%]  (Warmup) 
-## Chain 4 Iteration:  500 / 2000 [ 25%]  (Warmup) 
-## Chain 4 Iteration:  600 / 2000 [ 30%]  (Warmup) 
-## Chain 4 Iteration:  700 / 2000 [ 35%]  (Warmup) 
-## Chain 4 Iteration:  800 / 2000 [ 40%]  (Warmup) 
-## Chain 4 Iteration:  900 / 2000 [ 45%]  (Warmup) 
-## Chain 4 Iteration: 1000 / 2000 [ 50%]  (Warmup) 
-## Chain 4 Iteration: 1001 / 2000 [ 50%]  (Sampling) 
-## Chain 4 Iteration: 1100 / 2000 [ 55%]  (Sampling) 
-## Chain 4 Iteration: 1200 / 2000 [ 60%]  (Sampling) 
-## Chain 4 Iteration: 1300 / 2000 [ 65%]  (Sampling) 
-## Chain 4 Iteration: 1400 / 2000 [ 70%]  (Sampling) 
-## Chain 4 Iteration: 1500 / 2000 [ 75%]  (Sampling) 
-## Chain 4 Iteration: 1600 / 2000 [ 80%]  (Sampling) 
-## Chain 4 Iteration: 1700 / 2000 [ 85%]  (Sampling) 
-## Chain 4 Iteration: 1800 / 2000 [ 90%]  (Sampling) 
-## Chain 4 Iteration: 1900 / 2000 [ 95%]  (Sampling) 
-## Chain 4 Iteration: 2000 / 2000 [100%]  (Sampling) 
-## Chain 4 finished in 0.1 seconds.
+##   int index_interactions[N];
 ## 
-## All 4 chains finished successfully.
-## Mean chain execution time: 0.1 seconds.
-## Total execution time: 0.5 seconds.</code></pre>
-<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="homework-week-5.html#cb167-1" aria-hidden="true" tabindex="-1"></a>q3_draws <span class="ot">&lt;-</span> <span class="fu">cmd_draws</span>(q3_sample)</span>
-<span id="cb167-2"><a href="homework-week-5.html#cb167-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb167-3"><a href="homework-week-5.html#cb167-3" aria-hidden="true" tabindex="-1"></a>q3_sample<span class="sc">$</span><span class="fu">summary</span>()</span></code></pre></div>
+##   vector[N] scale_score;
+## }
+## parameters{
+##   real alpha;
+##   vector[N_interactions] beta_interactions;
+##   real&lt;lower=0&gt; sigma;
+## }
+## model{
+##   alpha ~ normal(0, 0.2);
+##   beta_interactions ~ normal(0, 0.25);
+##   sigma ~ exponential(1);
+## 
+##   vector[N] mu;
+##   mu = alpha + beta_interactions[index_interactions];
+## 
+##   scale_score ~ normal(mu, sigma);
+## }</code></pre>
+<div class="sourceCode" id="cb115"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">q3</span> <span class="op">&lt;-</span> <span class="fu">tar_read</span><span class="op">(</span><span class="va">stan_mcmc_w05_q3</span><span class="op">)</span>
+<span class="va">q3_draws</span> <span class="op">&lt;-</span> <span class="va">q3</span><span class="op">$</span><span class="fu">draws</span><span class="op">(</span><span class="op">)</span>
+
+<span class="va">q3</span><span class="op">$</span><span class="fu">summary</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>## # A tibble: 11 × 10
 ##    variable          mean   median     sd    mad      q5      q95  rhat ess_bulk
 ##    &lt;chr&gt;            &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
-##  1 lp__          -9.25e+1 -9.21e+1 2.23   2.19   -96.6   -89.5     1.00    1685.
-##  2 alpha          3.04e-3  1.47e-3 0.102  0.103   -0.163   0.171   1.00    2967.
-##  3 beta_interac…  2.20e-2  2.30e-2 0.168  0.169   -0.255   0.298   1.00    4727.
-##  4 beta_interac… -1.94e-1 -1.93e-1 0.183  0.186   -0.489   0.119   1.00    5951.
-##  5 beta_interac…  2.47e-2  2.47e-2 0.161  0.164   -0.239   0.291   1.00    5071.
-##  6 beta_interac…  1.11e-1  1.12e-1 0.173  0.173   -0.172   0.399   1.00    5830.
-##  7 beta_interac…  1.24e-1  1.25e-1 0.186  0.186   -0.187   0.425   1.00    6681.
-##  8 beta_interac… -2.54e-1 -2.55e-1 0.165  0.165   -0.519   0.0199  1.00    4979.
-##  9 beta_interac…  1.77e-1  1.75e-1 0.180  0.177   -0.122   0.479   1.00    6038.
-## 10 beta_interac… -1.36e-2 -1.13e-2 0.164  0.167   -0.283   0.250   1.00    5091.
-## 11 sigma          9.92e-1  9.89e-1 0.0522 0.0507   0.909   1.08    1.00    7469.
+##  1 lp__          -9.25e+1 -9.22e+1 2.23   2.07   -96.7   -89.5     1.00    1640.
+##  2 alpha          1.86e-3  1.15e-3 0.101  0.0991  -0.164   0.168   1.00    3164.
+##  3 beta_interac…  2.58e-2  2.68e-2 0.176  0.174   -0.266   0.317   1.00    5526.
+##  4 beta_interac… -1.91e-1 -1.90e-1 0.185  0.183   -0.503   0.113   1.00    6850.
+##  5 beta_interac…  2.91e-2  2.83e-2 0.158  0.161   -0.228   0.289   1.00    4941.
+##  6 beta_interac…  1.10e-1  1.08e-1 0.177  0.179   -0.183   0.402   1.00    5471.
+##  7 beta_interac…  1.26e-1  1.27e-1 0.179  0.178   -0.174   0.421   1.00    6705.
+##  8 beta_interac… -2.52e-1 -2.54e-1 0.166  0.167   -0.524   0.0208  1.00    6633.
+##  9 beta_interac…  1.76e-1  1.77e-1 0.174  0.173   -0.105   0.461   1.00    6188.
+## 10 beta_interac… -1.45e-2 -1.48e-2 0.164  0.165   -0.283   0.261   1.00    4721.
+## 11 sigma          9.91e-1  9.90e-1 0.0520 0.0535   0.909   1.08    1.00    8835.
 ## # … with 1 more variable: ess_tail &lt;dbl&gt;</code></pre>
-<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="homework-week-5.html#cb169-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_trace</span>(q3_draws)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-52-1.png" width="672" /></p>
-<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="homework-week-5.html#cb170-1" aria-hidden="true" tabindex="-1"></a>DT[, judge_char <span class="sc">:</span><span class="er">=</span> <span class="fu">ifelse</span>(judge.amer <span class="sc">==</span> <span class="dv">0</span>, <span class="st">&#39;French Judge&#39;</span>, <span class="st">&#39;American Judge&#39;</span>)]</span>
-<span id="cb170-2"><a href="homework-week-5.html#cb170-2" aria-hidden="true" tabindex="-1"></a>DT[, wine_char <span class="sc">:</span><span class="er">=</span> <span class="fu">ifelse</span>(wine.amer <span class="sc">==</span> <span class="dv">0</span>, <span class="st">&#39;French Wine&#39;</span>, <span class="st">&#39;American Wine&#39;</span>)]</span>
-<span id="cb170-3"><a href="homework-week-5.html#cb170-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb170-4"><a href="homework-week-5.html#cb170-4" aria-hidden="true" tabindex="-1"></a>labs <span class="ot">&lt;-</span> DT[, .(.GRP, <span class="fu">paste</span>(.BY, <span class="at">collapse =</span> <span class="st">&#39;, &#39;</span>)), by <span class="ot">=</span> .(wine_char, judge_char, <span class="fu">as.character</span>(flight))][, .(GRP, V2)]</span>
-<span id="cb170-5"><a href="homework-week-5.html#cb170-5" aria-hidden="true" tabindex="-1"></a>labs <span class="ot">&lt;-</span> <span class="fu">setNames</span>(labs<span class="sc">$</span>V2, <span class="fu">paste0</span>(<span class="st">&#39;beta_interactions[&#39;</span>, labs<span class="sc">$</span>GRP, <span class="st">&#39;]&#39;</span>))</span>
-<span id="cb170-6"><a href="homework-week-5.html#cb170-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(q3_draws, <span class="at">regex_pars =</span> <span class="st">&#39;interaction&#39;</span>) <span class="sc">+</span> <span class="fu">scale_y_discrete</span>(<span class="at">labels =</span> labs)</span></code></pre></div>
-<pre><code>## Scale for &#39;y&#39; is already present. Adding another scale for &#39;y&#39;, which will
+<div class="sourceCode" id="cb117"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">mcmc_trace</span><span class="op">(</span><span class="va">q3_draws</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-50-1.png" width="672"></div>
+<div class="sourceCode" id="cb118"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">DT</span><span class="op">[</span>, <span class="va">judge_char</span> <span class="op">:=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">judge.amer</span> <span class="op">==</span> <span class="fl">0</span>, <span class="st">'French Judge'</span>, <span class="st">'American Judge'</span><span class="op">)</span><span class="op">]</span>
+<span class="va">DT</span><span class="op">[</span>, <span class="va">wine_char</span> <span class="op">:=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">wine.amer</span> <span class="op">==</span> <span class="fl">0</span>, <span class="st">'French Wine'</span>, <span class="st">'American Wine'</span><span class="op">)</span><span class="op">]</span>
+
+<span class="va">labs</span> <span class="op">&lt;-</span> <span class="va">DT</span><span class="op">[</span>, <span class="fu">.</span><span class="op">(</span><span class="va">.GRP</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="va">.BY</span>, collapse <span class="op">=</span> <span class="st">', '</span><span class="op">)</span><span class="op">)</span>, by <span class="op">=</span> <span class="fu">.</span><span class="op">(</span><span class="va">wine_char</span>, <span class="va">judge_char</span>, <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="va">flight</span><span class="op">)</span><span class="op">)</span><span class="op">]</span><span class="op">[</span>, <span class="fu">.</span><span class="op">(</span><span class="va">GRP</span>, <span class="va">V2</span><span class="op">)</span><span class="op">]</span>
+<span class="va">labs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/setNames.html">setNames</a></span><span class="op">(</span><span class="va">labs</span><span class="op">$</span><span class="va">V2</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">'beta_interactions['</span>, <span class="va">labs</span><span class="op">$</span><span class="va">GRP</span>, <span class="st">']'</span><span class="op">)</span><span class="op">)</span>
+<span class="fu">mcmc_areas</span><span class="op">(</span><span class="va">q3_draws</span>, regex_pars <span class="op">=</span> <span class="st">'interaction'</span><span class="op">)</span> <span class="op">+</span> <span class="fu">scale_y_discrete</span><span class="op">(</span>labels <span class="op">=</span> <span class="va">labs</span><span class="op">)</span></code></pre></div>
+<pre><code>## Scale for 'y' is already present. Adding another scale for 'y', which will
 ## replace the existing scale.</code></pre>
-<p><img src="_main_files/figure-html/unnamed-chunk-53-1.png" width="672" /></p>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-51-1.png" width="672"></div>
 
 </div>
 </div>
 </div>
-            </section>
+  <div class="chapter-nav">
+<div class="prev"><a href="homework-week-4.html"><span class="header-section-number">5</span> Homework: Week 4</a></div>
+<div class="next"><a href="homework-week-6.html"><span class="header-section-number">7</span> Homework: Week 6</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#homework-week-5"><span class="header-section-number">6</span> Homework: Week 5</a></li>
+<li>
+<a class="nav-link" href="#question-1-4"><span class="header-section-number">6.1</span> Question 1</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#data-2"><span class="header-section-number">6.1.1</span> Data</a></li>
+<li><a class="nav-link" href="#prior-predictive-simulation-1"><span class="header-section-number">6.1.2</span> Prior predictive simulation</a></li>
+<li><a class="nav-link" href="#model-2"><span class="header-section-number">6.1.3</span> Model</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#question-2-4"><span class="header-section-number">6.2</span> Question 2</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#data-3"><span class="header-section-number">6.2.1</span> Data</a></li>
+<li><a class="nav-link" href="#priors"><span class="header-section-number">6.2.2</span> Priors</a></li>
+<li><a class="nav-link" href="#model-3"><span class="header-section-number">6.2.3</span> Model</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#question-3-4"><span class="header-section-number">6.3</span> Question 3</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#data-4"><span class="header-section-number">6.3.1</span> Data</a></li>
+<li><a class="nav-link" href="#model-4"><span class="header-section-number">6.3.2</span> Model</a></li>
+</ul>
+</li>
+</ul>
 
-          </div>
-        </div>
-      </div>
-<a href="homework-week-4.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="homework-week-6.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
-    </div>
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Learning bayesian data analysis with Statistical Rethinking</strong>" was written by Alec L. Robitaille. It was last built on 2021-08-18 [updated: 2021-10-07].</p>
   </div>
-<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
-<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
-<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
-<script>
-gitbook.require(["gitbook"], function(gitbook) {
-gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": null,
-"text": null
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": null,
-"search": {
-"engine": "lunr",
-"options": null
-},
-"toc": {
-"collapse": "subsection"
-}
-});
-});
-</script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
@@ -1587,7 +603,22 @@ gitbook.start({
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
 </script>
 </body>
-
 </html>
