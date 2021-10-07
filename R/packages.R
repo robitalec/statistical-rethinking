@@ -1,3 +1,5 @@
+library(conflicted)
+
 library(targets)
 library(stantargets)
 library(tarchetypes)
