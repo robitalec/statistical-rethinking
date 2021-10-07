@@ -139,11 +139,11 @@ Can you explain why the answers to these two questions disagree?
 
 
 ```{r, eval = FALSE}
-compare(m6.9, m6.10)
+rethinking::compare(m6.9, m6.10)
 ```
 
 ```{r, echo = FALSE}
-round(compare(m6.9, m6.10), 2)
+round(rethinking::compare(m6.9, m6.10), 2)
 ```
 
 
@@ -269,7 +269,7 @@ score differences (dSE).
 5. weight ~ area
 
 ```{r}
-compare_models <- compare(m1, m2, m3, m4, m5)
+compare_models <- rethinking::compare(m1, m2, m3, m4, m5)
 compare_models
 
 compare_models@dSE
