@@ -163,156 +163,36 @@ posterior predictions. What is the impact of individual variation in these data?
 ```{r}
 DT <- data_trolley()
 precis(DT)
-
-model_data <- c(
-	as.list(DT[, .(response, action, intention, contact)]), 
-	N = DT[, .N],
-	K = DT[, uniqueN(response) - 1]
-)
 ```
 
-
-```{cmdstan, output.var = 'model_trolley', cache = TRUE}
-data {
-  int N;
-  int K;
-  int response[N];
-  int action[N];
-  int intention[N];
-  int contact[N];
-}
-parameters {
-	// Cut points are the positions of responses along cumulative odds
-  ordered[K] cutpoints;
-  real beta_action;
-  real beta_intention;
-  real beta_contact;
-}
-transformed parameters {
-  vector[N] phi;
-
-	for (i in 1:N) {
-		phi[i] = beta_action * action[i] + beta_contact * contact[i] + beta_intention * intention[i];
-	}
-}
-model {
-	response ~ ordered_logistic(phi, cutpoints);
-  cutpoints ~ normal(0, 1.5);
-  beta_action ~ normal(0, 0.5);
-  beta_contact ~ normal(0, 0.5);
-  beta_intention ~ normal(0, 0.5);
-}
-generated quantities {
-	vector[N] log_lik;
-  for (i in 1:N) {
-    log_lik[i] = ordered_logistic_lpmf(response[i] | phi[i], cutpoints);
-  }
-}
-
+```{r}
+writeLines(readLines(tar_read(stan_c_file_w08_model_trolley)))
 ```
 
-
-```{r, cache = TRUE}
-# model_trolley_stan <- 'model_trolley.stan'
-# writeLines(readLines(model_trolley_stan))
-# model_trolley <- cmdstan_model(model_trolley_stan, cpp_options = list(stan_threads = TRUE))
-
-model_trolley_sample <-
-	model_trolley$sample(
-		data = model_data,
-		chains = 4,
-		save_warmup = FALSE,
-		parallel_chains = 4,
-		threads_per_chain = 4
-	)
-model_trolley_draws <- cmd_draws(model_trolley_sample)
+```{r}
+model_trolley <- tar_read(stan_c_mcmc_w08_model_trolley)
+model_trolley_draws <- model_trolley$draws()
 
 mcmc_areas(model_trolley_draws, regex_pars = 'cutpoints')
 mcmc_areas(model_trolley_draws, regex_pars = 'beta')
 
-model_trolley_loo <- model_trolley_sample$loo()
+model_trolley_loo <- model_trolley$loo()
 ```
+
 
 
 ```{r}
-model_data <- c(
-	as.list(DT[, .(response, action, intention, contact, individual)]), 
-	N = DT[, .N],
-	N_individual = DT[, uniqueN(individual)],
-	K = DT[, uniqueN(response) - 1]
-)
+writeLines(readLines(tar_read(stan_c_file_w08_model_trolley_multi)))
 ```
 
-```{cmdstan, output.var = 'model_trolley_multi', cache = TRUE}
-data {
-  int N;
-  int K;
-  int response[N];
-  int action[N];
-  int intention[N];
-  int contact[N];
-  int individual[N];
-  int N_individual;
-}
-parameters {
-	// Cut points are the positions of responses along cumulative odds
-  ordered[K] cutpoints;
-  real beta_action;
-  real beta_intention;
-  real beta_contact;
-	real alpha_bar;
-	real sigma;
-  vector[N_individual] alpha;
-}
-transformed parameters {
-  vector[N] phi;
-
-	for (i in 1:N) {
-		phi[i] = alpha[individual[i]] + beta_action * action[i] + beta_contact * contact[i] + beta_intention * intention[i];
-	}
-}
-model {
-	// Hyper parameter priors
-	alpha_bar ~ normal(0, 1.5);
-	sigma ~ exponential(1);
-
-	// Priors
-	alpha ~ normal(alpha_bar, sigma);
-
-	response ~ ordered_logistic(phi, cutpoints);
-  cutpoints ~ normal(0, 1.5);
-  beta_action ~ normal(0, 0.5);
-  beta_contact ~ normal(0, 0.5);
-  beta_intention ~ normal(0, 0.5);
-}
-generated quantities {
-	vector[N] log_lik;
-  for (i in 1:N) {
-    log_lik[i] = ordered_logistic_lpmf(response[i] | phi[i], cutpoints);
-  }
-}
-
-```
-
-```{r, cache = TRUE}
-# model_trolley_multi_stan <- 'model_trolley_multi.stan'
-# writeLines(readLines(model_trolley_multi_stan))
-# model_trolley_multi <- cmdstan_model(model_trolley_multi_stan, cpp_options = list(stan_threads = TRUE))
-
-model_trolley_multi_sample <-
-	model_trolley_multi$sample(
-		data = model_data,
-		chains = 4,
-		save_warmup = FALSE,
-		parallel_chains = 4,
-		threads_per_chain = 4
-	)
-model_trolley_multi_draws <- cmd_draws(model_trolley_multi_sample)
+```{r}
+model_trolley_multi <- tar_read(stan_c_mcmc_w08_model_trolley_multi)
+model_trolley_multi_draws <- model_trolley_multi$draws()
 
 mcmc_areas(model_trolley_multi_draws, regex_pars = 'cutpoints')
 mcmc_areas(model_trolley_multi_draws, regex_pars = 'beta')
 
-model_trolley_multi_loo <- model_trolley_multi_sample$loo()
+model_trolley_multi_loo <- model_trolley_multi$loo()
 ```
 
 ```{r}
