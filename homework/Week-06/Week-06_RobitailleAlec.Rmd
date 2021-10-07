@@ -1,0 +1,125 @@
+---
+author: "Alec L. Robitaille"
+output: github_document
+editor_options: 
+  chunk_output_type: console
+---
+
+# Homework: Week 6
+2021-09-06 [updated: `r Sys.Date()`]
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(rethinking)
+options(digits = 2, scipen = 999)
+```
+
+## Question 1
+
+> The data in `data(NWOGrants)` are outcomes for scientific funding applications
+for the Netherlands Organization for Scientific Research (NWO) from 2010–2012
+(see van der Lee and Ellemers doi:10.1073/pnas.1510159112). These data have a
+very similar structure to the UCBAdmit data discussed in Chapter 11. I want you
+to consider a similar question: What are the total and indirect causal effects
+of gender on grant awards? Consider a mediation path (a pipe) through dis-
+cipline. Draw the corresponding DAG and then use one or more binomial GLMs to
+answer the question.
+
+
+### Data
+
+```{r}
+DT <- data_grants()
+
+precis(DT)
+summary(DT)
+```
+
+* Discipline: factor with 9 levels
+* Gender: factor with 2 levels in this data (...)
+* Applications: count
+* Awards: count
+
+
+```{r}
+q1_data <- c(
+	as.list(DT[, .(awards, applications, index_gender, index_discipline)]),
+	N = DT[, .N],
+	N_gender = DT[, uniqueN(index_gender)],
+	N_discipline = DT[, uniqueN(index_discipline)]
+)
+```
+
+### DAG
+```{r}
+dag <- dagify(
+	awards ~ index_gender + index_discipline,
+	index_discipline ~ index_gender,
+	exposure = 'index_gender',
+	outcome = 'awards'
+)
+
+dag_plot(dag)
+```
+
+### Priors
+
+```{r}
+writeLines(readLines(tar_read(stan_b_file_w06_q1_prior)))
+```
+
+
+```{r}
+q1_prior_draws <- tar_read(stan_b_mcmc_w06_q1_prior)$draws()
+
+mcmc_areas(q1_prior_draws, regex_pars = 'theta')
+mcmc_areas(q1_prior_draws, regex_pars = 'sigma')
+mcmc_areas(q1_prior_draws, regex_pars = 'beta_gender')
+mcmc_areas(q1_prior_draws, regex_pars = 'beta_discipline')
+```
+
+### Model
+
+```{r}
+writeLines(readLines(tar_read(stan_b_file_w06_q1)))
+```
+
+
+```{r}
+q1_draws <- tar_read(stan_b_mcmc_w06_q1)$draws()
+
+mcmc_areas(q1_draws, regex_pars = 'alpha')
+
+q1_draws$dif_alpha <- (inv.logit(q1_draws$`alpha[1]`) -
+	inv.logit(q1_draws$`alpha[2]`)) * 100
+mcmc_areas(q1_draws, regex_pars = 'dif_alpha')
+```
+
+With discipline
+
+
+```{r}
+writeLines(readLines(tar_read(stan_b_file_w06_q1_discipline)))
+```
+
+
+```{r}
+q1_discipline_draws <- tar_read(stan_b_mcmc_w06_q1_discipline)$draws()
+
+mcmc_areas(q1_discipline_draws, regex_pars = 'alpha')
+mcmc_areas(q1_discipline_draws, regex_pars = 'beta')
+
+# Need to account for base rates to look at absolute rate
+# q1_draws$dif_alpha <- (inv.logit(q1_draws$`alpha[1]`) -
+# 	inv.logit(q1_draws$`alpha[2]`)) * 100
+# mcmc_areas(q1_draws, regex_pars = 'dif_alpha')
+
+# We can look at relative rates though
+q1_discipline_draws$dif_alpha_rel <- q1_discipline_draws$`alpha[1]` - q1_discipline_draws$`alpha[2]`
+mcmc_areas(q1_discipline_draws, regex_pars = 'dif_alpha_rel')
+```
+
+> What is your causal interpretation? If NWO’s goal is to equalize rates of
+funding between the genders, what type of intervention would be most effective?
+
+Investigate departmental levels, since once this is included the relative differences are small. 
