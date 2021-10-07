@@ -23,12 +23,11 @@ compiled_dir <- file.path('stan', 'compiled')
 output_stan_dir <- file.path('output', 'stan')
 
 # Data --------------------------------------------------------------------
-# TODO: also include N, Nindex etc
-# w05 data_wines()
-# w06 data_grants()
-# w07 data_trolley
-# w08 trolley (3), bangladesh (2), frogs (1)
-# w09 bangladesh (1, 2, 3)
+# w05 wines
+# w06 grants
+# w07 trolley
+# w08 frogs (1), bangladesh (2), trolley (3)
+# w09 bangladesh
 
 
 
