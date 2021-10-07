@@ -27,13 +27,7 @@ contraception, in each district, with urban women on one axis and rural on the
 other, might also help.
 
 ```{r}
-data(bangladesh)
-DT <- data.table(bangladesh)
 precis(DT)
-
-DT[, id := as.integer(woman)]
-DT[, district := as.integer(as.factor(district))]
-DT[, contraception := use.contraception]
 
 model_data <- c(as.list(DT[, .(contraception, district, urban)]), 
 								N = DT[, .N], N_district = DT[, uniqueN(district)])
@@ -159,7 +153,6 @@ adjustmentSets(dag, exposure = 'age', outcome = 'contraceptive_use', effect = 'd
 
 
 ```{r}
-DT[, scale_age := as.numeric(scale(age.centered))]
 model_data <- c(as.list(DT[, .(contraception, district, urban, scale_age, 
 															 n_children = living.children)]), 
 								N = DT[, .N], N_district = DT[, uniqueN(district)])
