@@ -32,17 +32,46 @@ options(mc.cores = 2,
 
 
 # Targets -----------------------------------------------------------------
-targets_stan <- c(
-	tar_stan_mcmc(
-		stan,
-		stan_files,
-		data = model_data_list,
-		cpp_options = list(stan_threads = TRUE),
-		chains = 4,
-		quiet = FALSE,
-		parallel_chains = 4,
-		threads_per_chain = 4,
-		dir = compiled_dir,
-		output_dir = output_stan_dir
+targets_data <- c(
+	tar_target(
+		DT_wines,
+		data_wines()
+	),
+	tar_target(
+		DT_grants,
+		data_grants()
+	),
+	tar_target(
+		DT_trolley,
+		data_trolly()
+	),
+	tar_target(
+		DT_frogs,
+		data_frogs()
+	),
+	tar_target(
+		DT_bangladesh,
+		data_bangladesh()
 	)
 )
+
+
+# targets_stan <- c(
+# 	tar_stan_mcmc(
+# 		stan,
+# 		stan_files,
+# 		data = model_data_list,
+# 		cpp_options = list(stan_threads = TRUE),
+# 		chains = 4,
+# 		quiet = FALSE,
+# 		parallel_chains = 4,
+# 		threads_per_chain = 4,
+# 		dir = compiled_dir,
+# 		output_dir = output_stan_dir
+# 	)
+# )
+
+
+# Targets: all ------------------------------------------------------------
+# Automatically grab all the "targets_*" lists above
+lapply(grep('targets', ls(), value = TRUE), get)
