@@ -10,7 +10,6 @@ editor_options:
 
 ```{r, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-knitr::opts_knit$set(root.dir = '../../../')
 ```
 
 ## Question 1
