@@ -73,6 +73,10 @@ targets_data <- c(
 	tar_target(
 		model_data_reedfrogs,
 		data_reedfrogs_list()
+	),
+	tar_target(
+		model_data_bangladesh,
+		data_bangladesh_list()
 	)
 )
 
