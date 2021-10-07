@@ -20,7 +20,7 @@ documentclass: book
 set.seed(42)
 ```
 
-```{r}
+```{r, echo = FALSE}
 knitr::opts_knit$set(root.dir = find_root(has_file('_targets.R')))
 ```
 
