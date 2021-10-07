@@ -66,6 +66,10 @@ targets_data <- c(
 	tar_target(
 		model_data_grants,
 		data_grants_list()
+	),
+	tar_target(
+		model_data_trolley,
+		data_trolley_list()
 	)
 )
 
