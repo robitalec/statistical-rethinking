@@ -6,6 +6,7 @@ along with the book and solutions. For Chapters 5-10, I use `cmdstanr` and
 up with `bookdown`. Thanks to Richard McElreath for the book and providing
 lectures available online. And thanks to all the package and Stan developers. 
 
+See the full [references](#references) for all packages. 
 
 ## Links
 
