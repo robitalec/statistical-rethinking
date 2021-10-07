@@ -16,7 +16,7 @@ data_bangladesh_list <- function() {
 	c(as.list(DT[, .(contraception, district, urban, scale_age,
 									 n_children = living.children)]),
 		N = DT[, .N],
-		K = K,
+		K = DT[, max(living.children)] - 1,
 		N_district = DT[, uniqueN(district)],
 		alpha_k = list(rep(2L, K))
 	)
