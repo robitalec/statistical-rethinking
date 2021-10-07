@@ -15,7 +15,8 @@ tar_option_set(format = 'qs',
 # Stan
 options(mc.cores = 2,
 				scipen = 999,
-				digits = 2)
+				digits = 2,
+				cmdstanr_draws_format = "draws_df")
 
 
 compiled_dir <- file.path('stan', 'compiled')
