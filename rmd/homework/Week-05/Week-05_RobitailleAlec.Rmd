@@ -42,7 +42,7 @@ writeLines(readLines(tar_read(stan_file_w05_q1_prior)))
 ```
 
 ```{r}
-q1_prior_draws <- tar_read(stan_w05_q1_prior)
+q1_prior_draws <- tar_read(stan_mcmc_w05_q1_prior)$draws()
 
 mcmc_areas(q1_prior_draws, regex_pars = 'judge')
 mcmc_areas(q1_prior_draws, regex_pars = 'wine')
@@ -66,20 +66,7 @@ writeLines(readLines(tar_read(stan_file_w05_q1)))
 ```
 
 ```{r}
-# q1_stan <- 'q1.stan'
-# writeLines(readLines(q1_stan))
-# q1_model <- cmdstan_model(q1_stan)
-
-q1_sample <- q1_model$sample(
-	data = list(N = n_rows,
-							N_judges = n_index_judge,
-							N_wines = n_index_wine,
-							scale_score = DT[, as.numeric(scale_score)],
-							index_judge = DT[, index_judge],
-							index_wine = DT[, index_wine]
-							)
-)
-q1_draws <- cmd_draws(q1_sample)
+q1_draws <- tar_read(stan_mcmc_w05_q1)$draws()
 setDT(q1_draws)
 ```
 
@@ -145,16 +132,7 @@ writeLines(readLines(tar_read(stan_file_w05_q2_prior)))
 
 
 ```{r}
-# q2_stan <- 'q2_prior.stan'
-# writeLines(readLines(q2_stan))
-# q2_prior <- cmdstan_model(q2_stan)
-
-q2_prior_sample <- q2_prior$sample(data = q2_data[c('N_flights',
-																										'N_wine_american',
-																										'N_judge_american',
-																										'N')])
-
-q2_prior_draws <- cmd_draws(q2_prior_sample)
+q2_prior_draws <- tar_read(stan_mcmc_w05_q2_prior)$draws()
 
 mcmc_areas(q2_prior_draws, regex_pars = 'flights')
 mcmc_areas(q2_prior_draws, regex_pars = 'judge')
@@ -170,14 +148,10 @@ writeLines(readLines(tar_read(stan_file_w05_q2)))
 ```
 
 ```{r}
-# q2_stan <- 'q2.stan'
-# writeLines(readLines(q2_stan))
-# q2_model <- cmdstan_model(q2_stan)
+q2 <- tar_read(stan_mcmc_w05_q2)
+q2_draws <- q2$draws()
 
-q2_sample <- q2_model$sample(data = q2_data)
-q2_draws <- cmd_draws(q2_sample)
-
-q2_sample$summary()
+q2$summary()
 
 mcmc_trace(q2_draws)
 ```
@@ -242,14 +216,10 @@ writeLines(readLines(tar_read(stan_file_w05_q3)))
 
 
 ```{r}
-# q3_stan <- 'q3.stan'
-# writeLines(readLines(q3_stan))
-# q3_model <- cmdstan_model(q3_stan)
+q3 <- tar_read(stan_mcmc_w05_q3)
+q3_draws <- q3$draws()
 
-q3_sample <- q3_model$sample(data = q3_data)
-q3_draws <- cmd_draws(q3_sample)
-
-q3_sample$summary()
+q3$summary()
 
 mcmc_trace(q3_draws)
 ```
