@@ -35,6 +35,7 @@ output_stan_dir <- file.path('output', 'stan')
 
 # Targets: data -----------------------------------------------------------
 targets_data <- c(
+	# data.tables
 	tar_target(
 		DT_wines,
 		data_wines()
