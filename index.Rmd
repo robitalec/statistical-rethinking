@@ -21,6 +21,10 @@ documentclass: book
 set.seed(42)
 ```
 
+```{r}
+knitr::opts_knit$set(root.dir = find_root(has_file('_targets.R')))
+```
+
 ```{r write_bib, include = FALSE}
 # automatically create a bib database for R packages
 knitr::write_bib(c(

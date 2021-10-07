@@ -22,6 +22,8 @@ library(loo)
 library(ggdag)
 library(dagitty)
 
+library(rprojroot)
+
 
 conflict_prefer('ess_bulk', 'posterior')
 conflict_prefer('ess_tail', 'posterior')
