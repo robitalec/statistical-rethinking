@@ -37,119 +37,24 @@ Prior for each intercept: $K_{k} \sim \text{Normal}(0, 1.5)$
 
 
 ```{r}
-register_knitr_engine(override = FALSE)
+writeLines(readLines(tar_read(stan_c_file_w07_model1)))
 ```
 
-```{cmdstan, output.var = 'model1', cache = TRUE}
-data {
-  int N;
-  int K;
-  int response[N];
-  int action[N];
-  int intention[N];
-  int contact[N];
-}
-parameters {
-	// Cut points are the positions of responses along cumulative odds
-  ordered[K] cutpoints;
-  real beta_action;
-  real beta_intention;
-  real beta_contact;
-}
-model {
-  vector[N] phi;
 
-	for (i in 1:N) {
-		phi[i] = beta_action * action[i] + beta_contact * contact[i] + beta_intention * intention[i];
-		response[i] ~ ordered_logistic(phi[i], cutpoints);
-	}
-
-  cutpoints ~ normal(0, 1.5);
-  beta_action ~ normal(0, 0.5);
-  beta_contact ~ normal(0, 0.5);
-  beta_intention ~ normal(0, 0.5);
-}
-```
-
-```{r, cache = TRUE}
-# model1_stan <- 'model1.stan'
-# writeLines(readLines(model1_stan))
-# model1 <- cmdstan_model(model1_stan, cpp_options = list(stan_threads = TRUE))
-
-model_data <- c(
-	as.list(DT[, .(response, action, intention, contact)]), 
-	N = DT[, .N],
-	K = DT[, uniqueN(response) - 1]
-)
-
-model1_sample <-
-	model1$sample(
-		data = model_data,
-		chains = 4,
-		parallel_chains = 4,
-		threads_per_chain = 4
-	)
-
-model1_draws <- cmd_draws(model1_sample)
+```{r}
+model1_draws <- tar_read(stan_c_mcmc_w07_model1)$draws()
 
 mcmc_areas(model1_draws, regex_pars = 'beta')
 ```
 
+Interactions
 
-```{cmdstan, output.var = 'model1_interactions', cache = TRUE}
-data {
-  int N;
-  int K;
-  int response[N];
-  int action[N];
-  int intention[N];
-  int contact[N];
-}
-parameters {
-	// Cut points are the positions of responses along cumulative odds
-  ordered[K] cutpoints;
-  real beta_action;
-  real beta_intention;
-  real beta_contact;
-  real beta_intention_contact;
-  real beta_intention_action;
-}
-model {
-  vector[N] phi;
-
-	for (i in 1:N) {
-		phi[i] = beta_action * action[i] + beta_contact * contact[i] + beta_intention * intention[i] + beta_intention_contact * intention[i] * contact[i]  + beta_intention_action * intention[i] * action[i]
-		;
-		response[i] ~ ordered_logistic(phi[i], cutpoints);
-	}
-
-  cutpoints ~ normal(0, 1.5);
-  beta_action ~ normal(0, 0.5);
-  beta_contact ~ normal(0, 0.5);
-  beta_intention ~ normal(0, 0.5);
-}
+```{r}
+writeLines(readLines(tar_read(stan_c_file_w07_model1_interactions)))
 ```
 
-```{r, cache = TRUE}
-# model1_interactions_stan <- 'model1_interactions.stan'
-# writeLines(readLines(model1_interactions_stan))
-# model1_interactions <- cmdstan_model(model1_interactions_stan, cpp_options = list(stan_threads = TRUE))
-
-model_data <- c(
-	as.list(DT[, .(response, action, intention, contact)]), 
-	N = DT[, .N],
-	K = DT[, uniqueN(response) - 1]
-)
-
-model1_interactions_sample <-
-	model1_interactions$sample(
-		data = model_data,
-		chains = 4,
-		parallel_chains = 4,
-		threads_per_chain = 4
-	)
-
-model1_interactions_draws <- cmd_draws(model1_interactions_sample)
+```{r}
+model1_interactions_draws <- tar_read(stan_c_mcmc_w07_model1_interactions)$draws()
 
 mcmc_areas(model1_interactions_draws, regex_pars = 'beta')
 mcmc_areas(model1_interactions_draws, regex_pars = 'cut', transformations = inv.logit) + xlim(0, 1)
@@ -173,78 +78,12 @@ The intercept takes the first category, so we add 0 to the sequence of
 
 Make sure to reorder education levels 
 
-```{cmdstan, output.var = 'model2', cache = TRUE}
-data {
-  int N;
-  int K;
-  int N_edu;
-  int response[N];
-  int action[N];
-  int intention[N];
-  int contact[N];
-  int education[N];
-  vector[N_edu - 1] alpha;
-}
-parameters {
-	// Cut points are the positions of responses along cumulative odds
-  ordered[K] cutpoints;
-  real beta_action;
-  real beta_intention;
-  real beta_contact;
-  real beta_education;
-
-  // Vector N reals that sum to 1
-  simplex[7] delta;
-}
-model {
-  vector[N] phi;
-  vector[N_edu] delta_j;
-
-  delta ~ dirichlet(alpha);
-  delta_j = append_row(0, delta);
-
-	for (i in 1:N) {
-    // add beta education  * sum delta j, up to current i's education
-    phi[i] = beta_education * sum(delta_j[1:education[i]]) +
-      beta_action * action[i] +
-      beta_contact * contact[i] +
-      beta_intention * intention[i];
-    response[i] ~ ordered_logistic(phi[i], cutpoints);
-	}
-
-  cutpoints ~ normal(0, 1.5);
-  beta_action ~ normal(0, 1);
-  beta_contact ~ normal(0, 1);
-  beta_intention ~ normal(0, 1);
-  beta_education ~ normal(0, 1);
-}
+```{r}
+writeLines(readLines(tar_read(stan_c_file_w07_model2)))
 ```
 
-
-```{r, cache = TRUE}
-# model2_stan <- 'model2.stan'
-# writeLines(readLines(model2_stan))
-# model2 <- cmdstan_model(model2_stan, cpp_options = list(stan_threads = TRUE))
-
-edu_levels <- c(6, 1, 8, 4, 7, 2, 5, 3)
-
-model_data <- c(
-	as.list(DT[, .(response, action, intention, contact, education)]), 
-	N = DT[, .N],
-	K = DT[, uniqueN(response) - 1],
-	N_edu = DT[, uniqueN(education)],
-	alpha = list(rep(2, 7))
-)
-
-
-model2_sample <-model2$sample(
-	data = model_data,
-	chains = 4,
-	parallel_chains = 4,
-	threads_per_chain = 4
-)
-
-model2_draws <- cmd_draws(model2_sample)
+```{r}
+model2_draws <- tar_read(stan_c_mcmc_w07_model2)$draws()
 
 mcmc_areas(model2_draws, regex_pars = 'beta')
 mcmc_areas(model2_draws, regex_pars = 'delta')
@@ -254,7 +93,7 @@ mcmc_areas(model2_draws, regex_pars = 'cut', transformations = inv.logit) + xlim
 
 ## Question 1
 
-> In the Trolley data—data(Trolley)—we saw how education level (modeled as an
+> In the Trolley data — `data(Trolley)` — we saw how education level (modeled as an
 ordered category) is associated with responses. Is this association causal? One
 plausible confound is that education is also associated with age, through a
 causal process: People are older when they finish school than when they begin
@@ -281,89 +120,17 @@ education on responses? Fit these models to the trolley data. What do you
 conclude about the causal relationships among these three variables?
 
 
-```{cmdstan, output.var = 'model2_age', cache = TRUE}
-data {
-  int N;
-  int K;
-  int N_edu;
-  int response[N];
-  int action[N];
-  int intention[N];
-  int contact[N];
-  int education[N];
-  real age[N];
-  vector[N_edu - 1] alpha;
-}
-parameters {
-	// Cut points are the positions of responses along cumulative odds
-  ordered[K] cutpoints;
-  real beta_action;
-  real beta_intention;
-  real beta_contact;
-  real beta_education;
-  real beta_age;
-
-  // Vector N reals that sum to 1
-  simplex[7] delta;
-}
-model {
-  vector[N] phi;
-  vector[N_edu] delta_j;
-
-  delta ~ dirichlet(alpha);
-  delta_j = append_row(0, delta);
-
-	for (i in 1:N) {
-    // add beta education  * sum delta j, up to current i's education
-    phi[i] = beta_education * sum(delta_j[1:education[i]]) +
-      beta_action * action[i] +
-      beta_contact * contact[i] +
-      beta_age * age[i] +
-      beta_intention * intention[i];
-    response[i] ~ ordered_logistic(phi[i], cutpoints);
-	}
-
-  cutpoints ~ normal(0, 1.5);
-  beta_action ~ normal(0, 1);
-  beta_contact ~ normal(0, 1);
-  beta_intention ~ normal(0, 1);
-  beta_education ~ normal(0, 1);
-  beta_age ~ normal(0, 1);
-}
-
+```{r}
+writeLines(readLines(tar_read(stan_c_file_w07_model2_age)))
 ```
 
+```{r}
+model2_age_draws <- tar_read(stan_c_mcmc_w07_model2_age)$draws()
 
-```{r, cache = TRUE}
-# model2_age_stan <- 'model2_age.stan'
-# writeLines(readLines(model2_age_stan))
-# model2_age <- cmdstan_model(model2_age_stan, cpp_options = list(stan_threads = TRUE))
-
-edu_levels <- c(6, 1, 8, 4, 7, 2, 5, 3)
-
-model_data <- c(
-	as.list(DT[, .(response, action, intention, contact, education, age = as.numeric(scale(age)))]), 
-	N = DT[, .N],
-	K = DT[, uniqueN(response) - 1],
-	N_edu = DT[, uniqueN(education)],
-	alpha = list(rep(2, 7))
-)
-
-
-model2_sample <- model2_age$sample(
-	data = model_data,
-	chains = 4,
-	parallel_chains = 4,
-	threads_per_chain = 4
-)
-
-model2_draws <- cmd_draws(model2_sample)
-
-mcmc_areas(model2_draws, regex_pars = 'beta')
-mcmc_areas(model2_draws, regex_pars = 'delta')
-mcmc_areas(model2_draws, regex_pars = 'cut', transformations = inv.logit) + xlim(0, 1)
+mcmc_areas(model2_age_draws, regex_pars = 'beta')
+mcmc_areas(model2_age_draws, regex_pars = 'delta')
+mcmc_areas(model2_age_draws, regex_pars = 'cut', transformations = inv.logit) + xlim(0, 1)
 ```
-
 
 
 ## Question 2
@@ -390,87 +157,12 @@ adjustmentSets(dag, exposure = 'education', outcome = 'response', effect = 'tota
 ```
 
 
-
-```{cmdstan model2gender, output.var = 'model2_gender', cache = TRUE}
-data {
-  int N;
-  int K;
-  int N_edu;
-  int response[N];
-  int action[N];
-  int intention[N];
-  int contact[N];
-  int education[N];
-  real age[N];
-  int gender[N];
-  vector[N_edu - 1] alpha;
-}
-parameters {
-	// Cut points are the positions of responses along cumulative odds
-  ordered[K] cutpoints;
-  real beta_action;
-  real beta_intention;
-  real beta_contact;
-  real beta_education;
-  real beta_age;
-  real beta_gender;
-
-  // Vector N reals that sum to 1
-  simplex[7] delta;
-}
-model {
-  vector[N] phi;
-  vector[N_edu] delta_j;
-
-  delta ~ dirichlet(alpha);
-  delta_j = append_row(0, delta);
-
-	for (i in 1:N) {
-    // add beta education  * sum delta j, up to current i's education
-    phi[i] = beta_education * sum(delta_j[1:education[i]]) +
-      beta_action * action[i] +
-      beta_contact * contact[i] +
-      beta_age * age[i] +
-      beta_gender * gender[i] +
-      beta_intention * intention[i];
-    response[i] ~ ordered_logistic(phi[i], cutpoints);
-	}
-
-  cutpoints ~ normal(0, 1.5);
-  beta_action ~ normal(0, 1);
-  beta_contact ~ normal(0, 1);
-  beta_intention ~ normal(0, 1);
-  beta_education ~ normal(0, 1);
-  beta_age ~ normal(0, 1);
-  beta_gender ~ normal(0, 1);
-}
+```{r}
+writeLines(readLines(tar_read(stan_c_file_w07_model2_gender)))
 ```
 
-
-```{r, cache = TRUE}
-# model2_gender_stan <- 'model2_gender.stan'
-# writeLines(readLines(model2_gender_stan))
-# model2_gender <- cmdstan_model(model2_gender_stan, cpp_options = list(stan_threads = TRUE))
-
-edu_levels <- c(6, 1, 8, 4, 7, 2, 5, 3)
-
-model_data <- c(
-	as.list(DT[, .(response, action, intention, contact, education, age = as.numeric(scale(age)), gender = ifelse(male == 1, 0, 1))]), 
-	N = DT[, .N],
-	K = DT[, uniqueN(response) - 1],
-	N_edu = DT[, uniqueN(education)],
-	alpha = list(rep(2, 7))
-)
-
-
-model2_gender_sample <- model2_gender$sample(
-	data = model_data,
-	chains = 4,
-	parallel_chains = 4,
-	threads_per_chain = 4
-)
-
-model2_gender_draws <- cmd_draws(model2_gender_sample)
+```{r}
+model2_gender_draws <- tar_read(stan_c_mcmc_w07_model2_gender)$draws()
 
 mcmc_areas(model2_gender_draws, regex_pars = 'beta')
 mcmc_areas(model2_gender_draws, regex_pars = 'delta')
