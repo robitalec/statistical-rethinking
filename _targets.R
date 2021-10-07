@@ -149,9 +149,14 @@ targets_stan <- c(
 
 # Targets: render ---------------------------------------------------------
 targets_render <- c(
-	tar_render(
-		render_w06,
-		'rmd/homework/Week-06/Week-06_RobitailleAlec.Rmd'
+	tar_files(
+		rmd_files,
+		dir('rmd', '.Rmd', recursive = TRUE)
+	),
+
+	tar_target(
+		book,
+		bookdown::render_book()
 	)
 )
 
