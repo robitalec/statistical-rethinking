@@ -65,7 +65,7 @@ targets_data <- c(
 targets_stan <- c(
 	tar_stan_mcmc(
 		stan,
-		dir('stan', 'w05'),
+		dir('stan', 'w05', full.names = TRUE),
 		data = model_data_wines,
 		cpp_options = list(stan_threads = TRUE),
 		chains = 4,
