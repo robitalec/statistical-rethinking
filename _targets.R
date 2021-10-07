@@ -58,6 +58,7 @@ targets_data <- c(
 		data_bangladesh()
 	),
 
+	# model data as lists
 	tar_target(
 		model_data_wines,
 		data_wines_list()
