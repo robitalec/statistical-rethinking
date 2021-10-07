@@ -177,7 +177,9 @@ model_trolley_draws <- model_trolley$draws()
 mcmc_areas(model_trolley_draws, regex_pars = 'cutpoints')
 mcmc_areas(model_trolley_draws, regex_pars = 'beta')
 
+options(cmdstanr_draws_format = "draws_array")
 model_trolley_loo <- model_trolley$loo()
+options(cmdstanr_draws_format = "draws_df")
 ```
 
 
@@ -193,7 +195,9 @@ model_trolley_multi_draws <- model_trolley_multi$draws()
 mcmc_areas(model_trolley_multi_draws, regex_pars = 'cutpoints')
 mcmc_areas(model_trolley_multi_draws, regex_pars = 'beta')
 
+options(cmdstanr_draws_format = "draws_array")
 model_trolley_multi_loo <- model_trolley_multi$loo()
+options(cmdstanr_draws_format = "draws_df")
 ```
 
 ```{r}
