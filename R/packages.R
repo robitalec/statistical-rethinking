@@ -34,3 +34,4 @@ conflict_prefer('logit', 'rethinking')
 conflict_prefer('rstudent', 'rethinking')
 
 conflict_prefer('loo', 'loo')
+conflict_prefer('compare', 'loo')
