@@ -154,10 +154,14 @@ targets_render <- c(
 		c(dir('notes', '.Rmd', full.names = TRUE),
 			dir('homework', '.Rmd', recursive = TRUE, full.names = TRUE))
 	),
+	tar_file(
+		index,
+		'index.Rmd'
+	),
 
 	tar_target(
 		book,
-		bookdown::render_book()
+		render_with_deps(index, rmd_files)
 	)
 )
 
