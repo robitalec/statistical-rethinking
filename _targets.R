@@ -70,6 +70,10 @@ targets_data <- c(
 	tar_target(
 		model_data_trolley,
 		data_trolley_list()
+	),
+	tar_target(
+		model_data_reedfrogs,
+		data_reedfrogs_list()
 	)
 )
 
