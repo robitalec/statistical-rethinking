@@ -20,6 +20,12 @@ options(mc.cores = 2,
 
 
 # Data --------------------------------------------------------------------
+# TODO: also include N, Nindex etc
+# w05 data_wines()
+# w06 data_grants()
+# w07 data_trolley
+# w08 trolley (3), bangladesh (2), frogs (1)
+# w09 bangladesh (1, 2, 3)
 
 
 
