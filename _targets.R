@@ -31,7 +31,7 @@ options(mc.cores = 2,
 
 
 
-# Targets -----------------------------------------------------------------
+# Targets: data -----------------------------------------------------------
 targets_data <- c(
 	tar_target(
 		DT_wines,
@@ -43,11 +43,11 @@ targets_data <- c(
 	),
 	tar_target(
 		DT_trolley,
-		data_trolly()
+		data_trolley()
 	),
 	tar_target(
-		DT_frogs,
-		data_frogs()
+		DT_reedfrogs,
+		data_reedfrogs()
 	),
 	tar_target(
 		DT_bangladesh,
