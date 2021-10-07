@@ -83,6 +83,16 @@ targets_stan <- c(
 )
 
 
+
+# Targets: render ---------------------------------------------------------
+targets_render <- c(
+	tar_render(
+		render_w05,
+		'rmd/homework/Week-05/Week-05_RobitailleAlec.Rmd'
+	)
+)
+
+
 # Targets: all ------------------------------------------------------------
 # Automatically grab all the "targets_*" lists above
 lapply(grep('targets', ls(), value = TRUE), get)
