@@ -62,6 +62,10 @@ targets_data <- c(
 	tar_target(
 		model_data_wines,
 		data_wines_list()
+	),
+	tar_target(
+		model_data_grants,
+		data_grants_list()
 	)
 )
 
