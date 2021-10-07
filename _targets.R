@@ -52,24 +52,30 @@ targets_data <- c(
 	tar_target(
 		DT_bangladesh,
 		data_bangladesh()
+	),
+
+	tar_target(
+		model_data_wines,
+		data_wines_list()
 	)
 )
 
 
-# targets_stan <- c(
-# 	tar_stan_mcmc(
-# 		stan,
-# 		stan_files,
-# 		data = model_data_list,
-# 		cpp_options = list(stan_threads = TRUE),
-# 		chains = 4,
-# 		quiet = FALSE,
-# 		parallel_chains = 4,
-# 		threads_per_chain = 4,
-# 		dir = compiled_dir,
-# 		output_dir = output_stan_dir
-# 	)
-# )
+
+targets_stan <- c(
+	tar_stan_mcmc(
+		stan,
+		dir('stan', 'w05'),
+		data = model_data_wines,
+		cpp_options = list(stan_threads = TRUE),
+		chains = 4,
+		quiet = FALSE,
+		parallel_chains = 4,
+		threads_per_chain = 4,
+		dir = compiled_dir,
+		output_dir = output_stan_dir
+	)
+)
 
 
 # Targets: all ------------------------------------------------------------
