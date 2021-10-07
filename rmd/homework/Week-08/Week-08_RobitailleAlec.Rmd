@@ -101,11 +101,11 @@ different inferences?
 Fixed effects model
 
 ```{r}
-writeLines(readLines(tar_read(stan_d_file_w08_model_bang_fixed)))
+writeLines(readLines(tar_read(stan_e_file_w08_model_bang_fixed)))
 ```
 
 ```{r}
-model_bang_fixed_draws <- tar_read(stan_d_mcmc_w08_model_bang_fixed)$draws()
+model_bang_fixed_draws <- tar_read(stan_e_mcmc_w08_model_bang_fixed)$draws()
 
 mcmc_areas(model_bang_fixed_draws, regex_pars = 'alpha', transformations = inv.logit)
 ```
@@ -113,11 +113,11 @@ mcmc_areas(model_bang_fixed_draws, regex_pars = 'alpha', transformations = inv.l
 Multilevel  model
 
 ```{r}
-writeLines(readLines(tar_read(stan_d_file_w08_model_bang_multi)))
+writeLines(readLines(tar_read(stan_e_file_w08_model_bang_multi)))
 ```
 
 ```{r}
-model_bang_multi_draws <- tar_read(stan_d_mcmc_w08_model_bang_multi)$draws()
+model_bang_multi_draws <- tar_read(stan_e_mcmc_w08_model_bang_multi)$draws()
 
 mcmc_trace(model_bang_multi_draws)
 mcmc_areas(model_bang_multi_draws, regex_pars = 'alpha', transformations = inv.logit)
@@ -168,6 +168,7 @@ precis(DT)
 ```{r}
 writeLines(readLines(tar_read(stan_c_file_w08_model_trolley)))
 ```
+
 
 ```{r}
 model_trolley <- tar_read(stan_c_mcmc_w08_model_trolley)
