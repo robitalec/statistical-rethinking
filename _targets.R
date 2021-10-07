@@ -151,7 +151,8 @@ targets_stan <- c(
 targets_render <- c(
 	tar_files(
 		rmd_files,
-		dir('rmd', '.Rmd', recursive = TRUE)
+		c(dir('notes', '.Rmd', full.names = TRUE),
+			dir('homework', '.Rmd', recursive = TRUE, full.names = TRUE))
 	),
 
 	tar_target(
