@@ -23,212 +23,42 @@ precis(DT)
 
 
 ```{r}
-register_knitr_engine(override = FALSE)
+writeLines(readLines(tar_read(stan_d_file_w08_model_frogs_1)))
 ```
 
-```{cmdstan, output.var = 'model_frogs_1', cache = TRUE}
-data {
-	int N;
-	int survival[N];
-	int density[N];
-	int tank[N];
-}
-parameters {
-	real sigma;
-	real alpha[N];
-	real alpha_bar;
-}
-transformed parameters {
-	vector[N] p;
-
-	for (i in 1:N) {
-		p[i] = inv_logit(alpha[i]);
-	}
-}
-model {
-	alpha ~ normal(alpha_bar, sigma);
-	sigma ~ exponential(1);
-	for (i in 1:N) {
-		survival[i] ~ binomial(density[i], p[i]);
-	}
-}
-
-```
-
-```{r, cache = TRUE}
-# model_frogs_1_stan <- 'model_frogs_1.stan'
-# writeLines(readLines(model_frogs_1_stan))
-# model_frogs_1 <- cmdstan_model(model_frogs_1_stan, cpp_options = list(stan_threads = TRUE))
-
-model_data <- c(
-	as.list(DT[, .(
-		survival = surv,
-		density,
-		predation = as.integer(pred),
-		size = as.integer(size),
-		tank = seq.int(.N)
-	)]), 
-	N = DT[, .N]
-)
-
-model_frogs_1_sample <-
-	model_frogs_1$sample(
-		data = model_data,
-		chains = 4,
-		parallel_chains = 4,
-		threads_per_chain = 4
-	)
-
-model_frogs_1_draws <- cmd_draws(model_frogs_1_sample)
+```{r}
+model_frogs_1_draws <- tar_read(stan_d_mcmc_w08_model_frogs_1)$draws()
 
 mcmc_areas(model_frogs_1_draws, regex_pars = 'alpha')
 mcmc_areas(model_frogs_1_draws, regex_pars = 'p\\[')
 ```
 
-
-```{cmdstan, output.var = 'model_frogs_2', cache = TRUE}
-data {
-	int N;
-	int survival[N];
-	int density[N];
-	int tank[N];
-	int predation[N];
-}
-parameters {
-	real sigma;
-	real alpha[N];
-	real alpha_bar;
-	real beta_predation;
-}
-transformed parameters {
-	vector[N] p;
-
-	for (i in 1:N) {
-		p[i] = inv_logit(alpha[i] + beta_predation * predation[i]);
-	}
-}
-model {
-	alpha ~ normal(alpha_bar, sigma);
-	beta_predation ~ normal(0, 0.5);
-	sigma ~ exponential(1);
-	for (i in 1:N) {
-		survival[i] ~ binomial(density[i], p[i]);
-	}
-}
+```{r}
+writeLines(readLines(tar_read(stan_d_file_w08_model_frogs_2)))
 ```
 
-```{r, cache = TRUE}
-# model_frogs_2_stan <- 'model_frogs_2.stan'
-# writeLines(readLines(model_frogs_2_stan))
-# model_frogs_2 <- cmdstan_model(model_frogs_2_stan, cpp_options = list(stan_threads = TRUE))
-
-model_frogs_2_sample <-
-	model_frogs_2$sample(
-		data = model_data,
-		chains = 4,
-		parallel_chains = 4,
-		threads_per_chain = 4
-	)
-model_frogs_2_draws <- cmd_draws(model_frogs_2_sample)
+```{r}
+model_frogs_2_draws <- tar_read(stan_d_mcmc_w08_model_frogs_2)$draws()
 mcmc_areas(model_frogs_2_draws, regex_pars = 'predation')
 ```
 
-```{cmdstan, output.var = 'model_frogs_3', cache = TRUE}
-data {
-	int N;
-	int survival[N];
-	int density[N];
-	int tank[N];
-	int size[N];
-}
-parameters {
-	real sigma;
-	real alpha[N];
-	real alpha_bar;
-	real beta_size;
-}
-transformed parameters {
-	vector[N] p;
-
-	for (i in 1:N) {
-		p[i] = inv_logit(alpha[i] + beta_size * size[i]);
-	}
-}
-model {
-	alpha ~ normal(alpha_bar, sigma);
-	beta_size ~ normal(0, 0.5);
-	sigma ~ exponential(1);
-	for (i in 1:N) {
-		survival[i] ~ binomial(density[i], p[i]);
-	}
-}
+```{r}
+writeLines(readLines(tar_read(stan_d_file_w08_model_frogs_3)))
 ```
 
-```{r, cache = TRUE}
-# model_frogs_3_stan <- 'model_frogs_3.stan'
-# writeLines(readLines(model_frogs_3_stan))
-# model_frogs_3 <- cmdstan_model(model_frogs_3_stan, cpp_options = list(stan_threads = TRUE))
-
-model_frogs_3_sample <-
-	model_frogs_3$sample(
-		data = model_data,
-		chains = 4,
-		parallel_chains = 4,
-		threads_per_chain = 4
-	)
-model_frogs_3_draws <- cmd_draws(model_frogs_3_sample)
+```{r}
+model_frogs_3_draws <- tar_read(stan_d_mcmc_w08_model_frogs_3)$draws()
 mcmc_areas(model_frogs_3_draws, regex_pars = 'size')
 ```
 
-```{cmdstan, output.var = 'model_frogs_4', cache = TRUE}
-data {
-	int N;
-	int survival[N];
-	int density[N];
-	int tank[N];
-	int size[N];
-	int predation[N];
-}
-parameters {
-	real sigma;
-	real alpha[N];
-	real alpha_bar;
-	real beta_size;
-	real beta_predation;
-	real beta_interaction;
-}
-transformed parameters {
-	vector[N] p;
 
-	for (i in 1:N) {
-		p[i] = inv_logit(alpha[i] + beta_size * size[i] + beta_predation * predation[i] + beta_interaction * (size[i] * predation[i]));
-	}
-}
-model {
-	alpha ~ normal(alpha_bar, sigma);
-	beta_size ~ normal(0, 0.5);
-	beta_predation ~ normal(0, 0.5);
-	beta_interaction ~ normal(0, 0.25);
-	sigma ~ exponential(1);
-	for (i in 1:N) {
-		survival[i] ~ binomial(density[i], p[i]);
-	}
-}
+```{r}
+writeLines(readLines(tar_read(stan_d_file_w08_model_frogs_4)))
 ```
 
-```{r, cache = TRUE}
-# model_frogs_4_stan <- 'model_frogs_4.stan'
-# writeLines(readLines(model_frogs_4_stan))
-# model_frogs_4 <- cmdstan_model(model_frogs_4_stan, cpp_options = list(stan_threads = TRUE))
+```{r}
+model_frogs_4_draws <- tar_read(stan_d_mcmc_w08_model_frogs_4)$draws()
 
-model_frogs_4_sample <-
-	model_frogs_4$sample(
-		data = model_data,
-		chains = 4,
-		parallel_chains = 4,
-		threads_per_chain = 4
-	)
-model_frogs_4_draws <- cmd_draws(model_frogs_4_sample)
 mcmc_areas(model_frogs_4_draws, regex_pars = 'beta')
 ```
 
