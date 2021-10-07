@@ -130,6 +130,18 @@ targets_stan <- c(
 		threads_per_chain = 4,
 		dir = compiled_dir,
 		output_dir = output_stan_dir
+	),
+	tar_stan_mcmc(
+		stan_e,
+		dir('stan', 'w09|w08_model_bang', full.names = TRUE),
+		data = model_data_bangladesh,
+		cpp_options = list(stan_threads = TRUE),
+		chains = 4,
+		quiet = FALSE,
+		parallel_chains = 4,
+		threads_per_chain = 4,
+		dir = compiled_dir,
+		output_dir = output_stan_dir
 	)
 )
 
