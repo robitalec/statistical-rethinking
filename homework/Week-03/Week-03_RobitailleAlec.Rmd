@@ -14,7 +14,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Overview
 
-All three problems below are based on the same data. The data in `data(foxes)`
+> All three problems below are based on the same data. The data in `data(foxes)`
 are 116 foxes from 30 different urban groups in England. These foxes are like
 street gangs. Group size varies from 2 to 8 individuals. Each group maintains
 its own (almost exclusive) urban territory. Some territories are larger than
