@@ -1616,7 +1616,20 @@ and the missingness).
 
 For example, if brain neocortex proportion is higher in monkeys more similar 
 to humans and we are more likely to study these monkeys. So our missing values
-in B are in species with lower B. Alternatively, We can't close this backdoor. 
+in B are in species with lower B. Alternatively, an unobserved variable
+may influence both the missingness and B. We can't close this backdoor. 
+The only thing you can do is model the error. 
+
+### Imputing
+
+#### Example: milk energy MAR
+
+Each unobserved value becomes a parameter. These values are imputed, estimating
+from the observed values and the model structure. 
+
+The result is increased precision but, in this example, it doesn't consider the 
+relationship between B and body mass. Solution is to use a multivariate normal
+to impute given the relationship between B and body mass. 
 
 
 # (PART) References {-}

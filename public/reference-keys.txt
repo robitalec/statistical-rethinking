@@ -217,4 +217,15 @@ phylogenetic-relationship
 example-primates
 lecture-20
 measurement-error
+example-waffle-divorces
+error-on-predictor
+example-marriage-rate
+sources-of-error
+missing-data
+types-of-missingness
+mcar-missing-completely-at-random
+mar-missing-at-random
+mnar-missing-not-at-random
+imputing
+example-milk-energy-mar
 references
