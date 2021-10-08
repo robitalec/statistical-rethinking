@@ -3,12 +3,16 @@ title: "Learning bayesian data analysis with Statistical Rethinking"
 author: "Alec L. Robitaille"
 date: "2021-08-18 [updated: `r Sys.Date()`]"
 output:
-  bookdown::bs4_book: default
+  bookdown::bs4_book: 
+    theme:
+      primary: "#4C6496"
 bibliography: packages.bib
 documentclass: book
 ---
 
 # Overview 
+
+Alec L. Robitaille
 
 ```{r child="README.md"} 
 ```
