@@ -11,7 +11,7 @@ description: |
   Learning bayesian data analysis with Statistical Rethinking
 ---
 
-# Overview 
+# Overview {.unnumbered}
 
 Alec L. Robitaille
 

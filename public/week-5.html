@@ -4,21 +4,21 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>6 Week 5 | Learning bayesian data analysis with Statistical Rethinking</title>
+<title>5 Week 5 | Learning bayesian data analysis with Statistical Rethinking</title>
 <meta name="author" content="Alec L. Robitaille">
-<meta name="description" content="2021-09-03 [updated: 2021-10-08]  6.1 Question 1  Consider the data(Wines2012) data table. These data are expert ratings of 20 different French and American wines by 9 different French and...">
+<meta name="description" content="2021-09-03 [updated: 2021-10-08]  5.1 Question 1  Consider the data(Wines2012) data table. These data are expert ratings of 20 different French and American wines by 9 different French and...">
 <meta name="generator" content="bookdown 0.24.1 with bs4_book()">
-<meta property="og:title" content="6 Week 5 | Learning bayesian data analysis with Statistical Rethinking">
+<meta property="og:title" content="5 Week 5 | Learning bayesian data analysis with Statistical Rethinking">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://www.statistical-rethinking.robitalec.ca/week-5.html">
-<meta property="og:description" content="2021-09-03 [updated: 2021-10-08]  6.1 Question 1  Consider the data(Wines2012) data table. These data are expert ratings of 20 different French and American wines by 9 different French and...">
+<meta property="og:description" content="2021-09-03 [updated: 2021-10-08]  5.1 Question 1  Consider the data(Wines2012) data table. These data are expert ratings of 20 different French and American wines by 9 different French and...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="6 Week 5 | Learning bayesian data analysis with Statistical Rethinking">
-<meta name="twitter:description" content="2021-09-03 [updated: 2021-10-08]  6.1 Question 1  Consider the data(Wines2012) data table. These data are expert ratings of 20 different French and American wines by 9 different French and...">
+<meta name="twitter:title" content="5 Week 5 | Learning bayesian data analysis with Statistical Rethinking">
+<meta name="twitter:description" content="2021-09-03 [updated: 2021-10-08]  5.1 Question 1  Consider the data(Wines2012) data table. These data are expert ratings of 20 different French and American wines by 9 different French and...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11.3/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
-<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS -->
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="style.css">
 </head>
 <body data-spy="scroll" data-target="#toc">
 
@@ -40,39 +40,39 @@
 
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
         <ul class="book-toc list-unstyled">
-<li><a class="" href="index.html"><span class="header-section-number">1</span> Overview</a></li>
+<li><a class="" href="index.html">Overview</a></li>
 <li class="book-part">Homework</li>
-<li><a class="" href="week-1.html"><span class="header-section-number">2</span> Week 1</a></li>
-<li><a class="" href="week-2.html"><span class="header-section-number">3</span> Week 2</a></li>
-<li><a class="" href="week-3.html"><span class="header-section-number">4</span> Week 3</a></li>
-<li><a class="" href="week-4.html"><span class="header-section-number">5</span> Week 4</a></li>
-<li><a class="active" href="week-5.html"><span class="header-section-number">6</span> Week 5</a></li>
-<li><a class="" href="week-6.html"><span class="header-section-number">7</span> Week 6</a></li>
-<li><a class="" href="week-7.html"><span class="header-section-number">8</span> Week 7</a></li>
-<li><a class="" href="week-8.html"><span class="header-section-number">9</span> Week 8</a></li>
-<li><a class="" href="week-9.html"><span class="header-section-number">10</span> Week 9</a></li>
+<li><a class="" href="week-1.html"><span class="header-section-number">1</span> Week 1</a></li>
+<li><a class="" href="week-2.html"><span class="header-section-number">2</span> Week 2</a></li>
+<li><a class="" href="week-3.html"><span class="header-section-number">3</span> Week 3</a></li>
+<li><a class="" href="week-4.html"><span class="header-section-number">4</span> Week 4</a></li>
+<li><a class="active" href="week-5.html"><span class="header-section-number">5</span> Week 5</a></li>
+<li><a class="" href="week-6.html"><span class="header-section-number">6</span> Week 6</a></li>
+<li><a class="" href="week-7.html"><span class="header-section-number">7</span> Week 7</a></li>
+<li><a class="" href="week-8.html"><span class="header-section-number">8</span> Week 8</a></li>
+<li><a class="" href="week-9.html"><span class="header-section-number">9</span> Week 9</a></li>
 <li class="book-part">Lectures</li>
-<li><a class="" href="lecture-01.html"><span class="header-section-number">11</span> Lecture 01</a></li>
-<li><a class="" href="lecture-02.html"><span class="header-section-number">12</span> Lecture 02</a></li>
-<li><a class="" href="lecture-03.html"><span class="header-section-number">13</span> Lecture 03</a></li>
-<li><a class="" href="lecture-04.html"><span class="header-section-number">14</span> Lecture 04</a></li>
-<li><a class="" href="lecture-05.html"><span class="header-section-number">15</span> Lecture 05</a></li>
-<li><a class="" href="lecture-06.html"><span class="header-section-number">16</span> Lecture 06</a></li>
-<li><a class="" href="lecture-07.html"><span class="header-section-number">17</span> Lecture 07</a></li>
-<li><a class="" href="lecture-08.html"><span class="header-section-number">18</span> Lecture 08</a></li>
-<li><a class="" href="lecture-09.html"><span class="header-section-number">19</span> Lecture 09</a></li>
-<li><a class="" href="lecture-10.html"><span class="header-section-number">20</span> Lecture 10</a></li>
-<li><a class="" href="lecture-11.html"><span class="header-section-number">21</span> Lecture 11</a></li>
-<li><a class="" href="lecture-12.html"><span class="header-section-number">22</span> Lecture 12</a></li>
-<li><a class="" href="lecture-13.html"><span class="header-section-number">23</span> Lecture 13</a></li>
-<li><a class="" href="lecture-14.html"><span class="header-section-number">24</span> Lecture 14</a></li>
-<li><a class="" href="lecture-15.html"><span class="header-section-number">25</span> Lecture 15</a></li>
-<li><a class="" href="lecture-16.html"><span class="header-section-number">26</span> Lecture 16</a></li>
-<li><a class="" href="lecture-17.html"><span class="header-section-number">27</span> Lecture 17</a></li>
-<li><a class="" href="lecture-18.html"><span class="header-section-number">28</span> Lecture 18</a></li>
-<li><a class="" href="lecture-19.html"><span class="header-section-number">29</span> Lecture 19</a></li>
-<li><a class="" href="lecture-20.html"><span class="header-section-number">30</span> Lecture 20</a></li>
-<li><a class="" href="references.html"><span class="header-section-number">31</span> References</a></li>
+<li><a class="" href="lecture-01.html"><span class="header-section-number">10</span> Lecture 01</a></li>
+<li><a class="" href="lecture-02.html"><span class="header-section-number">11</span> Lecture 02</a></li>
+<li><a class="" href="lecture-03.html"><span class="header-section-number">12</span> Lecture 03</a></li>
+<li><a class="" href="lecture-04.html"><span class="header-section-number">13</span> Lecture 04</a></li>
+<li><a class="" href="lecture-05.html"><span class="header-section-number">14</span> Lecture 05</a></li>
+<li><a class="" href="lecture-06.html"><span class="header-section-number">15</span> Lecture 06</a></li>
+<li><a class="" href="lecture-07.html"><span class="header-section-number">16</span> Lecture 07</a></li>
+<li><a class="" href="lecture-08.html"><span class="header-section-number">17</span> Lecture 08</a></li>
+<li><a class="" href="lecture-09.html"><span class="header-section-number">18</span> Lecture 09</a></li>
+<li><a class="" href="lecture-10.html"><span class="header-section-number">19</span> Lecture 10</a></li>
+<li><a class="" href="lecture-11.html"><span class="header-section-number">20</span> Lecture 11</a></li>
+<li><a class="" href="lecture-12.html"><span class="header-section-number">21</span> Lecture 12</a></li>
+<li><a class="" href="lecture-13.html"><span class="header-section-number">22</span> Lecture 13</a></li>
+<li><a class="" href="lecture-14.html"><span class="header-section-number">23</span> Lecture 14</a></li>
+<li><a class="" href="lecture-15.html"><span class="header-section-number">24</span> Lecture 15</a></li>
+<li><a class="" href="lecture-16.html"><span class="header-section-number">25</span> Lecture 16</a></li>
+<li><a class="" href="lecture-17.html"><span class="header-section-number">26</span> Lecture 17</a></li>
+<li><a class="" href="lecture-18.html"><span class="header-section-number">27</span> Lecture 18</a></li>
+<li><a class="" href="lecture-19.html"><span class="header-section-number">28</span> Lecture 19</a></li>
+<li><a class="" href="lecture-20.html"><span class="header-section-number">29</span> Lecture 20</a></li>
+<li><a class="" href="references.html"><span class="header-section-number">30</span> References</a></li>
 </ul>
 
         <div class="book-extra">
@@ -80,22 +80,22 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="week-5" class="section level1" number="6">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="week-5" class="section level1" number="5">
 <h1>
-<span class="header-section-number">6</span> Week 5<a class="anchor" aria-label="anchor" href="#week-5"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5</span> Week 5<a class="anchor" aria-label="anchor" href="#week-5"><i class="fas fa-link"></i></a>
 </h1>
 <p>2021-09-03 [updated: 2021-10-08]</p>
-<div id="question-1-4" class="section level2" number="6.1">
+<div id="question-1-4" class="section level2" number="5.1">
 <h2>
-<span class="header-section-number">6.1</span> Question 1<a class="anchor" aria-label="anchor" href="#question-1-4"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.1</span> Question 1<a class="anchor" aria-label="anchor" href="#question-1-4"><i class="fas fa-link"></i></a>
 </h2>
 <blockquote>
 <p>Consider the <code>data(Wines2012)</code> data table. These data are expert ratings of 20
 different French and American wines by 9 different French and American judges.</p>
 </blockquote>
-<div id="data-2" class="section level3" number="6.1.1">
+<div id="data-2" class="section level3" number="5.1.1">
 <h3>
-<span class="header-section-number">6.1.1</span> Data<a class="anchor" aria-label="anchor" href="#data-2"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.1.1</span> Data<a class="anchor" aria-label="anchor" href="#data-2"><i class="fas fa-link"></i></a>
 </h3>
 <blockquote>
 <p>Your goal is to model score, the subjective rating assigned by each judge to
@@ -110,9 +110,9 @@ and then use these index variables to construct a linear regression model.</p>
 <span class="va">n_index_wine</span> <span class="op">&lt;-</span> <span class="va">DT</span><span class="op">[</span>, <span class="fu">uniqueN</span><span class="op">(</span><span class="va">index_wine</span><span class="op">)</span><span class="op">]</span>
 <span class="va">n_rows</span> <span class="op">&lt;-</span> <span class="va">DT</span><span class="op">[</span>, <span class="va">.N</span><span class="op">]</span></code></pre></div>
 </div>
-<div id="prior-predictive-simulation-1" class="section level3" number="6.1.2">
+<div id="prior-predictive-simulation-1" class="section level3" number="5.1.2">
 <h3>
-<span class="header-section-number">6.1.2</span> Prior predictive simulation<a class="anchor" aria-label="anchor" href="#prior-predictive-simulation-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.1.2</span> Prior predictive simulation<a class="anchor" aria-label="anchor" href="#prior-predictive-simulation-1"><i class="fas fa-link"></i></a>
 </h3>
 <div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/writeLines.html">writeLines</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="fu">tar_read</span><span class="op">(</span><span class="va">stan_file_w05_q1_prior</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
@@ -148,9 +148,9 @@ parameters.</p>
 <p>Given the parameters are scaled, the prior predictive plots show scaled wine scores mostly between -2 and 2. Since we do not have any prior knowledge about how this relationship (positive/negative slopes), we are satisfied with this
 relatively conservative prior.</p>
 </div>
-<div id="model-2" class="section level3" number="6.1.3">
+<div id="model-2" class="section level3" number="5.1.3">
 <h3>
-<span class="header-section-number">6.1.3</span> Model<a class="anchor" aria-label="anchor" href="#model-2"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.1.3</span> Model<a class="anchor" aria-label="anchor" href="#model-2"><i class="fas fa-link"></i></a>
 </h3>
 <blockquote>
 <p>Use ulam instead of quap to build this model, and be sure to check
@@ -277,18 +277,18 @@ scoring with three individuals (judges 1, 2, 5) entirely or almost entirely
 scoring lower than other judges. The worst scoring judge was judge 5.</p>
 </div>
 </div>
-<div id="question-2-4" class="section level2" number="6.2">
+<div id="question-2-4" class="section level2" number="5.2">
 <h2>
-<span class="header-section-number">6.2</span> Question 2<a class="anchor" aria-label="anchor" href="#question-2-4"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.2</span> Question 2<a class="anchor" aria-label="anchor" href="#question-2-4"><i class="fas fa-link"></i></a>
 </h2>
 <blockquote>
 <p>Now consider three features of the wines and judges: (1) flight: Whether the wine is red or white. (2) wine.amer: Indicator variable for American wines. (3) judge.amer: Indicator variable for American judges. Use indicator or index variables to model the influence of these features on the scores. Omit the individual judge and wine index variables from Problem
 1. Do not include interaction effects yet. Again use ulam, justify your priors,
 and be sure to check the chains.</p>
 </blockquote>
-<div id="data-3" class="section level3" number="6.2.1">
+<div id="data-3" class="section level3" number="5.2.1">
 <h3>
-<span class="header-section-number">6.2.1</span> Data<a class="anchor" aria-label="anchor" href="#data-3"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.2.1</span> Data<a class="anchor" aria-label="anchor" href="#data-3"><i class="fas fa-link"></i></a>
 </h3>
 <div class="sourceCode" id="cb88"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">DT</span> <span class="op">&lt;-</span> <span class="fu">data_wines</span><span class="op">(</span><span class="op">)</span>
@@ -309,9 +309,9 @@ and be sure to check the chains.</p>
     N <span class="op">=</span> <span class="va">n_rows</span>
 <span class="op">)</span></code></pre></div>
 </div>
-<div id="priors" class="section level3" number="6.2.2">
+<div id="priors" class="section level3" number="5.2.2">
 <h3>
-<span class="header-section-number">6.2.2</span> Priors<a class="anchor" aria-label="anchor" href="#priors"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.2.2</span> Priors<a class="anchor" aria-label="anchor" href="#priors"><i class="fas fa-link"></i></a>
 </h3>
 <div class="sourceCode" id="cb89"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/writeLines.html">writeLines</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="fu">tar_read</span><span class="op">(</span><span class="va">stan_file_w05_q2_prior</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
@@ -347,9 +347,9 @@ and be sure to check the chains.</p>
 <code class="sourceCode R"><span class="fu">mcmc_areas</span><span class="op">(</span><span class="va">q2_prior_draws</span>, regex_pars <span class="op">=</span> <span class="st">'wine'</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-44-3.png" width="672"></div>
 </div>
-<div id="model-3" class="section level3" number="6.2.3">
+<div id="model-3" class="section level3" number="5.2.3">
 <h3>
-<span class="header-section-number">6.2.3</span> Model<a class="anchor" aria-label="anchor" href="#model-3"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.2.3</span> Model<a class="anchor" aria-label="anchor" href="#model-3"><i class="fas fa-link"></i></a>
 </h3>
 <div class="sourceCode" id="cb94"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/writeLines.html">writeLines</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="fu">tar_read</span><span class="op">(</span><span class="va">stan_file_w05_q2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
@@ -447,9 +447,9 @@ and be sure to check the chains.</p>
 <!-- relate the results to the inferences in Problem 1 -->
 </div>
 </div>
-<div id="question-3-4" class="section level2" number="6.3">
+<div id="question-3-4" class="section level2" number="5.3">
 <h2>
-<span class="header-section-number">6.3</span> Question 3<a class="anchor" aria-label="anchor" href="#question-3-4"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.3</span> Question 3<a class="anchor" aria-label="anchor" href="#question-3-4"><i class="fas fa-link"></i></a>
 </h2>
 <blockquote>
 <p>Now consider two-way interactions among the three features. You should end up
@@ -462,9 +462,9 @@ or just use your knowledge of the linear model instead. What do you conclude
 about the features and the scores? Can you relate the results of your model(s)
 to the individual judge and wine inferences from Problem 1?</p>
 </blockquote>
-<div id="data-4" class="section level3" number="6.3.1">
+<div id="data-4" class="section level3" number="5.3.1">
 <h3>
-<span class="header-section-number">6.3.1</span> Data<a class="anchor" aria-label="anchor" href="#data-4"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.3.1</span> Data<a class="anchor" aria-label="anchor" href="#data-4"><i class="fas fa-link"></i></a>
 </h3>
 <div class="sourceCode" id="cb111"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">DT</span> <span class="op">&lt;-</span> <span class="fu">data_wines</span><span class="op">(</span><span class="op">)</span>
@@ -477,9 +477,9 @@ to the individual judge and wine inferences from Problem 1?</p>
     N <span class="op">=</span> <span class="va">n_rows</span>
 <span class="op">)</span></code></pre></div>
 </div>
-<div id="model-4" class="section level3" number="6.3.2">
+<div id="model-4" class="section level3" number="5.3.2">
 <h3>
-<span class="header-section-number">6.3.2</span> Model<a class="anchor" aria-label="anchor" href="#model-4"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.3.2</span> Model<a class="anchor" aria-label="anchor" href="#model-4"><i class="fas fa-link"></i></a>
 </h3>
 <div class="sourceCode" id="cb112"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/writeLines.html">writeLines</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="fu">tar_read</span><span class="op">(</span><span class="va">stan_file_w05_q3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
@@ -544,30 +544,30 @@ to the individual judge and wine inferences from Problem 1?</p>
 </div>
 </div>
   <div class="chapter-nav">
-<div class="prev"><a href="week-4.html"><span class="header-section-number">5</span> Week 4</a></div>
-<div class="next"><a href="week-6.html"><span class="header-section-number">7</span> Week 6</a></div>
+<div class="prev"><a href="week-4.html"><span class="header-section-number">4</span> Week 4</a></div>
+<div class="next"><a href="week-6.html"><span class="header-section-number">6</span> Week 6</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#week-5"><span class="header-section-number">6</span> Week 5</a></li>
+<li><a class="nav-link" href="#week-5"><span class="header-section-number">5</span> Week 5</a></li>
 <li>
-<a class="nav-link" href="#question-1-4"><span class="header-section-number">6.1</span> Question 1</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#data-2"><span class="header-section-number">6.1.1</span> Data</a></li>
-<li><a class="nav-link" href="#prior-predictive-simulation-1"><span class="header-section-number">6.1.2</span> Prior predictive simulation</a></li>
-<li><a class="nav-link" href="#model-2"><span class="header-section-number">6.1.3</span> Model</a></li>
+<a class="nav-link" href="#question-1-4"><span class="header-section-number">5.1</span> Question 1</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#data-2"><span class="header-section-number">5.1.1</span> Data</a></li>
+<li><a class="nav-link" href="#prior-predictive-simulation-1"><span class="header-section-number">5.1.2</span> Prior predictive simulation</a></li>
+<li><a class="nav-link" href="#model-2"><span class="header-section-number">5.1.3</span> Model</a></li>
 </ul>
 </li>
 <li>
-<a class="nav-link" href="#question-2-4"><span class="header-section-number">6.2</span> Question 2</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#data-3"><span class="header-section-number">6.2.1</span> Data</a></li>
-<li><a class="nav-link" href="#priors"><span class="header-section-number">6.2.2</span> Priors</a></li>
-<li><a class="nav-link" href="#model-3"><span class="header-section-number">6.2.3</span> Model</a></li>
+<a class="nav-link" href="#question-2-4"><span class="header-section-number">5.2</span> Question 2</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#data-3"><span class="header-section-number">5.2.1</span> Data</a></li>
+<li><a class="nav-link" href="#priors"><span class="header-section-number">5.2.2</span> Priors</a></li>
+<li><a class="nav-link" href="#model-3"><span class="header-section-number">5.2.3</span> Model</a></li>
 </ul>
 </li>
 <li>
-<a class="nav-link" href="#question-3-4"><span class="header-section-number">6.3</span> Question 3</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#data-4"><span class="header-section-number">6.3.1</span> Data</a></li>
-<li><a class="nav-link" href="#model-4"><span class="header-section-number">6.3.2</span> Model</a></li>
+<a class="nav-link" href="#question-3-4"><span class="header-section-number">5.3</span> Question 3</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#data-4"><span class="header-section-number">5.3.1</span> Data</a></li>
+<li><a class="nav-link" href="#model-4"><span class="header-section-number">5.3.2</span> Model</a></li>
 </ul>
 </li>
 </ul>

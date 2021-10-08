@@ -4,21 +4,21 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>16 Lecture 06 | Learning bayesian data analysis with Statistical Rethinking</title>
+<title>15 Lecture 06 | Learning bayesian data analysis with Statistical Rethinking</title>
 <meta name="author" content="Alec L. Robitaille">
-<meta name="description" content="16.1 Index variable (For unordered, categorical variables) Starts at 1, counts up Same prior can be given to all Extends easily &gt; 2 eg. m &lt;- quap(   alist(     height ~ dnorm(mu, sigma),     mu &lt;-...">
+<meta name="description" content="15.1 Index variable (For unordered, categorical variables) Starts at 1, counts up Same prior can be given to all Extends easily &gt; 2 eg. m &lt;- quap(   alist(     height ~ dnorm(mu, sigma),     mu &lt;-...">
 <meta name="generator" content="bookdown 0.24.1 with bs4_book()">
-<meta property="og:title" content="16 Lecture 06 | Learning bayesian data analysis with Statistical Rethinking">
+<meta property="og:title" content="15 Lecture 06 | Learning bayesian data analysis with Statistical Rethinking">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://www.statistical-rethinking.robitalec.ca/lecture-06.html">
-<meta property="og:description" content="16.1 Index variable (For unordered, categorical variables) Starts at 1, counts up Same prior can be given to all Extends easily &gt; 2 eg. m &lt;- quap(   alist(     height ~ dnorm(mu, sigma),     mu &lt;-...">
+<meta property="og:description" content="15.1 Index variable (For unordered, categorical variables) Starts at 1, counts up Same prior can be given to all Extends easily &gt; 2 eg. m &lt;- quap(   alist(     height ~ dnorm(mu, sigma),     mu &lt;-...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="16 Lecture 06 | Learning bayesian data analysis with Statistical Rethinking">
-<meta name="twitter:description" content="16.1 Index variable (For unordered, categorical variables) Starts at 1, counts up Same prior can be given to all Extends easily &gt; 2 eg. m &lt;- quap(   alist(     height ~ dnorm(mu, sigma),     mu &lt;-...">
+<meta name="twitter:title" content="15 Lecture 06 | Learning bayesian data analysis with Statistical Rethinking">
+<meta name="twitter:description" content="15.1 Index variable (For unordered, categorical variables) Starts at 1, counts up Same prior can be given to all Extends easily &gt; 2 eg. m &lt;- quap(   alist(     height ~ dnorm(mu, sigma),     mu &lt;-...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11.3/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
-<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS -->
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="style.css">
 </head>
 <body data-spy="scroll" data-target="#toc">
 
@@ -40,39 +40,39 @@
 
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
         <ul class="book-toc list-unstyled">
-<li><a class="" href="index.html"><span class="header-section-number">1</span> Overview</a></li>
+<li><a class="" href="index.html">Overview</a></li>
 <li class="book-part">Homework</li>
-<li><a class="" href="week-1.html"><span class="header-section-number">2</span> Week 1</a></li>
-<li><a class="" href="week-2.html"><span class="header-section-number">3</span> Week 2</a></li>
-<li><a class="" href="week-3.html"><span class="header-section-number">4</span> Week 3</a></li>
-<li><a class="" href="week-4.html"><span class="header-section-number">5</span> Week 4</a></li>
-<li><a class="" href="week-5.html"><span class="header-section-number">6</span> Week 5</a></li>
-<li><a class="" href="week-6.html"><span class="header-section-number">7</span> Week 6</a></li>
-<li><a class="" href="week-7.html"><span class="header-section-number">8</span> Week 7</a></li>
-<li><a class="" href="week-8.html"><span class="header-section-number">9</span> Week 8</a></li>
-<li><a class="" href="week-9.html"><span class="header-section-number">10</span> Week 9</a></li>
+<li><a class="" href="week-1.html"><span class="header-section-number">1</span> Week 1</a></li>
+<li><a class="" href="week-2.html"><span class="header-section-number">2</span> Week 2</a></li>
+<li><a class="" href="week-3.html"><span class="header-section-number">3</span> Week 3</a></li>
+<li><a class="" href="week-4.html"><span class="header-section-number">4</span> Week 4</a></li>
+<li><a class="" href="week-5.html"><span class="header-section-number">5</span> Week 5</a></li>
+<li><a class="" href="week-6.html"><span class="header-section-number">6</span> Week 6</a></li>
+<li><a class="" href="week-7.html"><span class="header-section-number">7</span> Week 7</a></li>
+<li><a class="" href="week-8.html"><span class="header-section-number">8</span> Week 8</a></li>
+<li><a class="" href="week-9.html"><span class="header-section-number">9</span> Week 9</a></li>
 <li class="book-part">Lectures</li>
-<li><a class="" href="lecture-01.html"><span class="header-section-number">11</span> Lecture 01</a></li>
-<li><a class="" href="lecture-02.html"><span class="header-section-number">12</span> Lecture 02</a></li>
-<li><a class="" href="lecture-03.html"><span class="header-section-number">13</span> Lecture 03</a></li>
-<li><a class="" href="lecture-04.html"><span class="header-section-number">14</span> Lecture 04</a></li>
-<li><a class="" href="lecture-05.html"><span class="header-section-number">15</span> Lecture 05</a></li>
-<li><a class="active" href="lecture-06.html"><span class="header-section-number">16</span> Lecture 06</a></li>
-<li><a class="" href="lecture-07.html"><span class="header-section-number">17</span> Lecture 07</a></li>
-<li><a class="" href="lecture-08.html"><span class="header-section-number">18</span> Lecture 08</a></li>
-<li><a class="" href="lecture-09.html"><span class="header-section-number">19</span> Lecture 09</a></li>
-<li><a class="" href="lecture-10.html"><span class="header-section-number">20</span> Lecture 10</a></li>
-<li><a class="" href="lecture-11.html"><span class="header-section-number">21</span> Lecture 11</a></li>
-<li><a class="" href="lecture-12.html"><span class="header-section-number">22</span> Lecture 12</a></li>
-<li><a class="" href="lecture-13.html"><span class="header-section-number">23</span> Lecture 13</a></li>
-<li><a class="" href="lecture-14.html"><span class="header-section-number">24</span> Lecture 14</a></li>
-<li><a class="" href="lecture-15.html"><span class="header-section-number">25</span> Lecture 15</a></li>
-<li><a class="" href="lecture-16.html"><span class="header-section-number">26</span> Lecture 16</a></li>
-<li><a class="" href="lecture-17.html"><span class="header-section-number">27</span> Lecture 17</a></li>
-<li><a class="" href="lecture-18.html"><span class="header-section-number">28</span> Lecture 18</a></li>
-<li><a class="" href="lecture-19.html"><span class="header-section-number">29</span> Lecture 19</a></li>
-<li><a class="" href="lecture-20.html"><span class="header-section-number">30</span> Lecture 20</a></li>
-<li><a class="" href="references.html"><span class="header-section-number">31</span> References</a></li>
+<li><a class="" href="lecture-01.html"><span class="header-section-number">10</span> Lecture 01</a></li>
+<li><a class="" href="lecture-02.html"><span class="header-section-number">11</span> Lecture 02</a></li>
+<li><a class="" href="lecture-03.html"><span class="header-section-number">12</span> Lecture 03</a></li>
+<li><a class="" href="lecture-04.html"><span class="header-section-number">13</span> Lecture 04</a></li>
+<li><a class="" href="lecture-05.html"><span class="header-section-number">14</span> Lecture 05</a></li>
+<li><a class="active" href="lecture-06.html"><span class="header-section-number">15</span> Lecture 06</a></li>
+<li><a class="" href="lecture-07.html"><span class="header-section-number">16</span> Lecture 07</a></li>
+<li><a class="" href="lecture-08.html"><span class="header-section-number">17</span> Lecture 08</a></li>
+<li><a class="" href="lecture-09.html"><span class="header-section-number">18</span> Lecture 09</a></li>
+<li><a class="" href="lecture-10.html"><span class="header-section-number">19</span> Lecture 10</a></li>
+<li><a class="" href="lecture-11.html"><span class="header-section-number">20</span> Lecture 11</a></li>
+<li><a class="" href="lecture-12.html"><span class="header-section-number">21</span> Lecture 12</a></li>
+<li><a class="" href="lecture-13.html"><span class="header-section-number">22</span> Lecture 13</a></li>
+<li><a class="" href="lecture-14.html"><span class="header-section-number">23</span> Lecture 14</a></li>
+<li><a class="" href="lecture-15.html"><span class="header-section-number">24</span> Lecture 15</a></li>
+<li><a class="" href="lecture-16.html"><span class="header-section-number">25</span> Lecture 16</a></li>
+<li><a class="" href="lecture-17.html"><span class="header-section-number">26</span> Lecture 17</a></li>
+<li><a class="" href="lecture-18.html"><span class="header-section-number">27</span> Lecture 18</a></li>
+<li><a class="" href="lecture-19.html"><span class="header-section-number">28</span> Lecture 19</a></li>
+<li><a class="" href="lecture-20.html"><span class="header-section-number">29</span> Lecture 20</a></li>
+<li><a class="" href="references.html"><span class="header-section-number">30</span> References</a></li>
 </ul>
 
         <div class="book-extra">
@@ -80,13 +80,13 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="lecture-06" class="section level1" number="16">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="lecture-06" class="section level1" number="15">
 <h1>
-<span class="header-section-number">16</span> Lecture 06<a class="anchor" aria-label="anchor" href="#lecture-06"><i class="fas fa-link"></i></a>
+<span class="header-section-number">15</span> Lecture 06<a class="anchor" aria-label="anchor" href="#lecture-06"><i class="fas fa-link"></i></a>
 </h1>
-<div id="index-variable" class="section level2" number="16.1">
+<div id="index-variable" class="section level2" number="15.1">
 <h2>
-<span class="header-section-number">16.1</span> Index variable<a class="anchor" aria-label="anchor" href="#index-variable"><i class="fas fa-link"></i></a>
+<span class="header-section-number">15.1</span> Index variable<a class="anchor" aria-label="anchor" href="#index-variable"><i class="fas fa-link"></i></a>
 </h2>
 <p>(For unordered, categorical variables)</p>
 <p>Starts at 1, counts up</p>
@@ -114,16 +114,16 @@
 <span id="cb265-8"><a href="lecture-06.html#cb265-8" aria-hidden="true" tabindex="-1"></a># a[<span class="dv">2</span>]  <span class="dv">142</span></span>
 <span id="cb265-9"><a href="lecture-06.html#cb265-9" aria-hidden="true" tabindex="-1"></a># diff  <span class="op">-</span><span class="fl">7.7</span></span></code></pre></div>
 </div>
-<div id="four-elemental-confounds" class="section level2" number="16.2">
+<div id="four-elemental-confounds" class="section level2" number="15.2">
 <h2>
-<span class="header-section-number">16.2</span> Four elemental confounds<a class="anchor" aria-label="anchor" href="#four-elemental-confounds"><i class="fas fa-link"></i></a>
+<span class="header-section-number">15.2</span> Four elemental confounds<a class="anchor" aria-label="anchor" href="#four-elemental-confounds"><i class="fas fa-link"></i></a>
 </h2>
 <p>When inferring the relationships between X and Y…</p>
 <p>Confounds are not determined by model selection, so we use DAGs.</p>
 <p>Arrows indicate causation, and statistical information can flow either way.</p>
-<div id="notes" class="section level3" number="16.2.1">
+<div id="notes" class="section level3" number="15.2.1">
 <h3>
-<span class="header-section-number">16.2.1</span> Notes<a class="anchor" aria-label="anchor" href="#notes"><i class="fas fa-link"></i></a>
+<span class="header-section-number">15.2.1</span> Notes<a class="anchor" aria-label="anchor" href="#notes"><i class="fas fa-link"></i></a>
 </h3>
 <ul>
 <li>Regression models don’t have arrows like DAGs - they just measure associations.</li>
@@ -131,16 +131,16 @@
 <li>Remember DAGs are small world constructs.</li>
 </ul>
 </div>
-<div id="the-fork" class="section level3" number="16.2.2">
+<div id="the-fork" class="section level3" number="15.2.2">
 <h3>
-<span class="header-section-number">16.2.2</span> The fork<a class="anchor" aria-label="anchor" href="#the-fork"><i class="fas fa-link"></i></a>
+<span class="header-section-number">15.2.2</span> The fork<a class="anchor" aria-label="anchor" href="#the-fork"><i class="fas fa-link"></i></a>
 </h3>
 <p>X ← Z → Y</p>
 <p>Z is a common cause of X and Y. Including Z will remove the relationship between X and Y.</p>
 </div>
-<div id="the-path" class="section level3" number="16.2.3">
+<div id="the-path" class="section level3" number="15.2.3">
 <h3>
-<span class="header-section-number">16.2.3</span> The path<a class="anchor" aria-label="anchor" href="#the-path"><i class="fas fa-link"></i></a>
+<span class="header-section-number">15.2.3</span> The path<a class="anchor" aria-label="anchor" href="#the-path"><i class="fas fa-link"></i></a>
 </h3>
 <p>X → Z → Y</p>
 <p>Z is along the path of X and Y, mediating the relationship.</p>
@@ -149,16 +149,16 @@
 <p>Since the treatment influences the fungus (a post treatment measure), if we include both the treatment and the fungus, we will see no relationship of treatment on height, only fungus. (once we know fungus, what does treatment tell us - nothing). In this case, the model with both treatment and fungus tells us the relationship between them, but to properly consider the influence of treatment we need to omit fungus</p>
 <p>Therefore, understanding the relationship between T and F is important, but for determining causality of T on H, we need to omit it from that model.</p>
 </div>
-<div id="the-collider" class="section level3" number="16.2.4">
+<div id="the-collider" class="section level3" number="15.2.4">
 <h3>
-<span class="header-section-number">16.2.4</span> The collider<a class="anchor" aria-label="anchor" href="#the-collider"><i class="fas fa-link"></i></a>
+<span class="header-section-number">15.2.4</span> The collider<a class="anchor" aria-label="anchor" href="#the-collider"><i class="fas fa-link"></i></a>
 </h3>
 <p>X → Z ← Y</p>
 <p>Z is common result of X and Y. X and Y are independent, if you condition on Z. Careful about statistical correlations that do not indicate causation here.</p>
 </div>
-<div id="steps" class="section level3" number="16.2.5">
+<div id="steps" class="section level3" number="15.2.5">
 <h3>
-<span class="header-section-number">16.2.5</span> Steps<a class="anchor" aria-label="anchor" href="#steps"><i class="fas fa-link"></i></a>
+<span class="header-section-number">15.2.5</span> Steps<a class="anchor" aria-label="anchor" href="#steps"><i class="fas fa-link"></i></a>
 </h3>
 <ol style="list-style-type: decimal">
 <li>List all paths connecting X (treatment) and Y (outcome)</li>
@@ -170,20 +170,20 @@
 </div>
 </div>
   <div class="chapter-nav">
-<div class="prev"><a href="lecture-05.html"><span class="header-section-number">15</span> Lecture 05</a></div>
-<div class="next"><a href="lecture-07.html"><span class="header-section-number">17</span> Lecture 07</a></div>
+<div class="prev"><a href="lecture-05.html"><span class="header-section-number">14</span> Lecture 05</a></div>
+<div class="next"><a href="lecture-07.html"><span class="header-section-number">16</span> Lecture 07</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#lecture-06"><span class="header-section-number">16</span> Lecture 06</a></li>
-<li><a class="nav-link" href="#index-variable"><span class="header-section-number">16.1</span> Index variable</a></li>
+<li><a class="nav-link" href="#lecture-06"><span class="header-section-number">15</span> Lecture 06</a></li>
+<li><a class="nav-link" href="#index-variable"><span class="header-section-number">15.1</span> Index variable</a></li>
 <li>
-<a class="nav-link" href="#four-elemental-confounds"><span class="header-section-number">16.2</span> Four elemental confounds</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#notes"><span class="header-section-number">16.2.1</span> Notes</a></li>
-<li><a class="nav-link" href="#the-fork"><span class="header-section-number">16.2.2</span> The fork</a></li>
-<li><a class="nav-link" href="#the-path"><span class="header-section-number">16.2.3</span> The path</a></li>
-<li><a class="nav-link" href="#the-collider"><span class="header-section-number">16.2.4</span> The collider</a></li>
-<li><a class="nav-link" href="#steps"><span class="header-section-number">16.2.5</span> Steps</a></li>
+<a class="nav-link" href="#four-elemental-confounds"><span class="header-section-number">15.2</span> Four elemental confounds</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#notes"><span class="header-section-number">15.2.1</span> Notes</a></li>
+<li><a class="nav-link" href="#the-fork"><span class="header-section-number">15.2.2</span> The fork</a></li>
+<li><a class="nav-link" href="#the-path"><span class="header-section-number">15.2.3</span> The path</a></li>
+<li><a class="nav-link" href="#the-collider"><span class="header-section-number">15.2.4</span> The collider</a></li>
+<li><a class="nav-link" href="#steps"><span class="header-section-number">15.2.5</span> Steps</a></li>
 </ul>
 </li>
 </ul>

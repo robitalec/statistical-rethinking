@@ -4,21 +4,21 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>8 Week 7 | Learning bayesian data analysis with Statistical Rethinking</title>
+<title>7 Week 7 | Learning bayesian data analysis with Statistical Rethinking</title>
 <meta name="author" content="Alec L. Robitaille">
-<meta name="description" content="2021-09-07 [updated: 2021-10-08]  8.0.1 Data DT &lt;- data_trolley() precis(DT) ##       mean  sd 5.5% 94.5%   histogram ## case     NaN  NA  NA  NA        ## response   4.20 1.91  1   7 ...">
+<meta name="description" content="2021-09-07 [updated: 2021-10-08]  7.0.1 Data DT &lt;- data_trolley() precis(DT) ##       mean  sd 5.5% 94.5%   histogram ## case     NaN  NA  NA  NA        ## response   4.20 1.91  1   7 ...">
 <meta name="generator" content="bookdown 0.24.1 with bs4_book()">
-<meta property="og:title" content="8 Week 7 | Learning bayesian data analysis with Statistical Rethinking">
+<meta property="og:title" content="7 Week 7 | Learning bayesian data analysis with Statistical Rethinking">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://www.statistical-rethinking.robitalec.ca/week-7.html">
-<meta property="og:description" content="2021-09-07 [updated: 2021-10-08]  8.0.1 Data DT &lt;- data_trolley() precis(DT) ##       mean  sd 5.5% 94.5%   histogram ## case     NaN  NA  NA  NA        ## response   4.20 1.91  1   7 ...">
+<meta property="og:description" content="2021-09-07 [updated: 2021-10-08]  7.0.1 Data DT &lt;- data_trolley() precis(DT) ##       mean  sd 5.5% 94.5%   histogram ## case     NaN  NA  NA  NA        ## response   4.20 1.91  1   7 ...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="8 Week 7 | Learning bayesian data analysis with Statistical Rethinking">
-<meta name="twitter:description" content="2021-09-07 [updated: 2021-10-08]  8.0.1 Data DT &lt;- data_trolley() precis(DT) ##       mean  sd 5.5% 94.5%   histogram ## case     NaN  NA  NA  NA        ## response   4.20 1.91  1   7 ...">
+<meta name="twitter:title" content="7 Week 7 | Learning bayesian data analysis with Statistical Rethinking">
+<meta name="twitter:description" content="2021-09-07 [updated: 2021-10-08]  7.0.1 Data DT &lt;- data_trolley() precis(DT) ##       mean  sd 5.5% 94.5%   histogram ## case     NaN  NA  NA  NA        ## response   4.20 1.91  1   7 ...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11.3/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
-<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS -->
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="style.css">
 </head>
 <body data-spy="scroll" data-target="#toc">
 
@@ -40,39 +40,39 @@
 
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
         <ul class="book-toc list-unstyled">
-<li><a class="" href="index.html"><span class="header-section-number">1</span> Overview</a></li>
+<li><a class="" href="index.html">Overview</a></li>
 <li class="book-part">Homework</li>
-<li><a class="" href="week-1.html"><span class="header-section-number">2</span> Week 1</a></li>
-<li><a class="" href="week-2.html"><span class="header-section-number">3</span> Week 2</a></li>
-<li><a class="" href="week-3.html"><span class="header-section-number">4</span> Week 3</a></li>
-<li><a class="" href="week-4.html"><span class="header-section-number">5</span> Week 4</a></li>
-<li><a class="" href="week-5.html"><span class="header-section-number">6</span> Week 5</a></li>
-<li><a class="" href="week-6.html"><span class="header-section-number">7</span> Week 6</a></li>
-<li><a class="active" href="week-7.html"><span class="header-section-number">8</span> Week 7</a></li>
-<li><a class="" href="week-8.html"><span class="header-section-number">9</span> Week 8</a></li>
-<li><a class="" href="week-9.html"><span class="header-section-number">10</span> Week 9</a></li>
+<li><a class="" href="week-1.html"><span class="header-section-number">1</span> Week 1</a></li>
+<li><a class="" href="week-2.html"><span class="header-section-number">2</span> Week 2</a></li>
+<li><a class="" href="week-3.html"><span class="header-section-number">3</span> Week 3</a></li>
+<li><a class="" href="week-4.html"><span class="header-section-number">4</span> Week 4</a></li>
+<li><a class="" href="week-5.html"><span class="header-section-number">5</span> Week 5</a></li>
+<li><a class="" href="week-6.html"><span class="header-section-number">6</span> Week 6</a></li>
+<li><a class="active" href="week-7.html"><span class="header-section-number">7</span> Week 7</a></li>
+<li><a class="" href="week-8.html"><span class="header-section-number">8</span> Week 8</a></li>
+<li><a class="" href="week-9.html"><span class="header-section-number">9</span> Week 9</a></li>
 <li class="book-part">Lectures</li>
-<li><a class="" href="lecture-01.html"><span class="header-section-number">11</span> Lecture 01</a></li>
-<li><a class="" href="lecture-02.html"><span class="header-section-number">12</span> Lecture 02</a></li>
-<li><a class="" href="lecture-03.html"><span class="header-section-number">13</span> Lecture 03</a></li>
-<li><a class="" href="lecture-04.html"><span class="header-section-number">14</span> Lecture 04</a></li>
-<li><a class="" href="lecture-05.html"><span class="header-section-number">15</span> Lecture 05</a></li>
-<li><a class="" href="lecture-06.html"><span class="header-section-number">16</span> Lecture 06</a></li>
-<li><a class="" href="lecture-07.html"><span class="header-section-number">17</span> Lecture 07</a></li>
-<li><a class="" href="lecture-08.html"><span class="header-section-number">18</span> Lecture 08</a></li>
-<li><a class="" href="lecture-09.html"><span class="header-section-number">19</span> Lecture 09</a></li>
-<li><a class="" href="lecture-10.html"><span class="header-section-number">20</span> Lecture 10</a></li>
-<li><a class="" href="lecture-11.html"><span class="header-section-number">21</span> Lecture 11</a></li>
-<li><a class="" href="lecture-12.html"><span class="header-section-number">22</span> Lecture 12</a></li>
-<li><a class="" href="lecture-13.html"><span class="header-section-number">23</span> Lecture 13</a></li>
-<li><a class="" href="lecture-14.html"><span class="header-section-number">24</span> Lecture 14</a></li>
-<li><a class="" href="lecture-15.html"><span class="header-section-number">25</span> Lecture 15</a></li>
-<li><a class="" href="lecture-16.html"><span class="header-section-number">26</span> Lecture 16</a></li>
-<li><a class="" href="lecture-17.html"><span class="header-section-number">27</span> Lecture 17</a></li>
-<li><a class="" href="lecture-18.html"><span class="header-section-number">28</span> Lecture 18</a></li>
-<li><a class="" href="lecture-19.html"><span class="header-section-number">29</span> Lecture 19</a></li>
-<li><a class="" href="lecture-20.html"><span class="header-section-number">30</span> Lecture 20</a></li>
-<li><a class="" href="references.html"><span class="header-section-number">31</span> References</a></li>
+<li><a class="" href="lecture-01.html"><span class="header-section-number">10</span> Lecture 01</a></li>
+<li><a class="" href="lecture-02.html"><span class="header-section-number">11</span> Lecture 02</a></li>
+<li><a class="" href="lecture-03.html"><span class="header-section-number">12</span> Lecture 03</a></li>
+<li><a class="" href="lecture-04.html"><span class="header-section-number">13</span> Lecture 04</a></li>
+<li><a class="" href="lecture-05.html"><span class="header-section-number">14</span> Lecture 05</a></li>
+<li><a class="" href="lecture-06.html"><span class="header-section-number">15</span> Lecture 06</a></li>
+<li><a class="" href="lecture-07.html"><span class="header-section-number">16</span> Lecture 07</a></li>
+<li><a class="" href="lecture-08.html"><span class="header-section-number">17</span> Lecture 08</a></li>
+<li><a class="" href="lecture-09.html"><span class="header-section-number">18</span> Lecture 09</a></li>
+<li><a class="" href="lecture-10.html"><span class="header-section-number">19</span> Lecture 10</a></li>
+<li><a class="" href="lecture-11.html"><span class="header-section-number">20</span> Lecture 11</a></li>
+<li><a class="" href="lecture-12.html"><span class="header-section-number">21</span> Lecture 12</a></li>
+<li><a class="" href="lecture-13.html"><span class="header-section-number">22</span> Lecture 13</a></li>
+<li><a class="" href="lecture-14.html"><span class="header-section-number">23</span> Lecture 14</a></li>
+<li><a class="" href="lecture-15.html"><span class="header-section-number">24</span> Lecture 15</a></li>
+<li><a class="" href="lecture-16.html"><span class="header-section-number">25</span> Lecture 16</a></li>
+<li><a class="" href="lecture-17.html"><span class="header-section-number">26</span> Lecture 17</a></li>
+<li><a class="" href="lecture-18.html"><span class="header-section-number">27</span> Lecture 18</a></li>
+<li><a class="" href="lecture-19.html"><span class="header-section-number">28</span> Lecture 19</a></li>
+<li><a class="" href="lecture-20.html"><span class="header-section-number">29</span> Lecture 20</a></li>
+<li><a class="" href="references.html"><span class="header-section-number">30</span> References</a></li>
 </ul>
 
         <div class="book-extra">
@@ -80,14 +80,14 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="week-7" class="section level1" number="8">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="week-7" class="section level1" number="7">
 <h1>
-<span class="header-section-number">8</span> Week 7<a class="anchor" aria-label="anchor" href="#week-7"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7</span> Week 7<a class="anchor" aria-label="anchor" href="#week-7"><i class="fas fa-link"></i></a>
 </h1>
 <p>2021-09-07 [updated: 2021-10-08]</p>
-<div id="data-6" class="section level3" number="8.0.1">
+<div id="data-6" class="section level3" number="7.0.1">
 <h3>
-<span class="header-section-number">8.0.1</span> Data<a class="anchor" aria-label="anchor" href="#data-6"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.0.1</span> Data<a class="anchor" aria-label="anchor" href="#data-6"><i class="fas fa-link"></i></a>
 </h3>
 <div class="sourceCode" id="cb140"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">DT</span> <span class="op">&lt;-</span> <span class="fu">data_trolley</span><span class="op">(</span><span class="op">)</span>
@@ -112,9 +112,9 @@
 <p>Log-cumulative-odds for response 7 will be infinity since log(1/(1-1)) = infinity.
 Given this, we only need K-1 = 6 intercepts.</p>
 </div>
-<div id="model-ordered-categorical-outcome" class="section level3" number="8.0.2">
+<div id="model-ordered-categorical-outcome" class="section level3" number="7.0.2">
 <h3>
-<span class="header-section-number">8.0.2</span> Model: ordered categorical outcome<a class="anchor" aria-label="anchor" href="#model-ordered-categorical-outcome"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.0.2</span> Model: ordered categorical outcome<a class="anchor" aria-label="anchor" href="#model-ordered-categorical-outcome"><i class="fas fa-link"></i></a>
 </h3>
 <p>Probability of data: <span class="math inline">\(R_{i} \sim \text{Ordered-logit}(\phi_{i}, K)\)</span></p>
 <p>Linear model: <span class="math inline">\(\phi_{i} = 0\)</span></p>
@@ -199,9 +199,9 @@ Given this, we only need K-1 = 6 intercepts.</p>
 ## replace the existing scale.</code></pre>
 <div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-67-2.png" width="672"></div>
 </div>
-<div id="model-ordered-categorical-predictors" class="section level3" number="8.0.3">
+<div id="model-ordered-categorical-predictors" class="section level3" number="7.0.3">
 <h3>
-<span class="header-section-number">8.0.3</span> Model: ordered categorical predictors<a class="anchor" aria-label="anchor" href="#model-ordered-categorical-predictors"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.0.3</span> Model: ordered categorical predictors<a class="anchor" aria-label="anchor" href="#model-ordered-categorical-predictors"><i class="fas fa-link"></i></a>
 </h3>
 <p>Probability of data: <span class="math inline">\(R_{i} \sim \text{Ordered-logit}(\phi_{i}, K)\)</span></p>
 <p>Linear model: <span class="math inline">\(\phi_{i} = \beta_{E} \sum_{j=0}^{E_{i}-1}\delta_{j} + \beta{A_{i}}A_{i} + \beta{I_{i}}I_{i} + \beta{C_{i}}C_{i}\)</span></p>
@@ -272,9 +272,9 @@ pseudo-counts of observations.</p>
 ## replace the existing scale.</code></pre>
 <div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-69-3.png" width="672"></div>
 </div>
-<div id="question-1-6" class="section level2" number="8.1">
+<div id="question-1-6" class="section level2" number="7.1">
 <h2>
-<span class="header-section-number">8.1</span> Question 1<a class="anchor" aria-label="anchor" href="#question-1-6"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.1</span> Question 1<a class="anchor" aria-label="anchor" href="#question-1-6"><i class="fas fa-link"></i></a>
 </h2>
 <blockquote>
 <p>In the Trolley data — <code>data(Trolley)</code> — we saw how education level (modeled as an
@@ -365,9 +365,9 @@ conclude about the causal relationships among these three variables?</p>
 ## replace the existing scale.</code></pre>
 <div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-72-3.png" width="672"></div>
 </div>
-<div id="question-2-5" class="section level2" number="8.2">
+<div id="question-2-5" class="section level2" number="7.2">
 <h2>
-<span class="header-section-number">8.2</span> Question 2<a class="anchor" aria-label="anchor" href="#question-2-5"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.2</span> Question 2<a class="anchor" aria-label="anchor" href="#question-2-5"><i class="fas fa-link"></i></a>
 </h2>
 <blockquote>
 <p>Consider one more variable in the Trolley data: Gender. Suppose that gender
@@ -463,20 +463,20 @@ on response. What do you conclude?</p>
 </div>
 </div>
   <div class="chapter-nav">
-<div class="prev"><a href="week-6.html"><span class="header-section-number">7</span> Week 6</a></div>
-<div class="next"><a href="week-8.html"><span class="header-section-number">9</span> Week 8</a></div>
+<div class="prev"><a href="week-6.html"><span class="header-section-number">6</span> Week 6</a></div>
+<div class="next"><a href="week-8.html"><span class="header-section-number">8</span> Week 8</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
 <li>
-<a class="nav-link" href="#week-7"><span class="header-section-number">8</span> Week 7</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#data-6"><span class="header-section-number">8.0.1</span> Data</a></li>
-<li><a class="nav-link" href="#model-ordered-categorical-outcome"><span class="header-section-number">8.0.2</span> Model: ordered categorical outcome</a></li>
-<li><a class="nav-link" href="#model-ordered-categorical-predictors"><span class="header-section-number">8.0.3</span> Model: ordered categorical predictors</a></li>
+<a class="nav-link" href="#week-7"><span class="header-section-number">7</span> Week 7</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#data-6"><span class="header-section-number">7.0.1</span> Data</a></li>
+<li><a class="nav-link" href="#model-ordered-categorical-outcome"><span class="header-section-number">7.0.2</span> Model: ordered categorical outcome</a></li>
+<li><a class="nav-link" href="#model-ordered-categorical-predictors"><span class="header-section-number">7.0.3</span> Model: ordered categorical predictors</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#question-1-6"><span class="header-section-number">8.1</span> Question 1</a></li>
-<li><a class="nav-link" href="#question-2-5"><span class="header-section-number">8.2</span> Question 2</a></li>
+<li><a class="nav-link" href="#question-1-6"><span class="header-section-number">7.1</span> Question 1</a></li>
+<li><a class="nav-link" href="#question-2-5"><span class="header-section-number">7.2</span> Question 2</a></li>
 </ul>
 
       <div class="book-extra">
