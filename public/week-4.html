@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>5 Week 4 | Learning bayesian data analysis with Statistical Rethinking</title>
+<meta name="author" content="Alec L. Robitaille">
+<meta name="generator" content="bookdown 0.24.1 with bs4_book()">
+<meta property="og:title" content="5 Week 4 | Learning bayesian data analysis with Statistical Rethinking">
+<meta property="og:type" content="book">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="5 Week 4 | Learning bayesian data analysis with Statistical Rethinking">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11.3/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><meta name="description" content="2021-08-30 [updated: 2021-10-07]  5.1 Question 1  Consider three fictional Polynesian islands. On each there is a Royal Ornithologist charged by the king with surveying the birb population. They...">
+<meta property="og:description" content="2021-08-30 [updated: 2021-10-07]  5.1 Question 1  Consider three fictional Polynesian islands. On each there is a Royal Ornithologist charged by the king with surveying the birb population. They...">
+<meta name="twitter:description" content="2021-08-30 [updated: 2021-10-07]  5.1 Question 1  Consider three fictional Polynesian islands. On each there is a Royal Ornithologist charged by the king with surveying the birb population. They...">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Learning bayesian data analysis with Statistical Rethinking</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> Overview</a></li>
+<li class="book-part">Homework</li>
+<li><a class="" href="week-1.html"><span class="header-section-number">2</span> Week 1</a></li>
+<li><a class="" href="week-2.html"><span class="header-section-number">3</span> Week 2</a></li>
+<li><a class="" href="week-3.html"><span class="header-section-number">4</span> Week 3</a></li>
+<li><a class="active" href="week-4.html"><span class="header-section-number">5</span> Week 4</a></li>
+<li><a class="" href="week-5.html"><span class="header-section-number">6</span> Week 5</a></li>
+<li><a class="" href="week-6.html"><span class="header-section-number">7</span> Week 6</a></li>
+<li><a class="" href="week-7.html"><span class="header-section-number">8</span> Week 7</a></li>
+<li><a class="" href="week-8.html"><span class="header-section-number">9</span> Week 8</a></li>
+<li><a class="" href="week-9.html"><span class="header-section-number">10</span> Week 9</a></li>
+<li class="book-part">Lectures</li>
+<li><a class="" href="lecture-01.html"><span class="header-section-number">11</span> Lecture 01</a></li>
+<li><a class="" href="lecture-02.html"><span class="header-section-number">12</span> Lecture 02</a></li>
+<li><a class="" href="lecture-03.html"><span class="header-section-number">13</span> Lecture 03</a></li>
+<li><a class="" href="lecture-04.html"><span class="header-section-number">14</span> Lecture 04</a></li>
+<li><a class="" href="lecture-05.html"><span class="header-section-number">15</span> Lecture 05</a></li>
+<li><a class="" href="lecture-06.html"><span class="header-section-number">16</span> Lecture 06</a></li>
+<li><a class="" href="lecture-07.html"><span class="header-section-number">17</span> Lecture 07</a></li>
+<li><a class="" href="lecture-08.html"><span class="header-section-number">18</span> Lecture 08</a></li>
+<li><a class="" href="lecture-09.html"><span class="header-section-number">19</span> Lecture 09</a></li>
+<li><a class="" href="lecture-10.html"><span class="header-section-number">20</span> Lecture 10</a></li>
+<li><a class="" href="lecture-11.html"><span class="header-section-number">21</span> Lecture 11</a></li>
+<li><a class="" href="lecture-12.html"><span class="header-section-number">22</span> Lecture 12</a></li>
+<li><a class="" href="lecture-13.html"><span class="header-section-number">23</span> Lecture 13</a></li>
+<li><a class="" href="lecture-14.html"><span class="header-section-number">24</span> Lecture 14</a></li>
+<li><a class="" href="lecture-15.html"><span class="header-section-number">25</span> Lecture 15</a></li>
+<li><a class="" href="lecture-16.html"><span class="header-section-number">26</span> Lecture 16</a></li>
+<li><a class="" href="lecture-17.html"><span class="header-section-number">27</span> Lecture 17</a></li>
+<li><a class="" href="lecture-18.html"><span class="header-section-number">28</span> Lecture 18</a></li>
+<li><a class="" href="lecture-19.html"><span class="header-section-number">29</span> Lecture 19</a></li>
+<li><a class="" href="lecture-20.html"><span class="header-section-number">30</span> Lecture 20</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="week-4" class="section level1" number="5">
+<h1>
+<span class="header-section-number">5</span> Week 4<a class="anchor" aria-label="anchor" href="#week-4"><i class="fas fa-link"></i></a>
+</h1>
+<p>2021-08-30 [updated: 2021-10-07]</p>
+<div id="question-1-3" class="section level2" number="5.1">
+<h2>
+<span class="header-section-number">5.1</span> Question 1<a class="anchor" aria-label="anchor" href="#question-1-3"><i class="fas fa-link"></i></a>
+</h2>
+<blockquote>
+<p>Consider three fictional Polynesian islands. On each there is a Royal
+Ornithologist charged by the king with surveying the birb population. They have
+each found the following proportions of 5 important birb species:</p>
+</blockquote>
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Data</span>
+<span class="va">birds</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">0.2</span>, <span class="fl">0.2</span>, <span class="fl">0.2</span>, <span class="fl">0.2</span>,
+        <span class="fl">0.8</span>, <span class="fl">0.1</span>, <span class="fl">0.05</span>, <span class="fl">0.025</span>, <span class="fl">0.025</span>,
+        <span class="fl">0.05</span>, <span class="fl">0.15</span>, <span class="fl">0.7</span>, <span class="fl">0.05</span>, <span class="fl">0.05</span><span class="op">)</span>,
+    nrow <span class="op">=</span> <span class="fl">3</span>, ncol <span class="op">=</span> <span class="fl">5</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span>
+<span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/dimnames.html">dimnames</a></span><span class="op">(</span><span class="va">birds</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span>, <span class="va">LETTERS</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span><span class="op">)</span>
+<span class="va">birds</span></code></pre></div>
+<pre><code>##      A    B    C     D     E
+## 1 0.20 0.20 0.20 0.200 0.200
+## 2 0.80 0.10 0.05 0.025 0.025
+## 3 0.05 0.15 0.70 0.050 0.050</code></pre>
+<blockquote>
+<p>First, compute the entropy of each island’s birb distribution. Interpret these
+entropy values</p>
+</blockquote>
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">DT</span> <span class="op">&lt;-</span> <span class="fu">melt</span><span class="op">(</span><span class="fu">data.table</span><span class="op">(</span><span class="va">birds</span>, keep.rownames <span class="op">=</span> <span class="st">'island'</span><span class="op">)</span>, id.vars <span class="op">=</span> <span class="st">'island'</span>,
+                     variable.name <span class="op">=</span> <span class="st">'id'</span>, value.name <span class="op">=</span> <span class="st">'proportion'</span><span class="op">)</span>
+
+<span class="co"># Entropy</span>
+<span class="va">entropy</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">p</span><span class="op">)</span> <span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">p</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span><span class="op">)</span>
+<span class="va">DT</span><span class="op">[</span>, <span class="fu">.</span><span class="op">(</span>entropy <span class="op">=</span> <span class="fu">entropy</span><span class="op">(</span><span class="va">proportion</span><span class="op">)</span><span class="op">)</span>, by <span class="op">=</span> <span class="va">island</span><span class="op">]</span></code></pre></div>
+<pre><code>##    island entropy
+## 1:      1    1.61
+## 2:      2    0.74
+## 3:      3    0.98</code></pre>
+<p>The information entropy describes the uncertainty in a distribution of
+probabilities given the average log-probability of an event (from Statistical
+Rethinking 7.2). Island 1 has the highest entropy, with the flat probability of 0.2 across 5 bird species. Island 2 has the lowest entropy, including species A with the highest overall proportion 0.8.</p>
+<blockquote>
+<p>Second, use each island’s birb distribution to predict the other two. This
+means to compute the K-L Divergence of each island from the others, treating
+each island as if it were a statistical model of the other islands. You should
+end up with 6 different K-L Divergence values. Which island predicts the others
+best? Why?</p>
+</blockquote>
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">divergence</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">p</span>, <span class="va">q</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">p</span> <span class="op">*</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="va">q</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<span class="va">z</span> <span class="op">&lt;-</span> <span class="fu">CJ</span><span class="op">(</span>p <span class="op">=</span> <span class="va">DT</span><span class="op">$</span><span class="va">island</span>, q <span class="op">=</span> <span class="va">DT</span><span class="op">$</span><span class="va">island</span>, unique <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">[</span>, <span class="va">row_id</span> <span class="op">:=</span> <span class="va">.I</span><span class="op">]</span>
+<span class="va">z</span><span class="op">[</span>, <span class="va">div</span> <span class="op">:=</span> <span class="fu">divergence</span><span class="op">(</span><span class="va">DT</span><span class="op">[</span><span class="va">island</span> <span class="op">==</span> <span class="va">p</span>, <span class="va">proportion</span><span class="op">]</span>, 
+                                            <span class="va">DT</span><span class="op">[</span><span class="va">island</span> <span class="op">==</span> <span class="va">q</span>, <span class="va">proportion</span><span class="op">]</span><span class="op">)</span>,
+    by <span class="op">=</span> <span class="va">row_id</span><span class="op">]</span>
+
+<span class="va">z</span><span class="op">[</span><span class="va">p</span> <span class="op">!=</span> <span class="va">q</span><span class="op">]</span></code></pre></div>
+<pre><code>##    p q row_id  div
+## 1: 1 2      2 0.97
+## 2: 1 3      3 0.64
+## 3: 2 1      4 0.87
+## 4: 2 3      6 2.01
+## 5: 3 1      7 0.63
+## 6: 3 2      8 1.84</code></pre>
+<p><code>divergence(p, q)</code> = “Average difference in log probability between the target (p) and the model (q).”</p>
+<p>Model 1 predicts target 3 best (lowest divergence at 0.63) and target 2 best (lowest divergence at 0.87) because it has the highest entropy. Model 3 predicts target 1 best (lowest divergence at 0.64) because it has higher entropy than model 2.</p>
+</div>
+<div id="question-2-3" class="section level2" number="5.2">
+<h2>
+<span class="header-section-number">5.2</span> Question 2<a class="anchor" aria-label="anchor" href="#question-2-3"><i class="fas fa-link"></i></a>
+</h2>
+<blockquote>
+<p>Recall the marriage, age, and happiness collider bias example from Chapter
+6. Run models m6.9 and m6.10 again.</p>
+</blockquote>
+<div id="dag" class="section level3" number="5.2.1">
+<h3>
+<span class="header-section-number">5.2.1</span> DAG<a class="anchor" aria-label="anchor" href="#dag"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">dag</span> <span class="op">&lt;-</span> <span class="fu">dagify</span><span class="op">(</span>
+    <span class="va">marriage</span> <span class="op">~</span> <span class="va">happiness</span>,
+    <span class="va">marriage</span> <span class="op">~</span> <span class="va">age</span>,
+    exposure <span class="op">=</span> <span class="st">'age'</span>,
+    outcome <span class="op">=</span> <span class="st">'happiness'</span>
+<span class="op">)</span>
+
+<span class="fu">dag_plot</span><span class="op">(</span><span class="va">dag</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-25-1.png" width="672"></div>
+</div>
+<div id="data" class="section level3" number="5.2.2">
+<h3>
+<span class="header-section-number">5.2.2</span> Data<a class="anchor" aria-label="anchor" href="#data"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu">sim_happiness</span><span class="op">(</span>seed <span class="op">=</span> <span class="fl">1977</span>, N_years <span class="op">=</span> <span class="fl">1e3</span><span class="op">)</span>
+
+<span class="va">d2</span> <span class="op">&lt;-</span> <span class="va">d</span><span class="op">[</span><span class="va">d</span><span class="op">$</span><span class="va">age</span> <span class="op">&gt;</span> <span class="fl">17</span>,<span class="op">]</span>
+<span class="va">d2</span><span class="op">$</span><span class="va">A</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">d2</span><span class="op">$</span><span class="va">age</span> <span class="op">-</span> <span class="fl">18</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fl">65</span> <span class="op">-</span> <span class="fl">18</span><span class="op">)</span>
+<span class="va">d2</span><span class="op">$</span><span class="va">mid</span> <span class="op">&lt;-</span> <span class="va">d2</span><span class="op">$</span><span class="va">married</span> <span class="op">+</span> <span class="fl">1</span>
+
+<span class="fu">precis</span><span class="op">(</span><span class="va">d2</span><span class="op">)</span></code></pre></div>
+<pre><code>##                          mean    sd   5.5% 94.5%  histogram
+## age       41.5000000000000000 13.86 20.000 63.00 ▃▇▇▇▇▇▇▇▇▇
+## married    0.4072916666666667  0.49  0.000  1.00 ▇▁▁▁▁▁▁▁▁▅
+## happiness -0.0000000000000001  1.21 -1.789  1.79   ▇▅▇▅▅▇▅▇
+## A          0.5000000000000000  0.29  0.043  0.96 ▇▇▇▅▇▇▅▇▇▇
+## mid        1.4072916666666666  0.49  1.000  2.00 ▇▁▁▁▁▁▁▁▁▅</code></pre>
+</div>
+<div id="models" class="section level3" number="5.2.3">
+<h3>
+<span class="header-section-number">5.2.3</span> Models<a class="anchor" aria-label="anchor" href="#models"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">m6.9</span> <span class="op">&lt;-</span> <span class="fu">quap</span><span class="op">(</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/list.html">alist</a></span><span class="op">(</span>
+        <span class="va">happiness</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="va">mu</span>, <span class="va">sigma</span><span class="op">)</span>,
+        <span class="va">mu</span> <span class="op">&lt;-</span> <span class="va">a</span><span class="op">[</span><span class="va">mid</span><span class="op">]</span> <span class="op">+</span> <span class="va">bA</span> <span class="op">*</span> <span class="va">A</span>,
+        <span class="va">a</span><span class="op">[</span><span class="va">mid</span><span class="op">]</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>,
+        <span class="va">bA</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span><span class="op">)</span>,
+        <span class="va">sigma</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Exponential.html">dexp</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
+    <span class="op">)</span>, data <span class="op">=</span> <span class="va">d2</span>
+<span class="op">)</span>
+
+<span class="fu">precis</span><span class="op">(</span><span class="va">m6.9</span>, depth <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
+<pre><code>##        mean    sd  5.5% 94.5%
+## a[1]  -0.24 0.063 -0.34 -0.13
+## a[2]   1.26 0.085  1.12  1.39
+## bA    -0.75 0.113 -0.93 -0.57
+## sigma  0.99 0.023  0.95  1.03</code></pre>
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">m6.10</span> <span class="op">&lt;-</span> <span class="fu">quap</span><span class="op">(</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/list.html">alist</a></span><span class="op">(</span>
+        <span class="va">happiness</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="va">mu</span>, <span class="va">sigma</span><span class="op">)</span>,
+        <span class="va">mu</span> <span class="op">&lt;-</span> <span class="va">a</span> <span class="op">+</span> <span class="va">bA</span> <span class="op">*</span> <span class="va">A</span>,
+        <span class="va">a</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>,
+        <span class="va">bA</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span><span class="op">)</span>,
+        <span class="va">sigma</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Exponential.html">dexp</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
+    <span class="op">)</span>, data <span class="op">=</span> <span class="va">d2</span>
+<span class="op">)</span>
+
+<span class="fu">precis</span><span class="op">(</span><span class="va">m6.10</span>, depth <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
+<pre><code>##              mean    sd  5.5% 94.5%
+## a      0.00000016 0.077 -0.12  0.12
+## bA    -0.00000027 0.132 -0.21  0.21
+## sigma  1.21318761 0.028  1.17  1.26</code></pre>
+</div>
+<div id="interpretation-3" class="section level3" number="5.2.4">
+<h3>
+<span class="header-section-number">5.2.4</span> Interpretation<a class="anchor" aria-label="anchor" href="#interpretation-3"><i class="fas fa-link"></i></a>
+</h3>
+<blockquote>
+<p>Compare these two models using WAIC (or LOO, they will produce identical
+results). Which model is expected to make better predictions? Which model
+provides the correct causal inference about the influence of age on happiness?
+Can you explain why the answers to these two questions disagree?</p>
+</blockquote>
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">rethinking</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rethinking/man/compare.html">compare</a></span><span class="op">(</span><span class="va">m6.9</span>, <span class="va">m6.10</span><span class="op">)</span></code></pre></div>
+<pre><code>##       WAIC SE dWAIC dSE pWAIC weight
+## m6.9  2714 38     0  NA   3.7      1
+## m6.10 3102 28   388  35   2.3      0</code></pre>
+<p>Model m6.9 includes marriage while m6.10 does not. The causal influence of age
+on happiness is confounded by marriage because marriage is a collider between
+age and happiness. Conditioning on marriage opens the path between age and
+happiness, making age and happiness independent. Therefore, despite the WAIC for
+m6.9 being lower, it does not tell us anything about causation between the
+variables.</p>
+</div>
+</div>
+<div id="question-3-3" class="section level2" number="5.3">
+<h2>
+<span class="header-section-number">5.3</span> Question 3<a class="anchor" aria-label="anchor" href="#question-3-3"><i class="fas fa-link"></i></a>
+</h2>
+<blockquote>
+<p>Reconsider the urban fox analysis from last week’s homework. Use WAIC or LOO
+based model comparison on five different models, each using weight as the
+outcome, and containing these sets of predictor variables:</p>
+</blockquote>
+<ol style="list-style-type: decimal">
+<li>avgfood + groupsize + area</li>
+<li>avgfood + groupsize</li>
+<li>groupsize + area</li>
+<li>avgfood</li>
+<li>area</li>
+</ol>
+<div id="data-1" class="section level3" number="5.3.1">
+<h3>
+<span class="header-section-number">5.3.1</span> Data<a class="anchor" aria-label="anchor" href="#data-1"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">foxes</span><span class="op">)</span></code></pre></div>
+</div>
+<div id="models-1" class="section level3" number="5.3.2">
+<h3>
+<span class="header-section-number">5.3.2</span> Models<a class="anchor" aria-label="anchor" href="#models-1"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">foxes</span><span class="op">$</span><span class="va">scale_area</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/scale.html">scale</a></span><span class="op">(</span><span class="va">foxes</span><span class="op">$</span><span class="va">area</span><span class="op">)</span>
+<span class="va">foxes</span><span class="op">$</span><span class="va">scale_weight</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/scale.html">scale</a></span><span class="op">(</span><span class="va">foxes</span><span class="op">$</span><span class="va">weight</span><span class="op">)</span>
+<span class="va">foxes</span><span class="op">$</span><span class="va">scale_avgfood</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/scale.html">scale</a></span><span class="op">(</span><span class="va">foxes</span><span class="op">$</span><span class="va">avgfood</span><span class="op">)</span>
+<span class="va">foxes</span><span class="op">$</span><span class="va">scale_groupsize</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/scale.html">scale</a></span><span class="op">(</span><span class="va">foxes</span><span class="op">$</span><span class="va">groupsize</span><span class="op">)</span>
+
+<span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu">quap</span><span class="op">(</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/list.html">alist</a></span><span class="op">(</span>
+        <span class="va">scale_weight</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="va">mu</span>, <span class="va">sigma</span><span class="op">)</span>,
+        <span class="va">mu</span> <span class="op">&lt;-</span> <span class="va">a</span> <span class="op">+</span> <span class="va">bFood</span> <span class="op">*</span> <span class="va">scale_avgfood</span> <span class="op">+</span> <span class="va">bGroup</span> <span class="op">*</span> <span class="va">scale_groupsize</span> <span class="op">+</span> <span class="va">bArea</span> <span class="op">*</span> <span class="va">scale_area</span>,
+        <span class="va">a</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.2</span><span class="op">)</span>,
+        <span class="va">bFood</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.5</span><span class="op">)</span>,
+        <span class="va">bGroup</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.5</span><span class="op">)</span>,
+        <span class="va">bArea</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.5</span><span class="op">)</span>,
+        <span class="va">sigma</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">dunif</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">50</span><span class="op">)</span>
+    <span class="op">)</span>, 
+    data <span class="op">=</span> <span class="va">foxes</span>
+<span class="op">)</span>
+
+<span class="va">m2</span> <span class="op">&lt;-</span> <span class="fu">quap</span><span class="op">(</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/list.html">alist</a></span><span class="op">(</span>
+        <span class="va">scale_weight</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="va">mu</span>, <span class="va">sigma</span><span class="op">)</span>,
+        <span class="va">mu</span> <span class="op">&lt;-</span> <span class="va">a</span> <span class="op">+</span> <span class="va">bFood</span> <span class="op">*</span> <span class="va">scale_avgfood</span> <span class="op">+</span> <span class="va">bGroup</span> <span class="op">*</span> <span class="va">scale_groupsize</span>,
+        <span class="va">a</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.2</span><span class="op">)</span>,
+        <span class="va">bFood</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.5</span><span class="op">)</span>,
+        <span class="va">bGroup</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.5</span><span class="op">)</span>,
+        <span class="va">sigma</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">dunif</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">50</span><span class="op">)</span>
+    <span class="op">)</span>, 
+    data <span class="op">=</span> <span class="va">foxes</span>
+<span class="op">)</span>
+
+<span class="va">m3</span> <span class="op">&lt;-</span> <span class="fu">quap</span><span class="op">(</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/list.html">alist</a></span><span class="op">(</span>
+        <span class="va">scale_weight</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="va">mu</span>, <span class="va">sigma</span><span class="op">)</span>,
+        <span class="va">mu</span> <span class="op">&lt;-</span> <span class="va">a</span> <span class="op">+</span> <span class="va">bGroup</span> <span class="op">*</span> <span class="va">scale_groupsize</span> <span class="op">+</span> <span class="va">bArea</span> <span class="op">*</span> <span class="va">scale_area</span>,
+        <span class="va">a</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.2</span><span class="op">)</span>,
+        <span class="va">bArea</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.5</span><span class="op">)</span>,
+        <span class="va">bGroup</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.5</span><span class="op">)</span>,
+        <span class="va">sigma</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">dunif</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">50</span><span class="op">)</span>
+    <span class="op">)</span>, 
+    data <span class="op">=</span> <span class="va">foxes</span>
+<span class="op">)</span>
+
+<span class="va">m4</span> <span class="op">&lt;-</span> <span class="fu">quap</span><span class="op">(</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/list.html">alist</a></span><span class="op">(</span>
+        <span class="va">scale_weight</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="va">mu</span>, <span class="va">sigma</span><span class="op">)</span>,
+        <span class="va">mu</span> <span class="op">&lt;-</span> <span class="va">a</span> <span class="op">+</span> <span class="va">bFood</span> <span class="op">*</span> <span class="va">scale_avgfood</span>,
+        <span class="va">a</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.2</span><span class="op">)</span>,
+        <span class="va">bFood</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.5</span><span class="op">)</span>,
+        <span class="va">sigma</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">dunif</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">50</span><span class="op">)</span>
+    <span class="op">)</span>, 
+    data <span class="op">=</span> <span class="va">foxes</span>
+<span class="op">)</span>
+
+<span class="va">m5</span> <span class="op">&lt;-</span> <span class="fu">quap</span><span class="op">(</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/list.html">alist</a></span><span class="op">(</span>
+        <span class="va">scale_weight</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="va">mu</span>, <span class="va">sigma</span><span class="op">)</span>,
+        <span class="va">mu</span> <span class="op">&lt;-</span> <span class="va">a</span> <span class="op">+</span> <span class="va">bArea</span> <span class="op">*</span> <span class="va">scale_area</span>,
+        <span class="va">a</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.2</span><span class="op">)</span>,
+        <span class="va">bArea</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.5</span><span class="op">)</span>,
+        <span class="va">sigma</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">dunif</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">50</span><span class="op">)</span>
+    <span class="op">)</span>, 
+    data <span class="op">=</span> <span class="va">foxes</span>
+<span class="op">)</span></code></pre></div>
+</div>
+<div id="dag-1" class="section level3" number="5.3.3">
+<h3>
+<span class="header-section-number">5.3.3</span> DAG<a class="anchor" aria-label="anchor" href="#dag-1"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">dag</span> <span class="op">&lt;-</span> <span class="fu">dagify</span><span class="op">(</span>
+    <span class="va">weight</span> <span class="op">~</span> <span class="va">groupsize</span> <span class="op">+</span> <span class="va">avgfood</span>,
+    <span class="va">groupsize</span> <span class="op">~</span> <span class="va">avgfood</span>,
+    <span class="va">avgfood</span> <span class="op">~</span> <span class="va">area</span>,
+    exposure <span class="op">=</span> <span class="st">'area'</span>,
+    outcome <span class="op">=</span> <span class="st">'weight'</span>
+<span class="op">)</span>
+
+<span class="fu">dag_plot</span><span class="op">(</span><span class="va">dag</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-33-1.png" width="672"></div>
+</div>
+<div id="interpretation-4" class="section level3" number="5.3.4">
+<h3>
+<span class="header-section-number">5.3.4</span> Interpretation<a class="anchor" aria-label="anchor" href="#interpretation-4"><i class="fas fa-link"></i></a>
+</h3>
+<blockquote>
+<p>Can you explain the relative differences in WAIC scores, using the fox DAG
+from last week’s homework? Be sure to pay attention to the standard error of the
+score differences (dSE).</p>
+</blockquote>
+<ol style="list-style-type: decimal">
+<li>weight ~ avgfood + groupsize + area</li>
+<li>weight ~ avgfood + groupsize</li>
+<li>weight ~ groupsize + area</li>
+<li>weight ~ avgfood</li>
+<li>weight ~ area</li>
+</ol>
+<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">compare_models</span> <span class="op">&lt;-</span> <span class="fu">rethinking</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rethinking/man/compare.html">compare</a></span><span class="op">(</span><span class="va">m1</span>, <span class="va">m2</span>, <span class="va">m3</span>, <span class="va">m4</span>, <span class="va">m5</span><span class="op">)</span>
+<span class="va">compare_models</span></code></pre></div>
+<pre><code>##    WAIC SE dWAIC dSE pWAIC weight
+## m1  323 16  0.00  NA   4.6 0.4568
+## m2  324 16  0.97 3.6   3.7 0.2811
+## m3  324 16  1.15 2.9   3.8 0.2575
+## m4  333 14 10.56 7.1   2.4 0.0023
+## m5  334 14 10.66 7.2   2.6 0.0022</code></pre>
+<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">compare_models</span><span class="op">@</span><span class="va">dSE</span></code></pre></div>
+<pre><code>##     m1  m2  m3   m4   m5
+## m1  NA 3.6 2.9 7.13 7.19
+## m2 3.6  NA 5.8 6.55 6.79
+## m3 2.9 5.8  NA 6.54 6.59
+## m4 7.1 6.5 6.5   NA 0.84
+## m5 7.2 6.8 6.6 0.84   NA</code></pre>
+<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Filled points: in-sample deviance</span>
+<span class="co"># Open points: WAIC </span>
+<span class="co"># Dark lines: standard error of WAIC</span>
+<span class="co"># Light lines with triangles: standard error of difference in WAIC between each model and top model</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">compare_models</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-34-1.png" width="672"></div>
+<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">coeftab</span><span class="op">(</span><span class="va">m1</span>, <span class="va">m2</span>, <span class="va">m3</span>, <span class="va">m4</span>, <span class="va">m5</span><span class="op">)</span></code></pre></div>
+<pre><code>##        m1      m2      m3      m4      m5     
+## a            0       0       0       0       0
+## bFood     0.30    0.48      NA   -0.02      NA
+## bGroup   -0.64   -0.57   -0.48      NA      NA
+## bArea     0.28      NA    0.41      NA    0.02
+## sigma     0.93    0.95    0.95    1.00    1.00
+## nobs       116     116     116     116     116</code></pre>
+<p>Weight is the outcome in all of the models. Looking at the DAG, we see a
+potential back door into avgfood and group size, but no colliders. Avgfood is a
+path between area and weight, as is groupsize between avgfood and weight. The
+paths for each variable that does not have confounds shown in the DAG:</p>
+<p>Model 2: Weight ~ <strong>groupsize</strong> + avgfood (to determine causal effect of groupsize on weight, including avgfood to open the collider)</p>
+<p>Model 4: Weight ~ <strong>avgfood</strong> (to determine causal effect of avgfood, without groupsize confusing the relationship since it’s a pipe)</p>
+<p>Model 5: Weight ~ <strong>area</strong> (with avgfood and groupsize excluded)</p>
+<p>Model 1 includes the most parameters and, as expected, has the highest model
+fit. The dSE column returned by the <code>compare</code> function indicates the standard
+error of the difference between models, with the <code>@dSE</code> slot showing this for
+all combinations of models. Models 4 and 5 barely differ, as there is likely a
+strong influence of area on average food. Including both area and avgfood is
+like conditioning on the intermediate treatment effect. Models 4 and 5 are most
+different from models 1, 2, 3. Models 1, 2, and 3 all have groupsize and the
+WAIC and coeftab, as well as the DAG, indicate the models have the same
+inference.</p>
+
+</div>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="week-3.html"><span class="header-section-number">4</span> Week 3</a></div>
+<div class="next"><a href="week-5.html"><span class="header-section-number">6</span> Week 5</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#week-4"><span class="header-section-number">5</span> Week 4</a></li>
+<li><a class="nav-link" href="#question-1-3"><span class="header-section-number">5.1</span> Question 1</a></li>
+<li>
+<a class="nav-link" href="#question-2-3"><span class="header-section-number">5.2</span> Question 2</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#dag"><span class="header-section-number">5.2.1</span> DAG</a></li>
+<li><a class="nav-link" href="#data"><span class="header-section-number">5.2.2</span> Data</a></li>
+<li><a class="nav-link" href="#models"><span class="header-section-number">5.2.3</span> Models</a></li>
+<li><a class="nav-link" href="#interpretation-3"><span class="header-section-number">5.2.4</span> Interpretation</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#question-3-3"><span class="header-section-number">5.3</span> Question 3</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#data-1"><span class="header-section-number">5.3.1</span> Data</a></li>
+<li><a class="nav-link" href="#models-1"><span class="header-section-number">5.3.2</span> Models</a></li>
+<li><a class="nav-link" href="#dag-1"><span class="header-section-number">5.3.3</span> DAG</a></li>
+<li><a class="nav-link" href="#interpretation-4"><span class="header-section-number">5.3.4</span> Interpretation</a></li>
+</ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Learning bayesian data analysis with Statistical Rethinking</strong>" was written by Alec L. Robitaille. It was last built on 2021-08-18 [updated: 2021-10-07].</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

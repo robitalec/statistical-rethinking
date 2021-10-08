@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>4 Week 3 | Learning bayesian data analysis with Statistical Rethinking</title>
+<meta name="author" content="Alec L. Robitaille">
+<meta name="generator" content="bookdown 0.24.1 with bs4_book()">
+<meta property="og:title" content="4 Week 3 | Learning bayesian data analysis with Statistical Rethinking">
+<meta property="og:type" content="book">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="4 Week 3 | Learning bayesian data analysis with Statistical Rethinking">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11.3/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><meta name="description" content="2021-08-25 [updated: 2021-10-07]  4.1 Overview All three problems below are based on the same data. The data in data(foxes) are 116 foxes from 30 different urban groups in England. These foxes are...">
+<meta property="og:description" content="2021-08-25 [updated: 2021-10-07]  4.1 Overview All three problems below are based on the same data. The data in data(foxes) are 116 foxes from 30 different urban groups in England. These foxes are...">
+<meta name="twitter:description" content="2021-08-25 [updated: 2021-10-07]  4.1 Overview All three problems below are based on the same data. The data in data(foxes) are 116 foxes from 30 different urban groups in England. These foxes are...">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Learning bayesian data analysis with Statistical Rethinking</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> Overview</a></li>
+<li class="book-part">Homework</li>
+<li><a class="" href="week-1.html"><span class="header-section-number">2</span> Week 1</a></li>
+<li><a class="" href="week-2.html"><span class="header-section-number">3</span> Week 2</a></li>
+<li><a class="active" href="week-3.html"><span class="header-section-number">4</span> Week 3</a></li>
+<li><a class="" href="week-4.html"><span class="header-section-number">5</span> Week 4</a></li>
+<li><a class="" href="week-5.html"><span class="header-section-number">6</span> Week 5</a></li>
+<li><a class="" href="week-6.html"><span class="header-section-number">7</span> Week 6</a></li>
+<li><a class="" href="week-7.html"><span class="header-section-number">8</span> Week 7</a></li>
+<li><a class="" href="week-8.html"><span class="header-section-number">9</span> Week 8</a></li>
+<li><a class="" href="week-9.html"><span class="header-section-number">10</span> Week 9</a></li>
+<li class="book-part">Lectures</li>
+<li><a class="" href="lecture-01.html"><span class="header-section-number">11</span> Lecture 01</a></li>
+<li><a class="" href="lecture-02.html"><span class="header-section-number">12</span> Lecture 02</a></li>
+<li><a class="" href="lecture-03.html"><span class="header-section-number">13</span> Lecture 03</a></li>
+<li><a class="" href="lecture-04.html"><span class="header-section-number">14</span> Lecture 04</a></li>
+<li><a class="" href="lecture-05.html"><span class="header-section-number">15</span> Lecture 05</a></li>
+<li><a class="" href="lecture-06.html"><span class="header-section-number">16</span> Lecture 06</a></li>
+<li><a class="" href="lecture-07.html"><span class="header-section-number">17</span> Lecture 07</a></li>
+<li><a class="" href="lecture-08.html"><span class="header-section-number">18</span> Lecture 08</a></li>
+<li><a class="" href="lecture-09.html"><span class="header-section-number">19</span> Lecture 09</a></li>
+<li><a class="" href="lecture-10.html"><span class="header-section-number">20</span> Lecture 10</a></li>
+<li><a class="" href="lecture-11.html"><span class="header-section-number">21</span> Lecture 11</a></li>
+<li><a class="" href="lecture-12.html"><span class="header-section-number">22</span> Lecture 12</a></li>
+<li><a class="" href="lecture-13.html"><span class="header-section-number">23</span> Lecture 13</a></li>
+<li><a class="" href="lecture-14.html"><span class="header-section-number">24</span> Lecture 14</a></li>
+<li><a class="" href="lecture-15.html"><span class="header-section-number">25</span> Lecture 15</a></li>
+<li><a class="" href="lecture-16.html"><span class="header-section-number">26</span> Lecture 16</a></li>
+<li><a class="" href="lecture-17.html"><span class="header-section-number">27</span> Lecture 17</a></li>
+<li><a class="" href="lecture-18.html"><span class="header-section-number">28</span> Lecture 18</a></li>
+<li><a class="" href="lecture-19.html"><span class="header-section-number">29</span> Lecture 19</a></li>
+<li><a class="" href="lecture-20.html"><span class="header-section-number">30</span> Lecture 20</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="week-3" class="section level1" number="4">
+<h1>
+<span class="header-section-number">4</span> Week 3<a class="anchor" aria-label="anchor" href="#week-3"><i class="fas fa-link"></i></a>
+</h1>
+<p>2021-08-25 [updated: 2021-10-07]</p>
+<div id="overview-1" class="section level2" number="4.1">
+<h2>
+<span class="header-section-number">4.1</span> Overview<a class="anchor" aria-label="anchor" href="#overview-1"><i class="fas fa-link"></i></a>
+</h2>
+<p>All three problems below are based on the same data. The data in <code>data(foxes)</code>
+are 116 foxes from 30 different urban groups in England. These foxes are like
+street gangs. Group size varies from 2 to 8 individuals. Each group maintains
+its own (almost exclusive) urban territory. Some territories are larger than
+others. The area variable encodes this information. Some territories also have
+more avgfood than others. We want to model the weight of each fox. For the
+problems below, assume this DAG</p>
+<div id="setup" class="section level3" number="4.1.1">
+<h3>
+<span class="header-section-number">4.1.1</span> Setup<a class="anchor" aria-label="anchor" href="#setup"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># DAG</span>
+<span class="va">dag</span> <span class="op">&lt;-</span> <span class="fu">dagify</span><span class="op">(</span>
+    <span class="va">weight</span> <span class="op">~</span> <span class="va">groupsize</span> <span class="op">+</span> <span class="va">avgfood</span>,
+    <span class="va">groupsize</span> <span class="op">~</span> <span class="va">avgfood</span>,
+    <span class="va">avgfood</span> <span class="op">~</span> <span class="va">area</span>,
+    exposure <span class="op">=</span> <span class="st">'area'</span>,
+    outcome <span class="op">=</span> <span class="st">'weight'</span>
+<span class="op">)</span>
+
+<span class="fu">dag_plot</span><span class="op">(</span><span class="va">dag</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-15-1.png" width="672"></div>
+</div>
+</div>
+<div id="question-1-2" class="section level2" number="4.2">
+<h2>
+<span class="header-section-number">4.2</span> Question 1<a class="anchor" aria-label="anchor" href="#question-1-2"><i class="fas fa-link"></i></a>
+</h2>
+<blockquote>
+<p>Use a model to infer the total causal influence of area on weight. Would
+increasing the area available to each fox make it heavier (healthier)? You might
+want to standardize the variables. Regardless, use prior predictive simulation
+to show that your model’s prior predictions stay within the possible outcome
+range.</p>
+</blockquote>
+<div id="workings" class="section level3" number="4.2.1">
+<h3>
+<span class="header-section-number">4.2.1</span> Workings<a class="anchor" aria-label="anchor" href="#workings"><i class="fas fa-link"></i></a>
+</h3>
+<p>Area on weight</p>
+<p>scale(weight) ~ dnorm(mu, sigma)<br>
+mu &lt;- a + b * (scale(area))<br>
+a: intercept<br>
+when weight and area are scaled, the expected intercept is 0<br>
+therefore<br>
+a ~ dnorm(0, 0.5)</p>
+<p>b: beta, rate of change given one unit of increase in area<br>
+b ~ dnorm(0, 1)</p>
+<p>sigma: standard deviation<br>
+uniform prior<br>
+sigma ~ dunif(0, 50)</p>
+</div>
+<div id="model" class="section level3" number="4.2.2">
+<h3>
+<span class="header-section-number">4.2.2</span> Model<a class="anchor" aria-label="anchor" href="#model"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">foxes</span><span class="op">)</span>
+
+<span class="va">foxes</span><span class="op">$</span><span class="va">scale_area</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/scale.html">scale</a></span><span class="op">(</span><span class="va">foxes</span><span class="op">$</span><span class="va">area</span><span class="op">)</span>
+<span class="va">foxes</span><span class="op">$</span><span class="va">scale_weight</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/scale.html">scale</a></span><span class="op">(</span><span class="va">foxes</span><span class="op">$</span><span class="va">weight</span><span class="op">)</span>
+
+<span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu">quap</span><span class="op">(</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/list.html">alist</a></span><span class="op">(</span>
+        <span class="va">scale_weight</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="va">mu</span>, <span class="va">sigma</span><span class="op">)</span>,
+        <span class="va">mu</span> <span class="op">&lt;-</span> <span class="va">a</span> <span class="op">+</span> <span class="va">bArea</span> <span class="op">*</span> <span class="va">scale_area</span>,
+        <span class="va">a</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.05</span><span class="op">)</span>,
+        <span class="va">bArea</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.5</span><span class="op">)</span>,
+        <span class="va">sigma</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">dunif</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">50</span><span class="op">)</span>
+    <span class="op">)</span>, 
+    data <span class="op">=</span> <span class="va">foxes</span>
+<span class="op">)</span></code></pre></div>
+</div>
+<div id="prior-predictive-simulation" class="section level3" number="4.2.3">
+<h3>
+<span class="header-section-number">4.2.3</span> Prior predictive simulation<a class="anchor" aria-label="anchor" href="#prior-predictive-simulation"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">prior</span> <span class="op">&lt;-</span> <span class="fu">extract.prior</span><span class="op">(</span><span class="va">m1</span><span class="op">)</span>
+<span class="va">l</span> <span class="op">&lt;-</span> <span class="fu">link</span><span class="op">(</span><span class="va">m1</span>, post <span class="op">=</span> <span class="va">prior</span>, data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>scale_area <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<span class="fu">plot_link</span><span class="op">(</span><span class="va">l</span>, <span class="fl">20</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-17-1.png" width="672"></div>
+<pre><code>## NULL</code></pre>
+</div>
+<div id="paths" class="section level3" number="4.2.4">
+<h3>
+<span class="header-section-number">4.2.4</span> Paths<a class="anchor" aria-label="anchor" href="#paths"><i class="fas fa-link"></i></a>
+</h3>
+<p>Interest: Area on Weight</p>
+<p>Paths</p>
+<ol style="list-style-type: decimal">
+<li>Area -&gt; Avgfood -&gt; Weight</li>
+<li>Area -&gt; Avgfood -&gt; Groupsize -&gt; Weight</li>
+</ol>
+<p>Avgfood and Groupsize are pipes between Area and Weight. There are
+no backdoors or colliders.</p>
+</div>
+<div id="interpretation" class="section level3" number="4.2.5">
+<h3>
+<span class="header-section-number">4.2.5</span> Interpretation<a class="anchor" aria-label="anchor" href="#interpretation"><i class="fas fa-link"></i></a>
+</h3>
+<blockquote>
+<p>Would increasing the area available to each fox make it heavier (healthier)?</p>
+</blockquote>
+<p><code>bArea</code> has a mean of 0.02, with compatibility intervals around 0.
+Therefore the model does not indicate a total causal influence of
+area on the weight.</p>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">precis</span><span class="op">(</span><span class="va">m1</span><span class="op">)</span></code></pre></div>
+<pre><code>##            mean    sd  5.5% 94.5%
+## a     -0.000001 0.044 -0.07  0.07
+## bArea  0.018844 0.091 -0.13  0.16
+## sigma  0.995497 0.065  0.89  1.10</code></pre>
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">post</span> <span class="op">&lt;-</span> <span class="fu">extract.samples</span><span class="op">(</span><span class="va">m1</span><span class="op">)</span>
+<span class="va">s</span> <span class="op">&lt;-</span> <span class="fu">sim</span><span class="op">(</span><span class="va">m1</span>, data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>scale_area <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>, post <span class="op">=</span> <span class="va">post</span><span class="op">)</span>
+
+<span class="fu">ggplot</span><span class="op">(</span><span class="fu">data.table</span><span class="op">(</span><span class="va">s</span><span class="op">)</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">V1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu">stat_halfeye</span><span class="op">(</span>.width <span class="op">=</span> <span class="fl">.89</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-18-1.png" width="672"></div>
+</div>
+</div>
+<div id="question-2-2" class="section level2" number="4.3">
+<h2>
+<span class="header-section-number">4.3</span> Question 2<a class="anchor" aria-label="anchor" href="#question-2-2"><i class="fas fa-link"></i></a>
+</h2>
+<blockquote>
+<p>Now infer the causal impact of adding food to a territory. Would this make foxes
+heavier? Which covariates do you need to adjust for to estimate the total causal
+influence of food?</p>
+</blockquote>
+<div id="paths-1" class="section level3" number="4.3.1">
+<h3>
+<span class="header-section-number">4.3.1</span> Paths<a class="anchor" aria-label="anchor" href="#paths-1"><i class="fas fa-link"></i></a>
+</h3>
+<p>Interest: Food on weight</p>
+<p>Paths:</p>
+<ol style="list-style-type: decimal">
+<li>Food -&gt; Weight</li>
+<li>Food -&gt; Groupsize -&gt; Weight</li>
+</ol>
+<p>Groupsize is a pipe between Area and Weight. There are no backdoors or colliders.</p>
+</div>
+<div id="model-1" class="section level3" number="4.3.2">
+<h3>
+<span class="header-section-number">4.3.2</span> Model<a class="anchor" aria-label="anchor" href="#model-1"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">foxes</span><span class="op">$</span><span class="va">scale_avgfood</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/scale.html">scale</a></span><span class="op">(</span><span class="va">foxes</span><span class="op">$</span><span class="va">avgfood</span><span class="op">)</span>
+
+<span class="va">m2</span> <span class="op">&lt;-</span> <span class="fu">quap</span><span class="op">(</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/list.html">alist</a></span><span class="op">(</span>
+        <span class="va">scale_weight</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="va">mu</span>, <span class="va">sigma</span><span class="op">)</span>,
+        <span class="va">mu</span> <span class="op">&lt;-</span> <span class="va">a</span> <span class="op">+</span> <span class="va">bFood</span> <span class="op">*</span> <span class="va">scale_avgfood</span>,
+        <span class="va">a</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.05</span><span class="op">)</span>,
+        <span class="va">bFood</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.5</span><span class="op">)</span>,
+        <span class="va">sigma</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">dunif</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">50</span><span class="op">)</span>
+    <span class="op">)</span>, 
+    data <span class="op">=</span> <span class="va">foxes</span>
+<span class="op">)</span>
+
+<span class="fu">precis</span><span class="op">(</span><span class="va">m2</span><span class="op">)</span></code></pre></div>
+<pre><code>##             mean    sd  5.5% 94.5%
+## a      0.0000018 0.044 -0.07  0.07
+## bFood -0.0241757 0.091 -0.17  0.12
+## sigma  0.9953723 0.065  0.89  1.10</code></pre>
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">post</span> <span class="op">&lt;-</span> <span class="fu">extract.samples</span><span class="op">(</span><span class="va">m2</span><span class="op">)</span>
+<span class="va">s</span> <span class="op">&lt;-</span> <span class="fu">sim</span><span class="op">(</span><span class="va">m2</span>, data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>scale_avgfood <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>, post <span class="op">=</span> <span class="va">post</span><span class="op">)</span>
+
+<span class="fu">ggplot</span><span class="op">(</span><span class="fu">data.table</span><span class="op">(</span><span class="va">s</span><span class="op">)</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">V1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu">stat_halfeye</span><span class="op">(</span>.width <span class="op">=</span> <span class="fl">.89</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-19-1.png" width="672"></div>
+</div>
+<div id="interpretation-1" class="section level3" number="4.3.3">
+<h3>
+<span class="header-section-number">4.3.3</span> Interpretation<a class="anchor" aria-label="anchor" href="#interpretation-1"><i class="fas fa-link"></i></a>
+</h3>
+<blockquote>
+<p>Would this make foxes heavier? Which covariates do you need to adjust for to
+estimate the total causal influence of food?</p>
+</blockquote>
+<p><code>bFood</code> has a mean of -0.02, with compatibility intervals around 0.
+The model does not indicate a total causal influence of area on the weight.
+No covariates are needed to estiamte the total causal influence of food
+because there are no backdoors or colliders.</p>
+</div>
+</div>
+<div id="question-3-2" class="section level2" number="4.4">
+<h2>
+<span class="header-section-number">4.4</span> Question 3<a class="anchor" aria-label="anchor" href="#question-3-2"><i class="fas fa-link"></i></a>
+</h2>
+<blockquote>
+<p>Now infer the causal impact of group size. Which covariates do you need to
+adjust for? Looking at the posterior distribution of the resulting model, what
+do you think explains these data? That is, can you explain the estimates for all
+three problems? How do they go together?</p>
+</blockquote>
+<div id="paths-2" class="section level3" number="4.4.1">
+<h3>
+<span class="header-section-number">4.4.1</span> Paths<a class="anchor" aria-label="anchor" href="#paths-2"><i class="fas fa-link"></i></a>
+</h3>
+<p>Interest: Group size on weight</p>
+<p>Paths:</p>
+<ol style="list-style-type: decimal">
+<li>Groupsize -&gt; Weight</li>
+<li>Groupsize &lt;- Avgfood -&gt; Weight</li>
+</ol>
+<p>Avgfood is a collider between Groupsize and Weight. There is a backdoor
+on Groupsize and the path is closed.</p>
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">foxes</span><span class="op">$</span><span class="va">scale_groupsize</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/scale.html">scale</a></span><span class="op">(</span><span class="va">foxes</span><span class="op">$</span><span class="va">groupsize</span><span class="op">)</span>
+
+<span class="va">m3</span> <span class="op">&lt;-</span> <span class="fu">quap</span><span class="op">(</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/list.html">alist</a></span><span class="op">(</span>
+        <span class="va">scale_weight</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="va">mu</span>, <span class="va">sigma</span><span class="op">)</span>,
+        <span class="va">mu</span> <span class="op">&lt;-</span> <span class="va">a</span> <span class="op">+</span> <span class="va">bGroupsize</span> <span class="op">*</span> <span class="va">scale_groupsize</span> <span class="op">+</span> <span class="va">bFood</span> <span class="op">*</span> <span class="va">scale_avgfood</span>,
+        <span class="va">a</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.05</span><span class="op">)</span>,
+        <span class="va">bGroupsize</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.5</span><span class="op">)</span>,
+        <span class="va">bFood</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.5</span><span class="op">)</span>,
+        <span class="va">sigma</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">dunif</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">50</span><span class="op">)</span>
+    <span class="op">)</span>, 
+    data <span class="op">=</span> <span class="va">foxes</span>
+<span class="op">)</span>
+
+<span class="fu">precis</span><span class="op">(</span><span class="va">m3</span><span class="op">)</span></code></pre></div>
+<pre><code>##                   mean    sd   5.5%  94.5%
+## a           0.00000062 0.043 -0.069  0.069
+## bGroupsize -0.57250071 0.180 -0.860 -0.285
+## bFood       0.47624205 0.180  0.189  0.763
+## sigma       0.94590281 0.062  0.846  1.046</code></pre>
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">DT</span> <span class="op">&lt;-</span> <span class="fu">melt</span><span class="op">(</span><span class="fu">data.table</span><span class="op">(</span><span class="fu">extract.samples</span><span class="op">(</span><span class="va">m3</span><span class="op">)</span><span class="op">)</span><span class="op">[</span>, <span class="fu">.</span><span class="op">(</span><span class="va">bGroupsize</span>, <span class="va">bFood</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></code></pre></div>
+<pre><code>## Warning in melt.data.table(data.table(extract.samples(m3))[, .(bGroupsize, :
+## id.vars and measure.vars are internally guessed when both are 'NULL'. All
+## non-numeric/integer/logical type columns are considered id.vars, which in this
+## case are columns []. Consider providing at least one of 'id' or 'measure' vars
+## in future.</code></pre>
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">DT</span><span class="op">)</span> <span class="op">+</span> 
+    <span class="fu">geom_density</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">value</span>, fill <span class="op">=</span> <span class="va">variable</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span> <span class="op">+</span> 
+    <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu">scale_fill_viridis_d</span><span class="op">(</span>begin <span class="op">=</span> <span class="fl">0.3</span>, end <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-20-1.png" width="672"></div>
+</div>
+<div id="interpretation-2" class="section level3" number="4.4.2">
+<h3>
+<span class="header-section-number">4.4.2</span> Interpretation<a class="anchor" aria-label="anchor" href="#interpretation-2"><i class="fas fa-link"></i></a>
+</h3>
+<blockquote>
+<p>Which covariates do you need to adjust for? Looking at the posterior
+distribution of the resulting model, what do you think explains these data? That
+is, can you explain the estimates for all three problems? How do they go
+together?</p>
+</blockquote>
+<p>The Avgfood covariate needs to be included since it is a collider between
+Groupsize and Weight. The mean and compatibility intervals of bFood are positive,
+while the mean and compatibility intervals of bGroupsize are negative. This
+indicates food’s positive relationship with weight could be buffered or interacting
+with the negative relationship of group size. Increased food leads to increased
+body weight, but more food also results in larger groups, which decreases the
+food availability.</p>
+
+</div>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="week-2.html"><span class="header-section-number">3</span> Week 2</a></div>
+<div class="next"><a href="week-4.html"><span class="header-section-number">5</span> Week 4</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#week-3"><span class="header-section-number">4</span> Week 3</a></li>
+<li>
+<a class="nav-link" href="#overview-1"><span class="header-section-number">4.1</span> Overview</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#setup"><span class="header-section-number">4.1.1</span> Setup</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#question-1-2"><span class="header-section-number">4.2</span> Question 1</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#workings"><span class="header-section-number">4.2.1</span> Workings</a></li>
+<li><a class="nav-link" href="#model"><span class="header-section-number">4.2.2</span> Model</a></li>
+<li><a class="nav-link" href="#prior-predictive-simulation"><span class="header-section-number">4.2.3</span> Prior predictive simulation</a></li>
+<li><a class="nav-link" href="#paths"><span class="header-section-number">4.2.4</span> Paths</a></li>
+<li><a class="nav-link" href="#interpretation"><span class="header-section-number">4.2.5</span> Interpretation</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#question-2-2"><span class="header-section-number">4.3</span> Question 2</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#paths-1"><span class="header-section-number">4.3.1</span> Paths</a></li>
+<li><a class="nav-link" href="#model-1"><span class="header-section-number">4.3.2</span> Model</a></li>
+<li><a class="nav-link" href="#interpretation-1"><span class="header-section-number">4.3.3</span> Interpretation</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#question-3-2"><span class="header-section-number">4.4</span> Question 3</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#paths-2"><span class="header-section-number">4.4.1</span> Paths</a></li>
+<li><a class="nav-link" href="#interpretation-2"><span class="header-section-number">4.4.2</span> Interpretation</a></li>
+</ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Learning bayesian data analysis with Statistical Rethinking</strong>" was written by Alec L. Robitaille. It was last built on 2021-08-18 [updated: 2021-10-07].</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

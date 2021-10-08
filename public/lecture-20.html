@@ -4,19 +4,19 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>22 Lecture 12 | Learning bayesian data analysis with Statistical Rethinking</title>
+<title>30 Lecture 20 | Learning bayesian data analysis with Statistical Rethinking</title>
 <meta name="author" content="Alec L. Robitaille">
 <meta name="generator" content="bookdown 0.24.1 with bs4_book()">
-<meta property="og:title" content="22 Lecture 12 | Learning bayesian data analysis with Statistical Rethinking">
+<meta property="og:title" content="30 Lecture 20 | Learning bayesian data analysis with Statistical Rethinking">
 <meta property="og:type" content="book">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="22 Lecture 12 | Learning bayesian data analysis with Statistical Rethinking">
+<meta name="twitter:title" content="30 Lecture 20 | Learning bayesian data analysis with Statistical Rethinking">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11.3/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
-<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><meta name="description" content="22.1 Relative and absolute effects Effect sizes two ways Relative effect scale: parameters have relative differences in their effect Absolute effect scale: used for predictions Proportional odds...">
-<meta property="og:description" content="22.1 Relative and absolute effects Effect sizes two ways Relative effect scale: parameters have relative differences in their effect Absolute effect scale: used for predictions Proportional odds...">
-<meta name="twitter:description" content="22.1 Relative and absolute effects Effect sizes two ways Relative effect scale: parameters have relative differences in their effect Absolute effect scale: used for predictions Proportional odds...">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><meta name="description" content="30.1 Measurement error">
+<meta property="og:description" content="30.1 Measurement error">
+<meta name="twitter:description" content="30.1 Measurement error">
 </head>
 <body data-spy="scroll" data-target="#toc">
 
@@ -61,7 +61,7 @@
 <li><a class="" href="lecture-09.html"><span class="header-section-number">19</span> Lecture 09</a></li>
 <li><a class="" href="lecture-10.html"><span class="header-section-number">20</span> Lecture 10</a></li>
 <li><a class="" href="lecture-11.html"><span class="header-section-number">21</span> Lecture 11</a></li>
-<li><a class="active" href="lecture-12.html"><span class="header-section-number">22</span> Lecture 12</a></li>
+<li><a class="" href="lecture-12.html"><span class="header-section-number">22</span> Lecture 12</a></li>
 <li><a class="" href="lecture-13.html"><span class="header-section-number">23</span> Lecture 13</a></li>
 <li><a class="" href="lecture-14.html"><span class="header-section-number">24</span> Lecture 14</a></li>
 <li><a class="" href="lecture-15.html"><span class="header-section-number">25</span> Lecture 15</a></li>
@@ -69,7 +69,7 @@
 <li><a class="" href="lecture-17.html"><span class="header-section-number">27</span> Lecture 17</a></li>
 <li><a class="" href="lecture-18.html"><span class="header-section-number">28</span> Lecture 18</a></li>
 <li><a class="" href="lecture-19.html"><span class="header-section-number">29</span> Lecture 19</a></li>
-<li><a class="" href="lecture-20.html"><span class="header-section-number">30</span> Lecture 20</a></li>
+<li><a class="active" href="lecture-20.html"><span class="header-section-number">30</span> Lecture 20</a></li>
 <li><a class="" href="references.html">References</a></li>
 </ul>
 
@@ -78,69 +78,24 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="lecture-12" class="section level1" number="22">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="lecture-20" class="section level1" number="30">
 <h1>
-<span class="header-section-number">22</span> Lecture 12<a class="anchor" aria-label="anchor" href="#lecture-12"><i class="fas fa-link"></i></a>
+<span class="header-section-number">30</span> Lecture 20<a class="anchor" aria-label="anchor" href="#lecture-20"><i class="fas fa-link"></i></a>
 </h1>
-<div id="relative-and-absolute-effects" class="section level2" number="22.1">
+<div id="measurement-error" class="section level2" number="30.1">
 <h2>
-<span class="header-section-number">22.1</span> Relative and absolute effects<a class="anchor" aria-label="anchor" href="#relative-and-absolute-effects"><i class="fas fa-link"></i></a>
+<span class="header-section-number">30.1</span> Measurement error<a class="anchor" aria-label="anchor" href="#measurement-error"><i class="fas fa-link"></i></a>
 </h2>
-<p>Effect sizes two ways</p>
-<ol style="list-style-type: decimal">
-<li>Relative effect scale: parameters have relative differences in their effect</li>
-<li>Absolute effect scale: used for predictions</li>
-</ol>
-<p>Proportional odds eg treatment 4 and 2</p>
-<p>post ← extract.samples</p>
-<p>mean</p>
-<p>0.9 = 90% of previous odds</p>
-<p>Therefore 2→4 expects reduction of odds by 10%</p>
-<p>But this disregards base rate</p>
-<p>Risk of relative effects like proportional odds is they don’t consider absolute likelihood</p>
-<p>Relative shark vs absolute deer - need both</p>
-</div>
-<div id="logistic-regression" class="section level2" number="22.2">
-<h2>
-<span class="header-section-number">22.2</span> Logistic regression<a class="anchor" aria-label="anchor" href="#logistic-regression"><i class="fas fa-link"></i></a>
-</h2>
-<p>0, 1 trials (Bernoulli trials)</p>
-<p>Aggregate binomial: aggregated from each 0, 1 to counts for each category</p>
-<p>Example - UC Berkeley 1970s</p>
-<p>Gender → Department → Acceptance, Gender → Acceptance</p>
-<p>Recall: regressions are very literal to exactly the question you are asking</p>
-<p>Model 1</p>
-<p>Acceptance ~ Binomial(N, p)</p>
-<p>logit(p) = alpha [gender]</p>
-<p>Statistical question: what are the average probabilities of admission by gender across all departments?</p>
-<p>Causal question: what is the total causal influence of gender?</p>
-<p>It’s asking for the total effect, not the discrimination effect</p>
-<p>Therefore, all paths are in play (Gender → Department → Acceptance, Gender → Acceptance)</p>
-<p>Model 2</p>
-<p>Close the backdoor.</p>
-<p>Acceptance ~ Binomial(N, p)</p>
-<p>logit(p) = alpha [gender] + beta department</p>
-<p>Statistical question: what is the average difference in probability of admission for genders within department?</p>
-<p>Causal question: what is the direct influence of gender?</p>
-<p>These are equally valid, but different questions.</p>
-</div>
-<div id="simpsons-paradox" class="section level2" number="22.3">
-<h2>
-<span class="header-section-number">22.3</span> Simpsons paradox<a class="anchor" aria-label="anchor" href="#simpsons-paradox"><i class="fas fa-link"></i></a>
-</h2>
-<p>Flip of covariates sign when adding/removing a variable</p>
 </div>
 </div>
   <div class="chapter-nav">
-<div class="prev"><a href="lecture-11.html"><span class="header-section-number">21</span> Lecture 11</a></div>
-<div class="next"><a href="lecture-13.html"><span class="header-section-number">23</span> Lecture 13</a></div>
+<div class="prev"><a href="lecture-19.html"><span class="header-section-number">29</span> Lecture 19</a></div>
+<div class="next"><a href="references.html">References</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#lecture-12"><span class="header-section-number">22</span> Lecture 12</a></li>
-<li><a class="nav-link" href="#relative-and-absolute-effects"><span class="header-section-number">22.1</span> Relative and absolute effects</a></li>
-<li><a class="nav-link" href="#logistic-regression"><span class="header-section-number">22.2</span> Logistic regression</a></li>
-<li><a class="nav-link" href="#simpsons-paradox"><span class="header-section-number">22.3</span> Simpsons paradox</a></li>
+<li><a class="nav-link" href="#lecture-20"><span class="header-section-number">30</span> Lecture 20</a></li>
+<li><a class="nav-link" href="#measurement-error"><span class="header-section-number">30.1</span> Measurement error</a></li>
 </ul>
 
       <div class="book-extra">

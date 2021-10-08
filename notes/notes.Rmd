@@ -1515,12 +1515,20 @@ S = sigma ^ 2 * I
 
 I being an identity matrix, therefore this simplest version (with no covariance), is just the diagonals with sigma squared
 
-Brownian motion is the oldest and most conservative assumption. The decline in covariance is linear since the date
-the species diverged. 
+Brownian motion is the oldest and most conservative assumption. The decline in covariance is linear since the date the species diverged. 
+Alternatively, use a non-linear relationship between covariance
+and distance with a Gaussian process to consider infinite
+different functions. 
+
+# Lecture 20
+
+## Measurement error
 
 
 
 
 
 
+`r if (knitr::is_html_output()) '
 # References {-}
+'`

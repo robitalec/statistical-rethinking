@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>9 Week 8 | Learning bayesian data analysis with Statistical Rethinking</title>
+<meta name="author" content="Alec L. Robitaille">
+<meta name="generator" content="bookdown 0.24.1 with bs4_book()">
+<meta property="og:title" content="9 Week 8 | Learning bayesian data analysis with Statistical Rethinking">
+<meta property="og:type" content="book">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="9 Week 8 | Learning bayesian data analysis with Statistical Rethinking">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11.3/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><meta name="description" content="2021-09-08 [updated: 2021-10-07]  9.1 Question 1  9.1.1 Data DT &lt;- data_reedfrogs() precis(DT) ##      mean  sd 5.5% 94.5%   histogram ## density 23.33 10.38 10.00  35 ▇▁▁▁▁▁▁▇▁▁▁▁▇ ## pred    NaN...">
+<meta property="og:description" content="2021-09-08 [updated: 2021-10-07]  9.1 Question 1  9.1.1 Data DT &lt;- data_reedfrogs() precis(DT) ##      mean  sd 5.5% 94.5%   histogram ## density 23.33 10.38 10.00  35 ▇▁▁▁▁▁▁▇▁▁▁▁▇ ## pred    NaN...">
+<meta name="twitter:description" content="2021-09-08 [updated: 2021-10-07]  9.1 Question 1  9.1.1 Data DT &lt;- data_reedfrogs() precis(DT) ##      mean  sd 5.5% 94.5%   histogram ## density 23.33 10.38 10.00  35 ▇▁▁▁▁▁▁▇▁▁▁▁▇ ## pred    NaN...">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Learning bayesian data analysis with Statistical Rethinking</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> Overview</a></li>
+<li class="book-part">Homework</li>
+<li><a class="" href="week-1.html"><span class="header-section-number">2</span> Week 1</a></li>
+<li><a class="" href="week-2.html"><span class="header-section-number">3</span> Week 2</a></li>
+<li><a class="" href="week-3.html"><span class="header-section-number">4</span> Week 3</a></li>
+<li><a class="" href="week-4.html"><span class="header-section-number">5</span> Week 4</a></li>
+<li><a class="" href="week-5.html"><span class="header-section-number">6</span> Week 5</a></li>
+<li><a class="" href="week-6.html"><span class="header-section-number">7</span> Week 6</a></li>
+<li><a class="" href="week-7.html"><span class="header-section-number">8</span> Week 7</a></li>
+<li><a class="active" href="week-8.html"><span class="header-section-number">9</span> Week 8</a></li>
+<li><a class="" href="week-9.html"><span class="header-section-number">10</span> Week 9</a></li>
+<li class="book-part">Lectures</li>
+<li><a class="" href="lecture-01.html"><span class="header-section-number">11</span> Lecture 01</a></li>
+<li><a class="" href="lecture-02.html"><span class="header-section-number">12</span> Lecture 02</a></li>
+<li><a class="" href="lecture-03.html"><span class="header-section-number">13</span> Lecture 03</a></li>
+<li><a class="" href="lecture-04.html"><span class="header-section-number">14</span> Lecture 04</a></li>
+<li><a class="" href="lecture-05.html"><span class="header-section-number">15</span> Lecture 05</a></li>
+<li><a class="" href="lecture-06.html"><span class="header-section-number">16</span> Lecture 06</a></li>
+<li><a class="" href="lecture-07.html"><span class="header-section-number">17</span> Lecture 07</a></li>
+<li><a class="" href="lecture-08.html"><span class="header-section-number">18</span> Lecture 08</a></li>
+<li><a class="" href="lecture-09.html"><span class="header-section-number">19</span> Lecture 09</a></li>
+<li><a class="" href="lecture-10.html"><span class="header-section-number">20</span> Lecture 10</a></li>
+<li><a class="" href="lecture-11.html"><span class="header-section-number">21</span> Lecture 11</a></li>
+<li><a class="" href="lecture-12.html"><span class="header-section-number">22</span> Lecture 12</a></li>
+<li><a class="" href="lecture-13.html"><span class="header-section-number">23</span> Lecture 13</a></li>
+<li><a class="" href="lecture-14.html"><span class="header-section-number">24</span> Lecture 14</a></li>
+<li><a class="" href="lecture-15.html"><span class="header-section-number">25</span> Lecture 15</a></li>
+<li><a class="" href="lecture-16.html"><span class="header-section-number">26</span> Lecture 16</a></li>
+<li><a class="" href="lecture-17.html"><span class="header-section-number">27</span> Lecture 17</a></li>
+<li><a class="" href="lecture-18.html"><span class="header-section-number">28</span> Lecture 18</a></li>
+<li><a class="" href="lecture-19.html"><span class="header-section-number">29</span> Lecture 19</a></li>
+<li><a class="" href="lecture-20.html"><span class="header-section-number">30</span> Lecture 20</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="week-8" class="section level1" number="9">
+<h1>
+<span class="header-section-number">9</span> Week 8<a class="anchor" aria-label="anchor" href="#week-8"><i class="fas fa-link"></i></a>
+</h1>
+<p>2021-09-08 [updated: 2021-10-07]</p>
+<div id="question-1-7" class="section level2" number="9.1">
+<h2>
+<span class="header-section-number">9.1</span> Question 1<a class="anchor" aria-label="anchor" href="#question-1-7"><i class="fas fa-link"></i></a>
+</h2>
+<div id="data-7" class="section level3" number="9.1.1">
+<h3>
+<span class="header-section-number">9.1.1</span> Data<a class="anchor" aria-label="anchor" href="#data-7"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb174"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">DT</span> <span class="op">&lt;-</span> <span class="fu">data_reedfrogs</span><span class="op">(</span><span class="op">)</span>
+<span class="fu">precis</span><span class="op">(</span><span class="va">DT</span><span class="op">)</span></code></pre></div>
+<pre><code>##           mean    sd  5.5% 94.5%     histogram
+## density  23.33 10.38 10.00    35 ▇▁▁▁▁▁▁▇▁▁▁▁▇
+## pred       NaN    NA    NA    NA              
+## size       NaN    NA    NA    NA              
+## surv     16.31  9.88  4.58    33       ▂▇▂▁▃▁▃
+## propsurv  0.72  0.27  0.29     1     ▁▁▃▁▁▂▁▅▇</code></pre>
+<div class="sourceCode" id="cb176"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/writeLines.html">writeLines</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="fu">tar_read</span><span class="op">(</span><span class="va">stan_d_file_w08_model_frogs_1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>## data {
+##  int N;
+##  int survival[N];
+##  int density[N];
+##  int tank[N];
+## }
+## parameters {
+##  real sigma;
+##  real alpha[N];
+##  real alpha_bar;
+## }
+## transformed parameters {
+##  vector[N] p;
+## 
+##  for (i in 1:N) {
+##      p[i] = inv_logit(alpha[i]);
+##  }
+## }
+## model {
+##  alpha_bar ~ normal(0, 0.25);
+##  alpha ~ normal(alpha_bar, sigma);
+##  sigma ~ exponential(1);
+##  for (i in 1:N) {
+##      survival[i] ~ binomial(density[i], p[i]);
+##  }
+## }</code></pre>
+<div class="sourceCode" id="cb178"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">model_frogs_1_draws</span> <span class="op">&lt;-</span> <span class="fu">tar_read</span><span class="op">(</span><span class="va">stan_d_mcmc_w08_model_frogs_1</span><span class="op">)</span><span class="op">$</span><span class="fu">draws</span><span class="op">(</span><span class="op">)</span>
+
+<span class="fu">mcmc_areas</span><span class="op">(</span><span class="va">model_frogs_1_draws</span>, regex_pars <span class="op">=</span> <span class="st">'alpha'</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-79-1.png" width="672"></div>
+<div class="sourceCode" id="cb179"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">mcmc_areas</span><span class="op">(</span><span class="va">model_frogs_1_draws</span>, regex_pars <span class="op">=</span> <span class="st">'p\\['</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-79-2.png" width="672"></div>
+<div class="sourceCode" id="cb180"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/writeLines.html">writeLines</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="fu">tar_read</span><span class="op">(</span><span class="va">stan_d_file_w08_model_frogs_2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>## data {
+##  int N;
+##  int survival[N];
+##  int density[N];
+##  int tank[N];
+##  int predation[N];
+## }
+## parameters {
+##  real sigma;
+##  real alpha[N];
+##  real alpha_bar;
+##  real beta_predation;
+## }
+## transformed parameters {
+##  vector[N] p;
+## 
+##  for (i in 1:N) {
+##      p[i] = inv_logit(alpha[i] + beta_predation * predation[i]);
+##  }
+## }
+## model {
+##  alpha_bar ~ normal(0, 0.25);
+##  alpha ~ normal(alpha_bar, sigma);
+##  beta_predation ~ normal(0, 0.5);
+##  sigma ~ exponential(1);
+##  for (i in 1:N) {
+##      survival[i] ~ binomial(density[i], p[i]);
+##  }
+## }</code></pre>
+<div class="sourceCode" id="cb182"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">model_frogs_2_draws</span> <span class="op">&lt;-</span> <span class="fu">tar_read</span><span class="op">(</span><span class="va">stan_d_mcmc_w08_model_frogs_2</span><span class="op">)</span><span class="op">$</span><span class="fu">draws</span><span class="op">(</span><span class="op">)</span>
+<span class="fu">mcmc_areas</span><span class="op">(</span><span class="va">model_frogs_2_draws</span>, regex_pars <span class="op">=</span> <span class="st">'predation'</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-81-1.png" width="672"></div>
+<div class="sourceCode" id="cb183"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/writeLines.html">writeLines</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="fu">tar_read</span><span class="op">(</span><span class="va">stan_d_file_w08_model_frogs_3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>## data {
+##  int N;
+##  int survival[N];
+##  int density[N];
+##  int tank[N];
+##  int size[N];
+## }
+## parameters {
+##  real sigma;
+##  real alpha[N];
+##  real alpha_bar;
+##  real beta_size;
+## }
+## transformed parameters {
+##  vector[N] p;
+## 
+##  for (i in 1:N) {
+##      p[i] = inv_logit(alpha[i] + beta_size * size[i]);
+##  }
+## }
+## model {
+##  alpha_bar ~ normal(0, 0.25);
+##  alpha ~ normal(alpha_bar, sigma);
+##  beta_size ~ normal(0, 0.5);
+##  sigma ~ exponential(1);
+##  for (i in 1:N) {
+##      survival[i] ~ binomial(density[i], p[i]);
+##  }
+## }</code></pre>
+<div class="sourceCode" id="cb185"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">model_frogs_3_draws</span> <span class="op">&lt;-</span> <span class="fu">tar_read</span><span class="op">(</span><span class="va">stan_d_mcmc_w08_model_frogs_3</span><span class="op">)</span><span class="op">$</span><span class="fu">draws</span><span class="op">(</span><span class="op">)</span>
+<span class="fu">mcmc_areas</span><span class="op">(</span><span class="va">model_frogs_3_draws</span>, regex_pars <span class="op">=</span> <span class="st">'size'</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-83-1.png" width="672"></div>
+<div class="sourceCode" id="cb186"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/writeLines.html">writeLines</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="fu">tar_read</span><span class="op">(</span><span class="va">stan_d_file_w08_model_frogs_4</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>## data {
+##  int N;
+##  int survival[N];
+##  int density[N];
+##  int tank[N];
+##  int size[N];
+##  int predation[N];
+## }
+## parameters {
+##  real sigma;
+##  real alpha[N];
+##  real alpha_bar;
+##  real beta_size;
+##  real beta_predation;
+##  real beta_interaction;
+## }
+## transformed parameters {
+##  vector[N] p;
+## 
+##  for (i in 1:N) {
+##      p[i] = inv_logit(alpha[i] + beta_size * size[i] + beta_predation * predation[i] + beta_interaction * (size[i] * predation[i]));
+##  }
+## }
+## model {
+##  alpha_bar ~ normal(0, 0.25);
+##  alpha ~ normal(alpha_bar, sigma);
+##  beta_size ~ normal(0, 0.5);
+##  beta_predation ~ normal(0, 0.5);
+##  beta_interaction ~ normal(0, 0.25);
+##  sigma ~ exponential(1);
+##  for (i in 1:N) {
+##      survival[i] ~ binomial(density[i], p[i]);
+##  }
+## }</code></pre>
+<div class="sourceCode" id="cb188"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">model_frogs_4_draws</span> <span class="op">&lt;-</span> <span class="fu">tar_read</span><span class="op">(</span><span class="va">stan_d_mcmc_w08_model_frogs_4</span><span class="op">)</span><span class="op">$</span><span class="fu">draws</span><span class="op">(</span><span class="op">)</span>
+
+<span class="fu">mcmc_areas</span><span class="op">(</span><span class="va">model_frogs_4_draws</span>, regex_pars <span class="op">=</span> <span class="st">'beta'</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-85-1.png" width="672"></div>
+<p>Negative influence of predation is somewhat balanced by size of tank.</p>
+<!-- TODO use AIC -->
+</div>
+</div>
+<div id="question-2-6" class="section level2" number="9.2">
+<h2>
+<span class="header-section-number">9.2</span> Question 2<a class="anchor" aria-label="anchor" href="#question-2-6"><i class="fas fa-link"></i></a>
+</h2>
+<blockquote>
+<p>In 1980, a typical Bengali woman could have 5 or more children in her
+lifetime. By the year 2000, a typical Bengali woman had only 2 or 3. You’re
+going to look at a historical set of data, when contraception was widely
+available but many families chose not to use it. These data reside in
+<code>data(bangladesh)</code> and come from the 1988 Bangladesh Fertility Survey. Each row
+is one of 1934 women. There are six variables, but you can focus on two of them
+for this practice problem: (1) district: ID number of administrative district
+each woman resided in (2) use.contraception: An indicator (0/1) of whether the
+woman was using contraception.</p>
+</blockquote>
+<div class="sourceCode" id="cb189"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">DT</span> <span class="op">&lt;-</span> <span class="fu">data_bangladesh</span><span class="op">(</span><span class="op">)</span>
+<span class="fu">precis</span><span class="op">(</span><span class="va">DT</span><span class="op">)</span></code></pre></div>
+<pre><code>##                                     mean     sd  5.5%  94.5%    histogram
+## woman             967.500000000000000000 558.44 107.3 1827.7   ▇▇▇▇▇▇▇▇▇▅
+## district           29.252843846949328821  17.80   1.0   57.0 ▇▅▇▅▅▇▅▃▅▅▅▅
+## use.contraception   0.392450879007238906   0.49   0.0    1.0   ▇▁▁▁▁▁▁▁▁▅
+## living.children     2.652016546018614473   1.24   1.0    4.0       ▅▃▁▃▁▇
+## age.centered        0.002197880041365139   9.01 -12.6   16.4      ▅▇▇▅▃▃▂
+## urban               0.290589451913133401   0.45   0.0    1.0   ▇▁▁▁▁▁▁▁▁▃
+## id                967.500000000000000000 558.44 107.3 1827.7   ▇▇▇▇▇▇▇▇▇▅
+## contraception       0.392450879007238906   0.49   0.0    1.0   ▇▁▁▁▁▁▁▁▁▅
+## scale_age           0.000000000000000014   1.00  -1.4    1.8    ▁▇▇▅▇▃▃▂▁</code></pre>
+<p>Now, focus on predicting <code>use.contraception</code>, clustered by <code>district_id</code>. Fit
+both (1) a traditional fixed-effects model that uses an index variable for
+district and (2) a multilevel model with varying intercepts for district. Plot
+the predicted proportions of women in each district using contraception, for
+both the fixed-effects model and the varying-effects model. That is, make a plot
+in which district ID is on the horizontal axis and expected proportion using
+contraception is on the vertical.Make one plot for each model, or layer them on
+the same plot, as you prefer. How do the models disagree? Can you explain the
+pattern of disagreement? In particular, can you explain the most extreme cases
+of disagreement, both why they happen where they do and why the models reach
+different inferences?</p>
+<p>Fixed effects model</p>
+<div class="sourceCode" id="cb191"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/writeLines.html">writeLines</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="fu">tar_read</span><span class="op">(</span><span class="va">stan_e_file_w08_model_bang_fixed</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>## data {
+##  // Integers for number of rows, and number of districts
+##   int&lt;lower=0&gt; N;
+##   int&lt;lower=0&gt; N_district;
+## 
+##   // District and contraception, expecting integers of length N
+##  int district[N];
+##  int contraception[N];
+## }
+## parameters {
+##  // Alpha vector matching length of number of districts
+##  vector[N_district] alpha;
+## }
+## model {
+##  // p vector matching length of number of districts
+##   vector[N] p;
+## 
+##   // Alpha is distributed normally
+##  alpha ~ normal(0, 1.5);
+## 
+##  // For each for in data, alpha for that row's district
+##   for (i in 1:N) {
+##      p[i] = inv_logit(alpha[district[i]]);
+##   }
+## 
+##   // Contraception if distributed with bernoulli, p
+##   contraception ~ bernoulli(p);
+## }</code></pre>
+<div class="sourceCode" id="cb193"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">model_bang_fixed_draws</span> <span class="op">&lt;-</span> <span class="fu">tar_read</span><span class="op">(</span><span class="va">stan_e_mcmc_w08_model_bang_fixed</span><span class="op">)</span><span class="op">$</span><span class="fu">draws</span><span class="op">(</span><span class="op">)</span>
+
+<span class="fu">mcmc_areas</span><span class="op">(</span><span class="va">model_bang_fixed_draws</span>, regex_pars <span class="op">=</span> <span class="st">'alpha'</span>, transformations <span class="op">=</span> <span class="va">inv.logit</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-88-1.png" width="672"></div>
+<p>Multilevel model</p>
+<div class="sourceCode" id="cb194"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/writeLines.html">writeLines</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="fu">tar_read</span><span class="op">(</span><span class="va">stan_e_file_w08_model_bang_multi</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>## data {
+##  // Integers for number of rows, and number of districts
+##   int&lt;lower=0&gt; N;
+##   int&lt;lower=0&gt; N_district;
+## 
+##   // District and contraception, expecting integers of length N
+##  int district[N];
+##  int contraception[N];
+## }
+## parameters {
+##  // Alpha vector matching length of number of districts
+##  vector[N_district] alpha;
+##  real&lt;lower=0&gt; sigma;
+## 
+##  // Hyper parameter alpha bar
+##  real alpha_bar;
+## }
+## model {
+##  // p vector matching length of number of districts
+##   vector[N] p;
+## 
+##  // For each for in data, alpha for that row's district
+##   for (i in 1:N) {
+##      p[i] = inv_logit(alpha[district[i]]);
+##   }
+## 
+##   // Hyper priors: alpha bar and sigma
+##  alpha_bar ~ normal(0, 1.5);
+##  sigma ~ exponential(1);
+## 
+##  // Priors
+##   // Alpha is distributed normally
+##   alpha ~ normal(alpha_bar, sigma);
+## 
+##   // Contraception if distributed with bernoulli, p
+##   contraception ~ bernoulli(p);
+## }</code></pre>
+<div class="sourceCode" id="cb196"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">model_bang_multi_draws</span> <span class="op">&lt;-</span> <span class="fu">tar_read</span><span class="op">(</span><span class="va">stan_e_mcmc_w08_model_bang_multi</span><span class="op">)</span><span class="op">$</span><span class="fu">draws</span><span class="op">(</span><span class="op">)</span>
+
+<span class="fu">mcmc_trace</span><span class="op">(</span><span class="va">model_bang_multi_draws</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-90-1.png" width="672"></div>
+<div class="sourceCode" id="cb197"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">mcmc_areas</span><span class="op">(</span><span class="va">model_bang_multi_draws</span>, regex_pars <span class="op">=</span> <span class="st">'alpha'</span>, transformations <span class="op">=</span> <span class="va">inv.logit</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-90-2.png" width="672"></div>
+<div class="sourceCode" id="cb198"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">mcmc_areas</span><span class="op">(</span><span class="va">model_bang_multi_draws</span>, pars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'alpha_bar'</span>, <span class="st">'sigma'</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-90-3.png" width="672"></div>
+<p>Comparison</p>
+<div class="sourceCode" id="cb199"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="op">(</span><span class="fu">mcmc_areas</span><span class="op">(</span><span class="va">model_bang_fixed_draws</span>, regex_pars <span class="op">=</span> <span class="st">'alpha'</span>, transformations <span class="op">=</span> <span class="va">inv.logit</span><span class="op">)</span> <span class="op">+</span> <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">'fixed'</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+    <span class="op">(</span><span class="fu">mcmc_areas</span><span class="op">(</span><span class="va">model_bang_multi_draws</span>, regex_pars <span class="op">=</span> <span class="st">'alpha\\['</span>, transformations <span class="op">=</span> <span class="va">inv.logit</span><span class="op">)</span> <span class="op">+</span> <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">'multilevel'</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-91-1.png" width="672"></div>
+<div class="sourceCode" id="cb200"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">setDT</span><span class="op">(</span><span class="va">model_bang_fixed_draws</span><span class="op">)</span>
+<span class="fu">setDT</span><span class="op">(</span><span class="va">model_bang_multi_draws</span><span class="op">)</span>
+
+<span class="va">compare</span> <span class="op">&lt;-</span> <span class="fu">rbindlist</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+    <span class="fu">melt</span><span class="op">(</span><span class="va">model_bang_fixed_draws</span>, measure.vars <span class="op">=</span> <span class="fu">patterns</span><span class="op">(</span><span class="st">'alpha'</span><span class="op">)</span><span class="op">)</span><span class="op">[</span>, <span class="va">model_type</span> <span class="op">:=</span> <span class="st">'fixed'</span><span class="op">]</span>,
+    <span class="fu">melt</span><span class="op">(</span><span class="va">model_bang_multi_draws</span>, measure.vars <span class="op">=</span> <span class="fu">patterns</span><span class="op">(</span><span class="st">'alpha'</span><span class="op">)</span><span class="op">)</span><span class="op">[</span>, <span class="va">model_type</span> <span class="op">:=</span> <span class="st">'multilevel'</span><span class="op">]</span>
+<span class="op">)</span>, fill <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+
+<span class="va">compare</span><span class="op">[</span>, <span class="va">variable</span> <span class="op">:=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">gsub</a></span><span class="op">(</span><span class="st">'alpha\\[|\\]'</span>, <span class="st">''</span>, <span class="va">variable</span><span class="op">)</span><span class="op">)</span><span class="op">]</span></code></pre></div>
+<pre><code>## Warning in eval(jsub, SDenv, parent.frame()): NAs introduced by coercion</code></pre>
+<div class="sourceCode" id="cb202"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">compare</span><span class="op">[</span>, <span class="fu">.</span><span class="op">(</span>value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span><span class="op">)</span>, <span class="fu">.</span><span class="op">(</span><span class="va">variable</span>, <span class="va">model_type</span><span class="op">)</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span> 
+    <span class="fu">geom_hline</span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">0</span>, alpha <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> <span class="op">+</span> 
+    <span class="fu">geom_point</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">variable</span>, <span class="va">value</span>, color <span class="op">=</span> <span class="va">model_type</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu">geom_line</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">variable</span>, <span class="va">value</span>, group <span class="op">=</span> <span class="va">model_type</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu">scale_color_viridis_d</span><span class="op">(</span>begin <span class="op">=</span> <span class="fl">0.3</span>, end <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span> <span class="op">+</span> 
+    <span class="fu">labs</span><span class="op">(</span>x <span class="op">=</span> <span class="st">'district'</span>, y <span class="op">=</span> <span class="st">'alpha'</span><span class="op">)</span></code></pre></div>
+<pre><code>## Warning: Removed 1 rows containing missing values (geom_point).</code></pre>
+<pre><code>## Warning: Removed 1 row(s) containing missing values (geom_path).</code></pre>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-91-2.png" width="672"></div>
+</div>
+<div id="question-3-5" class="section level2" number="9.3">
+<h2>
+<span class="header-section-number">9.3</span> Question 3<a class="anchor" aria-label="anchor" href="#question-3-5"><i class="fas fa-link"></i></a>
+</h2>
+<blockquote>
+<p>Return to the Trolley data, <code>data(Trolley)</code>, from Chapter 12. Define and fit a
+varying intercepts model for these data. By this I mean to add an intercept
+parameter for the individual to the linear model. Cluster the varying intercepts
+on individual participants, as indicated by the unique values in the id
+variable. Include action, intention, and contact as before. Compare the varying
+intercepts model and a model that ignores individuals, using both WAIC/LOO and
+posterior predictions. What is the impact of individual variation in these data?</p>
+</blockquote>
+<div class="sourceCode" id="cb205"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">DT</span> <span class="op">&lt;-</span> <span class="fu">data_trolley</span><span class="op">(</span><span class="op">)</span>
+<span class="fu">precis</span><span class="op">(</span><span class="va">DT</span><span class="op">)</span></code></pre></div>
+<pre><code>##              mean    sd 5.5% 94.5%      histogram
+## case          NaN    NA   NA    NA               
+## response     4.20  1.91    1     7   ▃▂▁▃▁▇▁▅▁▅▁▅
+## order       16.50  9.29    2    31        ▇▅▇▇▅▇▂
+## id            NaN    NA   NA    NA               
+## age         37.49 14.23   18    61  ▂▇▅▇▅▇▅▅▃▅▂▁▁
+## male         0.57  0.49    0     1     ▅▁▁▁▁▁▁▁▁▇
+## edu           NaN    NA   NA    NA               
+## action       0.43  0.50    0     1     ▇▁▁▁▁▁▁▁▁▅
+## intention    0.47  0.50    0     1     ▇▁▁▁▁▁▁▁▁▇
+## contact      0.20  0.40    0     1     ▇▁▁▁▁▁▁▁▁▂
+## story         NaN    NA   NA    NA               
+## action2      0.63  0.48    0     1     ▃▁▁▁▁▁▁▁▁▇
+## education    5.73  1.35    3     8 ▁▁▁▁▁▂▁▅▁▇▁▂▁▂
+## individual 166.00 95.56   19   313        ▇▇▇▇▇▇▅</code></pre>
+<div class="sourceCode" id="cb207"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/writeLines.html">writeLines</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="fu">tar_read</span><span class="op">(</span><span class="va">stan_c_file_w08_model_trolley</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>## data {
+##   int N;
+##   int K;
+##   int response[N];
+##   int action[N];
+##   int intention[N];
+##   int contact[N];
+## 
+## }
+## parameters {
+##  // Cut points are the positions of responses along cumulative odds
+##   ordered[K] cutpoints;
+##   real beta_action;
+##   real beta_intention;
+##   real beta_contact;
+##   real beta_intention_contact;
+##   real beta_intention_action;
+## }
+## transformed parameters {
+##   vector[N] phi;
+## 
+##  for (i in 1:N) {
+##      phi[i] = beta_action * action[i] + beta_contact * contact[i] + beta_intention * intention[i] + beta_intention_contact * intention[i] * contact[i]  + beta_intention_action * intention[i] * action[i];
+##  }
+## }
+## model {
+##  response ~ ordered_logistic(phi, cutpoints);
+##   cutpoints ~ normal(0, 1.5);
+##   beta_action ~ normal(0, 0.5);
+##   beta_contact ~ normal(0, 0.5);
+##   beta_intention ~ normal(0, 0.5);
+## }
+## generated quantities {
+##  vector[N] log_lik;
+##   for (i in 1:N) {
+##     log_lik[i] = ordered_logistic_lpmf(response[i] | phi[i], cutpoints);
+##   }
+## }</code></pre>
+<div class="sourceCode" id="cb209"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">model_trolley</span> <span class="op">&lt;-</span> <span class="fu">tar_read</span><span class="op">(</span><span class="va">stan_c_mcmc_w08_model_trolley</span><span class="op">)</span>
+<span class="va">model_trolley_draws</span> <span class="op">&lt;-</span> <span class="va">model_trolley</span><span class="op">$</span><span class="fu">draws</span><span class="op">(</span><span class="op">)</span>
+
+<span class="fu">mcmc_areas</span><span class="op">(</span><span class="va">model_trolley_draws</span>, regex_pars <span class="op">=</span> <span class="st">'cutpoints'</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-94-1.png" width="672"></div>
+<div class="sourceCode" id="cb210"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">mcmc_areas</span><span class="op">(</span><span class="va">model_trolley_draws</span>, regex_pars <span class="op">=</span> <span class="st">'beta'</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-94-2.png" width="672"></div>
+<div class="sourceCode" id="cb211"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>cmdstanr_draws_format <span class="op">=</span> <span class="st">"draws_array"</span><span class="op">)</span>
+<span class="va">model_trolley_loo</span> <span class="op">&lt;-</span> <span class="va">model_trolley</span><span class="op">$</span><span class="fu">loo</span><span class="op">(</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>cmdstanr_draws_format <span class="op">=</span> <span class="st">"draws_df"</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb212"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/writeLines.html">writeLines</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="fu">tar_read</span><span class="op">(</span><span class="va">stan_c_file_w08_model_trolley_multi</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>## data {
+##   int N;
+##   int K;
+##   int response[N];
+##   int action[N];
+##   int intention[N];
+##   int contact[N];
+##   int individual[N];
+##   int N_individual;
+## }
+## parameters {
+##  // Cut points are the positions of responses along cumulative odds
+##   ordered[K] cutpoints;
+##   real beta_action;
+##   real beta_intention;
+##   real beta_contact;
+##   real beta_intention_contact;
+##   real beta_intention_action;
+##   real alpha_bar;
+##  real sigma;
+##   vector[N_individual] alpha;
+## }
+## transformed parameters {
+##   vector[N] phi;
+## 
+##  for (i in 1:N) {
+##      phi[i] = alpha[individual[i]] + beta_action * action[i] +
+##                       beta_contact * contact[i] + beta_intention * intention[i] +
+##                       beta_intention_contact * intention[i] * contact[i]  +
+##                       beta_intention_action * intention[i] * action[i];
+##  }
+## }
+## model {
+##  // Hyper parameter priors
+##  alpha_bar ~ normal(0, 1.5);
+##  sigma ~ exponential(1);
+## 
+##  // Priors
+##  alpha ~ normal(alpha_bar, sigma);
+## 
+##  response ~ ordered_logistic(phi, cutpoints);
+##   cutpoints ~ normal(0, 1.5);
+##   beta_action ~ normal(0, 0.5);
+##   beta_contact ~ normal(0, 0.5);
+##   beta_intention ~ normal(0, 0.5);
+## }
+## generated quantities {
+##  vector[N] log_lik;
+##   for (i in 1:N) {
+##     log_lik[i] = ordered_logistic_lpmf(response[i] | phi[i], cutpoints);
+##   }
+## }</code></pre>
+<div class="sourceCode" id="cb214"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">model_trolley_multi</span> <span class="op">&lt;-</span> <span class="fu">tar_read</span><span class="op">(</span><span class="va">stan_c_mcmc_w08_model_trolley_multi</span><span class="op">)</span>
+<span class="va">model_trolley_multi_draws</span> <span class="op">&lt;-</span> <span class="va">model_trolley_multi</span><span class="op">$</span><span class="fu">draws</span><span class="op">(</span><span class="op">)</span>
+
+<span class="fu">mcmc_areas</span><span class="op">(</span><span class="va">model_trolley_multi_draws</span>, regex_pars <span class="op">=</span> <span class="st">'cutpoints'</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-96-1.png" width="672"></div>
+<div class="sourceCode" id="cb215"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">mcmc_areas</span><span class="op">(</span><span class="va">model_trolley_multi_draws</span>, regex_pars <span class="op">=</span> <span class="st">'beta'</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-96-2.png" width="672"></div>
+<div class="sourceCode" id="cb216"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>cmdstanr_draws_format <span class="op">=</span> <span class="st">"draws_array"</span><span class="op">)</span>
+<span class="va">model_trolley_multi_loo</span> <span class="op">&lt;-</span> <span class="va">model_trolley_multi</span><span class="op">$</span><span class="fu">loo</span><span class="op">(</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>cmdstanr_draws_format <span class="op">=</span> <span class="st">"draws_df"</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb217"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">col_patterns</span> <span class="op">&lt;-</span> <span class="st">'^beta|^alpha|^sigma|^cutpoints'</span>
+<span class="fu">setDT</span><span class="op">(</span><span class="va">model_trolley_draws</span><span class="op">)</span>
+<span class="fu">setDT</span><span class="op">(</span><span class="va">model_trolley_multi_draws</span><span class="op">)</span>
+
+<span class="fu">precis</span><span class="op">(</span><span class="va">model_trolley_draws</span><span class="op">[</span>, <span class="va">.SD</span>, .SDcols <span class="op">=</span> <span class="fu">patterns</span><span class="op">(</span><span class="va">col_patterns</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></code></pre></div>
+<pre><code>## 6 vector or matrix parameters hidden. Use depth=2 to show them.</code></pre>
+<pre><code>##                         mean    sd  5.5% 94.5%       histogram
+## beta_action            -0.46 0.055 -0.54 -0.37      ▁▁▁▃▇▇▂▁▁▁
+## beta_intention         -0.27 0.058 -0.36 -0.18      ▁▁▁▅▇▅▂▁▁▁
+## beta_contact           -0.32 0.069 -0.43 -0.21     ▁▁▁▂▅▇▇▃▁▁▁
+## beta_intention_contact -1.29 0.097 -1.44 -1.13 ▁▁▁▁▃▅▇▇▇▃▂▁▁▁▁
+## beta_intention_action  -0.46 0.081 -0.59 -0.34   ▁▁▁▁▃▅▇▇▅▂▁▁▁</code></pre>
+<div class="sourceCode" id="cb220"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">precis</span><span class="op">(</span><span class="va">model_trolley_multi_draws</span><span class="op">[</span>, <span class="va">.SD</span>, .SDcols <span class="op">=</span> <span class="fu">patterns</span><span class="op">(</span><span class="va">col_patterns</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></code></pre></div>
+<pre><code>## 337 vector or matrix parameters hidden. Use depth=2 to show them.</code></pre>
+<pre><code>##                         mean    sd  5.5% 94.5%      histogram
+## beta_action            -0.63 0.056 -0.72 -0.54      ▁▁▂▇▇▅▁▁▁
+## beta_intention         -0.36 0.060 -0.45 -0.26     ▁▁▁▃▇▇▃▁▁▁
+## beta_contact           -0.42 0.072 -0.54 -0.30    ▁▁▁▂▇▇▇▃▁▁▁
+## beta_intention_contact -1.74 0.101 -1.91 -1.58      ▁▁▁▃▇▅▁▁▁
+## beta_intention_action  -0.60 0.082 -0.73 -0.46  ▁▁▁▁▂▅▇▇▅▂▁▁▁
+## alpha_bar               1.01 0.437  0.26  1.72  ▁▁▁▂▂▂▇▇▅▂▂▁▁
+## sigma                   1.92 0.082  1.80  2.06 ▁▁▁▁▃▇▇▅▃▁▁▁▁▁</code></pre>
+<div class="sourceCode" id="cb223"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">compared</span> <span class="op">&lt;-</span> <span class="fu">loo_compare</span><span class="op">(</span><span class="va">model_trolley_loo</span>, <span class="va">model_trolley_multi_loo</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">compared</span>, simplify <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+<pre><code>##        elpd_diff se_diff  elpd_loo se_elpd_loo p_loo    se_p_loo looic   
+## model2      0.0       0.0 -15529.0     89.8       356.8      4.7  31058.0
+## model1  -2935.7      86.8 -18464.7     40.5        11.1      0.1  36929.5
+##        se_looic
+## model2    179.6
+## model1     81.1</code></pre>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="week-7.html"><span class="header-section-number">8</span> Week 7</a></div>
+<div class="next"><a href="week-9.html"><span class="header-section-number">10</span> Week 9</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#week-8"><span class="header-section-number">9</span> Week 8</a></li>
+<li>
+<a class="nav-link" href="#question-1-7"><span class="header-section-number">9.1</span> Question 1</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#data-7"><span class="header-section-number">9.1.1</span> Data</a></li></ul>
+</li>
+<li><a class="nav-link" href="#question-2-6"><span class="header-section-number">9.2</span> Question 2</a></li>
+<li><a class="nav-link" href="#question-3-5"><span class="header-section-number">9.3</span> Question 3</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Learning bayesian data analysis with Statistical Rethinking</strong>" was written by Alec L. Robitaille. It was last built on 2021-08-18 [updated: 2021-10-07].</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

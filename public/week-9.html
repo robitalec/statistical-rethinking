@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>10 Week 9 | Learning bayesian data analysis with Statistical Rethinking</title>
+<meta name="author" content="Alec L. Robitaille">
+<meta name="generator" content="bookdown 0.24.1 with bs4_book()">
+<meta property="og:title" content="10 Week 9 | Learning bayesian data analysis with Statistical Rethinking">
+<meta property="og:type" content="book">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="10 Week 9 | Learning bayesian data analysis with Statistical Rethinking">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11.3/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><meta name="description" content="2021-09-14 [updated: 2021-10-07]  10.1 Question 1  Revisit the Bangladesh fertility data, data(bangladesh). Fit a model with both varying intercepts by district_id and varying slopes of urban (as...">
+<meta property="og:description" content="2021-09-14 [updated: 2021-10-07]  10.1 Question 1  Revisit the Bangladesh fertility data, data(bangladesh). Fit a model with both varying intercepts by district_id and varying slopes of urban (as...">
+<meta name="twitter:description" content="2021-09-14 [updated: 2021-10-07]  10.1 Question 1  Revisit the Bangladesh fertility data, data(bangladesh). Fit a model with both varying intercepts by district_id and varying slopes of urban (as...">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Learning bayesian data analysis with Statistical Rethinking</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> Overview</a></li>
+<li class="book-part">Homework</li>
+<li><a class="" href="week-1.html"><span class="header-section-number">2</span> Week 1</a></li>
+<li><a class="" href="week-2.html"><span class="header-section-number">3</span> Week 2</a></li>
+<li><a class="" href="week-3.html"><span class="header-section-number">4</span> Week 3</a></li>
+<li><a class="" href="week-4.html"><span class="header-section-number">5</span> Week 4</a></li>
+<li><a class="" href="week-5.html"><span class="header-section-number">6</span> Week 5</a></li>
+<li><a class="" href="week-6.html"><span class="header-section-number">7</span> Week 6</a></li>
+<li><a class="" href="week-7.html"><span class="header-section-number">8</span> Week 7</a></li>
+<li><a class="" href="week-8.html"><span class="header-section-number">9</span> Week 8</a></li>
+<li><a class="active" href="week-9.html"><span class="header-section-number">10</span> Week 9</a></li>
+<li class="book-part">Lectures</li>
+<li><a class="" href="lecture-01.html"><span class="header-section-number">11</span> Lecture 01</a></li>
+<li><a class="" href="lecture-02.html"><span class="header-section-number">12</span> Lecture 02</a></li>
+<li><a class="" href="lecture-03.html"><span class="header-section-number">13</span> Lecture 03</a></li>
+<li><a class="" href="lecture-04.html"><span class="header-section-number">14</span> Lecture 04</a></li>
+<li><a class="" href="lecture-05.html"><span class="header-section-number">15</span> Lecture 05</a></li>
+<li><a class="" href="lecture-06.html"><span class="header-section-number">16</span> Lecture 06</a></li>
+<li><a class="" href="lecture-07.html"><span class="header-section-number">17</span> Lecture 07</a></li>
+<li><a class="" href="lecture-08.html"><span class="header-section-number">18</span> Lecture 08</a></li>
+<li><a class="" href="lecture-09.html"><span class="header-section-number">19</span> Lecture 09</a></li>
+<li><a class="" href="lecture-10.html"><span class="header-section-number">20</span> Lecture 10</a></li>
+<li><a class="" href="lecture-11.html"><span class="header-section-number">21</span> Lecture 11</a></li>
+<li><a class="" href="lecture-12.html"><span class="header-section-number">22</span> Lecture 12</a></li>
+<li><a class="" href="lecture-13.html"><span class="header-section-number">23</span> Lecture 13</a></li>
+<li><a class="" href="lecture-14.html"><span class="header-section-number">24</span> Lecture 14</a></li>
+<li><a class="" href="lecture-15.html"><span class="header-section-number">25</span> Lecture 15</a></li>
+<li><a class="" href="lecture-16.html"><span class="header-section-number">26</span> Lecture 16</a></li>
+<li><a class="" href="lecture-17.html"><span class="header-section-number">27</span> Lecture 17</a></li>
+<li><a class="" href="lecture-18.html"><span class="header-section-number">28</span> Lecture 18</a></li>
+<li><a class="" href="lecture-19.html"><span class="header-section-number">29</span> Lecture 19</a></li>
+<li><a class="" href="lecture-20.html"><span class="header-section-number">30</span> Lecture 20</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="week-9" class="section level1" number="10">
+<h1>
+<span class="header-section-number">10</span> Week 9<a class="anchor" aria-label="anchor" href="#week-9"><i class="fas fa-link"></i></a>
+</h1>
+<p>2021-09-14 [updated: 2021-10-07]</p>
+<div id="question-1-8" class="section level2" number="10.1">
+<h2>
+<span class="header-section-number">10.1</span> Question 1<a class="anchor" aria-label="anchor" href="#question-1-8"><i class="fas fa-link"></i></a>
+</h2>
+<blockquote>
+<p>Revisit the Bangladesh fertility data, data(bangladesh). Fit a model with both
+varying intercepts by district_id and varying slopes of urban (as a 0/1
+indicator variable) by district_id. You are still predicting use.contraception.
+Inspect the correlation between the intercepts and slopes. Can you interpret
+this correlation, in terms of what it tells you about the pattern of
+contraceptive use in the sample? It might help to plot the varying effect
+estimates for both the intercepts and slopes, by district. Then you can
+visualize the correlation and maybe more easily think through what it means to
+have a particular correlation. Plotting predicted proportion of women using
+contraception, in each district, with urban women on one axis and rural on the
+other, might also help.</p>
+</blockquote>
+<div class="sourceCode" id="cb225"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">precis</span><span class="op">(</span><span class="va">DT</span><span class="op">)</span></code></pre></div>
+<pre><code>##              mean    sd 5.5% 94.5%      histogram
+## case          NaN    NA   NA    NA               
+## response     4.20  1.91    1     7   ▃▂▁▃▁▇▁▅▁▅▁▅
+## order       16.50  9.29    2    31        ▇▅▇▇▅▇▂
+## id            NaN    NA   NA    NA               
+## age         37.49 14.23   18    61  ▂▇▅▇▅▇▅▅▃▅▂▁▁
+## male         0.57  0.49    0     1     ▅▁▁▁▁▁▁▁▁▇
+## edu           NaN    NA   NA    NA               
+## action       0.43  0.50    0     1     ▇▁▁▁▁▁▁▁▁▅
+## intention    0.47  0.50    0     1     ▇▁▁▁▁▁▁▁▁▇
+## contact      0.20  0.40    0     1     ▇▁▁▁▁▁▁▁▁▂
+## story         NaN    NA   NA    NA               
+## action2      0.63  0.48    0     1     ▃▁▁▁▁▁▁▁▁▇
+## education    5.73  1.35    3     8 ▁▁▁▁▁▂▁▅▁▇▁▂▁▂
+## individual 166.00 95.56   19   313        ▇▇▇▇▇▇▅</code></pre>
+<div class="sourceCode" id="cb227"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/writeLines.html">writeLines</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="fu">tar_read</span><span class="op">(</span><span class="va">stan_e_file_w09_model_q1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>## data {
+##  // Integers for number of rows, and number of districts
+##   int&lt;lower=0&gt; N;
+##   int&lt;lower=0&gt; N_district;
+## 
+##   // District, contraception and urban, expecting integers of length N
+##  int district[N];
+##  int contraception[N];
+##  int urban[N];
+## }
+## parameters {
+##  // Alpha and beta urban vectors matching length of number of districts
+##  vector[N_district] alpha;
+## 
+##  // Beta urban vector matching length of number of districts
+##  vector[N_district] beta;
+## 
+##  // Hyper parameter alpha bar, beta bar
+##  real alpha_bar;
+##  real beta_bar;
+## 
+##  // Correlation matrix, sigma
+##  // 2 represents the number of predictors
+##  corr_matrix[2] Rho;
+##  vector&lt;lower=0&gt;[2] sigma;
+## }
+## model {
+##  // p vector matching length of number of districts
+##   vector[N] p;
+## 
+##   // Hyper priors: alpha bar, beta urban bar, sigma and Rho
+##  alpha_bar ~ normal(0, 1);
+##  beta_bar ~ normal(0, 0.5);
+##  sigma ~ exponential(1);
+##  Rho ~ lkj_corr(2);
+## 
+##  // Multivariate normal
+##   {
+##    vector[2] YY[N_district];
+##    vector[2] MU;
+##    MU = [alpha_bar, beta_bar]';
+##    for (j in 1:N_district) {
+##      YY[j] = [alpha[j], beta[j]]';
+##    }
+##    YY ~ multi_normal(MU, quad_form_diag(Rho, sigma));
+##   }
+## 
+##  // For each for in data, alpha and beta for that row's district
+##   for (i in 1:N) {
+##      p[i] = inv_logit(alpha[district[i]] + beta[district[i]] * urban[i]);
+##   }
+## 
+##   // Contraception if distributed with bernoulli, p
+##   contraception ~ bernoulli(p);
+## }</code></pre>
+<!-- https://mc-stan.org/docs/2_27/stan-users-guide/multivariate-hierarchical-priors-section.html#optimization-through-vectorization -->
+<div class="sourceCode" id="cb229"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">model_q1_draws</span> <span class="op">&lt;-</span> <span class="fu">tar_read</span><span class="op">(</span><span class="va">stan_e_mcmc_w09_model_q1</span><span class="op">)</span><span class="op">$</span><span class="fu">draws</span><span class="op">(</span><span class="op">)</span>
+
+<span class="fu">mcmc_areas</span><span class="op">(</span><span class="va">model_q1_draws</span>, regex_pars <span class="op">=</span> <span class="st">'alpha'</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-101-1.png" width="672"></div>
+<div class="sourceCode" id="cb230"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">mcmc_areas</span><span class="op">(</span><span class="va">model_q1_draws</span>, regex_pars <span class="op">=</span> <span class="st">'beta'</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-101-2.png" width="672"></div>
+<div class="sourceCode" id="cb231"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">mcmc_areas</span><span class="op">(</span><span class="va">model_q1_draws</span>, regex_pars <span class="op">=</span> <span class="st">'bar'</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-101-3.png" width="672"></div>
+<div class="sourceCode" id="cb232"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">mcmc_areas</span><span class="op">(</span><span class="va">model_q1_draws</span>, regex_pars <span class="op">=</span> <span class="st">'Rho'</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-101-4.png" width="672"></div>
+<div class="sourceCode" id="cb233"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">setDT</span><span class="op">(</span><span class="va">model_q1_draws</span><span class="op">)</span>
+
+<span class="fu">precis</span><span class="op">(</span><span class="va">model_q1_draws</span><span class="op">[</span>, <span class="va">.SD</span>, .SDcols <span class="op">=</span> <span class="fu">patterns</span><span class="op">(</span><span class="st">'*bar'</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></code></pre></div>
+<pre><code>##            mean   sd  5.5% 94.5%    histogram
+## alpha_bar -0.69 0.10 -0.85 -0.53    ▁▁▁▂▇▇▃▁▁
+## beta_bar   0.64 0.16  0.38  0.90 ▁▁▁▂▃▇▇▅▃▁▁▁</code></pre>
+<div class="sourceCode" id="cb235"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">precis</span><span class="op">(</span><span class="va">model_q1_draws</span><span class="op">[</span>, <span class="va">.SD</span>, .SDcols <span class="op">=</span> <span class="fu">patterns</span><span class="op">(</span><span class="st">'Rho|sigma'</span><span class="op">)</span><span class="op">]</span>, depth <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></code></pre></div>
+<pre><code>##           mean    sd  5.5% 94.5%      histogram
+## Rho[1,1]  1.00 0.000  1.00  1.00              ▇
+## Rho[2,1] -0.65 0.168 -0.86 -0.34       ▂▇▃▁▁▁▁▁
+## Rho[1,2] -0.65 0.168 -0.86 -0.34       ▂▇▃▁▁▁▁▁
+## Rho[2,2]  1.00 0.000  1.00  1.00              ▇
+## sigma[1]  0.57 0.096  0.43  0.74 ▁▁▁▂▅▇▇▇▃▂▁▁▁▁
+## sigma[2]  0.77 0.207  0.46  1.10      ▁▁▃▇▅▂▁▁▁</code></pre>
+<div class="sourceCode" id="cb237"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">mcmc_hex</span><span class="op">(</span><span class="va">model_q1_draws</span>, regex_pars <span class="op">=</span> <span class="st">'*bar'</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-101-5.png" width="672"></div>
+</div>
+<div id="question-2-7" class="section level2" number="10.2">
+<h2>
+<span class="header-section-number">10.2</span> Question 2<a class="anchor" aria-label="anchor" href="#question-2-7"><i class="fas fa-link"></i></a>
+</h2>
+<blockquote>
+<p>Now consider the predictor variables age.centered and living.children, also
+contained in data(bangladesh). Suppose that age influences contraceptive use
+(changing attitudes) and number of children (older people have had more time to
+have kids). Number of children may also directly influence contraceptive use.
+Draw a DAG that reflects these hypothetical relationships. Then build models
+needed to evaluate the DAG. You will need at least two models. Retain district
+and urban, as in Problem 1. What do you conclude about the causal influence of
+age and children?</p>
+</blockquote>
+<div class="sourceCode" id="cb238"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">dag</span> <span class="op">&lt;-</span> <span class="fu">dagify</span><span class="op">(</span>
+  <span class="va">contraceptive_use</span> <span class="op">~</span> <span class="va">age</span> <span class="op">+</span> <span class="va">number_children</span>,
+  <span class="va">number_children</span> <span class="op">~</span> <span class="va">age</span>,
+  exposure <span class="op">=</span> <span class="st">'age'</span>,
+  outcome <span class="op">=</span> <span class="st">'contraceptive_use'</span>
+<span class="op">)</span>
+
+<span class="fu">dag_plot</span><span class="op">(</span><span class="va">dag</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-102-1.png" width="672"></div>
+<div class="sourceCode" id="cb239"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">adjustmentSets</span><span class="op">(</span><span class="va">dag</span>, exposure <span class="op">=</span> <span class="st">'age'</span>, outcome <span class="op">=</span> <span class="st">'contraceptive_use'</span>, effect <span class="op">=</span> <span class="st">'total'</span><span class="op">)</span></code></pre></div>
+<pre><code>##  {}</code></pre>
+<div class="sourceCode" id="cb241"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">adjustmentSets</span><span class="op">(</span><span class="va">dag</span>, exposure <span class="op">=</span> <span class="st">'age'</span>, outcome <span class="op">=</span> <span class="st">'contraceptive_use'</span>, effect <span class="op">=</span> <span class="st">'direct'</span><span class="op">)</span></code></pre></div>
+<pre><code>## { number_children }</code></pre>
+<div class="sourceCode" id="cb243"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/writeLines.html">writeLines</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="fu">tar_read</span><span class="op">(</span><span class="va">stan_e_file_w09_model_q2_a</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>## data {
+##  // Integers for number of rows, and number of districts
+##   int&lt;lower=0&gt; N;
+##   int&lt;lower=0&gt; N_district;
+## 
+##   // District, contraception and urban, expecting integers of length N
+##  int district[N];
+##  int contraception[N];
+##  int urban[N];
+## 
+##  // Also scale_age
+##  real scale_age[N];
+## }
+## parameters {
+##  // Alpha and beta urban vectors matching length of number of districts
+##  vector[N_district] alpha;
+## 
+##  // Beta urban vector matching length of number of districts
+##  vector[N_district] beta;
+## 
+##  // Hyper parameter alpha bar, beta bar
+##  real alpha_bar;
+##  real beta_bar;
+## 
+##  // scale_age
+##  real beta_scale_age;
+## 
+##  // Correlation matrix, sigma
+##  // 2 represents the number of predictors
+##  corr_matrix[2] Rho;
+##  vector&lt;lower=0&gt;[2] sigma;
+## }
+## model {
+##  // p vector matching length of number of districts
+##   vector[N] p;
+## 
+##   // Hyper priors: alpha bar, beta urban bar, sigma and Rho
+##  alpha_bar ~ normal(0, 1);
+##  beta_bar ~ normal(0, 0.5);
+##  sigma ~ exponential(1);
+##  Rho ~ lkj_corr(2);
+## 
+##  // Multivariate normal
+##   {
+##    vector[2] YY[N_district];
+##    vector[2] MU;
+##    MU = [alpha_bar, beta_bar]';
+##    for (j in 1:N_district) {
+##      YY[j] = [alpha[j], beta[j]]';
+##    }
+##    YY ~ multi_normal(MU, quad_form_diag(Rho, sigma));
+##   }
+## 
+##   // Beta scale_age prior
+##  beta_scale_age ~ normal(0, 1.5);
+## 
+##  // For each for in data, alpha and beta for that row's district
+##   for (i in 1:N) {
+##      p[i] = inv_logit(alpha[district[i]] + beta[district[i]] * urban[i] + beta_scale_age * scale_age[i]);
+##   }
+## 
+##   // Contraception if distributed with bernoulli, p
+##   contraception ~ bernoulli(p);
+## }</code></pre>
+<div class="sourceCode" id="cb245"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">model_q2_a_draws</span> <span class="op">&lt;-</span> <span class="fu">tar_read</span><span class="op">(</span><span class="va">stan_e_mcmc_w09_model_q2_a</span><span class="op">)</span><span class="op">$</span><span class="fu">draws</span><span class="op">(</span><span class="op">)</span>
+<span class="fu">setDT</span><span class="op">(</span><span class="va">model_q2_a_draws</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb246"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/writeLines.html">writeLines</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="fu">tar_read</span><span class="op">(</span><span class="va">stan_e_file_w09_model_q2_b</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>## data {
+##  // Integers for number of rows, and number of districts
+##   int&lt;lower=0&gt; N;
+##   int&lt;lower=0&gt; N_district;
+## 
+##   // District, contraception and urban, expecting integers of length N
+##  int district[N];
+##  int contraception[N];
+##  int urban[N];
+## 
+##  // Also scale_age and n_children
+##  real scale_age[N];
+##  int n_children[N];
+## }
+## parameters {
+##  // Alpha and beta urban vectors matching length of number of districts
+##  vector[N_district] alpha;
+## 
+##  // Beta urban vector matching length of number of districts
+##  vector[N_district] beta;
+## 
+##  // Hyper parameter alpha bar, beta bar
+##  real alpha_bar;
+##  real beta_bar;
+## 
+##  // scale_age and n_children
+##  real beta_scale_age;
+##  real beta_children;
+## 
+##  // Correlation matrix, sigma
+##  // 2 represents the number of predictors
+##  corr_matrix[2] Rho;
+##  vector&lt;lower=0&gt;[2] sigma;
+## }
+## model {
+##  // p vector matching length of number of districts
+##   vector[N] p;
+## 
+##   // Hyper priors: alpha bar, beta urban bar, sigma and Rho
+##  alpha_bar ~ normal(0, 1);
+##  beta_bar ~ normal(0, 0.5);
+##  sigma ~ exponential(1);
+##  Rho ~ lkj_corr(2);
+## 
+##  // Multivariate normal
+##   {
+##    vector[2] YY[N_district];
+##    vector[2] MU;
+##    MU = [alpha_bar, beta_bar]';
+##    for (j in 1:N_district) {
+##      YY[j] = [alpha[j], beta[j]]';
+##    }
+##    YY ~ multi_normal(MU, quad_form_diag(Rho, sigma));
+##   }
+## 
+##   // Beta scale_age prior
+##  beta_scale_age ~ normal(0, 1.5);
+##  beta_children ~ normal(0, 1.5);
+## 
+##  // For each for in data, alpha and beta for that row's district
+##   for (i in 1:N) {
+##      p[i] = inv_logit(alpha[district[i]] + beta[district[i]] * urban[i] + beta_scale_age * scale_age[i] + beta_children * n_children[i]);
+##   }
+## 
+##   // Contraception if distributed with bernoulli, p
+##   contraception ~ bernoulli(p);
+## }</code></pre>
+<div class="sourceCode" id="cb248"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">model_q2_b_draws</span> <span class="op">&lt;-</span> <span class="fu">tar_read</span><span class="op">(</span><span class="va">stan_e_mcmc_w09_model_q2_b</span><span class="op">)</span><span class="op">$</span><span class="fu">draws</span><span class="op">(</span><span class="op">)</span>
+<span class="fu">setDT</span><span class="op">(</span><span class="va">model_q2_b_draws</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb249"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">precis</span><span class="op">(</span><span class="va">model_q2_a_draws</span><span class="op">[</span>, <span class="va">.SD</span>, .SDcols <span class="op">=</span> <span class="fu">patterns</span><span class="op">(</span><span class="st">'beta'</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></code></pre></div>
+<pre><code>## 60 vector or matrix parameters hidden. Use depth=2 to show them.</code></pre>
+<pre><code>##                 mean   sd   5.5% 94.5%      histogram
+## beta_bar       0.643 0.16 0.3844  0.90 ▁▁▁▁▃▇▇▅▃▁▁▁▁▁
+## beta_scale_age 0.084 0.05 0.0057  0.16       ▁▁▃▇▅▂▁▁</code></pre>
+<div class="sourceCode" id="cb252"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">precis</span><span class="op">(</span><span class="va">model_q2_b_draws</span><span class="op">[</span>, <span class="va">.SD</span>, .SDcols <span class="op">=</span> <span class="fu">patterns</span><span class="op">(</span><span class="st">'beta'</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></code></pre></div>
+<pre><code>## 60 vector or matrix parameters hidden. Use depth=2 to show them.</code></pre>
+<pre><code>##                 mean    sd  5.5% 94.5%     histogram
+## beta_bar        0.68 0.163  0.42  0.93 ▁▁▁▁▃▅▇▇▃▂▁▁▁
+## beta_scale_age -0.26 0.071 -0.38 -0.15  ▁▁▁▁▂▅▇▇▃▁▁▁
+## beta_children   0.41 0.060  0.32  0.51     ▁▁▃▇▇▃▁▁▁</code></pre>
+</div>
+<div id="question-3-6" class="section level2" number="10.3">
+<h2>
+<span class="header-section-number">10.3</span> Question 3<a class="anchor" aria-label="anchor" href="#question-3-6"><i class="fas fa-link"></i></a>
+</h2>
+<blockquote>
+<p>Modify any models from Problem 2 that contained that children variable and
+model the variable now as a monotonic ordered category, like education from the
+week we did ordered categories. Education in that example had 8 categories.
+Children here will have fewer (no one in the sample had 8 children). So modify
+the code appropriately. What do you conclude about the causal influence of each
+additional child on use of contraception?</p>
+</blockquote>
+<div class="sourceCode" id="cb255"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/writeLines.html">writeLines</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="fu">tar_read</span><span class="op">(</span><span class="va">stan_e_file_w09_model_q3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>## data {
+##  // Integers for number of rows, and number of districts
+##   int&lt;lower=0&gt; N;
+##   int&lt;lower=0&gt; N_district;
+## 
+##   // K categories
+##   int K;
+##   vector[K] alpha_k;
+## 
+##   // District, contraception and urban, expecting integers of length N
+##  int district[N];
+##  int contraception[N];
+##  int urban[N];
+## 
+##  // Also scale_age, n_children
+##  real scale_age[N];
+##  int n_children[N];
+## }
+## parameters {
+##  // Alpha and beta urban vectors matching length of number of districts
+##  vector[N_district] alpha;
+## 
+##  // Beta urban vector matching length of number of districts
+##  vector[N_district] beta;
+## 
+##  // Hyper parameter alpha bar, beta bar
+##  real alpha_bar;
+##  real beta_bar;
+## 
+##  // scale_age and n_children
+##  real beta_scale_age;
+##  real beta_children;
+## 
+##  // Correlation matrix, sigma
+##  // 2 represents the number of predictors
+##  corr_matrix[2] Rho;
+##  vector&lt;lower=0&gt;[2] sigma;
+## 
+##  simplex[3] delta;
+## }
+## model {
+##  // p vector matching length of number of districts
+##   vector[N] p;
+## 
+##   // Hyper priors: alpha bar, beta urban bar, sigma and Rho
+##  alpha_bar ~ normal(0, 1);
+##  beta_bar ~ normal(0, 0.5);
+##  sigma ~ exponential(1);
+##  Rho ~ lkj_corr(2);
+## 
+##  //
+##  vector[K] delta_shell;
+##  delta ~ dirichlet(alpha_k);
+##  delta_shell = append_row(0, delta);
+## 
+##  // Multivariate normal
+##   {
+##    vector[2] YY[N_district];
+##    vector[2] MU;
+##    MU = [alpha_bar, beta_bar]';
+##    for (j in 1:N_district) {
+##      YY[j] = [alpha[j], beta[j]]';
+##    }
+##    YY ~ multi_normal(MU, quad_form_diag(Rho, sigma));
+##   }
+## 
+##   // Beta scale_age prior
+##  beta_scale_age ~ normal(0, 1.5);
+##  beta_children ~ normal(0, 1.5);
+## 
+##  // For each for in data, alpha and beta for that row's district
+##   for (i in 1:N) {
+##      p[i] = inv_logit(alpha[district[i]] + beta[district[i]] * urban[i] + beta_scale_age * scale_age[i] + beta_children * sum(delta_shell[1:n_children[i]]) * n_children[i]);
+##   }
+## 
+##   // Contraception if distributed with bernoulli, p
+##   contraception ~ bernoulli(p);
+## }</code></pre>
+<div class="sourceCode" id="cb257"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">model_q3_draws</span> <span class="op">&lt;-</span> <span class="fu">tar_read</span><span class="op">(</span><span class="va">stan_e_mcmc_w09_model_q3</span><span class="op">)</span><span class="op">$</span><span class="fu">draws</span><span class="op">(</span><span class="op">)</span>
+<span class="fu">setDT</span><span class="op">(</span><span class="va">model_q3_draws</span><span class="op">)</span>
+
+<span class="fu">precis</span><span class="op">(</span><span class="va">model_q3_draws</span><span class="op">[</span>, <span class="va">.SD</span>, .SDcols <span class="op">=</span> <span class="fu">patterns</span><span class="op">(</span><span class="st">'beta'</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></code></pre></div>
+<pre><code>## 60 vector or matrix parameters hidden. Use depth=2 to show them.</code></pre>
+<pre><code>##                 mean    sd  5.5% 94.5%      histogram
+## beta_bar        0.69 0.160  0.44  0.94 ▁▁▁▁▂▅▇▇▅▂▁▁▁▁
+## beta_scale_age -0.29 0.072 -0.40 -0.17   ▁▁▁▁▃▇▇▅▂▁▁▁
+## beta_children   0.34 0.046  0.26  0.41       ▁▁▃▇▇▂▁▁</code></pre>
+<div class="sourceCode" id="cb260"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">precis</span><span class="op">(</span><span class="va">model_q3_draws</span><span class="op">[</span>, <span class="va">.SD</span>, .SDcols <span class="op">=</span> <span class="fu">patterns</span><span class="op">(</span><span class="st">'delta'</span><span class="op">)</span><span class="op">]</span>, <span class="fl">3</span><span class="op">)</span></code></pre></div>
+<pre><code>##           mean    sd 5.5% 94.5%      histogram
+## delta[1] 0.842 0.079 0.70  0.95 ▁▁▁▁▁▁▁▁▂▃▇▇▅▁
+## delta[2] 0.102 0.069 0.02  0.23    ▅▇▅▂▁▁▁▁▁▁▁
+## delta[3] 0.056 0.039 0.01  0.13        ▇▅▁▁▁▁▁</code></pre>
+<div class="sourceCode" id="cb262"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">mcmc_areas</span><span class="op">(</span><span class="va">model_q3_draws</span>, regex_pars <span class="op">=</span> <span class="st">'delta'</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-109-1.png" width="672"></div>
+
+</div>
+</div>
+
+
+
+  <div class="chapter-nav">
+<div class="prev"><a href="week-8.html"><span class="header-section-number">9</span> Week 8</a></div>
+<div class="next"><a href="lecture-01.html"><span class="header-section-number">11</span> Lecture 01</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#week-9"><span class="header-section-number">10</span> Week 9</a></li>
+<li><a class="nav-link" href="#question-1-8"><span class="header-section-number">10.1</span> Question 1</a></li>
+<li><a class="nav-link" href="#question-2-7"><span class="header-section-number">10.2</span> Question 2</a></li>
+<li><a class="nav-link" href="#question-3-6"><span class="header-section-number">10.3</span> Question 3</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Learning bayesian data analysis with Statistical Rethinking</strong>" was written by Alec L. Robitaille. It was last built on 2021-08-18 [updated: 2021-10-07].</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

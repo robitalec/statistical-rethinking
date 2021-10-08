@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>8 Week 7 | Learning bayesian data analysis with Statistical Rethinking</title>
+<meta name="author" content="Alec L. Robitaille">
+<meta name="generator" content="bookdown 0.24.1 with bs4_book()">
+<meta property="og:title" content="8 Week 7 | Learning bayesian data analysis with Statistical Rethinking">
+<meta property="og:type" content="book">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="8 Week 7 | Learning bayesian data analysis with Statistical Rethinking">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11.3/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><meta name="description" content="2021-09-07 [updated: 2021-10-07]  8.0.1 Data DT &lt;- data_trolley() precis(DT) ##       mean  sd 5.5% 94.5%   histogram ## case     NaN  NA  NA  NA        ## response   4.20 1.91  1   7 ...">
+<meta property="og:description" content="2021-09-07 [updated: 2021-10-07]  8.0.1 Data DT &lt;- data_trolley() precis(DT) ##       mean  sd 5.5% 94.5%   histogram ## case     NaN  NA  NA  NA        ## response   4.20 1.91  1   7 ...">
+<meta name="twitter:description" content="2021-09-07 [updated: 2021-10-07]  8.0.1 Data DT &lt;- data_trolley() precis(DT) ##       mean  sd 5.5% 94.5%   histogram ## case     NaN  NA  NA  NA        ## response   4.20 1.91  1   7 ...">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Learning bayesian data analysis with Statistical Rethinking</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> Overview</a></li>
+<li class="book-part">Homework</li>
+<li><a class="" href="week-1.html"><span class="header-section-number">2</span> Week 1</a></li>
+<li><a class="" href="week-2.html"><span class="header-section-number">3</span> Week 2</a></li>
+<li><a class="" href="week-3.html"><span class="header-section-number">4</span> Week 3</a></li>
+<li><a class="" href="week-4.html"><span class="header-section-number">5</span> Week 4</a></li>
+<li><a class="" href="week-5.html"><span class="header-section-number">6</span> Week 5</a></li>
+<li><a class="" href="week-6.html"><span class="header-section-number">7</span> Week 6</a></li>
+<li><a class="active" href="week-7.html"><span class="header-section-number">8</span> Week 7</a></li>
+<li><a class="" href="week-8.html"><span class="header-section-number">9</span> Week 8</a></li>
+<li><a class="" href="week-9.html"><span class="header-section-number">10</span> Week 9</a></li>
+<li class="book-part">Lectures</li>
+<li><a class="" href="lecture-01.html"><span class="header-section-number">11</span> Lecture 01</a></li>
+<li><a class="" href="lecture-02.html"><span class="header-section-number">12</span> Lecture 02</a></li>
+<li><a class="" href="lecture-03.html"><span class="header-section-number">13</span> Lecture 03</a></li>
+<li><a class="" href="lecture-04.html"><span class="header-section-number">14</span> Lecture 04</a></li>
+<li><a class="" href="lecture-05.html"><span class="header-section-number">15</span> Lecture 05</a></li>
+<li><a class="" href="lecture-06.html"><span class="header-section-number">16</span> Lecture 06</a></li>
+<li><a class="" href="lecture-07.html"><span class="header-section-number">17</span> Lecture 07</a></li>
+<li><a class="" href="lecture-08.html"><span class="header-section-number">18</span> Lecture 08</a></li>
+<li><a class="" href="lecture-09.html"><span class="header-section-number">19</span> Lecture 09</a></li>
+<li><a class="" href="lecture-10.html"><span class="header-section-number">20</span> Lecture 10</a></li>
+<li><a class="" href="lecture-11.html"><span class="header-section-number">21</span> Lecture 11</a></li>
+<li><a class="" href="lecture-12.html"><span class="header-section-number">22</span> Lecture 12</a></li>
+<li><a class="" href="lecture-13.html"><span class="header-section-number">23</span> Lecture 13</a></li>
+<li><a class="" href="lecture-14.html"><span class="header-section-number">24</span> Lecture 14</a></li>
+<li><a class="" href="lecture-15.html"><span class="header-section-number">25</span> Lecture 15</a></li>
+<li><a class="" href="lecture-16.html"><span class="header-section-number">26</span> Lecture 16</a></li>
+<li><a class="" href="lecture-17.html"><span class="header-section-number">27</span> Lecture 17</a></li>
+<li><a class="" href="lecture-18.html"><span class="header-section-number">28</span> Lecture 18</a></li>
+<li><a class="" href="lecture-19.html"><span class="header-section-number">29</span> Lecture 19</a></li>
+<li><a class="" href="lecture-20.html"><span class="header-section-number">30</span> Lecture 20</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="week-7" class="section level1" number="8">
+<h1>
+<span class="header-section-number">8</span> Week 7<a class="anchor" aria-label="anchor" href="#week-7"><i class="fas fa-link"></i></a>
+</h1>
+<p>2021-09-07 [updated: 2021-10-07]</p>
+<div id="data-6" class="section level3" number="8.0.1">
+<h3>
+<span class="header-section-number">8.0.1</span> Data<a class="anchor" aria-label="anchor" href="#data-6"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb140"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">DT</span> <span class="op">&lt;-</span> <span class="fu">data_trolley</span><span class="op">(</span><span class="op">)</span>
+<span class="fu">precis</span><span class="op">(</span><span class="va">DT</span><span class="op">)</span></code></pre></div>
+<pre><code>##              mean    sd 5.5% 94.5%      histogram
+## case          NaN    NA   NA    NA               
+## response     4.20  1.91    1     7   ▃▂▁▃▁▇▁▅▁▅▁▅
+## order       16.50  9.29    2    31        ▇▅▇▇▅▇▂
+## id            NaN    NA   NA    NA               
+## age         37.49 14.23   18    61  ▂▇▅▇▅▇▅▅▃▅▂▁▁
+## male         0.57  0.49    0     1     ▅▁▁▁▁▁▁▁▁▇
+## edu           NaN    NA   NA    NA               
+## action       0.43  0.50    0     1     ▇▁▁▁▁▁▁▁▁▅
+## intention    0.47  0.50    0     1     ▇▁▁▁▁▁▁▁▁▇
+## contact      0.20  0.40    0     1     ▇▁▁▁▁▁▁▁▁▂
+## story         NaN    NA   NA    NA               
+## action2      0.63  0.48    0     1     ▃▁▁▁▁▁▁▁▁▇
+## education    5.73  1.35    3     8 ▁▁▁▁▁▂▁▅▁▇▁▂▁▂
+## individual 166.00 95.56   19   313        ▇▇▇▇▇▇▅</code></pre>
+<p>Response: 1-7 integer, “how morally permissible the action to be taken (or not) is.” Categorical, ordered, but distances between categories is not metric or known.</p>
+<p>Logit = log-odds, cumulative logit = log-cumulative-odds. Both constrained between 0-1.</p>
+<p>Log-cumulative-odds for response 7 will be infinity since log(1/(1-1)) = infinity.
+Given this, we only need K-1 = 6 intercepts.</p>
+</div>
+<div id="model-ordered-categorical-outcome" class="section level3" number="8.0.2">
+<h3>
+<span class="header-section-number">8.0.2</span> Model: ordered categorical outcome<a class="anchor" aria-label="anchor" href="#model-ordered-categorical-outcome"><i class="fas fa-link"></i></a>
+</h3>
+<p>Probability of data: <span class="math inline">\(R_{i} \sim \text{Ordered-logit}(\phi_{i}, K)\)</span></p>
+<p>Linear model: <span class="math inline">\(\phi_{i} = 0\)</span></p>
+<p>Prior for each intercept: <span class="math inline">\(K_{k} \sim \text{Normal}(0, 1.5)\)</span></p>
+<div class="sourceCode" id="cb142"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/writeLines.html">writeLines</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="fu">tar_read</span><span class="op">(</span><span class="va">stan_c_file_w07_model1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>## data {
+##   int N;
+##   int K;
+##   int response[N];
+##   int action[N];
+##   int intention[N];
+##   int contact[N];
+## }
+## parameters {
+##  // Cut points are the positions of responses along cumulative odds
+##   ordered[K] cutpoints;
+##   real beta_action;
+##   real beta_intention;
+##   real beta_contact;
+## }
+## model {
+##   vector[N] phi;
+## 
+##  for (i in 1:N) {
+##      phi[i] = beta_action * action[i] + beta_contact * contact[i] + beta_intention * intention[i];
+##      response[i] ~ ordered_logistic(phi[i], cutpoints);
+##  }
+## 
+##   cutpoints ~ normal(0, 1.5);
+##   beta_action ~ normal(0, 0.5);
+##   beta_contact ~ normal(0, 0.5);
+##   beta_intention ~ normal(0, 0.5);
+## }</code></pre>
+<div class="sourceCode" id="cb144"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">model1_draws</span> <span class="op">&lt;-</span> <span class="fu">tar_read</span><span class="op">(</span><span class="va">stan_c_mcmc_w07_model1</span><span class="op">)</span><span class="op">$</span><span class="fu">draws</span><span class="op">(</span><span class="op">)</span>
+
+<span class="fu">mcmc_areas</span><span class="op">(</span><span class="va">model1_draws</span>, regex_pars <span class="op">=</span> <span class="st">'beta'</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-65-1.png" width="672"></div>
+<p>Interactions</p>
+<div class="sourceCode" id="cb145"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/writeLines.html">writeLines</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="fu">tar_read</span><span class="op">(</span><span class="va">stan_c_file_w07_model1_interactions</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>## data {
+##   int N;
+##   int K;
+##   int response[N];
+##   int action[N];
+##   int intention[N];
+##   int contact[N];
+## }
+## parameters {
+##  // Cut points are the positions of responses along cumulative odds
+##   ordered[K] cutpoints;
+##   real beta_action;
+##   real beta_intention;
+##   real beta_contact;
+##   real beta_intention_contact;
+##   real beta_intention_action;
+## }
+## model {
+##   vector[N] phi;
+## 
+##  for (i in 1:N) {
+##      phi[i] = beta_action * action[i] + beta_contact * contact[i] + beta_intention * intention[i] + beta_intention_contact * intention[i] * contact[i]  + beta_intention_action * intention[i] * action[i]
+##      ;
+##      response[i] ~ ordered_logistic(phi[i], cutpoints);
+##  }
+## 
+##   cutpoints ~ normal(0, 1.5);
+##   beta_action ~ normal(0, 0.5);
+##   beta_contact ~ normal(0, 0.5);
+##   beta_intention ~ normal(0, 0.5);
+## }</code></pre>
+<div class="sourceCode" id="cb147"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">model1_interactions_draws</span> <span class="op">&lt;-</span> <span class="fu">tar_read</span><span class="op">(</span><span class="va">stan_c_mcmc_w07_model1_interactions</span><span class="op">)</span><span class="op">$</span><span class="fu">draws</span><span class="op">(</span><span class="op">)</span>
+
+<span class="fu">mcmc_areas</span><span class="op">(</span><span class="va">model1_interactions_draws</span>, regex_pars <span class="op">=</span> <span class="st">'beta'</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-67-1.png" width="672"></div>
+<div class="sourceCode" id="cb148"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">mcmc_areas</span><span class="op">(</span><span class="va">model1_interactions_draws</span>, regex_pars <span class="op">=</span> <span class="st">'cut'</span>, transformations <span class="op">=</span> <span class="va">inv.logit</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.window.html">xlim</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span></code></pre></div>
+<pre><code>## Scale for 'x' is already present. Adding another scale for 'x', which will
+## replace the existing scale.</code></pre>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-67-2.png" width="672"></div>
+</div>
+<div id="model-ordered-categorical-predictors" class="section level3" number="8.0.3">
+<h3>
+<span class="header-section-number">8.0.3</span> Model: ordered categorical predictors<a class="anchor" aria-label="anchor" href="#model-ordered-categorical-predictors"><i class="fas fa-link"></i></a>
+</h3>
+<p>Probability of data: <span class="math inline">\(R_{i} \sim \text{Ordered-logit}(\phi_{i}, K)\)</span></p>
+<p>Linear model: <span class="math inline">\(\phi_{i} = \beta_{E} \sum_{j=0}^{E_{i}-1}\delta_{j} + \beta{A_{i}}A_{i} + \beta{I_{i}}I_{i} + \beta{C_{i}}C_{i}\)</span></p>
+<p>Prior for each intercept: <span class="math inline">\(K_{k} \sim \text{Normal}(0, 1.5)\)</span>
+Prior for each <span class="math inline">\(\beta\)</span>: <span class="math inline">\(\beta_{A}, \beta_{I}, \beta_{C}, \beta_{E}K_{k} \sim \text{Normal}(0, 1)\)</span>
+Prior for the <span class="math inline">\(\delta\)</span> vector: <span class="math inline">\(\delta \sim \text{Dirichlet}(\alpha)\)</span></p>
+<p>Dirichlet distribution = multivariate extension of the beta distribution. Probabilities between zero and one, that all sum to one. It is parameterized by
+pseudo-counts of observations.</p>
+<p>The intercept takes the first category, so we add 0 to the sequence of</p>
+<p>Make sure to reorder education levels</p>
+<div class="sourceCode" id="cb150"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/writeLines.html">writeLines</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="fu">tar_read</span><span class="op">(</span><span class="va">stan_c_file_w07_model2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>## data {
+##   int N;
+##   int K;
+##   int N_edu;
+##   int response[N];
+##   int action[N];
+##   int intention[N];
+##   int contact[N];
+##   int education[N];
+##   vector[N_edu - 1] alpha;
+## }
+## parameters {
+##  // Cut points are the positions of responses along cumulative odds
+##   ordered[K] cutpoints;
+##   real beta_action;
+##   real beta_intention;
+##   real beta_contact;
+##   real beta_education;
+## 
+##   // Vector N reals that sum to 1
+##   simplex[7] delta;
+## }
+## model {
+##   vector[N] phi;
+##   vector[N_edu] delta_j;
+## 
+##   delta ~ dirichlet(alpha);
+##   delta_j = append_row(0, delta);
+## 
+##  for (i in 1:N) {
+##     // add beta education  * sum delta j, up to current i's education
+##     phi[i] = beta_education * sum(delta_j[1:education[i]]) +
+##       beta_action * action[i] +
+##       beta_contact * contact[i] +
+##       beta_intention * intention[i];
+##     response[i] ~ ordered_logistic(phi[i], cutpoints);
+##  }
+## 
+##   cutpoints ~ normal(0, 1.5);
+##   beta_action ~ normal(0, 1);
+##   beta_contact ~ normal(0, 1);
+##   beta_intention ~ normal(0, 1);
+##   beta_education ~ normal(0, 1);
+## }</code></pre>
+<div class="sourceCode" id="cb152"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">model2_draws</span> <span class="op">&lt;-</span> <span class="fu">tar_read</span><span class="op">(</span><span class="va">stan_c_mcmc_w07_model2</span><span class="op">)</span><span class="op">$</span><span class="fu">draws</span><span class="op">(</span><span class="op">)</span>
+
+<span class="fu">mcmc_areas</span><span class="op">(</span><span class="va">model2_draws</span>, regex_pars <span class="op">=</span> <span class="st">'beta'</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-69-1.png" width="672"></div>
+<div class="sourceCode" id="cb153"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">mcmc_areas</span><span class="op">(</span><span class="va">model2_draws</span>, regex_pars <span class="op">=</span> <span class="st">'delta'</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-69-2.png" width="672"></div>
+<div class="sourceCode" id="cb154"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">mcmc_areas</span><span class="op">(</span><span class="va">model2_draws</span>, regex_pars <span class="op">=</span> <span class="st">'cut'</span>, transformations <span class="op">=</span> <span class="va">inv.logit</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.window.html">xlim</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span></code></pre></div>
+<pre><code>## Scale for 'x' is already present. Adding another scale for 'x', which will
+## replace the existing scale.</code></pre>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-69-3.png" width="672"></div>
+</div>
+<div id="question-1-6" class="section level2" number="8.1">
+<h2>
+<span class="header-section-number">8.1</span> Question 1<a class="anchor" aria-label="anchor" href="#question-1-6"><i class="fas fa-link"></i></a>
+</h2>
+<blockquote>
+<p>In the Trolley data — <code>data(Trolley)</code> — we saw how education level (modeled as an
+ordered category) is associated with responses. Is this association causal? One
+plausible confound is that education is also associated with age, through a
+causal process: People are older when they finish school than when they begin
+it. Reconsider the Trolley data in this light. Draw a DAG that represents
+hypothetical causal relationships among response, education, and age.</p>
+</blockquote>
+<div class="sourceCode" id="cb156"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">dag</span> <span class="op">&lt;-</span> <span class="fu">dagify</span><span class="op">(</span>
+  <span class="va">response</span> <span class="op">~</span> <span class="va">education</span> <span class="op">+</span> <span class="va">age</span> <span class="op">+</span> <span class="va">action</span> <span class="op">+</span> <span class="va">intention</span> <span class="op">+</span> <span class="va">contact</span>,
+  <span class="va">education</span> <span class="op">~</span> <span class="va">age</span>,
+  <span class="va">contact</span> <span class="op">~</span> <span class="va">action</span>,
+  exposure <span class="op">=</span> <span class="st">'education'</span>,
+  outcome <span class="op">=</span> <span class="st">'response'</span>
+<span class="op">)</span>
+
+<span class="fu">dag_plot</span><span class="op">(</span><span class="va">dag</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-70-1.png" width="672"></div>
+<div class="sourceCode" id="cb157"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">adjustmentSets</span><span class="op">(</span><span class="va">dag</span>, exposure <span class="op">=</span> <span class="st">'education'</span>, outcome <span class="op">=</span> <span class="st">'response'</span>, effect <span class="op">=</span> <span class="st">'total'</span> <span class="op">)</span></code></pre></div>
+<pre><code>## { age }</code></pre>
+<p>Which statistical model or models do you need to evaluate the causal influence of
+education on responses? Fit these models to the trolley data. What do you
+conclude about the causal relationships among these three variables?</p>
+<div class="sourceCode" id="cb159"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/writeLines.html">writeLines</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="fu">tar_read</span><span class="op">(</span><span class="va">stan_c_file_w07_model2_age</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>## data {
+##   int N;
+##   int K;
+##   int N_edu;
+##   int response[N];
+##   int action[N];
+##   int intention[N];
+##   int contact[N];
+##   int education[N];
+##   real age[N];
+##   vector[N_edu - 1] alpha;
+## }
+## parameters {
+##  // Cut points are the positions of responses along cumulative odds
+##   ordered[K] cutpoints;
+##   real beta_action;
+##   real beta_intention;
+##   real beta_contact;
+##   real beta_education;
+##   real beta_age;
+## 
+##   // Vector N reals that sum to 1
+##   simplex[7] delta;
+## }
+## model {
+##   vector[N] phi;
+##   vector[N_edu] delta_j;
+## 
+##   delta ~ dirichlet(alpha);
+##   delta_j = append_row(0, delta);
+## 
+##  for (i in 1:N) {
+##     // add beta education  * sum delta j, up to current i's education
+##     phi[i] = beta_education * sum(delta_j[1:education[i]]) +
+##       beta_action * action[i] +
+##       beta_contact * contact[i] +
+##       beta_age * age[i] +
+##       beta_intention * intention[i];
+##     response[i] ~ ordered_logistic(phi[i], cutpoints);
+##  }
+## 
+##   cutpoints ~ normal(0, 1.5);
+##   beta_action ~ normal(0, 1);
+##   beta_contact ~ normal(0, 1);
+##   beta_intention ~ normal(0, 1);
+##   beta_education ~ normal(0, 1);
+##   beta_age ~ normal(0, 1);
+## }</code></pre>
+<div class="sourceCode" id="cb161"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">model2_age_draws</span> <span class="op">&lt;-</span> <span class="fu">tar_read</span><span class="op">(</span><span class="va">stan_c_mcmc_w07_model2_age</span><span class="op">)</span><span class="op">$</span><span class="fu">draws</span><span class="op">(</span><span class="op">)</span>
+
+<span class="fu">mcmc_areas</span><span class="op">(</span><span class="va">model2_age_draws</span>, regex_pars <span class="op">=</span> <span class="st">'beta'</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-72-1.png" width="672"></div>
+<div class="sourceCode" id="cb162"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">mcmc_areas</span><span class="op">(</span><span class="va">model2_age_draws</span>, regex_pars <span class="op">=</span> <span class="st">'delta'</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-72-2.png" width="672"></div>
+<div class="sourceCode" id="cb163"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">mcmc_areas</span><span class="op">(</span><span class="va">model2_age_draws</span>, regex_pars <span class="op">=</span> <span class="st">'cut'</span>, transformations <span class="op">=</span> <span class="va">inv.logit</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.window.html">xlim</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span></code></pre></div>
+<pre><code>## Scale for 'x' is already present. Adding another scale for 'x', which will
+## replace the existing scale.</code></pre>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-72-3.png" width="672"></div>
+</div>
+<div id="question-2-5" class="section level2" number="8.2">
+<h2>
+<span class="header-section-number">8.2</span> Question 2<a class="anchor" aria-label="anchor" href="#question-2-5"><i class="fas fa-link"></i></a>
+</h2>
+<blockquote>
+<p>Consider one more variable in the Trolley data: Gender. Suppose that gender
+might influence education as well as response directly. Draw the DAG now that
+includes response, education, age, and gender. Using only the DAG, is it
+possible that the inferences from Problem 1 are con founded by gender? If so,
+define any additional models you need to infer the causal influence of education
+on response. What do you conclude?</p>
+</blockquote>
+<div class="sourceCode" id="cb165"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">dag</span> <span class="op">&lt;-</span> <span class="fu">dagify</span><span class="op">(</span>
+  <span class="va">response</span> <span class="op">~</span> <span class="va">education</span> <span class="op">+</span> <span class="va">age</span> <span class="op">+</span> <span class="va">gender</span> <span class="op">+</span> <span class="va">action</span> <span class="op">+</span> <span class="va">intention</span> <span class="op">+</span> <span class="va">contact</span>,
+  <span class="va">education</span> <span class="op">~</span> <span class="va">age</span>,
+  <span class="va">education</span> <span class="op">~</span> <span class="va">gender</span>,
+  <span class="va">contact</span> <span class="op">~</span> <span class="va">action</span>,
+  exposure <span class="op">=</span> <span class="st">'education'</span>,
+  outcome <span class="op">=</span> <span class="st">'response'</span>
+<span class="op">)</span>
+
+<span class="fu">dag_plot</span><span class="op">(</span><span class="va">dag</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-73-1.png" width="672"></div>
+<div class="sourceCode" id="cb166"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">adjustmentSets</span><span class="op">(</span><span class="va">dag</span>, exposure <span class="op">=</span> <span class="st">'education'</span>, outcome <span class="op">=</span> <span class="st">'response'</span>, effect <span class="op">=</span> <span class="st">'total'</span> <span class="op">)</span></code></pre></div>
+<pre><code>## { age, gender }</code></pre>
+<div class="sourceCode" id="cb168"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/writeLines.html">writeLines</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="fu">tar_read</span><span class="op">(</span><span class="va">stan_c_file_w07_model2_gender</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>## data {
+##   int N;
+##   int K;
+##   int N_edu;
+##   int response[N];
+##   int action[N];
+##   int intention[N];
+##   int contact[N];
+##   int education[N];
+##   real age[N];
+##   int gender[N];
+##   vector[N_edu - 1] alpha;
+## }
+## parameters {
+##  // Cut points are the positions of responses along cumulative odds
+##   ordered[K] cutpoints;
+##   real beta_action;
+##   real beta_intention;
+##   real beta_contact;
+##   real beta_education;
+##   real beta_age;
+##   real beta_gender;
+## 
+##   // Vector N reals that sum to 1
+##   simplex[7] delta;
+## }
+## model {
+##   vector[N] phi;
+##   vector[N_edu] delta_j;
+## 
+##   delta ~ dirichlet(alpha);
+##   delta_j = append_row(0, delta);
+## 
+##  for (i in 1:N) {
+##     // add beta education  * sum delta j, up to current i's education
+##     phi[i] = beta_education * sum(delta_j[1:education[i]]) +
+##       beta_action * action[i] +
+##       beta_contact * contact[i] +
+##       beta_age * age[i] +
+##       beta_gender * gender[i] +
+##       beta_intention * intention[i];
+##     response[i] ~ ordered_logistic(phi[i], cutpoints);
+##  }
+## 
+##   cutpoints ~ normal(0, 1.5);
+##   beta_action ~ normal(0, 1);
+##   beta_contact ~ normal(0, 1);
+##   beta_intention ~ normal(0, 1);
+##   beta_education ~ normal(0, 1);
+##   beta_age ~ normal(0, 1);
+##   beta_gender ~ normal(0, 1);
+## }</code></pre>
+<div class="sourceCode" id="cb170"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">model2_gender_draws</span> <span class="op">&lt;-</span> <span class="fu">tar_read</span><span class="op">(</span><span class="va">stan_c_mcmc_w07_model2_gender</span><span class="op">)</span><span class="op">$</span><span class="fu">draws</span><span class="op">(</span><span class="op">)</span>
+
+<span class="fu">mcmc_areas</span><span class="op">(</span><span class="va">model2_gender_draws</span>, regex_pars <span class="op">=</span> <span class="st">'beta'</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-75-1.png" width="672"></div>
+<div class="sourceCode" id="cb171"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">mcmc_areas</span><span class="op">(</span><span class="va">model2_gender_draws</span>, regex_pars <span class="op">=</span> <span class="st">'delta'</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-75-2.png" width="672"></div>
+<div class="sourceCode" id="cb172"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">mcmc_areas</span><span class="op">(</span><span class="va">model2_gender_draws</span>, regex_pars <span class="op">=</span> <span class="st">'cut'</span>, transformations <span class="op">=</span> <span class="va">inv.logit</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.window.html">xlim</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span></code></pre></div>
+<pre><code>## Scale for 'x' is already present. Adding another scale for 'x', which will
+## replace the existing scale.</code></pre>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-75-3.png" width="672"></div>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="week-6.html"><span class="header-section-number">7</span> Week 6</a></div>
+<div class="next"><a href="week-8.html"><span class="header-section-number">9</span> Week 8</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li>
+<a class="nav-link" href="#week-7"><span class="header-section-number">8</span> Week 7</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#data-6"><span class="header-section-number">8.0.1</span> Data</a></li>
+<li><a class="nav-link" href="#model-ordered-categorical-outcome"><span class="header-section-number">8.0.2</span> Model: ordered categorical outcome</a></li>
+<li><a class="nav-link" href="#model-ordered-categorical-predictors"><span class="header-section-number">8.0.3</span> Model: ordered categorical predictors</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#question-1-6"><span class="header-section-number">8.1</span> Question 1</a></li>
+<li><a class="nav-link" href="#question-2-5"><span class="header-section-number">8.2</span> Question 2</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Learning bayesian data analysis with Statistical Rethinking</strong>" was written by Alec L. Robitaille. It was last built on 2021-08-18 [updated: 2021-10-07].</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>
