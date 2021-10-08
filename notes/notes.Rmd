@@ -1524,10 +1524,101 @@ different functions.
 
 ## Measurement error
 
+There is always some error in measurement. Sigma in our above models captures 
+error on outcomes. What about error on predictors? What if error isn't constant?
+
+### Example: waffle divorces
+
+Error on outcome (divorce rate) is heterogeneous because smaller states
+have larger error. 
+
+A -> M -> D -> D_obs, A -> D, N -> D_obs
+
+D is the true, unobserved divorce rate. D_obs is the observed divorce rate. 
+
+Approach:
+
+1. Treat true divorce rate as an unknown parameter
+1. The observed rate is sampled from a Gaussian distribution
+
+D_obs ~ Normal (D true, D standard error)
+
+This gives us shrinkage considering the standard error as well as the 
+modeled relationship between divorce rate and median age. 
+
+## Error on predictor
+
+### Example: marriage rate
+
+Consider error on marriage rate: 
+
+Likelihood for observed rate, for each state
+
+M_obs ~ Normal (M true, M standard error) 
+
+M true ~ Normal (0, 1)
+
+Note: this is a simplification that misses that M and A are associated. 
+
+### Sources of error
+
+Data come from some uncertain procedure but we often discard the uncertainty
+when we get to the analysis/model. 
+
+For example, taking a series of measurements but then modeling their group-level
+averages instead of the raw value. We toss away information about variation, 
+sample size, etc. 
+
+## Missing data
+
+Usual approach is to only consider the complete cases. This is either 
+actively done by the user or silently, by software eg `lm`. This discards a lot 
+of information and **is not harmless**. 
+
+Options include multiple imputation (frequentist approach based on..), 
+Bayesian imputation. Do not: replace missing values with the mean. The model 
+takes these as the true value. 
+
+Missing values can be a confound. 
 
 
+### Types of missingness 
+
+#### MCAR: Missing completely at random
+
+When the response is completely independent of the missingness, 
+the missingness variable is not a confound and you do not **need** to 
+do imputation, but if do it will add precision. 
+
+For example, brain neocortex proportion. If there are missing values, 
+we can consider B obs = function(B, R_B) where R_B is the missingness of B. 
+There are two paths from B -> K, the direct path from B obs -> B  -> K and the 
+indirect path from B obs -> B <- U -> M -> K. There is no back door. 
+
+When would we ever really get a completely random missingness? 
+
+#### MAR: Missing at random
+
+Missingness more likely for specific values of another variable. 
+
+For example, brain neocortex proportion and body mass M. Species that are 
+larger or smaller are more likely to have missing values. Maybe there's an
+size related observation bias. Now, M -> R_B creates a backdoor. To close
+the backdoor, we can condition on M. Then the missingness R_B value is ignorable,
+but we must do the imputation. 
 
 
+#### MNAR: Missing not at random
+
+Missingness is more likely for specific values of the response (or for 
+specific values of an unobserved variable that influences both the response
+and the missingness). 
+
+For example, if brain neocortex proportion is higher in monkeys more similar 
+to humans and we are more likely to study these monkeys. So our missing values
+in B are in species with lower B. Alternatively, We can't close this backdoor. 
+
+
+# (PART) References {-}
 # References
-
 <div id="refs"></div>
