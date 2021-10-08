@@ -16,7 +16,7 @@ See the full [references](#references) for all packages.
 * `stantargets`: https://docs.ropensci.org/stantargets/
 * `bookdown`: https://bookdown.org/home/
 
-### Adaptations
+## Adaptations
 
 Stan+R: https://vincentarelbundock.github.io/rethinking2/
 
@@ -27,6 +27,6 @@ brms+tidy: https://bookdown.org/content/4857/
 Julia+Turing: https://github.com/StatisticalRethinkingJulia/TuringModels.jl
 
 
-### Etc
+## Etc
 
 https://chi-feng.github.io/mcmc-demo
