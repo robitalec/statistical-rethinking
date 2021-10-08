@@ -1,0 +1,6 @@
+bookdown::bs4_book:
+  link-citations: yes
+  theme:
+    primary: "#4C6496"
+  repo:
+    base: https://gitlab.com/robit.a/statistical-rethinking
