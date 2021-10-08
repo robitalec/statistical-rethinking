@@ -9,7 +9,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # (PART) Homework {-}
 
-# Homework: Week 1
+# Week 1
 2021-08-18 [updated: `r Sys.Date()`]
 
 ## Variables

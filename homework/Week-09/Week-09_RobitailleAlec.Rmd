@@ -5,7 +5,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-# Homework: Week 9
+# Week 9
 2021-09-14 [updated: `r Sys.Date()`]
 
 ```{r, include=FALSE}

@@ -10,7 +10,7 @@ editor_options:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# Homework: Week 2
+# Week 2
 2021-08-24 [updated: `r Sys.Date()`]
 
 ## Question 1
