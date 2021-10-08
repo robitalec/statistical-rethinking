@@ -158,10 +158,18 @@ targets_render <- c(
 		index,
 		'index.Rmd'
 	),
+	tar_file(
+		book_yml,
+		'_bookdown.yml'
+	),
+	tar_file(
+		out_yml,
+		'_output.yml'
+	),
 
 	tar_target(
 		book,
-		render_with_deps(index, rmd_files)
+		render_with_deps(index, c(rmd_files, book_yml, out_yml))
 	)
 )
 
