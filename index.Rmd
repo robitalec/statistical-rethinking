@@ -19,7 +19,7 @@ Alec L. Robitaille
 ```
 
 
-## Seed
+## Seed {.unnumbered}
 
 ```{r}
 set.seed(42)

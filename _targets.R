@@ -166,10 +166,14 @@ targets_render <- c(
 		out_yml,
 		'_output.yml'
 	),
+	tar_file(
+		readme,
+		'README.md'
+	),
 
 	tar_target(
 		book,
-		render_with_deps(index, c(rmd_files, book_yml, out_yml))
+		render_with_deps(index, c(rmd_files, book_yml, out_yml, readme))
 	)
 )
 

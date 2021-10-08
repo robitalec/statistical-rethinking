@@ -1,4 +1,4 @@
-## Approach
+## Approach  {.unnumbered}
 
 For Chapters 1-4, I use `quap` from the `rethinking` package, following
 along with the book and solutions. For Chapters 5-10, I use `cmdstanr` and
@@ -8,7 +8,7 @@ lectures available online. And thanks to all the package and Stan developers.
 
 See the full [references](#references) for all packages. 
 
-## Links
+## Links  {.unnumbered}
 
 * Course: [https://github.com/rmcelreath/statrethinking_winter2019](https://github.com/rmcelreath/statrethinking_winter2019)
 * `targets`: https://books.ropensci.org/targets/
@@ -16,7 +16,7 @@ See the full [references](#references) for all packages.
 * `stantargets`: https://docs.ropensci.org/stantargets/
 * `bookdown`: https://bookdown.org/home/
 
-## Adaptations
+## Adaptations  {.unnumbered}
 
 Stan+R: https://vincentarelbundock.github.io/rethinking2/
 
@@ -27,6 +27,6 @@ brms+tidy: https://bookdown.org/content/4857/
 Julia+Turing: https://github.com/StatisticalRethinkingJulia/TuringModels.jl
 
 
-## Etc
+## Etc {.unnumbered}
 
 https://chi-feng.github.io/mcmc-demo
