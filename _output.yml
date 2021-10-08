@@ -4,3 +4,4 @@ bookdown::bs4_book:
     primary: "#4C6496"
   repo:
     base: https://gitlab.com/robit.a/statistical-rethinking
+  css: style.css
