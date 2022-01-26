@@ -222,7 +222,7 @@ Simulate from the joint posterior distribution and evaluate
     - where the seq is a sequence of your x variable (eg for standardize -2, 2
 4. Plot lines
 
-These are all the possibility give the prior, **not the data**
+These are all the possibility given the prior, **not the data**
 
 If the lines show such a limited relationship that you'd expect that the true relationship is outside of these, expand the priors. 
 
