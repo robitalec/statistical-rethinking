@@ -5,3 +5,5 @@ bookdown::bs4_book:
   repo:
     base: https://gitlab.com/robit.a/statistical-rethinking
   css: style.css
+  search:
+    engine: fuse
