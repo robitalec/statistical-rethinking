@@ -2,7 +2,7 @@
 
 Learning bayesian data analysis with the Statistical Rethinking textbook
 and online lectures. The original version followed the 2019 lectures, and
-I am in progress of working through the 2022 lectures and associated homework
+I am in the progress of working through the 2022 lectures and associated homework
 with the [statistical rethinking colearning 2022 group](https://github.com/robitalec/statistical-rethinking-colearning-2022).
 
 ## Approach  {.unnumbered}
