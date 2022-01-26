@@ -29,7 +29,7 @@ Any hypothesis H may correspond to multiple process models
 
 Any statistical model may correspond to multiple hypothesis
 
-![Untitled](Statistical%20Rethinking%209648278528c64765bc03ca8a8a8e1f74/Untitled.png)
+![](hypo-proces-stat-models.png)
 
 ## Small world / large world
 
