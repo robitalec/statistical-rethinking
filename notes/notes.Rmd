@@ -1,6 +1,6 @@
-# (PART) Lectures {-}
+# (PART) Lectures 2019 {-}
 
-# Lecture 01
+# Lecture 01 - 2019
 
 ### Popper
 
@@ -110,7 +110,7 @@ Probability theory is just normalized counting
 3. Evaluate, critique the model
 4. (Restart)
 
-# Lecture 02
+# Lecture 02 - 2019
 
 ## Joint prior distribution
 
@@ -194,7 +194,7 @@ Approximate the posterior, then you can sample from the posteriors `sample(p, pr
 - `rbinorm(1e4, size = 0, prob = samples)`
 - ...
 
-# Lecture 03
+# Lecture 03 - 2019
 
 ## Regressions
 
@@ -242,7 +242,7 @@ Function in rethinking is `rethinking::quap`
 
 Should be default behavior when doing a regression
 
-# Lecture 04
+# Lecture 04 - 2019
 
 ## Standardizing variables
 
@@ -300,7 +300,7 @@ Caution: over fitting
 2. Choose degree of basis functions - how wiggly, polynomial
 3. Find posterior distribution of weights
 
-# Lecture 05
+# Lecture 05 - 2019
 
 ## Multiple regression models
 
@@ -399,7 +399,7 @@ Result is 2 intercepts = where alpha alone is for female and alpha + beta M is i
 
 Problem: for k categories, need k-1 dummy  variables and need priors for each. also, priors aren't balanced because of alpha vs beta
 
-# Lecture 06
+# Lecture 06 - 2019
 
 ## Index variable
 
@@ -489,7 +489,7 @@ Z is common result of X and Y. X and Y are independent, if you condition on Z. C
 4. Condition on variables in backdoor paths to close them. 
 
 
-# Lecture 07
+# Lecture 07 - 2019
 
 ## Four elemental confounds (continued)
 
@@ -531,7 +531,7 @@ Therefore there's a trap of picking models solely on their R squared because inc
 
 
 
-# Lecture 08
+# Lecture 08 - 2019
 ## Information theory
 
 Information: reduction in uncertainty caused by learning an outcome
@@ -673,7 +673,7 @@ Incredible
 
 ![](pointwise-waic.png)
 
-# Lecture 09
+# Lecture 09 - 2019
 
 ## Conditioning
 
@@ -761,7 +761,7 @@ Plot bloom as response and water on x
 
 Caution: hard to interpret, hard to estimate
 
-# Lecture 10
+# Lecture 10 - 2019
 
 ## Markov Chain Monte Carlo
 
@@ -854,7 +854,7 @@ Rhat: Convergence diagnostic. 1 is good. Ratio of variance within vs ratio of va
 
 TODO: p283
 
-# Lecture 11
+# Lecture 11 - 2019
 
 Flat distributions have the highest entropy and have many more ways that they can be realized
 
@@ -1004,7 +1004,7 @@ It's really hard to understand just using the precis output therefore
 
 Controlling for handedness here isn't because of the backdoor criterion. Handedness = noise, controlling for it gives us a more precise criteria
 
-# Lecture 12
+# Lecture 12 - 2019
 
 ## Relative and absolute effects
 
@@ -1074,7 +1074,7 @@ These are equally valid, but different questions.
 Flip of covariates sign when adding/removing a variable
 
 
-# Lecture 13
+# Lecture 13 - 2019
 
 ## Binomial
 
@@ -1157,7 +1157,7 @@ Drunkenness is a hidden state
 
 There is a probability that they drink or work, and within the work, a probability that they produce 0 or 1+ manuscripts
 
-# Lecture 14
+# Lecture 14 - 2019
 
 ## Ordered categories
 
@@ -1171,7 +1171,7 @@ Solution: use a log-cumulative-odds link probability model
 
 TODO fill
 
-# Lecture 15
+# Lecture 15 - 2019
 
 ## Multilevel models
 
@@ -1237,7 +1237,7 @@ Why are varying effects more accurate than fixed effects?
 - Varying effects - adaptive regularization - partial pooling
 
 
-# Lecture 16
+# Lecture 16 - 2019
 
 ## Multiple clusters
 
@@ -1306,7 +1306,7 @@ Three approaches:
 
 Note the effects at the limits are reduced because of ceiling and floor effects of generalized linear models. Eg near 0-1 bounds, the effects will be reduced. 
 
-# Lecture 17
+# Lecture 17 - 2019
 
 ## Varying slopes
 
@@ -1386,7 +1386,7 @@ Simpler to do for uni variate models, since we need to factor all parameters out
 Cholesky factor
 
 
-# Lecture 18
+# Lecture 18 - 2019
 
 ## Centering/non-centered
 
@@ -1457,7 +1457,7 @@ How to disentangle dyadic offsets, general giving, general receiving rates, etc.
 Use multiple covariance matrices. 2x2 giving + receiving, 2x2 dij + dji (paired
 dyad offsets). dij != dji because one may give more than the other. 
 
-# Lecture 19
+# Lecture 19 - 2019
 
 ## Gaussian process regression: continuous categories
 
@@ -1520,7 +1520,7 @@ Alternatively, use a non-linear relationship between covariance
 and distance with a Gaussian process to consider infinite
 different functions. 
 
-# Lecture 20
+# Lecture 20 - 2019
 
 ## Measurement error
 
