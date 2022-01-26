@@ -6,15 +6,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>5 Week 5 | Learning bayesian data analysis with Statistical Rethinking</title>
 <meta name="author" content="Alec L. Robitaille">
-<meta name="description" content="2021-09-03 [updated: 2021-10-08]  5.1 Question 1  Consider the data(Wines2012) data table. These data are expert ratings of 20 different French and American wines by 9 different French and...">
+<meta name="description" content="2021-09-03 [updated: 2021-11-17]  5.1 Question 1  Consider the data(Wines2012) data table. These data are expert ratings of 20 different French and American wines by 9 different French and...">
 <meta name="generator" content="bookdown 0.24.1 with bs4_book()">
 <meta property="og:title" content="5 Week 5 | Learning bayesian data analysis with Statistical Rethinking">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://www.statistical-rethinking.robitalec.ca/week-5.html">
-<meta property="og:description" content="2021-09-03 [updated: 2021-10-08]  5.1 Question 1  Consider the data(Wines2012) data table. These data are expert ratings of 20 different French and American wines by 9 different French and...">
+<meta property="og:description" content="2021-09-03 [updated: 2021-11-17]  5.1 Question 1  Consider the data(Wines2012) data table. These data are expert ratings of 20 different French and American wines by 9 different French and...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="5 Week 5 | Learning bayesian data analysis with Statistical Rethinking">
-<meta name="twitter:description" content="2021-09-03 [updated: 2021-10-08]  5.1 Question 1  Consider the data(Wines2012) data table. These data are expert ratings of 20 different French and American wines by 9 different French and...">
+<meta name="twitter:description" content="2021-09-03 [updated: 2021-11-17]  5.1 Question 1  Consider the data(Wines2012) data table. These data are expert ratings of 20 different French and American wines by 9 different French and...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11.3/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -85,7 +85,7 @@
 <h1>
 <span class="header-section-number">5</span> Week 5<a class="anchor" aria-label="anchor" href="#week-5"><i class="fas fa-link"></i></a>
 </h1>
-<p>2021-09-03 [updated: 2021-10-08]</p>
+<p>2021-09-03 [updated: 2021-11-17]</p>
 <div id="question-1-4" class="section level2" number="5.1">
 <h2>
 <span class="header-section-number">5.1</span> Question 1<a class="anchor" aria-label="anchor" href="#question-1-4"><i class="fas fa-link"></i></a>
@@ -389,19 +389,19 @@ and be sure to check the chains.</p>
 <span class="va">q2_draws</span> <span class="op">&lt;-</span> <span class="va">q2</span><span class="op">$</span><span class="fu">draws</span><span class="op">(</span><span class="op">)</span>
 
 <span class="va">q2</span><span class="op">$</span><span class="fu">summary</span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code>## # A tibble: 9 × 10
+<pre><code>##  [90m# A tibble: 9 × 10 [39m
 ##   variable            mean   median     sd    mad      q5     q95  rhat ess_bulk
-##   &lt;chr&gt;              &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
-## 1 lp__            -9.24e+1 -9.20e+1 2.04   1.92   -96.2   -89.7    1.00    1746.
-## 2 alpha            8.61e-4 -1.84e-4 0.198  0.196   -0.312   0.336  1.00    3101.
-## 3 beta_flights[…  -2.04e-3 -9.90e-4 0.297  0.295   -0.501   0.484  1.00    1876.
-## 4 beta_flights[…  -5.52e-3 -1.04e-2 0.298  0.303   -0.483   0.489  1.00    1929.
-## 5 beta_wine_ame…  -8.69e-2 -8.85e-2 0.303  0.302   -0.575   0.403  1.00    1730.
-## 6 beta_wine_ame…   9.67e-2  1.02e-1 0.301  0.302   -0.406   0.589  1.00    1847.
-## 7 beta_judge_am…  -1.16e-1 -1.14e-1 0.296  0.295   -0.590   0.361  1.00    1864.
-## 8 beta_judge_am…   1.21e-1  1.20e-1 0.291  0.290   -0.347   0.602  1.00    1762.
-## 9 sigma            1.00e+0  9.99e-1 0.0534 0.0529   0.918   1.09   1.00    3052.
-## # … with 1 more variable: ess_tail &lt;dbl&gt;</code></pre>
+##    [3m [90m&lt;chr&gt; [39m [23m               [3m [90m&lt;dbl&gt; [39m [23m     [3m [90m&lt;dbl&gt; [39m [23m   [3m [90m&lt;dbl&gt; [39m [23m   [3m [90m&lt;dbl&gt; [39m [23m    [3m [90m&lt;dbl&gt; [39m [23m    [3m [90m&lt;dbl&gt; [39m [23m  [3m [90m&lt;dbl&gt; [39m [23m     [3m [90m&lt;dbl&gt; [39m [23m
+##  [90m1 [39m lp__            - [31m9 [39m [31m. [39m [31m24 [39m [90me [39m+1 - [31m9 [39m [31m. [39m [31m20 [39m [90me [39m+1 2.04   1.92   - [31m96 [39m [31m. [39m [31m2 [39m   - [31m89 [39m [31m. [39m [31m7 [39m    1.00     [4m1 [24m746.
+##  [90m2 [39m alpha            8.61 [90me [39m [31m-4 [39m - [31m1 [39m [31m. [39m [31m84 [39m [90me [39m [31m-4 [39m 0.198  0.196   - [31m0 [39m [31m. [39m [31m312 [39m   0.336  1.00     [4m3 [24m101.
+##  [90m3 [39m beta_flights[…  - [31m2 [39m [31m. [39m [31m0 [39m [31m4 [39m [90me [39m [31m-3 [39m - [31m9 [39m [31m. [39m [31m90 [39m [90me [39m [31m-4 [39m 0.297  0.295   - [31m0 [39m [31m. [39m [31m501 [39m   0.484  1.00     [4m1 [24m876.
+##  [90m4 [39m beta_flights[…  - [31m5 [39m [31m. [39m [31m52 [39m [90me [39m [31m-3 [39m - [31m1 [39m [31m. [39m [31m0 [39m [31m4 [39m [90me [39m [31m-2 [39m 0.298  0.303   - [31m0 [39m [31m. [39m [31m483 [39m   0.489  1.00     [4m1 [24m929.
+##  [90m5 [39m beta_wine_ame…  - [31m8 [39m [31m. [39m [31m69 [39m [90me [39m [31m-2 [39m - [31m8 [39m [31m. [39m [31m85 [39m [90me [39m [31m-2 [39m 0.303  0.302   - [31m0 [39m [31m. [39m [31m575 [39m   0.403  1.00     [4m1 [24m730.
+##  [90m6 [39m beta_wine_ame…   9.67 [90me [39m [31m-2 [39m  1.02 [90me [39m [31m-1 [39m 0.301  0.302   - [31m0 [39m [31m. [39m [31m406 [39m   0.589  1.00     [4m1 [24m847.
+##  [90m7 [39m beta_judge_am…  - [31m1 [39m [31m. [39m [31m16 [39m [90me [39m [31m-1 [39m - [31m1 [39m [31m. [39m [31m14 [39m [90me [39m [31m-1 [39m 0.296  0.295   - [31m0 [39m [31m. [39m [31m590 [39m   0.361  1.00     [4m1 [24m864.
+##  [90m8 [39m beta_judge_am…   1.21 [90me [39m [31m-1 [39m  1.20 [90me [39m [31m-1 [39m 0.291  0.290   - [31m0 [39m [31m. [39m [31m347 [39m   0.602  1.00     [4m1 [24m762.
+##  [90m9 [39m sigma            1.00 [90me [39m+0  9.99 [90me [39m [31m-1 [39m 0.053 [4m4 [24m 0.052 [4m9 [24m   0.918   1.09   1.00     [4m3 [24m052.
+##  [90m# … with 1 more variable: ess_tail &lt;dbl&gt; [39m</code></pre>
 <div class="sourceCode" id="cb98"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">mcmc_trace</span><span class="op">(</span><span class="va">q2_draws</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-46-1.png" width="672"></div>
@@ -512,21 +512,21 @@ to the individual judge and wine inferences from Problem 1?</p>
 <span class="va">q3_draws</span> <span class="op">&lt;-</span> <span class="va">q3</span><span class="op">$</span><span class="fu">draws</span><span class="op">(</span><span class="op">)</span>
 
 <span class="va">q3</span><span class="op">$</span><span class="fu">summary</span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code>## # A tibble: 11 × 10
+<pre><code>##  [90m# A tibble: 11 × 10 [39m
 ##    variable          mean   median     sd    mad      q5      q95  rhat ess_bulk
-##    &lt;chr&gt;            &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
-##  1 lp__          -9.25e+1 -9.22e+1 2.23   2.07   -96.7   -89.5     1.00    1640.
-##  2 alpha          1.86e-3  1.15e-3 0.101  0.0991  -0.164   0.168   1.00    3164.
-##  3 beta_interac…  2.58e-2  2.68e-2 0.176  0.174   -0.266   0.317   1.00    5526.
-##  4 beta_interac… -1.91e-1 -1.90e-1 0.185  0.183   -0.503   0.113   1.00    6850.
-##  5 beta_interac…  2.91e-2  2.83e-2 0.158  0.161   -0.228   0.289   1.00    4941.
-##  6 beta_interac…  1.10e-1  1.08e-1 0.177  0.179   -0.183   0.402   1.00    5471.
-##  7 beta_interac…  1.26e-1  1.27e-1 0.179  0.178   -0.174   0.421   1.00    6705.
-##  8 beta_interac… -2.52e-1 -2.54e-1 0.166  0.167   -0.524   0.0208  1.00    6633.
-##  9 beta_interac…  1.76e-1  1.77e-1 0.174  0.173   -0.105   0.461   1.00    6188.
-## 10 beta_interac… -1.45e-2 -1.48e-2 0.164  0.165   -0.283   0.261   1.00    4721.
-## 11 sigma          9.91e-1  9.90e-1 0.0520 0.0535   0.909   1.08    1.00    8835.
-## # … with 1 more variable: ess_tail &lt;dbl&gt;</code></pre>
+##     [3m [90m&lt;chr&gt; [39m [23m             [3m [90m&lt;dbl&gt; [39m [23m     [3m [90m&lt;dbl&gt; [39m [23m   [3m [90m&lt;dbl&gt; [39m [23m   [3m [90m&lt;dbl&gt; [39m [23m    [3m [90m&lt;dbl&gt; [39m [23m     [3m [90m&lt;dbl&gt; [39m [23m  [3m [90m&lt;dbl&gt; [39m [23m     [3m [90m&lt;dbl&gt; [39m [23m
+##  [90m 1 [39m lp__          - [31m9 [39m [31m. [39m [31m25 [39m [90me [39m+1 - [31m9 [39m [31m. [39m [31m22 [39m [90me [39m+1 2.23   2.07   - [31m96 [39m [31m. [39m [31m7 [39m   - [31m89 [39m [31m. [39m [31m5 [39m     1.00     [4m1 [24m640.
+##  [90m 2 [39m alpha          1.86 [90me [39m [31m-3 [39m  1.15 [90me [39m [31m-3 [39m 0.101  0.099 [4m1 [24m  - [31m0 [39m [31m. [39m [31m164 [39m   0.168   1.00     [4m3 [24m164.
+##  [90m 3 [39m beta_interac…  2.58 [90me [39m [31m-2 [39m  2.68 [90me [39m [31m-2 [39m 0.176  0.174   - [31m0 [39m [31m. [39m [31m266 [39m   0.317   1.00     [4m5 [24m526.
+##  [90m 4 [39m beta_interac… - [31m1 [39m [31m. [39m [31m91 [39m [90me [39m [31m-1 [39m - [31m1 [39m [31m. [39m [31m90 [39m [90me [39m [31m-1 [39m 0.185  0.183   - [31m0 [39m [31m. [39m [31m503 [39m   0.113   1.00     [4m6 [24m850.
+##  [90m 5 [39m beta_interac…  2.91 [90me [39m [31m-2 [39m  2.83 [90me [39m [31m-2 [39m 0.158  0.161   - [31m0 [39m [31m. [39m [31m228 [39m   0.289   1.00     [4m4 [24m941.
+##  [90m 6 [39m beta_interac…  1.10 [90me [39m [31m-1 [39m  1.08 [90me [39m [31m-1 [39m 0.177  0.179   - [31m0 [39m [31m. [39m [31m183 [39m   0.402   1.00     [4m5 [24m471.
+##  [90m 7 [39m beta_interac…  1.26 [90me [39m [31m-1 [39m  1.27 [90me [39m [31m-1 [39m 0.179  0.178   - [31m0 [39m [31m. [39m [31m174 [39m   0.421   1.00     [4m6 [24m705.
+##  [90m 8 [39m beta_interac… - [31m2 [39m [31m. [39m [31m52 [39m [90me [39m [31m-1 [39m - [31m2 [39m [31m. [39m [31m54 [39m [90me [39m [31m-1 [39m 0.166  0.167   - [31m0 [39m [31m. [39m [31m524 [39m   0.020 [4m8 [24m  1.00     [4m6 [24m633.
+##  [90m 9 [39m beta_interac…  1.76 [90me [39m [31m-1 [39m  1.77 [90me [39m [31m-1 [39m 0.174  0.173   - [31m0 [39m [31m. [39m [31m105 [39m   0.461   1.00     [4m6 [24m188.
+##  [90m10 [39m beta_interac… - [31m1 [39m [31m. [39m [31m45 [39m [90me [39m [31m-2 [39m - [31m1 [39m [31m. [39m [31m48 [39m [90me [39m [31m-2 [39m 0.164  0.165   - [31m0 [39m [31m. [39m [31m283 [39m   0.261   1.00     [4m4 [24m721.
+##  [90m11 [39m sigma          9.91 [90me [39m [31m-1 [39m  9.90 [90me [39m [31m-1 [39m 0.052 [4m0 [24m 0.053 [4m5 [24m   0.909   1.08    1.00     [4m8 [24m835.
+##  [90m# … with 1 more variable: ess_tail &lt;dbl&gt; [39m</code></pre>
 <div class="sourceCode" id="cb116"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">mcmc_trace</span><span class="op">(</span><span class="va">q3_draws</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-50-1.png" width="672"></div>
@@ -588,7 +588,7 @@ to the individual judge and wine inferences from Problem 1?</p>
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Learning bayesian data analysis with Statistical Rethinking</strong>" was written by Alec L. Robitaille. It was last built on 2021-10-08 [started: 2021-08-18].</p>
+    <p>"<strong>Learning bayesian data analysis with Statistical Rethinking</strong>" was written by Alec L. Robitaille. It was last built on 2021-11-17 [started: 2021-08-18].</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

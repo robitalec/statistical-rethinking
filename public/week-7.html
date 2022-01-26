@@ -6,15 +6,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>7 Week 7 | Learning bayesian data analysis with Statistical Rethinking</title>
 <meta name="author" content="Alec L. Robitaille">
-<meta name="description" content="2021-09-07 [updated: 2021-10-08]  7.0.1 Data DT &lt;- data_trolley() precis(DT) ##       mean  sd 5.5% 94.5%   histogram ## case     NaN  NA  NA  NA        ## response   4.20 1.91  1   7 ...">
+<meta name="description" content="2021-09-07 [updated: 2021-11-17]  7.0.1 Data DT &lt;- data_trolley() precis(DT) ##       mean  sd 5.5% 94.5%   histogram ## case     NaN  NA  NA  NA        ## response   4.20 1.91  1   7 ...">
 <meta name="generator" content="bookdown 0.24.1 with bs4_book()">
 <meta property="og:title" content="7 Week 7 | Learning bayesian data analysis with Statistical Rethinking">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://www.statistical-rethinking.robitalec.ca/week-7.html">
-<meta property="og:description" content="2021-09-07 [updated: 2021-10-08]  7.0.1 Data DT &lt;- data_trolley() precis(DT) ##       mean  sd 5.5% 94.5%   histogram ## case     NaN  NA  NA  NA        ## response   4.20 1.91  1   7 ...">
+<meta property="og:description" content="2021-09-07 [updated: 2021-11-17]  7.0.1 Data DT &lt;- data_trolley() precis(DT) ##       mean  sd 5.5% 94.5%   histogram ## case     NaN  NA  NA  NA        ## response   4.20 1.91  1   7 ...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="7 Week 7 | Learning bayesian data analysis with Statistical Rethinking">
-<meta name="twitter:description" content="2021-09-07 [updated: 2021-10-08]  7.0.1 Data DT &lt;- data_trolley() precis(DT) ##       mean  sd 5.5% 94.5%   histogram ## case     NaN  NA  NA  NA        ## response   4.20 1.91  1   7 ...">
+<meta name="twitter:description" content="2021-09-07 [updated: 2021-11-17]  7.0.1 Data DT &lt;- data_trolley() precis(DT) ##       mean  sd 5.5% 94.5%   histogram ## case     NaN  NA  NA  NA        ## response   4.20 1.91  1   7 ...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11.3/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -85,7 +85,7 @@
 <h1>
 <span class="header-section-number">7</span> Week 7<a class="anchor" aria-label="anchor" href="#week-7"><i class="fas fa-link"></i></a>
 </h1>
-<p>2021-09-07 [updated: 2021-10-08]</p>
+<p>2021-09-07 [updated: 2021-11-17]</p>
 <div id="data-6" class="section level3" number="7.0.1">
 <h3>
 <span class="header-section-number">7.0.1</span> Data<a class="anchor" aria-label="anchor" href="#data-6"><i class="fas fa-link"></i></a>
@@ -108,7 +108,7 @@
 ## action2      0.63  0.48    0     1     ▃▁▁▁▁▁▁▁▁▇
 ## education    5.73  1.35    3     8 ▁▁▁▁▁▂▁▅▁▇▁▂▁▂
 ## individual 166.00 95.56   19   313        ▇▇▇▇▇▇▅</code></pre>
-<p>Response: 1-7 integer, “how morally permissible the action to be taken (or not) is.” Categorical, ordered, but distances between categories is not metric or known.</p>
+<p>Response: 1-7 integer, “how morally permissible the action to be taken (or not) is”. Categorical, ordered, but distances between categories is not metric or known.</p>
 <p>Logit = log-odds, cumulative logit = log-cumulative-odds. Both constrained between 0-1.</p>
 <p>Log-cumulative-odds for response 7 will be infinity since log(1/(1-1)) = infinity.
 Given this, we only need K-1 = 6 intercepts.</p>
@@ -495,7 +495,7 @@ on response. What do you conclude?</p>
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Learning bayesian data analysis with Statistical Rethinking</strong>" was written by Alec L. Robitaille. It was last built on 2021-10-08 [started: 2021-08-18].</p>
+    <p>"<strong>Learning bayesian data analysis with Statistical Rethinking</strong>" was written by Alec L. Robitaille. It was last built on 2021-11-17 [started: 2021-08-18].</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
