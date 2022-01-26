@@ -86,3 +86,12 @@ A model's behaviour is a function of all of its parameters at the same time, the
 * causal effects
 * counterfactuals
 * prior predictions
+
+
+
+
+
+
+# (PART) References {-}
+# References
+<div id="refs"></div>

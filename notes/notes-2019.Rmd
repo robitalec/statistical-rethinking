@@ -1632,6 +1632,3 @@ relationship between B and body mass. Solution is to use a multivariate normal
 to impute given the relationship between B and body mass. 
 
 
-# (PART) References {-}
-# References
-<div id="refs"></div>
