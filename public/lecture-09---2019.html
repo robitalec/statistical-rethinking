@@ -4,17 +4,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Page not found | Learning bayesian data analysis with Statistical Rethinking</title>
+<title>18 Lecture 09 - 2019 | Learning bayesian data analysis with Statistical Rethinking</title>
 <meta name="author" content="Alec L. Robitaille">
-<meta name="description" content="The page you requested cannot be found (perhaps it was moved or renamed). You may want to try searching to find the page's new location, or use the table of contents to find the page you are...">
+<meta name="description" content="18.1 Conditioning Interaction of variables on each other Dependence on the state eg. Influence of genes on phenotype depends on environment Approaches Use interacting terms (simplest) Generalized...">
 <meta name="generator" content="bookdown 0.24.1 with bs4_book()">
-<meta property="og:title" content="Page not found | Learning bayesian data analysis with Statistical Rethinking">
+<meta property="og:title" content="18 Lecture 09 - 2019 | Learning bayesian data analysis with Statistical Rethinking">
 <meta property="og:type" content="book">
-<meta property="og:url" content="https://www.statistical-rethinking.robitalec.ca/404.html">
-<meta property="og:description" content="The page you requested cannot be found (perhaps it was moved or renamed). You may want to try searching to find the page's new location, or use the table of contents to find the page you are...">
+<meta property="og:url" content="https://www.statistical-rethinking.robitalec.ca/lecture-09---2019.html">
+<meta property="og:description" content="18.1 Conditioning Interaction of variables on each other Dependence on the state eg. Influence of genes on phenotype depends on environment Approaches Use interacting terms (simplest) Generalized...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Page not found | Learning bayesian data analysis with Statistical Rethinking">
-<meta name="twitter:description" content="The page you requested cannot be found (perhaps it was moved or renamed). You may want to try searching to find the page's new location, or use the table of contents to find the page you are...">
+<meta name="twitter:title" content="18 Lecture 09 - 2019 | Learning bayesian data analysis with Statistical Rethinking">
+<meta name="twitter:description" content="18.1 Conditioning Interaction of variables on each other Dependence on the state eg. Influence of genes on phenotype depends on environment Approaches Use interacting terms (simplest) Generalized...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11.3/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -60,7 +60,7 @@
 <li><a class="" href="lecture-06---2019.html"><span class="header-section-number">15</span> Lecture 06 - 2019</a></li>
 <li><a class="" href="lecture-07---2019.html"><span class="header-section-number">16</span> Lecture 07 - 2019</a></li>
 <li><a class="" href="lecture-08---2019.html"><span class="header-section-number">17</span> Lecture 08 - 2019</a></li>
-<li><a class="" href="lecture-09---2019.html"><span class="header-section-number">18</span> Lecture 09 - 2019</a></li>
+<li><a class="active" href="lecture-09---2019.html"><span class="header-section-number">18</span> Lecture 09 - 2019</a></li>
 <li><a class="" href="lecture-10---2019.html"><span class="header-section-number">19</span> Lecture 10 - 2019</a></li>
 <li><a class="" href="lecture-11---2019.html"><span class="header-section-number">20</span> Lecture 11 - 2019</a></li>
 <li><a class="" href="lecture-12---2019.html"><span class="header-section-number">21</span> Lecture 12 - 2019</a></li>
@@ -84,18 +84,124 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="page-not-found" class="section level1">
-<h1>Page not found<a class="anchor" aria-label="anchor" href="#page-not-found"><i class="fas fa-link"></i></a>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="lecture-09---2019" class="section level1" number="18">
+<h1>
+<span class="header-section-number">18</span> Lecture 09 - 2019<a class="anchor" aria-label="anchor" href="#lecture-09---2019"><i class="fas fa-link"></i></a>
 </h1>
-<p>The page you requested cannot be found (perhaps it was moved or renamed).</p>
-<p>You may want to try searching to find the page's new location, or use
-the table of contents to find the page you are looking for.</p>
+<div id="conditioning" class="section level2" number="18.1">
+<h2>
+<span class="header-section-number">18.1</span> Conditioning<a class="anchor" aria-label="anchor" href="#conditioning"><i class="fas fa-link"></i></a>
+</h2>
+<p>Interaction of variables on each other</p>
+<p>Dependence on the state</p>
+<p>eg. Influence of genes on phenotype depends on environment</p>
+<p>Approaches</p>
+<ol style="list-style-type: decimal">
+<li>Use interacting terms (simplest)</li>
+<li>Generalized linear models</li>
+<li>Multilevel models</li>
+</ol>
+<p>Interactions arise wherever there is a boundary in the outcome space. All GLMs have interactions.</p>
+<p>In a DAG, an interaction looks like</p>
+<p>gene → phenotype ← environment</p>
+<p>But DAGs can’t fully tell you if it’s an interaction</p>
+<p>Before interaction terms, all variables are simply independent additive terms.</p>
+<div id="example-ruggedness" class="section level3" number="18.1.1">
+<h3>
+<span class="header-section-number">18.1.1</span> Example: ruggedness<a class="anchor" aria-label="anchor" href="#example-ruggedness"><i class="fas fa-link"></i></a>
+</h3>
+<p>“Ruggedness is bad for the economy outside of Africa, but within Africa is it good”</p>
+<p>Reminder - constrain priors to possible outcome space</p>
+<ol style="list-style-type: decimal">
+<li>Scale ruggedness between 0, 1</li>
+<li>Constrain change in GDP bc evidently eg GDP x 2 would be a huge effect</li>
+</ol>
+<p>Keep it reasonable</p>
+<p>Options</p>
+<ol style="list-style-type: decimal">
+<li>Split the data?</li>
+</ol>
+<p>Run two linear regressions. This means there is no statistical criteria to measure the split.</p>
+<p>We are interested in the contrast in slope, but to do that we need to use the same model.</p>
+<ol style="list-style-type: decimal">
+<li>Add a categorical variable for Africa?</li>
+</ol>
+<p>Use alpha[id] and different estimates for each</p>
+<p>This means the slope is forced to be the same, but difference intercepts.</p>
+<p>Relationship is held constant across groups, not what we want.</p>
+<ol style="list-style-type: decimal">
+<li>Interaction</li>
+</ol>
+<p><span class="math inline">\(\mu_{i} = \alpha_{CID[i]} + \beta_{CID[i]}(r_{i} - \bar{r})\)</span></p>
+<p>Slope and intercept are allowed to vary for each</p>
+</div>
+<div id="example-tulips" class="section level3" number="18.1.2">
+<h3>
+<span class="header-section-number">18.1.2</span> Example: tulips<a class="anchor" aria-label="anchor" href="#example-tulips"><i class="fas fa-link"></i></a>
+</h3>
+<p>Tulip blooms, in varying Water and Shade</p>
+<p><span class="math inline">\(\mu_{i} = \alpha + \beta_{W}W + \beta_{S}S + \beta_{W * S}W*S\)</span></p>
+<p>The beta W*S variable is actually a nested linear model</p>
+</div>
+</div>
+<div id="interpreting-interactions" class="section level2" number="18.2">
+<h2>
+<span class="header-section-number">18.2</span> Interpreting interactions<a class="anchor" aria-label="anchor" href="#interpreting-interactions"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li>Interpreting interactions is hard</li>
+<li>The influence of predictors depends upon multiple parameters and their co variation</li>
+<li>Interactions are symmetric within the data.
+<ul>
+<li>Eg. effect of continent depends on ruggedness is the same as effect of ruggedness on continent</li>
+<li>Statistically the same</li>
+<li>We need to apply our outside knowledge and causal information</li>
+</ul>
+</li>
+</ul>
+</div>
+<div id="plotting-interactions" class="section level2" number="18.3">
+<h2>
+<span class="header-section-number">18.3</span> Plotting interactions<a class="anchor" aria-label="anchor" href="#plotting-interactions"><i class="fas fa-link"></i></a>
+</h2>
+<p>Use a triptych</p>
+<p>Vary shade at -1, 0, 1</p>
+<p>Plot bloom as response and water on x</p>
+<div id="higher-order-interactions" class="section level3" number="18.3.1">
+<h3>
+<span class="header-section-number">18.3.1</span> Higher order interactions<a class="anchor" aria-label="anchor" href="#higher-order-interactions"><i class="fas fa-link"></i></a>
+</h3>
+<p>Caution: hard to interpret, hard to estimate</p>
+</div>
+</div>
 </div>
   <div class="chapter-nav">
-<div class="empty"></div>
-<div class="empty"></div>
+<div class="prev"><a href="lecture-08---2019.html"><span class="header-section-number">17</span> Lecture 08 - 2019</a></div>
+<div class="next"><a href="lecture-10---2019.html"><span class="header-section-number">19</span> Lecture 10 - 2019</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
-    </div>
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#lecture-09---2019"><span class="header-section-number">18</span> Lecture 09 - 2019</a></li>
+<li>
+<a class="nav-link" href="#conditioning"><span class="header-section-number">18.1</span> Conditioning</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#example-ruggedness"><span class="header-section-number">18.1.1</span> Example: ruggedness</a></li>
+<li><a class="nav-link" href="#example-tulips"><span class="header-section-number">18.1.2</span> Example: tulips</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#interpreting-interactions"><span class="header-section-number">18.2</span> Interpreting interactions</a></li>
+<li>
+<a class="nav-link" href="#plotting-interactions"><span class="header-section-number">18.3</span> Plotting interactions</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#higher-order-interactions"><span class="header-section-number">18.3.1</span> Higher order interactions</a></li></ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://gitlab.com/robit.a/statistical-rethinking/blob/master/notes/notes-2019.Rmd">View source <i class="fab fa-gitlab"></i></a></li>
+          <li><a id="book-edit" href="https://gitlab.com/robit.a/statistical-rethinking/edit/master/notes/notes-2019.Rmd">Edit this page <i class="fab fa-gitlab"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
 
 </div>
 </div> <!-- .container -->

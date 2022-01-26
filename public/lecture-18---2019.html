@@ -4,17 +4,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Page not found | Learning bayesian data analysis with Statistical Rethinking</title>
+<title>27 Lecture 18 - 2019 | Learning bayesian data analysis with Statistical Rethinking</title>
 <meta name="author" content="Alec L. Robitaille">
-<meta name="description" content="The page you requested cannot be found (perhaps it was moved or renamed). You may want to try searching to find the page's new location, or use the table of contents to find the page you are...">
+<meta name="description" content="27.1 Centering/non-centered not always one or the other that is better in all situations use the reparameterized version if modeling is inefficient check if the number of effective parameters...">
 <meta name="generator" content="bookdown 0.24.1 with bs4_book()">
-<meta property="og:title" content="Page not found | Learning bayesian data analysis with Statistical Rethinking">
+<meta property="og:title" content="27 Lecture 18 - 2019 | Learning bayesian data analysis with Statistical Rethinking">
 <meta property="og:type" content="book">
-<meta property="og:url" content="https://www.statistical-rethinking.robitalec.ca/404.html">
-<meta property="og:description" content="The page you requested cannot be found (perhaps it was moved or renamed). You may want to try searching to find the page's new location, or use the table of contents to find the page you are...">
+<meta property="og:url" content="https://www.statistical-rethinking.robitalec.ca/lecture-18---2019.html">
+<meta property="og:description" content="27.1 Centering/non-centered not always one or the other that is better in all situations use the reparameterized version if modeling is inefficient check if the number of effective parameters...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Page not found | Learning bayesian data analysis with Statistical Rethinking">
-<meta name="twitter:description" content="The page you requested cannot be found (perhaps it was moved or renamed). You may want to try searching to find the page's new location, or use the table of contents to find the page you are...">
+<meta name="twitter:title" content="27 Lecture 18 - 2019 | Learning bayesian data analysis with Statistical Rethinking">
+<meta name="twitter:description" content="27.1 Centering/non-centered not always one or the other that is better in all situations use the reparameterized version if modeling is inefficient check if the number of effective parameters...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11.3/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -69,7 +69,7 @@
 <li><a class="" href="lecture-15---2019.html"><span class="header-section-number">24</span> Lecture 15 - 2019</a></li>
 <li><a class="" href="lecture-16---2019.html"><span class="header-section-number">25</span> Lecture 16 - 2019</a></li>
 <li><a class="" href="lecture-17---2019.html"><span class="header-section-number">26</span> Lecture 17 - 2019</a></li>
-<li><a class="" href="lecture-18---2019.html"><span class="header-section-number">27</span> Lecture 18 - 2019</a></li>
+<li><a class="active" href="lecture-18---2019.html"><span class="header-section-number">27</span> Lecture 18 - 2019</a></li>
 <li><a class="" href="lecture-19---2019.html"><span class="header-section-number">28</span> Lecture 19 - 2019</a></li>
 <li><a class="" href="lecture-20---2019.html"><span class="header-section-number">29</span> Lecture 20 - 2019</a></li>
 <li class="book-part">Lectures 2022</li>
@@ -84,18 +84,111 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="page-not-found" class="section level1">
-<h1>Page not found<a class="anchor" aria-label="anchor" href="#page-not-found"><i class="fas fa-link"></i></a>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="lecture-18---2019" class="section level1" number="27">
+<h1>
+<span class="header-section-number">27</span> Lecture 18 - 2019<a class="anchor" aria-label="anchor" href="#lecture-18---2019"><i class="fas fa-link"></i></a>
 </h1>
-<p>The page you requested cannot be found (perhaps it was moved or renamed).</p>
-<p>You may want to try searching to find the page's new location, or use
-the table of contents to find the page you are looking for.</p>
+<div id="centeringnon-centered" class="section level2" number="27.1">
+<h2>
+<span class="header-section-number">27.1</span> Centering/non-centered<a class="anchor" aria-label="anchor" href="#centeringnon-centered"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li>not always one or the other that is better in all situations</li>
+<li>use the reparameterized version if modeling is inefficient</li>
+<li>check if the number of effective parameters increases after</li>
+</ul>
+</div>
+<div id="multilevel-horoscopes" class="section level2" number="27.2">
+<h2>
+<span class="header-section-number">27.2</span> Multilevel horoscopes<a class="anchor" aria-label="anchor" href="#multilevel-horoscopes"><i class="fas fa-link"></i></a>
+</h2>
+<ol style="list-style-type: decimal">
+<li>Think about causal model first</li>
+<li>Draw the DAG</li>
+<li>Begin with “empty” model with varying intercepts on relevant clusters</li>
+<li>Standardize predictors</li>
+<li>Use regularizing priors + prior predictive simulation</li>
+<li>Add in predictors and vary their slopes</li>
+<li>Possibly drop varying effects with tiny sigmas</li>
+<li>Consider two kinds of posterior prediction
+<ul>
+<li>same units: “what happened in this data?”</li>
+<li>new units: “what might we expect in new units?”</li>
+</ul>
+</li>
+</ol>
+</div>
+<div id="other-covariance-structures" class="section level2" number="27.3">
+<h2>
+<span class="header-section-number">27.3</span> Other covariance structures<a class="anchor" aria-label="anchor" href="#other-covariance-structures"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li>Instrumental variables</li>
+<li>Social relations model (covariance in behaviour among nodes)</li>
+<li>Factor analysis</li>
+<li>Animal model, heritability of phenotype</li>
+<li>Phylogenetic regressions</li>
+<li>Spatial autocorrelation</li>
+</ul>
+</div>
+<div id="instrumental-variables" class="section level2" number="27.4">
+<h2>
+<span class="header-section-number">27.4</span> Instrumental variables<a class="anchor" aria-label="anchor" href="#instrumental-variables"><i class="fas fa-link"></i></a>
+</h2>
+<p>Recall: adding variables can introduce confounds, so we use
+the back door criterion to determine which to include and which
+may introduce confounds.</p>
+<p>Sometimes the back door says there is no way to shut it.</p>
+<p>For example, E-&gt;W, U-&gt;E, U-&gt;W, where U is some unobserved confound</p>
+<p>U is a confound, but U is unmeasured</p>
+<p>Solution: an instrument that influences the exposure but not the outcome</p>
+<p>Q-&gt;E-&gt;W, U-&gt;E, U-&gt;W</p>
+<p>Where Q in this case, is the quarter of the year someone is born in. E is
+education, W is wage. Quarter influences 1) when you start school and 2) when you
+are allowed to quit school, since Q is the calendar year and not biological age.</p>
+<p>In this example, the confounds are not likely related to quarter, and therefore
+quarter is a valid instrument.</p>
+<ul>
+<li>this makes E into a collider</li>
+<li>U generates a correlation between E, W</li>
+<li>Q tells us something about deviation in E, separate from the E, W correlation from U</li>
+</ul>
+<p>Instrumental variables are also called “natural experiments” in biology.</p>
+<p>They can be limited. They depend greatly on the DAG, and it is hard to find
+a plausible instrument. Instruments with weak effects are not very useful.</p>
+</div>
+<div id="social-relationoso-models" class="section level2" number="27.5">
+<h2>
+<span class="header-section-number">27.5</span> Social relationoso models<a class="anchor" aria-label="anchor" href="#social-relationoso-models"><i class="fas fa-link"></i></a>
+</h2>
+<p>Example: giving and receiving rates</p>
+<p>How to disentangle dyadic offsets, general giving, general receiving rates, etc.</p>
+<p>Use multiple covariance matrices. 2x2 giving + receiving, 2x2 dij + dji (paired
+dyad offsets). dij != dji because one may give more than the other.</p>
+</div>
 </div>
   <div class="chapter-nav">
-<div class="empty"></div>
-<div class="empty"></div>
+<div class="prev"><a href="lecture-17---2019.html"><span class="header-section-number">26</span> Lecture 17 - 2019</a></div>
+<div class="next"><a href="lecture-19---2019.html"><span class="header-section-number">28</span> Lecture 19 - 2019</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
-    </div>
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#lecture-18---2019"><span class="header-section-number">27</span> Lecture 18 - 2019</a></li>
+<li><a class="nav-link" href="#centeringnon-centered"><span class="header-section-number">27.1</span> Centering/non-centered</a></li>
+<li><a class="nav-link" href="#multilevel-horoscopes"><span class="header-section-number">27.2</span> Multilevel horoscopes</a></li>
+<li><a class="nav-link" href="#other-covariance-structures"><span class="header-section-number">27.3</span> Other covariance structures</a></li>
+<li><a class="nav-link" href="#instrumental-variables"><span class="header-section-number">27.4</span> Instrumental variables</a></li>
+<li><a class="nav-link" href="#social-relationoso-models"><span class="header-section-number">27.5</span> Social relationoso models</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://gitlab.com/robit.a/statistical-rethinking/blob/master/notes/notes-2019.Rmd">View source <i class="fab fa-gitlab"></i></a></li>
+          <li><a id="book-edit" href="https://gitlab.com/robit.a/statistical-rethinking/edit/master/notes/notes-2019.Rmd">Edit this page <i class="fab fa-gitlab"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
 
 </div>
 </div> <!-- .container -->

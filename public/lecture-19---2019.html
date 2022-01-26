@@ -4,17 +4,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Page not found | Learning bayesian data analysis with Statistical Rethinking</title>
+<title>28 Lecture 19 - 2019 | Learning bayesian data analysis with Statistical Rethinking</title>
 <meta name="author" content="Alec L. Robitaille">
-<meta name="description" content="The page you requested cannot be found (perhaps it was moved or renamed). You may want to try searching to find the page's new location, or use the table of contents to find the page you are...">
+<meta name="description" content="28.1 Gaussian process regression: continuous categories Traditional clusters are discrete, unordered. Every category is equally different from all others. But take, for example, income. There is...">
 <meta name="generator" content="bookdown 0.24.1 with bs4_book()">
-<meta property="og:title" content="Page not found | Learning bayesian data analysis with Statistical Rethinking">
+<meta property="og:title" content="28 Lecture 19 - 2019 | Learning bayesian data analysis with Statistical Rethinking">
 <meta property="og:type" content="book">
-<meta property="og:url" content="https://www.statistical-rethinking.robitalec.ca/404.html">
-<meta property="og:description" content="The page you requested cannot be found (perhaps it was moved or renamed). You may want to try searching to find the page's new location, or use the table of contents to find the page you are...">
+<meta property="og:url" content="https://www.statistical-rethinking.robitalec.ca/lecture-19---2019.html">
+<meta property="og:description" content="28.1 Gaussian process regression: continuous categories Traditional clusters are discrete, unordered. Every category is equally different from all others. But take, for example, income. There is...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Page not found | Learning bayesian data analysis with Statistical Rethinking">
-<meta name="twitter:description" content="The page you requested cannot be found (perhaps it was moved or renamed). You may want to try searching to find the page's new location, or use the table of contents to find the page you are...">
+<meta name="twitter:title" content="28 Lecture 19 - 2019 | Learning bayesian data analysis with Statistical Rethinking">
+<meta name="twitter:description" content="28.1 Gaussian process regression: continuous categories Traditional clusters are discrete, unordered. Every category is equally different from all others. But take, for example, income. There is...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11.3/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -70,7 +70,7 @@
 <li><a class="" href="lecture-16---2019.html"><span class="header-section-number">25</span> Lecture 16 - 2019</a></li>
 <li><a class="" href="lecture-17---2019.html"><span class="header-section-number">26</span> Lecture 17 - 2019</a></li>
 <li><a class="" href="lecture-18---2019.html"><span class="header-section-number">27</span> Lecture 18 - 2019</a></li>
-<li><a class="" href="lecture-19---2019.html"><span class="header-section-number">28</span> Lecture 19 - 2019</a></li>
+<li><a class="active" href="lecture-19---2019.html"><span class="header-section-number">28</span> Lecture 19 - 2019</a></li>
 <li><a class="" href="lecture-20---2019.html"><span class="header-section-number">29</span> Lecture 20 - 2019</a></li>
 <li class="book-part">Lectures 2022</li>
 <li><a class="" href="lecture-01---2022.html"><span class="header-section-number">30</span> Lecture 01 - 2022</a></li>
@@ -84,18 +84,100 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="page-not-found" class="section level1">
-<h1>Page not found<a class="anchor" aria-label="anchor" href="#page-not-found"><i class="fas fa-link"></i></a>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="lecture-19---2019" class="section level1" number="28">
+<h1>
+<span class="header-section-number">28</span> Lecture 19 - 2019<a class="anchor" aria-label="anchor" href="#lecture-19---2019"><i class="fas fa-link"></i></a>
 </h1>
-<p>The page you requested cannot be found (perhaps it was moved or renamed).</p>
-<p>You may want to try searching to find the page's new location, or use
-the table of contents to find the page you are looking for.</p>
+<div id="gaussian-process-regression-continuous-categories" class="section level2" number="28.1">
+<h2>
+<span class="header-section-number">28.1</span> Gaussian process regression: continuous categories<a class="anchor" aria-label="anchor" href="#gaussian-process-regression-continuous-categories"><i class="fas fa-link"></i></a>
+</h2>
+<p>Traditional clusters are discrete, unordered. Every category is equally different
+from all others.</p>
+<p>But take, for example, income. There is no reason that every increase or
+decrease in 1 dollar should be equivalently weighted. Other examples include
+age, phylogenetic distance, social network distance, etc. There are no
+obvious cut points, but we know that similar values are more similar.</p>
+<p>Gaussian process regression considers infinite numbers of categories. (Need pooling)</p>
+<div id="example-spatial-autocorrelation-of-oceanic-tool-complexity-and-population-size" class="section level3" number="28.1.1">
+<h3>
+<span class="header-section-number">28.1.1</span> Example: spatial autocorrelation of oceanic tool complexity and population size<a class="anchor" aria-label="anchor" href="#example-spatial-autocorrelation-of-oceanic-tool-complexity-and-population-size"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li>Construct a distance matrix of distances between the islands. We could improve
+this by considering sailing distance for example.</li>
+<li>Recall the model: tool complexity is distributed as poisson. Innovation rate,
+population size, rate of diminishing returns and loss rate.</li>
+<li>To add a Gaussian process, add a factor k in front for each population
+<ul>
+<li>k=0, exactly as expected by model</li>
+<li>k=-0.5, 60% (exp(-0.5) = 0.6)</li>
+<li>k=-0.5, 130% (exp(0.25) = 1.3)</li>
+</ul>
+</li>
+<li>Gaussian process prior: multivariate Gaussian 10x10 covariance (distance in this case)</li>
+<li>Modelling covariance: covariance between islands i and j is the max covariance
+multiplied by the rate of decline with distance and the squared distance, added to the
+variance within self (also called a jitter function so multiple observations of the
+same island have a different covariance). This is the Gaussian, the bell curve.</li>
+<li>Linear (Dij) vs squared (Dij^2). Linear assumes that the rate of decline
+if fastest at the start. Usually not true so we assume a squared term.,</li>
+</ol>
+<p>Result is lower covariance than predicted but much slower decay.</p>
+</div>
+</div>
+<div id="phylogenetic-relationship" class="section level2" number="28.2">
+<h2>
+<span class="header-section-number">28.2</span> Phylogenetic relationship<a class="anchor" aria-label="anchor" href="#phylogenetic-relationship"><i class="fas fa-link"></i></a>
+</h2>
+<p>Phylogenetic relationships are sort of a proxy for unobserved confounds.</p>
+<p>Some ways of incorporating phylogenetic information into a GLM:</p>
+<ul>
+<li>Brownian motion model (PGLS)</li>
+<li>Ornstein-Uhlenbeck (OU) processes</li>
+<li>…</li>
+</ul>
+<p>All use a covariance matrix to represent phylogeny and are in principle a
+Gaussian process regression</p>
+<div id="example-primates" class="section level3" number="28.2.1">
+<h3>
+<span class="header-section-number">28.2.1</span> Example: primates<a class="anchor" aria-label="anchor" href="#example-primates"><i class="fas fa-link"></i></a>
+</h3>
+<p>Body size -&gt; Group size, Body size -&gt; Brain size, Brain size -&gt; Group size</p>
+<p>G ~ MVNormal(mu, sigma)</p>
+<p>mu = alpha + beta body + beta body
+S = sigma ^ 2 * I</p>
+<p>I being an identity matrix, therefore this simplest version (with no covariance), is just the diagonals with sigma squared</p>
+<p>Brownian motion is the oldest and most conservative assumption. The decline in covariance is linear since the date the species diverged.
+Alternatively, use a non-linear relationship between covariance
+and distance with a Gaussian process to consider infinite
+different functions.</p>
+</div>
+</div>
 </div>
   <div class="chapter-nav">
-<div class="empty"></div>
-<div class="empty"></div>
+<div class="prev"><a href="lecture-18---2019.html"><span class="header-section-number">27</span> Lecture 18 - 2019</a></div>
+<div class="next"><a href="lecture-20---2019.html"><span class="header-section-number">29</span> Lecture 20 - 2019</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
-    </div>
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#lecture-19---2019"><span class="header-section-number">28</span> Lecture 19 - 2019</a></li>
+<li>
+<a class="nav-link" href="#gaussian-process-regression-continuous-categories"><span class="header-section-number">28.1</span> Gaussian process regression: continuous categories</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#example-spatial-autocorrelation-of-oceanic-tool-complexity-and-population-size"><span class="header-section-number">28.1.1</span> Example: spatial autocorrelation of oceanic tool complexity and population size</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#phylogenetic-relationship"><span class="header-section-number">28.2</span> Phylogenetic relationship</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#example-primates"><span class="header-section-number">28.2.1</span> Example: primates</a></li></ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://gitlab.com/robit.a/statistical-rethinking/blob/master/notes/notes-2019.Rmd">View source <i class="fab fa-gitlab"></i></a></li>
+          <li><a id="book-edit" href="https://gitlab.com/robit.a/statistical-rethinking/edit/master/notes/notes-2019.Rmd">Edit this page <i class="fab fa-gitlab"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
 
 </div>
 </div> <!-- .container -->

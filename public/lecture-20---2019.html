@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>29 Lecture 20 - 2019 | Learning bayesian data analysis with Statistical Rethinking</title>
+<meta name="author" content="Alec L. Robitaille">
+<meta name="description" content="29.1 Measurement error There is always some error in measurement. Sigma in our above models captures error on outcomes. What about error on predictors? What if error isn’t constant?  29.1.1...">
+<meta name="generator" content="bookdown 0.24.1 with bs4_book()">
+<meta property="og:title" content="29 Lecture 20 - 2019 | Learning bayesian data analysis with Statistical Rethinking">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://www.statistical-rethinking.robitalec.ca/lecture-20---2019.html">
+<meta property="og:description" content="29.1 Measurement error There is always some error in measurement. Sigma in our above models captures error on outcomes. What about error on predictors? What if error isn’t constant?  29.1.1...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="29 Lecture 20 - 2019 | Learning bayesian data analysis with Statistical Rethinking">
+<meta name="twitter:description" content="29.1 Measurement error There is always some error in measurement. Sigma in our above models captures error on outcomes. What about error on predictors? What if error isn’t constant?  29.1.1...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11.3/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Learning bayesian data analysis with Statistical Rethinking</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Overview</a></li>
+<li class="book-part">Homework</li>
+<li><a class="" href="week-1.html"><span class="header-section-number">1</span> Week 1</a></li>
+<li><a class="" href="week-2.html"><span class="header-section-number">2</span> Week 2</a></li>
+<li><a class="" href="week-3.html"><span class="header-section-number">3</span> Week 3</a></li>
+<li><a class="" href="week-4.html"><span class="header-section-number">4</span> Week 4</a></li>
+<li><a class="" href="week-5.html"><span class="header-section-number">5</span> Week 5</a></li>
+<li><a class="" href="week-6.html"><span class="header-section-number">6</span> Week 6</a></li>
+<li><a class="" href="week-7.html"><span class="header-section-number">7</span> Week 7</a></li>
+<li><a class="" href="week-8.html"><span class="header-section-number">8</span> Week 8</a></li>
+<li><a class="" href="week-9.html"><span class="header-section-number">9</span> Week 9</a></li>
+<li class="book-part">Lectures 2019</li>
+<li><a class="" href="lecture-01---2019.html"><span class="header-section-number">10</span> Lecture 01 - 2019</a></li>
+<li><a class="" href="lecture-02---2019.html"><span class="header-section-number">11</span> Lecture 02 - 2019</a></li>
+<li><a class="" href="lecture-03---2019.html"><span class="header-section-number">12</span> Lecture 03 - 2019</a></li>
+<li><a class="" href="lecture-04---2019.html"><span class="header-section-number">13</span> Lecture 04 - 2019</a></li>
+<li><a class="" href="lecture-05---2019.html"><span class="header-section-number">14</span> Lecture 05 - 2019</a></li>
+<li><a class="" href="lecture-06---2019.html"><span class="header-section-number">15</span> Lecture 06 - 2019</a></li>
+<li><a class="" href="lecture-07---2019.html"><span class="header-section-number">16</span> Lecture 07 - 2019</a></li>
+<li><a class="" href="lecture-08---2019.html"><span class="header-section-number">17</span> Lecture 08 - 2019</a></li>
+<li><a class="" href="lecture-09---2019.html"><span class="header-section-number">18</span> Lecture 09 - 2019</a></li>
+<li><a class="" href="lecture-10---2019.html"><span class="header-section-number">19</span> Lecture 10 - 2019</a></li>
+<li><a class="" href="lecture-11---2019.html"><span class="header-section-number">20</span> Lecture 11 - 2019</a></li>
+<li><a class="" href="lecture-12---2019.html"><span class="header-section-number">21</span> Lecture 12 - 2019</a></li>
+<li><a class="" href="lecture-13---2019.html"><span class="header-section-number">22</span> Lecture 13 - 2019</a></li>
+<li><a class="" href="lecture-14---2019.html"><span class="header-section-number">23</span> Lecture 14 - 2019</a></li>
+<li><a class="" href="lecture-15---2019.html"><span class="header-section-number">24</span> Lecture 15 - 2019</a></li>
+<li><a class="" href="lecture-16---2019.html"><span class="header-section-number">25</span> Lecture 16 - 2019</a></li>
+<li><a class="" href="lecture-17---2019.html"><span class="header-section-number">26</span> Lecture 17 - 2019</a></li>
+<li><a class="" href="lecture-18---2019.html"><span class="header-section-number">27</span> Lecture 18 - 2019</a></li>
+<li><a class="" href="lecture-19---2019.html"><span class="header-section-number">28</span> Lecture 19 - 2019</a></li>
+<li><a class="active" href="lecture-20---2019.html"><span class="header-section-number">29</span> Lecture 20 - 2019</a></li>
+<li class="book-part">Lectures 2022</li>
+<li><a class="" href="lecture-01---2022.html"><span class="header-section-number">30</span> Lecture 01 - 2022</a></li>
+<li><a class="" href="lecture-02---2022.html"><span class="header-section-number">31</span> Lecture 02 - 2022</a></li>
+<li class="book-part">References</li>
+<li><a class="" href="references.html"><span class="header-section-number">32</span> References</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://gitlab.com/robit.a/statistical-rethinking">View book source <i class="fab fa-gitlab"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="lecture-20---2019" class="section level1" number="29">
+<h1>
+<span class="header-section-number">29</span> Lecture 20 - 2019<a class="anchor" aria-label="anchor" href="#lecture-20---2019"><i class="fas fa-link"></i></a>
+</h1>
+<div id="measurement-error" class="section level2" number="29.1">
+<h2>
+<span class="header-section-number">29.1</span> Measurement error<a class="anchor" aria-label="anchor" href="#measurement-error"><i class="fas fa-link"></i></a>
+</h2>
+<p>There is always some error in measurement. Sigma in our above models captures
+error on outcomes. What about error on predictors? What if error isn’t constant?</p>
+<div id="example-waffle-divorces" class="section level3" number="29.1.1">
+<h3>
+<span class="header-section-number">29.1.1</span> Example: waffle divorces<a class="anchor" aria-label="anchor" href="#example-waffle-divorces"><i class="fas fa-link"></i></a>
+</h3>
+<p>Error on outcome (divorce rate) is heterogeneous because smaller states
+have larger error.</p>
+<p>A -&gt; M -&gt; D -&gt; D_obs, A -&gt; D, N -&gt; D_obs</p>
+<p>D is the true, unobserved divorce rate. D_obs is the observed divorce rate.</p>
+<p>Approach:</p>
+<ol style="list-style-type: decimal">
+<li>Treat true divorce rate as an unknown parameter</li>
+<li>The observed rate is sampled from a Gaussian distribution</li>
+</ol>
+<p>D_obs ~ Normal (D true, D standard error)</p>
+<p>This gives us shrinkage considering the standard error as well as the
+modeled relationship between divorce rate and median age.</p>
+</div>
+</div>
+<div id="error-on-predictor" class="section level2" number="29.2">
+<h2>
+<span class="header-section-number">29.2</span> Error on predictor<a class="anchor" aria-label="anchor" href="#error-on-predictor"><i class="fas fa-link"></i></a>
+</h2>
+<div id="example-marriage-rate" class="section level3" number="29.2.1">
+<h3>
+<span class="header-section-number">29.2.1</span> Example: marriage rate<a class="anchor" aria-label="anchor" href="#example-marriage-rate"><i class="fas fa-link"></i></a>
+</h3>
+<p>Consider error on marriage rate:</p>
+<p>Likelihood for observed rate, for each state</p>
+<p>M_obs ~ Normal (M true, M standard error)</p>
+<p>M true ~ Normal (0, 1)</p>
+<p>Note: this is a simplification that misses that M and A are associated.</p>
+</div>
+<div id="sources-of-error" class="section level3" number="29.2.2">
+<h3>
+<span class="header-section-number">29.2.2</span> Sources of error<a class="anchor" aria-label="anchor" href="#sources-of-error"><i class="fas fa-link"></i></a>
+</h3>
+<p>Data come from some uncertain procedure but we often discard the uncertainty
+when we get to the analysis/model.</p>
+<p>For example, taking a series of measurements but then modeling their group-level
+averages instead of the raw value. We toss away information about variation,
+sample size, etc.</p>
+</div>
+</div>
+<div id="missing-data" class="section level2" number="29.3">
+<h2>
+<span class="header-section-number">29.3</span> Missing data<a class="anchor" aria-label="anchor" href="#missing-data"><i class="fas fa-link"></i></a>
+</h2>
+<p>Usual approach is to only consider the complete cases. This is either
+actively done by the user or silently, by software eg <code>lm</code>. This discards a lot
+of information and <strong>is not harmless</strong>.</p>
+<p>Options include multiple imputation (frequentist approach based on..),
+Bayesian imputation. Do not: replace missing values with the mean. The model
+takes these as the true value.</p>
+<p>Missing values can be a confound.</p>
+<div id="types-of-missingness" class="section level3" number="29.3.1">
+<h3>
+<span class="header-section-number">29.3.1</span> Types of missingness<a class="anchor" aria-label="anchor" href="#types-of-missingness"><i class="fas fa-link"></i></a>
+</h3>
+<div id="mcar-missing-completely-at-random" class="section level4" number="29.3.1.1">
+<h4>
+<span class="header-section-number">29.3.1.1</span> MCAR: Missing completely at random<a class="anchor" aria-label="anchor" href="#mcar-missing-completely-at-random"><i class="fas fa-link"></i></a>
+</h4>
+<p>When the response is completely independent of the missingness,
+the missingness variable is not a confound and you do not <strong>need</strong> to
+do imputation, but if do it will add precision.</p>
+<p>For example, brain neocortex proportion. If there are missing values,
+we can consider B obs = function(B, R_B) where R_B is the missingness of B.
+There are two paths from B -&gt; K, the direct path from B obs -&gt; B -&gt; K and the
+indirect path from B obs -&gt; B &lt;- U -&gt; M -&gt; K. There is no back door.</p>
+<p>When would we ever really get a completely random missingness?</p>
+</div>
+<div id="mar-missing-at-random" class="section level4" number="29.3.1.2">
+<h4>
+<span class="header-section-number">29.3.1.2</span> MAR: Missing at random<a class="anchor" aria-label="anchor" href="#mar-missing-at-random"><i class="fas fa-link"></i></a>
+</h4>
+<p>Missingness more likely for specific values of another variable.</p>
+<p>For example, brain neocortex proportion and body mass M. Species that are
+larger or smaller are more likely to have missing values. Maybe there’s an
+size related observation bias. Now, M -&gt; R_B creates a backdoor. To close
+the backdoor, we can condition on M. Then the missingness R_B value is ignorable,
+but we must do the imputation.</p>
+</div>
+<div id="mnar-missing-not-at-random" class="section level4" number="29.3.1.3">
+<h4>
+<span class="header-section-number">29.3.1.3</span> MNAR: Missing not at random<a class="anchor" aria-label="anchor" href="#mnar-missing-not-at-random"><i class="fas fa-link"></i></a>
+</h4>
+<p>Missingness is more likely for specific values of the response (or for
+specific values of an unobserved variable that influences both the response
+and the missingness).</p>
+<p>For example, if brain neocortex proportion is higher in monkeys more similar
+to humans and we are more likely to study these monkeys. So our missing values
+in B are in species with lower B. Alternatively, an unobserved variable
+may influence both the missingness and B. We can’t close this backdoor.
+The only thing you can do is model the error.</p>
+</div>
+</div>
+<div id="imputing" class="section level3" number="29.3.2">
+<h3>
+<span class="header-section-number">29.3.2</span> Imputing<a class="anchor" aria-label="anchor" href="#imputing"><i class="fas fa-link"></i></a>
+</h3>
+<div id="example-milk-energy-mar" class="section level4" number="29.3.2.1">
+<h4>
+<span class="header-section-number">29.3.2.1</span> Example: milk energy MAR<a class="anchor" aria-label="anchor" href="#example-milk-energy-mar"><i class="fas fa-link"></i></a>
+</h4>
+<p>Each unobserved value becomes a parameter. These values are imputed, estimating
+from the observed values and the model structure.</p>
+<p>The result is increased precision but, in this example, it doesn’t consider the
+relationship between B and body mass. Solution is to use a multivariate normal
+to impute given the relationship between B and body mass.</p>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+  <div class="chapter-nav">
+<div class="prev"><a href="lecture-19---2019.html"><span class="header-section-number">28</span> Lecture 19 - 2019</a></div>
+<div class="next"><a href="lecture-01---2022.html"><span class="header-section-number">30</span> Lecture 01 - 2022</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#lecture-20---2019"><span class="header-section-number">29</span> Lecture 20 - 2019</a></li>
+<li>
+<a class="nav-link" href="#measurement-error"><span class="header-section-number">29.1</span> Measurement error</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#example-waffle-divorces"><span class="header-section-number">29.1.1</span> Example: waffle divorces</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#error-on-predictor"><span class="header-section-number">29.2</span> Error on predictor</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#example-marriage-rate"><span class="header-section-number">29.2.1</span> Example: marriage rate</a></li>
+<li><a class="nav-link" href="#sources-of-error"><span class="header-section-number">29.2.2</span> Sources of error</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#missing-data"><span class="header-section-number">29.3</span> Missing data</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#types-of-missingness"><span class="header-section-number">29.3.1</span> Types of missingness</a></li>
+<li><a class="nav-link" href="#imputing"><span class="header-section-number">29.3.2</span> Imputing</a></li>
+</ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://gitlab.com/robit.a/statistical-rethinking/blob/master/notes/notes-2019.Rmd">View source <i class="fab fa-gitlab"></i></a></li>
+          <li><a id="book-edit" href="https://gitlab.com/robit.a/statistical-rethinking/edit/master/notes/notes-2019.Rmd">Edit this page <i class="fab fa-gitlab"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Learning bayesian data analysis with Statistical Rethinking</strong>" was written by Alec L. Robitaille. It was last built on 2022-01-25 [started: 2021-08-18].</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

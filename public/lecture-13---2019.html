@@ -4,17 +4,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Page not found | Learning bayesian data analysis with Statistical Rethinking</title>
+<title>22 Lecture 13 - 2019 | Learning bayesian data analysis with Statistical Rethinking</title>
 <meta name="author" content="Alec L. Robitaille">
-<meta name="description" content="The page you requested cannot be found (perhaps it was moved or renamed). You may want to try searching to find the page's new location, or use the table of contents to find the page you are...">
+<meta name="description" content="22.1 Binomial Outcome is a count from zero to some known upper bound  22.2 Poisson Binomial events with N trials large/unknown and probability of event is small Poisson with varied exposure/offset...">
 <meta name="generator" content="bookdown 0.24.1 with bs4_book()">
-<meta property="og:title" content="Page not found | Learning bayesian data analysis with Statistical Rethinking">
+<meta property="og:title" content="22 Lecture 13 - 2019 | Learning bayesian data analysis with Statistical Rethinking">
 <meta property="og:type" content="book">
-<meta property="og:url" content="https://www.statistical-rethinking.robitalec.ca/404.html">
-<meta property="og:description" content="The page you requested cannot be found (perhaps it was moved or renamed). You may want to try searching to find the page's new location, or use the table of contents to find the page you are...">
+<meta property="og:url" content="https://www.statistical-rethinking.robitalec.ca/lecture-13---2019.html">
+<meta property="og:description" content="22.1 Binomial Outcome is a count from zero to some known upper bound  22.2 Poisson Binomial events with N trials large/unknown and probability of event is small Poisson with varied exposure/offset...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Page not found | Learning bayesian data analysis with Statistical Rethinking">
-<meta name="twitter:description" content="The page you requested cannot be found (perhaps it was moved or renamed). You may want to try searching to find the page's new location, or use the table of contents to find the page you are...">
+<meta name="twitter:title" content="22 Lecture 13 - 2019 | Learning bayesian data analysis with Statistical Rethinking">
+<meta name="twitter:description" content="22.1 Binomial Outcome is a count from zero to some known upper bound  22.2 Poisson Binomial events with N trials large/unknown and probability of event is small Poisson with varied exposure/offset...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11.3/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -64,7 +64,7 @@
 <li><a class="" href="lecture-10---2019.html"><span class="header-section-number">19</span> Lecture 10 - 2019</a></li>
 <li><a class="" href="lecture-11---2019.html"><span class="header-section-number">20</span> Lecture 11 - 2019</a></li>
 <li><a class="" href="lecture-12---2019.html"><span class="header-section-number">21</span> Lecture 12 - 2019</a></li>
-<li><a class="" href="lecture-13---2019.html"><span class="header-section-number">22</span> Lecture 13 - 2019</a></li>
+<li><a class="active" href="lecture-13---2019.html"><span class="header-section-number">22</span> Lecture 13 - 2019</a></li>
 <li><a class="" href="lecture-14---2019.html"><span class="header-section-number">23</span> Lecture 14 - 2019</a></li>
 <li><a class="" href="lecture-15---2019.html"><span class="header-section-number">24</span> Lecture 15 - 2019</a></li>
 <li><a class="" href="lecture-16---2019.html"><span class="header-section-number">25</span> Lecture 16 - 2019</a></li>
@@ -84,18 +84,109 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="page-not-found" class="section level1">
-<h1>Page not found<a class="anchor" aria-label="anchor" href="#page-not-found"><i class="fas fa-link"></i></a>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="lecture-13---2019" class="section level1" number="22">
+<h1>
+<span class="header-section-number">22</span> Lecture 13 - 2019<a class="anchor" aria-label="anchor" href="#lecture-13---2019"><i class="fas fa-link"></i></a>
 </h1>
-<p>The page you requested cannot be found (perhaps it was moved or renamed).</p>
-<p>You may want to try searching to find the page's new location, or use
-the table of contents to find the page you are looking for.</p>
+<div id="binomial" class="section level2" number="22.1">
+<h2>
+<span class="header-section-number">22.1</span> Binomial<a class="anchor" aria-label="anchor" href="#binomial"><i class="fas fa-link"></i></a>
+</h2>
+<p>Outcome is a count from zero to some known upper bound</p>
+</div>
+<div id="poisson" class="section level2" number="22.2">
+<h2>
+<span class="header-section-number">22.2</span> Poisson<a class="anchor" aria-label="anchor" href="#poisson"><i class="fas fa-link"></i></a>
+</h2>
+<p>Binomial events with N trials large/unknown and probability of event is small</p>
+<p>Poisson with varied exposure/offset</p>
+</div>
+<div id="generalized-linear-madness" class="section level2" number="22.3">
+<h2>
+<span class="header-section-number">22.3</span> Generalized linear madness<a class="anchor" aria-label="anchor" href="#generalized-linear-madness"><i class="fas fa-link"></i></a>
+</h2>
+<p>Example of oceanic tool complexity</p>
+<p>Modeled with a poisson link</p>
+<p>The model outcomes are terrible - though they fit the data, the intercepts don’t pass through origin</p>
+<p>Wouldn’t we expect zero population = zero tools?</p>
+<p>Solution is a scientific model</p>
+</div>
+<div id="scientific-model" class="section level2" number="22.4">
+<h2>
+<span class="header-section-number">22.4</span> Scientific model<a class="anchor" aria-label="anchor" href="#scientific-model"><i class="fas fa-link"></i></a>
+</h2>
+<p>The relationship can be thought of as a change in tools per unit time</p>
+<p>Change in time = alpha P ^ beta</p>
+<p>Alpha: innovation rate, P: population per person = each person has some change of inventing something</p>
+<p>Beta: diminishing returns, saturation effect, “someone else will invent it for you”</p>
+<p>TODO: read more about this, highlight it, etc</p>
+<p>The resulting model using this function based in the scientific model is not perfect, but meanings are clearer, the intercept actually goes through 0</p>
+<p>This is an ad hoc function, not a link</p>
+</div>
+<div id="survival-analysis" class="section level2" number="22.5">
+<h2>
+<span class="header-section-number">22.5</span> Survival analysis<a class="anchor" aria-label="anchor" href="#survival-analysis"><i class="fas fa-link"></i></a>
+</h2>
+<p>Estimate rates by modeling time-to-event</p>
+<p>Can’t ignore censored cases</p>
+<ul>
+<li>Left censored: don’t when when time started</li>
+<li>Right censored: something else cut off end</li>
+</ul>
+<p>Example cats</p>
+<p>Time to adoption for observed adoptions is simplest, an exponential function</p>
+<p>For censored cats</p>
+<ol style="list-style-type: decimal">
+<li>use the cumulative distribution</li>
+<li>take the complement</li>
+<li>calculate probability no event yet</li>
+</ol>
+</div>
+<div id="monsters" class="section level2" number="22.6">
+<h2>
+<span class="header-section-number">22.6</span> Monsters<a class="anchor" aria-label="anchor" href="#monsters"><i class="fas fa-link"></i></a>
+</h2>
+<p>Specialized complex distributions</p>
+<p>eg. ordered categories, ranks</p>
+</div>
+<div id="mixtures" class="section level2" number="22.7">
+<h2>
+<span class="header-section-number">22.7</span> Mixtures<a class="anchor" aria-label="anchor" href="#mixtures"><i class="fas fa-link"></i></a>
+</h2>
+<p>Blends of stochastic processes</p>
+<p>eg. varying means, probabilities, rates</p>
+<p>eg. zero-inflation, hurdles</p>
+<p>Example monks</p>
+<p>Number of manuscripts per day</p>
+<p>Can we infer the number of days they get drunk?</p>
+<p>Drunkenness is a hidden state</p>
+<p>There is a probability that they drink or work, and within the work, a probability that they produce 0 or 1+ manuscripts</p>
+</div>
 </div>
   <div class="chapter-nav">
-<div class="empty"></div>
-<div class="empty"></div>
+<div class="prev"><a href="lecture-12---2019.html"><span class="header-section-number">21</span> Lecture 12 - 2019</a></div>
+<div class="next"><a href="lecture-14---2019.html"><span class="header-section-number">23</span> Lecture 14 - 2019</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
-    </div>
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#lecture-13---2019"><span class="header-section-number">22</span> Lecture 13 - 2019</a></li>
+<li><a class="nav-link" href="#binomial"><span class="header-section-number">22.1</span> Binomial</a></li>
+<li><a class="nav-link" href="#poisson"><span class="header-section-number">22.2</span> Poisson</a></li>
+<li><a class="nav-link" href="#generalized-linear-madness"><span class="header-section-number">22.3</span> Generalized linear madness</a></li>
+<li><a class="nav-link" href="#scientific-model"><span class="header-section-number">22.4</span> Scientific model</a></li>
+<li><a class="nav-link" href="#survival-analysis"><span class="header-section-number">22.5</span> Survival analysis</a></li>
+<li><a class="nav-link" href="#monsters"><span class="header-section-number">22.6</span> Monsters</a></li>
+<li><a class="nav-link" href="#mixtures"><span class="header-section-number">22.7</span> Mixtures</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://gitlab.com/robit.a/statistical-rethinking/blob/master/notes/notes-2019.Rmd">View source <i class="fab fa-gitlab"></i></a></li>
+          <li><a id="book-edit" href="https://gitlab.com/robit.a/statistical-rethinking/edit/master/notes/notes-2019.Rmd">Edit this page <i class="fab fa-gitlab"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
 
 </div>
 </div> <!-- .container -->

@@ -4,17 +4,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Page not found | Learning bayesian data analysis with Statistical Rethinking</title>
+<title>26 Lecture 17 - 2019 | Learning bayesian data analysis with Statistical Rethinking</title>
 <meta name="author" content="Alec L. Robitaille">
-<meta name="description" content="The page you requested cannot be found (perhaps it was moved or renamed). You may want to try searching to find the page's new location, or use the table of contents to find the page you are...">
+<meta name="description" content="26.1 Varying slopes Slopes are another feature of the response Making any parameter into a varying effect Split into vector of parameters by cluster Define population clusters Any batch of...">
 <meta name="generator" content="bookdown 0.24.1 with bs4_book()">
-<meta property="og:title" content="Page not found | Learning bayesian data analysis with Statistical Rethinking">
+<meta property="og:title" content="26 Lecture 17 - 2019 | Learning bayesian data analysis with Statistical Rethinking">
 <meta property="og:type" content="book">
-<meta property="og:url" content="https://www.statistical-rethinking.robitalec.ca/404.html">
-<meta property="og:description" content="The page you requested cannot be found (perhaps it was moved or renamed). You may want to try searching to find the page's new location, or use the table of contents to find the page you are...">
+<meta property="og:url" content="https://www.statistical-rethinking.robitalec.ca/lecture-17---2019.html">
+<meta property="og:description" content="26.1 Varying slopes Slopes are another feature of the response Making any parameter into a varying effect Split into vector of parameters by cluster Define population clusters Any batch of...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Page not found | Learning bayesian data analysis with Statistical Rethinking">
-<meta name="twitter:description" content="The page you requested cannot be found (perhaps it was moved or renamed). You may want to try searching to find the page's new location, or use the table of contents to find the page you are...">
+<meta name="twitter:title" content="26 Lecture 17 - 2019 | Learning bayesian data analysis with Statistical Rethinking">
+<meta name="twitter:description" content="26.1 Varying slopes Slopes are another feature of the response Making any parameter into a varying effect Split into vector of parameters by cluster Define population clusters Any batch of...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11.3/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -68,7 +68,7 @@
 <li><a class="" href="lecture-14---2019.html"><span class="header-section-number">23</span> Lecture 14 - 2019</a></li>
 <li><a class="" href="lecture-15---2019.html"><span class="header-section-number">24</span> Lecture 15 - 2019</a></li>
 <li><a class="" href="lecture-16---2019.html"><span class="header-section-number">25</span> Lecture 16 - 2019</a></li>
-<li><a class="" href="lecture-17---2019.html"><span class="header-section-number">26</span> Lecture 17 - 2019</a></li>
+<li><a class="active" href="lecture-17---2019.html"><span class="header-section-number">26</span> Lecture 17 - 2019</a></li>
 <li><a class="" href="lecture-18---2019.html"><span class="header-section-number">27</span> Lecture 18 - 2019</a></li>
 <li><a class="" href="lecture-19---2019.html"><span class="header-section-number">28</span> Lecture 19 - 2019</a></li>
 <li><a class="" href="lecture-20---2019.html"><span class="header-section-number">29</span> Lecture 20 - 2019</a></li>
@@ -84,18 +84,106 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="page-not-found" class="section level1">
-<h1>Page not found<a class="anchor" aria-label="anchor" href="#page-not-found"><i class="fas fa-link"></i></a>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="lecture-17---2019" class="section level1" number="26">
+<h1>
+<span class="header-section-number">26</span> Lecture 17 - 2019<a class="anchor" aria-label="anchor" href="#lecture-17---2019"><i class="fas fa-link"></i></a>
 </h1>
-<p>The page you requested cannot be found (perhaps it was moved or renamed).</p>
-<p>You may want to try searching to find the page's new location, or use
-the table of contents to find the page you are looking for.</p>
+<div id="varying-slopes" class="section level2" number="26.1">
+<h2>
+<span class="header-section-number">26.1</span> Varying slopes<a class="anchor" aria-label="anchor" href="#varying-slopes"><i class="fas fa-link"></i></a>
+</h2>
+<p>Slopes are another feature of the response</p>
+<p>Making any parameter into a varying effect</p>
+<ol style="list-style-type: decimal">
+<li>Split into vector of parameters by cluster</li>
+<li>Define population clusters</li>
+</ol>
+<p>Any batch of parameters with exchangeable index values can (<em>“and probably should”</em>) be pooled. Exchangeable = unordered labels.</p>
+<p>You could treat slopes as a distinct varying effect, but even better than that - relate intercepts to the slopes directly. Since intercepts and slopes are related in the population/math/geometry, features of these units have a correlation structure.</p>
+<div id="example---cafes" class="section level3" number="26.1.1">
+<h3>
+<span class="header-section-number">26.1.1</span> Example - cafes<a class="anchor" aria-label="anchor" href="#example---cafes"><i class="fas fa-link"></i></a>
+</h3>
+<p>Cafe visits in morning and afternoon, intercepts: average morning wait, slopes: avg difference between afternoon and morning.</p>
+<p>Are the slopes and intercepts related? Yes. There is pooling across parameters.</p>
+<p>The prior is a 2 dimensional Gaussian. There is a vector of means (average intercept, average slope) and a variance-covariance matrix.</p>
+</div>
+</div>
+<div id="variance-covariance-matrix" class="section level2" number="26.2">
+<h2>
+<span class="header-section-number">26.2</span> Variance covariance matrix<a class="anchor" aria-label="anchor" href="#variance-covariance-matrix"><i class="fas fa-link"></i></a>
+</h2>
+<p>[var covar]</p>
+</div>
+<div id="varying-slopes-model" class="section level2" number="26.3">
+<h2>
+<span class="header-section-number">26.3</span> Varying slopes model<a class="anchor" aria-label="anchor" href="#varying-slopes-model"><i class="fas fa-link"></i></a>
+</h2>
+<p><span class="math inline">\(W_{i} \sim \text{Normal}(\mu_{i}, \sigma)\)</span></p>
+<p><span class="math inline">\(\mu_{i} = \alpha_{\text{cafe}[i]} + \beta_{\text{cafe}[i}*A_{i}\)</span></p>
+<p>[alpha cafe] ~ MVNormal([alpha / beta, S])</p>
+<p>Mu i represents the varying intercepts + varying slopes. A i = afternoon/not</p>
+<p>Multivariate prior: for each cafe, there’s a pair of parameters alpha and beta, distributed with a 2 dimensional normal with averages alpha and beta, and S the covariance matrix.</p>
+<p>R ~ LKJcorr(2)</p>
+<p>You can’t assign priors independently. 1 dimensional correlations vary between -1 and 1, and with increasing n dimensions, the correlation remains restricted within these limits. Therefore, if 1 is really big, the other is necessarily smaller.</p>
+<p>The LKJcorr has one variable <code>eta</code>. <code>eta</code> defines how concentrated from the identity matrix. The density is between -1 and 1. eta = 1 represents a pretty much uniform density. eta &gt; 1 has more concentration around 0, more skeptical of extremes.</p>
+</div>
+<div id="multidimensional-shrinkage" class="section level2" number="26.4">
+<h2>
+<span class="header-section-number">26.4</span> Multidimensional shrinkage<a class="anchor" aria-label="anchor" href="#multidimensional-shrinkage"><i class="fas fa-link"></i></a>
+</h2>
+<p>Joint distribution of varying effects pools information across slopes and intercepts. Correlation induces shrinkages across dimensions, increasing accuracy.</p>
+<div id="example---prosocial-chimps-many-clusters" class="section level3" number="26.4.1">
+<h3>
+<span class="header-section-number">26.4.1</span> Example - prosocial chimps, many clusters<a class="anchor" aria-label="anchor" href="#example---prosocial-chimps-many-clusters"><i class="fas fa-link"></i></a>
+</h3>
+<p>4 treatments: partner present/absent, side of table L/R. Can vary by actor and by block.</p>
+<p><span class="math inline">\(L_{i} \sim \text{Binomial}(1, p_{i})\)</span></p>
+<p><span class="math inline">\(\text{logit}(p_{i}) = \gamma_{\text{treatment}} + \alpha_{\text{actor, treatment}} + \beta_{\text{block, treatment}}\)</span></p>
+<p>Mean effect of treatments, each actor in each treatment, each block in each treatment.</p>
+<p>Alpha actor, treatment is a matrix of alpha deviation from mean for each actor by treatment</p>
+<p>Beta block, treatment is a matrix of beta deviation from mean for block by treatment</p>
+<p>How many parameters is this? 7 individuals * 4 treatments + 6 blocks * 4 treatments + 6 correlations + 4 sigmas = 76 parameters</p>
+<p>With shrinkage, number of effective parameters will be much lower.</p>
+</div>
+<div id="divergences" class="section level3" number="26.4.2">
+<h3>
+<span class="header-section-number">26.4.2</span> Divergences<a class="anchor" aria-label="anchor" href="#divergences"><i class="fas fa-link"></i></a>
+</h3>
+<p>Because of divergences (which are more common in these models), we need to use the non-centered versions.</p>
+<p>Simpler to do for uni variate models, since we need to factor all parameters out of the prior and into the linear model. How do we factor out a correlation matrix?</p>
+<p>Cholesky factor</p>
+</div>
+</div>
 </div>
   <div class="chapter-nav">
-<div class="empty"></div>
-<div class="empty"></div>
+<div class="prev"><a href="lecture-16---2019.html"><span class="header-section-number">25</span> Lecture 16 - 2019</a></div>
+<div class="next"><a href="lecture-18---2019.html"><span class="header-section-number">27</span> Lecture 18 - 2019</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
-    </div>
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#lecture-17---2019"><span class="header-section-number">26</span> Lecture 17 - 2019</a></li>
+<li>
+<a class="nav-link" href="#varying-slopes"><span class="header-section-number">26.1</span> Varying slopes</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#example---cafes"><span class="header-section-number">26.1.1</span> Example - cafes</a></li></ul>
+</li>
+<li><a class="nav-link" href="#variance-covariance-matrix"><span class="header-section-number">26.2</span> Variance covariance matrix</a></li>
+<li><a class="nav-link" href="#varying-slopes-model"><span class="header-section-number">26.3</span> Varying slopes model</a></li>
+<li>
+<a class="nav-link" href="#multidimensional-shrinkage"><span class="header-section-number">26.4</span> Multidimensional shrinkage</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#example---prosocial-chimps-many-clusters"><span class="header-section-number">26.4.1</span> Example - prosocial chimps, many clusters</a></li>
+<li><a class="nav-link" href="#divergences"><span class="header-section-number">26.4.2</span> Divergences</a></li>
+</ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://gitlab.com/robit.a/statistical-rethinking/blob/master/notes/notes-2019.Rmd">View source <i class="fab fa-gitlab"></i></a></li>
+          <li><a id="book-edit" href="https://gitlab.com/robit.a/statistical-rethinking/edit/master/notes/notes-2019.Rmd">Edit this page <i class="fab fa-gitlab"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
 
 </div>
 </div> <!-- .container -->

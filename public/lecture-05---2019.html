@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>14 Lecture 05 - 2019 | Learning bayesian data analysis with Statistical Rethinking</title>
+<meta name="author" content="Alec L. Robitaille">
+<meta name="description" content="14.1 Multiple regression models Why? Spurious associations Determining the value of some predictor given other predictors eg. divorce rate given marriage rate and median age at marriage. Once we...">
+<meta name="generator" content="bookdown 0.24.1 with bs4_book()">
+<meta property="og:title" content="14 Lecture 05 - 2019 | Learning bayesian data analysis with Statistical Rethinking">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://www.statistical-rethinking.robitalec.ca/lecture-05---2019.html">
+<meta property="og:description" content="14.1 Multiple regression models Why? Spurious associations Determining the value of some predictor given other predictors eg. divorce rate given marriage rate and median age at marriage. Once we...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="14 Lecture 05 - 2019 | Learning bayesian data analysis with Statistical Rethinking">
+<meta name="twitter:description" content="14.1 Multiple regression models Why? Spurious associations Determining the value of some predictor given other predictors eg. divorce rate given marriage rate and median age at marriage. Once we...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11.3/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Learning bayesian data analysis with Statistical Rethinking</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Overview</a></li>
+<li class="book-part">Homework</li>
+<li><a class="" href="week-1.html"><span class="header-section-number">1</span> Week 1</a></li>
+<li><a class="" href="week-2.html"><span class="header-section-number">2</span> Week 2</a></li>
+<li><a class="" href="week-3.html"><span class="header-section-number">3</span> Week 3</a></li>
+<li><a class="" href="week-4.html"><span class="header-section-number">4</span> Week 4</a></li>
+<li><a class="" href="week-5.html"><span class="header-section-number">5</span> Week 5</a></li>
+<li><a class="" href="week-6.html"><span class="header-section-number">6</span> Week 6</a></li>
+<li><a class="" href="week-7.html"><span class="header-section-number">7</span> Week 7</a></li>
+<li><a class="" href="week-8.html"><span class="header-section-number">8</span> Week 8</a></li>
+<li><a class="" href="week-9.html"><span class="header-section-number">9</span> Week 9</a></li>
+<li class="book-part">Lectures 2019</li>
+<li><a class="" href="lecture-01---2019.html"><span class="header-section-number">10</span> Lecture 01 - 2019</a></li>
+<li><a class="" href="lecture-02---2019.html"><span class="header-section-number">11</span> Lecture 02 - 2019</a></li>
+<li><a class="" href="lecture-03---2019.html"><span class="header-section-number">12</span> Lecture 03 - 2019</a></li>
+<li><a class="" href="lecture-04---2019.html"><span class="header-section-number">13</span> Lecture 04 - 2019</a></li>
+<li><a class="active" href="lecture-05---2019.html"><span class="header-section-number">14</span> Lecture 05 - 2019</a></li>
+<li><a class="" href="lecture-06---2019.html"><span class="header-section-number">15</span> Lecture 06 - 2019</a></li>
+<li><a class="" href="lecture-07---2019.html"><span class="header-section-number">16</span> Lecture 07 - 2019</a></li>
+<li><a class="" href="lecture-08---2019.html"><span class="header-section-number">17</span> Lecture 08 - 2019</a></li>
+<li><a class="" href="lecture-09---2019.html"><span class="header-section-number">18</span> Lecture 09 - 2019</a></li>
+<li><a class="" href="lecture-10---2019.html"><span class="header-section-number">19</span> Lecture 10 - 2019</a></li>
+<li><a class="" href="lecture-11---2019.html"><span class="header-section-number">20</span> Lecture 11 - 2019</a></li>
+<li><a class="" href="lecture-12---2019.html"><span class="header-section-number">21</span> Lecture 12 - 2019</a></li>
+<li><a class="" href="lecture-13---2019.html"><span class="header-section-number">22</span> Lecture 13 - 2019</a></li>
+<li><a class="" href="lecture-14---2019.html"><span class="header-section-number">23</span> Lecture 14 - 2019</a></li>
+<li><a class="" href="lecture-15---2019.html"><span class="header-section-number">24</span> Lecture 15 - 2019</a></li>
+<li><a class="" href="lecture-16---2019.html"><span class="header-section-number">25</span> Lecture 16 - 2019</a></li>
+<li><a class="" href="lecture-17---2019.html"><span class="header-section-number">26</span> Lecture 17 - 2019</a></li>
+<li><a class="" href="lecture-18---2019.html"><span class="header-section-number">27</span> Lecture 18 - 2019</a></li>
+<li><a class="" href="lecture-19---2019.html"><span class="header-section-number">28</span> Lecture 19 - 2019</a></li>
+<li><a class="" href="lecture-20---2019.html"><span class="header-section-number">29</span> Lecture 20 - 2019</a></li>
+<li class="book-part">Lectures 2022</li>
+<li><a class="" href="lecture-01---2022.html"><span class="header-section-number">30</span> Lecture 01 - 2022</a></li>
+<li><a class="" href="lecture-02---2022.html"><span class="header-section-number">31</span> Lecture 02 - 2022</a></li>
+<li class="book-part">References</li>
+<li><a class="" href="references.html"><span class="header-section-number">32</span> References</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://gitlab.com/robit.a/statistical-rethinking">View book source <i class="fab fa-gitlab"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="lecture-05---2019" class="section level1" number="14">
+<h1>
+<span class="header-section-number">14</span> Lecture 05 - 2019<a class="anchor" aria-label="anchor" href="#lecture-05---2019"><i class="fas fa-link"></i></a>
+</h1>
+<div id="multiple-regression-models" class="section level2" number="14.1">
+<h2>
+<span class="header-section-number">14.1</span> Multiple regression models<a class="anchor" aria-label="anchor" href="#multiple-regression-models"><i class="fas fa-link"></i></a>
+</h2>
+<p>Why?</p>
+<ul>
+<li>Spurious associations</li>
+<li>Determining the value of some predictor given other predictors
+<ul>
+<li>eg. divorce rate given marriage rate and median age at marriage. Once we know marriage rate, what is the value in knowing median age?</li>
+</ul>
+</li>
+</ul>
+</div>
+<div id="directed-acyclic-graphs-dag" class="section level2" number="14.2">
+<h2>
+<span class="header-section-number">14.2</span> Directed acyclic graphs (DAG)<a class="anchor" aria-label="anchor" href="#directed-acyclic-graphs-dag"><i class="fas fa-link"></i></a>
+</h2>
+<p>Directed: arrows, indicating causal implications</p>
+<p>Acyclic: no loops</p>
+<p><strong>Unlike statistical models, DAGs have causal implications</strong></p>
+<p>eg. Median age → marriage rate → divorce rate, Median age → divorce rate</p>
+</div>
+<div id="example-age-marriage-divorce" class="section level2" number="14.3">
+<h2>
+<span class="header-section-number">14.3</span> Example: Age, marriage, divorce<a class="anchor" aria-label="anchor" href="#example-age-marriage-divorce"><i class="fas fa-link"></i></a>
+</h2>
+<p><span class="math inline">\(D_{i} \sim \text{Normal}(\mu_{i}, \sigma)\)</span></p>
+<p><span class="math inline">\(\mu_{i} = \alpha + \beta_{M}M_{i} + \beta_{A}A_{i}\)</span></p>
+<p>(M)arriage rate</p>
+<p>(A)ge at marriage</p>
+<p>(D)ivorce rate</p>
+<div id="priors-2" class="section level3" number="14.3.1">
+<h3>
+<span class="header-section-number">14.3.1</span> Priors<a class="anchor" aria-label="anchor" href="#priors-2"><i class="fas fa-link"></i></a>
+</h3>
+<p>Standardize to z-scores</p>
+<p><span class="math inline">\(\alpha\)</span> = expected value for response when all values are 0. since they are all standardized the response should be 0. Without peaking at the data, this could be hard to guess. But after standardization, it is much simpler.</p>
+<p>Slopes - use prior predictive simulation. Harder.</p>
+</div>
+<div id="prior-predictive-simulation-2" class="section level3" number="14.3.2">
+<h3>
+<span class="header-section-number">14.3.2</span> Prior predictive simulation<a class="anchor" aria-label="anchor" href="#prior-predictive-simulation-2"><i class="fas fa-link"></i></a>
+</h3>
+<p>See <a href="https://www.statistical-rethinking.robitalec.ca/lecture-03.html#prior-predictive-distributions">Prior predictive distributions</a></p>
+</div>
+<div id="interpretation-5" class="section level3" number="14.3.3">
+<h3>
+<span class="header-section-number">14.3.3</span> Interpretation<a class="anchor" aria-label="anchor" href="#interpretation-5"><i class="fas fa-link"></i></a>
+</h3>
+<p>Once we know median age at marriage, there is little additional value in knowing marriage rate.</p>
+<p>Once we know marriage rate, there is still value in knowing median age at marriage.</p>
+<p>If we don’t know median, it is still useful to know marriage rate, since median age at marriage is related to marriage rate. However, we don’t want to try and influence eg. policy on marriage rate, since it isn’t causal on divorce rate.</p>
+</div>
+</div>
+<div id="plotting-multivariate-posteriors" class="section level2" number="14.4">
+<h2>
+<span class="header-section-number">14.4</span> Plotting multivariate posteriors<a class="anchor" aria-label="anchor" href="#plotting-multivariate-posteriors"><i class="fas fa-link"></i></a>
+</h2>
+<ol style="list-style-type: decimal">
+<li>Regress predictor on other predictors</li>
+<li>Compute predictor residuals</li>
+<li>Regress outcome on residuals</li>
+</ol>
+<p><strong>Side note: never analyze the residuals.</strong></p>
+<div id="posterior-predictive-checks" class="section level3" number="14.4.1">
+<h3>
+<span class="header-section-number">14.4.1</span> Posterior predictive checks<a class="anchor" aria-label="anchor" href="#posterior-predictive-checks"><i class="fas fa-link"></i></a>
+</h3>
+<p>Compute implied predictions for observed cases</p>
+<p>Again, regressions will always do well in the area around the mean</p>
+</div>
+</div>
+<div id="reveal-masked-associations" class="section level2" number="14.5">
+<h2>
+<span class="header-section-number">14.5</span> Reveal masked associations<a class="anchor" aria-label="anchor" href="#reveal-masked-associations"><i class="fas fa-link"></i></a>
+</h2>
+<p>Sometimes association between outcome and predictor is masked by another variable</p>
+<p>This tends to arise when 2 predictors associated with the outcome have opposite effects on it</p>
+</div>
+<div id="categorical-variables" class="section level2" number="14.6">
+<h2>
+<span class="header-section-number">14.6</span> Categorical variables<a class="anchor" aria-label="anchor" href="#categorical-variables"><i class="fas fa-link"></i></a>
+</h2>
+<p>Two approaches:</p>
+<ol style="list-style-type: decimal">
+<li>Use dummy/indicator variables</li>
+<li>Use index variables</li>
+</ol>
+<p><strong>Index variables are much better</strong></p>
+<div id="dummy-variable" class="section level3" number="14.6.1">
+<h3>
+<span class="header-section-number">14.6.1</span> Dummy variable<a class="anchor" aria-label="anchor" href="#dummy-variable"><i class="fas fa-link"></i></a>
+</h3>
+<p>“Stand in” variable</p>
+<p>Eg. male/female column, translated to 0, 1, 0, 0, 1 where 0 female, 1 male</p>
+<p>Model:</p>
+<p><span class="math inline">\(h_{i} \sim \text{Normal}(\mu_{i}, \sigma)\)</span></p>
+<p><span class="math inline">\(\mu_{i} = \alpha + \beta_{M}M_{i}\)</span></p>
+<p>In the case of dummy variables, alpha is the mean when M = 0 (female) and beta M is the change in mean when M = 1 (male).</p>
+<p>Result is 2 intercepts = where alpha alone is for female and alpha + beta M is intercept for males</p>
+<p>Problem: for k categories, need k-1 dummy variables and need priors for each. also, priors aren’t balanced because of alpha vs beta</p>
+</div>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="lecture-04---2019.html"><span class="header-section-number">13</span> Lecture 04 - 2019</a></div>
+<div class="next"><a href="lecture-06---2019.html"><span class="header-section-number">15</span> Lecture 06 - 2019</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#lecture-05---2019"><span class="header-section-number">14</span> Lecture 05 - 2019</a></li>
+<li><a class="nav-link" href="#multiple-regression-models"><span class="header-section-number">14.1</span> Multiple regression models</a></li>
+<li><a class="nav-link" href="#directed-acyclic-graphs-dag"><span class="header-section-number">14.2</span> Directed acyclic graphs (DAG)</a></li>
+<li>
+<a class="nav-link" href="#example-age-marriage-divorce"><span class="header-section-number">14.3</span> Example: Age, marriage, divorce</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#priors-2"><span class="header-section-number">14.3.1</span> Priors</a></li>
+<li><a class="nav-link" href="#prior-predictive-simulation-2"><span class="header-section-number">14.3.2</span> Prior predictive simulation</a></li>
+<li><a class="nav-link" href="#interpretation-5"><span class="header-section-number">14.3.3</span> Interpretation</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#plotting-multivariate-posteriors"><span class="header-section-number">14.4</span> Plotting multivariate posteriors</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#posterior-predictive-checks"><span class="header-section-number">14.4.1</span> Posterior predictive checks</a></li></ul>
+</li>
+<li><a class="nav-link" href="#reveal-masked-associations"><span class="header-section-number">14.5</span> Reveal masked associations</a></li>
+<li>
+<a class="nav-link" href="#categorical-variables"><span class="header-section-number">14.6</span> Categorical variables</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#dummy-variable"><span class="header-section-number">14.6.1</span> Dummy variable</a></li></ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://gitlab.com/robit.a/statistical-rethinking/blob/master/notes/notes-2019.Rmd">View source <i class="fab fa-gitlab"></i></a></li>
+          <li><a id="book-edit" href="https://gitlab.com/robit.a/statistical-rethinking/edit/master/notes/notes-2019.Rmd">Edit this page <i class="fab fa-gitlab"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Learning bayesian data analysis with Statistical Rethinking</strong>" was written by Alec L. Robitaille. It was last built on 2022-01-25 [started: 2021-08-18].</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

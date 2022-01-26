@@ -6,15 +6,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>8 Week 8 | Learning bayesian data analysis with Statistical Rethinking</title>
 <meta name="author" content="Alec L. Robitaille">
-<meta name="description" content="2021-09-08 [updated: 2021-11-17]  8.1 Question 1  8.1.1 Data DT &lt;- data_reedfrogs() precis(DT) ##      mean  sd 5.5% 94.5%   histogram ## density 23.33 10.38 10.00  35 ▇▁▁▁▁▁▁▇▁▁▁▁▇ ## pred    NaN...">
+<meta name="description" content="2021-09-08 [updated: 2022-01-25]  8.1 Question 1  8.1.1 Data DT &lt;- data_reedfrogs() precis(DT) ##      mean  sd 5.5% 94.5%   histogram ## density 23.33 10.38 10.00  35 ▇▁▁▁▁▁▁▇▁▁▁▁▇ ## pred    NaN...">
 <meta name="generator" content="bookdown 0.24.1 with bs4_book()">
 <meta property="og:title" content="8 Week 8 | Learning bayesian data analysis with Statistical Rethinking">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://www.statistical-rethinking.robitalec.ca/week-8.html">
-<meta property="og:description" content="2021-09-08 [updated: 2021-11-17]  8.1 Question 1  8.1.1 Data DT &lt;- data_reedfrogs() precis(DT) ##      mean  sd 5.5% 94.5%   histogram ## density 23.33 10.38 10.00  35 ▇▁▁▁▁▁▁▇▁▁▁▁▇ ## pred    NaN...">
+<meta property="og:description" content="2021-09-08 [updated: 2022-01-25]  8.1 Question 1  8.1.1 Data DT &lt;- data_reedfrogs() precis(DT) ##      mean  sd 5.5% 94.5%   histogram ## density 23.33 10.38 10.00  35 ▇▁▁▁▁▁▁▇▁▁▁▁▇ ## pred    NaN...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="8 Week 8 | Learning bayesian data analysis with Statistical Rethinking">
-<meta name="twitter:description" content="2021-09-08 [updated: 2021-11-17]  8.1 Question 1  8.1.1 Data DT &lt;- data_reedfrogs() precis(DT) ##      mean  sd 5.5% 94.5%   histogram ## density 23.33 10.38 10.00  35 ▇▁▁▁▁▁▁▇▁▁▁▁▇ ## pred    NaN...">
+<meta name="twitter:description" content="2021-09-08 [updated: 2022-01-25]  8.1 Question 1  8.1.1 Data DT &lt;- data_reedfrogs() precis(DT) ##      mean  sd 5.5% 94.5%   histogram ## density 23.33 10.38 10.00  35 ▇▁▁▁▁▁▁▇▁▁▁▁▇ ## pred    NaN...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11.3/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -51,29 +51,32 @@
 <li><a class="" href="week-7.html"><span class="header-section-number">7</span> Week 7</a></li>
 <li><a class="active" href="week-8.html"><span class="header-section-number">8</span> Week 8</a></li>
 <li><a class="" href="week-9.html"><span class="header-section-number">9</span> Week 9</a></li>
-<li class="book-part">Lectures</li>
-<li><a class="" href="lecture-01.html"><span class="header-section-number">10</span> Lecture 01</a></li>
-<li><a class="" href="lecture-02.html"><span class="header-section-number">11</span> Lecture 02</a></li>
-<li><a class="" href="lecture-03.html"><span class="header-section-number">12</span> Lecture 03</a></li>
-<li><a class="" href="lecture-04.html"><span class="header-section-number">13</span> Lecture 04</a></li>
-<li><a class="" href="lecture-05.html"><span class="header-section-number">14</span> Lecture 05</a></li>
-<li><a class="" href="lecture-06.html"><span class="header-section-number">15</span> Lecture 06</a></li>
-<li><a class="" href="lecture-07.html"><span class="header-section-number">16</span> Lecture 07</a></li>
-<li><a class="" href="lecture-08.html"><span class="header-section-number">17</span> Lecture 08</a></li>
-<li><a class="" href="lecture-09.html"><span class="header-section-number">18</span> Lecture 09</a></li>
-<li><a class="" href="lecture-10.html"><span class="header-section-number">19</span> Lecture 10</a></li>
-<li><a class="" href="lecture-11.html"><span class="header-section-number">20</span> Lecture 11</a></li>
-<li><a class="" href="lecture-12.html"><span class="header-section-number">21</span> Lecture 12</a></li>
-<li><a class="" href="lecture-13.html"><span class="header-section-number">22</span> Lecture 13</a></li>
-<li><a class="" href="lecture-14.html"><span class="header-section-number">23</span> Lecture 14</a></li>
-<li><a class="" href="lecture-15.html"><span class="header-section-number">24</span> Lecture 15</a></li>
-<li><a class="" href="lecture-16.html"><span class="header-section-number">25</span> Lecture 16</a></li>
-<li><a class="" href="lecture-17.html"><span class="header-section-number">26</span> Lecture 17</a></li>
-<li><a class="" href="lecture-18.html"><span class="header-section-number">27</span> Lecture 18</a></li>
-<li><a class="" href="lecture-19.html"><span class="header-section-number">28</span> Lecture 19</a></li>
-<li><a class="" href="lecture-20.html"><span class="header-section-number">29</span> Lecture 20</a></li>
+<li class="book-part">Lectures 2019</li>
+<li><a class="" href="lecture-01---2019.html"><span class="header-section-number">10</span> Lecture 01 - 2019</a></li>
+<li><a class="" href="lecture-02---2019.html"><span class="header-section-number">11</span> Lecture 02 - 2019</a></li>
+<li><a class="" href="lecture-03---2019.html"><span class="header-section-number">12</span> Lecture 03 - 2019</a></li>
+<li><a class="" href="lecture-04---2019.html"><span class="header-section-number">13</span> Lecture 04 - 2019</a></li>
+<li><a class="" href="lecture-05---2019.html"><span class="header-section-number">14</span> Lecture 05 - 2019</a></li>
+<li><a class="" href="lecture-06---2019.html"><span class="header-section-number">15</span> Lecture 06 - 2019</a></li>
+<li><a class="" href="lecture-07---2019.html"><span class="header-section-number">16</span> Lecture 07 - 2019</a></li>
+<li><a class="" href="lecture-08---2019.html"><span class="header-section-number">17</span> Lecture 08 - 2019</a></li>
+<li><a class="" href="lecture-09---2019.html"><span class="header-section-number">18</span> Lecture 09 - 2019</a></li>
+<li><a class="" href="lecture-10---2019.html"><span class="header-section-number">19</span> Lecture 10 - 2019</a></li>
+<li><a class="" href="lecture-11---2019.html"><span class="header-section-number">20</span> Lecture 11 - 2019</a></li>
+<li><a class="" href="lecture-12---2019.html"><span class="header-section-number">21</span> Lecture 12 - 2019</a></li>
+<li><a class="" href="lecture-13---2019.html"><span class="header-section-number">22</span> Lecture 13 - 2019</a></li>
+<li><a class="" href="lecture-14---2019.html"><span class="header-section-number">23</span> Lecture 14 - 2019</a></li>
+<li><a class="" href="lecture-15---2019.html"><span class="header-section-number">24</span> Lecture 15 - 2019</a></li>
+<li><a class="" href="lecture-16---2019.html"><span class="header-section-number">25</span> Lecture 16 - 2019</a></li>
+<li><a class="" href="lecture-17---2019.html"><span class="header-section-number">26</span> Lecture 17 - 2019</a></li>
+<li><a class="" href="lecture-18---2019.html"><span class="header-section-number">27</span> Lecture 18 - 2019</a></li>
+<li><a class="" href="lecture-19---2019.html"><span class="header-section-number">28</span> Lecture 19 - 2019</a></li>
+<li><a class="" href="lecture-20---2019.html"><span class="header-section-number">29</span> Lecture 20 - 2019</a></li>
+<li class="book-part">Lectures 2022</li>
+<li><a class="" href="lecture-01---2022.html"><span class="header-section-number">30</span> Lecture 01 - 2022</a></li>
+<li><a class="" href="lecture-02---2022.html"><span class="header-section-number">31</span> Lecture 02 - 2022</a></li>
 <li class="book-part">References</li>
-<li><a class="" href="references.html"><span class="header-section-number">30</span> References</a></li>
+<li><a class="" href="references.html"><span class="header-section-number">32</span> References</a></li>
 </ul>
 
         <div class="book-extra">
@@ -85,7 +88,7 @@
 <h1>
 <span class="header-section-number">8</span> Week 8<a class="anchor" aria-label="anchor" href="#week-8"><i class="fas fa-link"></i></a>
 </h1>
-<p>2021-09-08 [updated: 2021-11-17]</p>
+<p>2021-09-08 [updated: 2022-01-25]</p>
 <div id="question-1-7" class="section level2" number="8.1">
 <h2>
 <span class="header-section-number">8.1</span> Question 1<a class="anchor" aria-label="anchor" href="#question-1-7"><i class="fas fa-link"></i></a>
@@ -623,7 +626,7 @@ posterior predictions. What is the impact of individual variation in these data?
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Learning bayesian data analysis with Statistical Rethinking</strong>" was written by Alec L. Robitaille. It was last built on 2021-11-17 [started: 2021-08-18].</p>
+    <p>"<strong>Learning bayesian data analysis with Statistical Rethinking</strong>" was written by Alec L. Robitaille. It was last built on 2022-01-25 [started: 2021-08-18].</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
